@@ -1,0 +1,14 @@
+{
+  "target_path": "./ros/device",
+  "source_file": "app/src/ros/device/AbstractROID.js",
+  "module": "AbstractROID",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "none",
+      "implementation_status": "no_direct_ros2_command_in_this_file",
+      "parameters": [],
+      "cli_example": "(No direct ROS2 publish/service command is implemented in this abstract class.)"
+    }
+  ]
+}

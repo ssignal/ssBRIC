@@ -1,0 +1,255 @@
+{
+  "target_path": "./ros/device",
+  "source_file": "app/src/ros/device/AMRConveyor.js",
+  "module": "AMRConveyor",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "conveyor_reliable_action",
+      "event": "VDA_ACTION.CHARGE|STOP_CHARGE|FULL_TRAY_LOAD|FULL_TRAY_UNLOAD|EMPTY_TRAY_DISCHARGE",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/charge/control or /amr/conveyor/control",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "action_type",
+          "type": "str",
+          "required": true,
+          "description": "VDA action type"
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true,
+          "description": "Mapped service payload"
+        }
+      ],
+      "options": [
+        {
+          "value": "charge",
+          "condition": "service=/amr/charge/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "Charge"
+          }
+        },
+        {
+          "value": "stop-charge",
+          "condition": "service=/amr/charge/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "StopCharging"
+          }
+        },
+        {
+          "value": "full-tray-load",
+          "condition": "service=/amr/conveyor/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "FullTrayLoad"
+          }
+        },
+        {
+          "value": "full-tray-unload",
+          "condition": "service=/amr/conveyor/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "FullTrayUnload"
+          }
+        },
+        {
+          "value": "empty-tray-discharge",
+          "condition": "service=/amr/conveyor/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "EmptyTrayDischarge"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/conveyor/control amr_interfaces/srv/MicomRequest \"{data: 'FullTrayLoad'}\""
+    },
+    {
+      "command_id": "conveyor_best_effort_action",
+      "event": "VDA_ACTION.RESET_CHARGE|RESET_TRAY",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/charge/control or /amr/conveyor/control",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "action_type",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": "reset-charge",
+          "condition": "service=/amr/charge/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "ChargeIdle"
+          }
+        },
+        {
+          "value": "reset-tray",
+          "condition": "service=/amr/conveyor/control",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "TrayIdle"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/charge/control amr_interfaces/srv/MicomRequest \"{data: 'ChargeIdle'}\""
+    },
+    {
+      "command_id": "conveyor_instant_hmi",
+      "event": "CORE_EVENT.MICOM_CONVEYOR",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/cv1_req or /amr/micom_manager/cv2_req",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "address",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": 41108,
+          "condition": "CV_2F_LOAD",
+          "parameters": {
+            "name": "value",
+            "type": "int",
+            "required": true,
+            "description": "1 -> 2F_CV_Load, else -> 2F_Stop_Tray"
+          }
+        },
+        {
+          "value": 41109,
+          "condition": "CV_2F_UNLOAD",
+          "parameters": {
+            "name": "value",
+            "type": "int",
+            "required": true,
+            "description": "1 -> 2F_CV_Unload, else -> 2F_Stop_Tray"
+          }
+        },
+        {
+          "value": 41113,
+          "condition": "CV_2F_STOPPER_UP",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "2F_Stopper_Up"
+          }
+        },
+        {
+          "value": 41114,
+          "condition": "CV_2F_STOPPER_DOWN",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "2F_Stopper_Down"
+          }
+        },
+        {
+          "value": 41105,
+          "condition": "CV_1F_LOAD",
+          "parameters": {
+            "name": "value",
+            "type": "int",
+            "required": true,
+            "description": "1 -> 1F_CV_Load, else -> 1F_Stop_Tray"
+          }
+        },
+        {
+          "value": 41106,
+          "condition": "CV_1F_UNLOAD",
+          "parameters": {
+            "name": "value",
+            "type": "int",
+            "required": true,
+            "description": "1 -> 1F_CV_Unload, else -> 1F_Stop_Tray"
+          }
+        },
+        {
+          "value": 41111,
+          "condition": "CV_1F_STOPPER_UP",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "1F_Stopper_Up"
+          }
+        },
+        {
+          "value": 41112,
+          "condition": "CV_1F_STOPPER_DOWN",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "1F_Stopper_Down"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/cv1_req amr_interfaces/srv/MicomRequest \"{data: '1F_CV_Load'}\""
+    },
+    {
+      "command_id": "set_sound",
+      "event": "VDA_ACTION.SET_SOUND",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/sound_onoff_req",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "sound_value",
+          "type": "str",
+          "required": true,
+          "description": "Value from action parameter parsing"
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest \"{data: 'Sound_On'}\""
+    }
+  ]
+}

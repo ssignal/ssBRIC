@@ -1,0 +1,237 @@
+[
+  {
+    "type": "c_bt_sound_control_sound_start_play",
+    "message0": "%1 sound start play %2 sound id %3",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ub4f1\ub85d\ub41c sound/music \ud56d\ubaa9\uc744 \uc7ac\uc0dd\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "SOUND_ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL."
+      },
+      {
+        "type": "field_input",
+        "name": "SOUND_ID",
+        "text": ""
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "sound/start_play",
+    "x_category": "Sound control",
+    "x_description": "\ub4f1\ub85d\ub41c sound/music \ud56d\ubaa9\uc744 \uc7ac\uc0dd\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "sound_id",
+        "field": "SOUND_ID",
+        "help_field": "SOUND_ID_HELP",
+        "type": "string",
+        "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_sound_control_sound_start_play_tts",
+    "message0": "%1 sound start play tts %2 text %3",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\uc785\ub825\ud55c \ud14d\uc2a4\ud2b8\ub97c TTS\ub85c \uc7ac\uc0dd\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "TEXT_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Text to speak."
+      },
+      {
+        "type": "field_input",
+        "name": "TEXT",
+        "text": ""
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "sound/start_play_tts",
+    "x_category": "Sound control",
+    "x_description": "\uc785\ub825\ud55c \ud14d\uc2a4\ud2b8\ub97c TTS\ub85c \uc7ac\uc0dd\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "text",
+        "field": "TEXT",
+        "help_field": "TEXT_HELP",
+        "type": "string",
+        "description": "Text to speak."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_sound_control_sound_stop_play",
+    "message0": "%1 sound stop play",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ud604\uc7ac \uc7ac\uc0dd \uc911\uc778 sound\ub97c \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4."
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "sound/stop_play",
+    "x_category": "Sound control",
+    "x_description": "\ud604\uc7ac \uc7ac\uc0dd \uc911\uc778 sound\ub97c \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4.",
+    "x_parameters": []
+  },
+  {
+    "type": "c_bt_sound_control_sound_wait_play_completed",
+    "message0": "%1 sound wait play completed",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ud604\uc7ac sound \uc7ac\uc0dd\uc774 \ub05d\ub0a0 \ub54c\uae4c\uc9c0 \uae30\ub2e4\ub9b0\ub2e4."
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "sound/wait_play_completed",
+    "x_category": "Sound control",
+    "x_description": "\ud604\uc7ac sound \uc7ac\uc0dd\uc774 \ub05d\ub0a0 \ub54c\uae4c\uc9c0 \uae30\ub2e4\ub9b0\ub2e4.",
+    "x_parameters": []
+  },
+  {
+    "type": "c_bt_sound_control_sound_set_volume",
+    "message0": "%1 sound set volume %2 volume %3",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "sound \ubcfc\ub968\uc744 \uc124\uc815\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "VOLUME_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Playback volume level."
+      },
+      {
+        "type": "field_dropdown",
+        "name": "VOLUME",
+        "options": [
+          [
+            "1",
+            "1"
+          ],
+          [
+            "2",
+            "2"
+          ],
+          [
+            "3",
+            "3"
+          ],
+          [
+            "4",
+            "4"
+          ],
+          [
+            "5",
+            "5"
+          ],
+          [
+            "6",
+            "6"
+          ],
+          [
+            "7",
+            "7"
+          ],
+          [
+            "8",
+            "8"
+          ],
+          [
+            "9",
+            "9"
+          ],
+          [
+            "10",
+            "10"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "sound/set_volume",
+    "x_category": "Sound control",
+    "x_description": "sound \ubcfc\ub968\uc744 \uc124\uc815\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "volume",
+        "field": "VOLUME",
+        "help_field": "VOLUME_HELP",
+        "type": "integer",
+        "description": "Playback volume level."
+      }
+    ]
+  }
+]

@@ -1,0 +1,158 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/DATA.js",
+  "module": "DATA",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "robot_command",
+      "event": "WS.REQEUST_DATA_LOGGING(type=robotCommand)",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/rodam/robot/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "namespace",
+          "type": "str",
+          "required": false,
+          "description": "default '/rodam'"
+        },
+        {
+          "name": "command",
+          "type": "str",
+          "required": true,
+          "description": "robot command"
+        },
+        {
+          "name": "data",
+          "type": "json",
+          "required": false,
+          "description": "optional command payload"
+        },
+        {
+          "name": "metadata",
+          "type": "json",
+          "required": false,
+          "description": "optional metadata payload"
+        }
+      ],
+      "options": [
+        {
+          "value": "boot",
+          "condition": "allowed when type == robotCommand"
+        },
+        {
+          "value": "shutdown",
+          "condition": "allowed when type == robotCommand"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /rodam/robot/command std_msgs/msg/String \"data: '{\\\"command\\\":\\\"boot\\\",\\\"data\\\":{},\\\"metadata\\\":{}}'\""
+    },
+    {
+      "command_id": "logger_command",
+      "event": "WS.REQEUST_DATA_LOGGING(type=loggerCommand)",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/rodam/logger/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "namespace",
+          "type": "str",
+          "required": false,
+          "description": "default '/rodam'"
+        },
+        {
+          "name": "command",
+          "type": "str",
+          "required": true,
+          "description": "logger command"
+        },
+        {
+          "name": "data",
+          "type": "json",
+          "required": false,
+          "description": "optional command payload"
+        },
+        {
+          "name": "metadata",
+          "type": "json",
+          "required": false,
+          "description": "optional metadata payload"
+        }
+      ],
+      "options": [
+        {
+          "value": "start",
+          "condition": "allowed when type == loggerCommand"
+        },
+        {
+          "value": "save",
+          "condition": "allowed when type == loggerCommand"
+        },
+        {
+          "value": "cancel",
+          "condition": "allowed when type == loggerCommand"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /rodam/logger/command std_msgs/msg/String \"data: '{\\\"command\\\":\\\"start\\\",\\\"data\\\":{},\\\"metadata\\\":{}}'\""
+    },
+    {
+      "command_id": "rexel_command",
+      "event": "WS.REQEUST_DATA_LOGGING(type=rexelCommand)",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/rodam/rexel/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "namespace",
+          "type": "str",
+          "required": false,
+          "description": "default '/rodam'"
+        },
+        {
+          "name": "command",
+          "type": "str",
+          "required": true,
+          "description": "rexel command"
+        },
+        {
+          "name": "data",
+          "type": "json",
+          "required": false,
+          "description": "optional command payload"
+        },
+        {
+          "name": "metadata",
+          "type": "json",
+          "required": false,
+          "description": "optional metadata payload"
+        }
+      ],
+      "options": [
+        {
+          "value": "start",
+          "condition": "allowed when type == rexelCommand"
+        },
+        {
+          "value": "stop",
+          "condition": "allowed when type == rexelCommand"
+        },
+        {
+          "value": "synchronize",
+          "condition": "allowed when type == rexelCommand"
+        },
+        {
+          "value": "unsynchronize",
+          "condition": "allowed when type == rexelCommand"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /rodam/rexel/command std_msgs/msg/String \"data: '{\\\"command\\\":\\\"start\\\",\\\"data\\\":{},\\\"metadata\\\":{}}'\""
+    }
+  ]
+}

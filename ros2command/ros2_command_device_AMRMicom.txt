@@ -1,0 +1,43 @@
+# ROS2 Command Example List
+# module: AMRMicom
+# source: prompt_ros2
+
+## micom_charger_control
+ROS2: service_call /amr/micom_manager/charger_cmd amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/charger_cmd amr_interfaces/srv/MicomRequest "{data: 'on'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] true (condition: charger on) (parameters: req.data: str, required=true)
+- [command] false (condition: charger off) (parameters: req.data: str, required=true)
+
+## micom_disable_lidar
+ROS2: service_call /amr/micom_manager/ignore_lidar amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/ignore_lidar amr_interfaces/srv/MicomRequest "{data: 'all'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] true (condition: disable lidar) (parameters: req.data: str, required=true)
+- [command] false (condition: enable lidar) (parameters: req.data: str, required=true)
+
+## micom_sound_control
+ROS2: service_call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest "{data: 'Sound_On'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] true (condition: sound on) (parameters: req.data: str, required=true)
+- [command] false (condition: sound off) (parameters: req.data: str, required=true)
+
+## micom_led_control
+ROS2: service_call /amr/micom_manager/led_control amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/led_control amr_interfaces/srv/MicomRequest "{data: 'navi_normal'}"
+Optional parameters:
+- none
+Option conditions:
+- none
+

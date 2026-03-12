@@ -1,0 +1,6 @@
+# objective 
+  Create a generator in python to create Behavior Tree from javascript code.
+  Input file is given as a parameter.
+
+# output file
+  Same with the source code but the extension is json.

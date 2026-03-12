@@ -1,0 +1,88 @@
+# ROS2 Command Example List
+# module: HEAD
+# source: prompt_ros2
+
+## eye
+ROS2: topic_pub /display_emotion_topic application_interfaces/msg/DisplayEmotion
+Example:
+ros2 topic pub --once /display_emotion_topic application_interfaces/msg/DisplayEmotion "{name: 'happy', loop: false, instant_play: true}"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## led
+ROS2: topic_pub /qhead_dam/led_control qhead_dam_msgs/msg/LedControl
+Example:
+ros2 topic pub --once /qhead_dam/led_control qhead_dam_msgs/msg/LedControl "{led: [{color_index: 17, pattern: 100, period: 2000, brightness: 30, direction: 0}, {color_index: 16, pattern: 3, period: 1000, brightness: 30, direction: 0}, {color_index: 21, pattern: 2, period: 1000, brightness: 30, direction: 0}, {color_index: 27, pattern: 1, period: 1000, brightness: 30, direction: 0}]}"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## motion
+ROS2: topic_pub /motion_manager/task_cmd motion_manager_msgs/msg/TaskCmd
+Example:
+ros2 topic pub --once /motion_manager/task_cmd motion_manager_msgs/msg/TaskCmd '{task_type: 0, command_type: 0, motion_id: 1}'
+Optional parameters:
+- blocking_type (str)
+Option conditions:
+- [task_type] 0 (condition: MOTION_TASK) (parameters: motion_id: int, required=true)
+- [task_type] 4 (condition: LEGACY_MOTION_TASK) (parameters: legacy_id: int, required=true)
+- [task_type] 5 (condition: Pause preset path) (parameters: motion_id: int, required=true)
+- [task_type] 6 (condition: Preset path) (parameters: preset_id: int, required=true)
+- [command_type] 0 (condition: default start)
+- [command_type] 2 (condition: only when task_type == 5) (parameters: task_type: int, required=true)
+- [command_type] 4 (condition: stop all)
+- [blocking_type] NONE (condition: resolve on completion)
+- [blocking_type] SOFT (condition: resolve on completion)
+- [blocking_type] HARD (condition: resolve on completion)
+- [blocking_type] LOOP (condition: re-executes until release)
+- [blocking_type] WAIT (condition: waits blocked-action release)
+
+## sound_tts
+ROS2: topic_pub /sounds_topic sounds_interfaces/msg/SoundsEvent
+Example:
+ros2 topic pub --once /sounds_topic sounds_interfaces/msg/SoundsEvent "{main_type: 1, sub_type: 6, text_value: 'hello', number_value: 0}"
+Optional parameters:
+- none
+Option conditions:
+- [command] tts (condition: sound list type == tts or not found)
+
+## sound_music_url
+ROS2: topic_pub /music_play_url std_msgs/msg/String
+Example:
+ros2 topic pub --once /music_play_url std_msgs/msg/String "data: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'"
+Optional parameters:
+- none
+Option conditions:
+- [command] music (condition: sound list type == music)
+
+## sound_stop
+ROS2: topic_pub /sounds_topic sounds_interfaces/msg/SoundsEvent
+Example:
+ros2 topic pub --once /sounds_topic sounds_interfaces/msg/SoundsEvent "{main_type: 10, sub_type: 1}"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## estop
+ROS2: topic_pub /set_soft_estop std_msgs/msg/Bool
+Example:
+ros2 topic pub --once /set_soft_estop std_msgs/msg/Bool "data: true"
+Optional parameters:
+- none
+Option conditions:
+- [command] true (condition: only action parameter string 'true' is accepted)
+- [command] false (condition: rejected by current implementation)
+
+## docking
+ROS2: N/A
+Example:
+(No direct ROS2 publish example; event is registered only in current implementation.)
+Optional parameters:
+- none
+Option conditions:
+- none
+

@@ -1,0 +1,24 @@
+# ROS2 Command Example List
+# module: TELEOP
+# source: prompt_ros2
+
+## teleop_command
+ROS2: topic_pub /teleop/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /teleop/command std_msgs/msg/String "data: '{\"cmd\":\"manual\"}'"
+Optional parameters:
+- none
+Option conditions:
+- [command] manual (condition: set TELEOPERATION to manual)
+- [command] autonomous (condition: set TELEOPERATION to autonomous)
+- [command] waiting (condition: internal waiting mode)
+
+## teleop_state
+ROS2: topic_pub /teleop/states std_msgs/msg/String
+Example:
+ros2 topic pub --once /teleop/states std_msgs/msg/String "data: '{\"state\":\"waiting\"}'"
+Optional parameters:
+- none
+Option conditions:
+- none
+

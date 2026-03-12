@@ -1,0 +1,165 @@
+[
+  {
+    "type": "c_bt_motion_motion_start_motion",
+    "message0": "%1 motion start motion %2 motion id %3 %4 blocking type %5 %6 duration ms %7",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Q9 motion ID\ub97c \uc9c0\uc815\ud574 motion\uc744 \uc2dc\uc791\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "MOTION_ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID."
+      },
+      {
+        "type": "field_input",
+        "name": "MOTION_ID",
+        "text": ""
+      },
+      {
+        "type": "field_image",
+        "name": "BLOCKING_TYPE_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Scheduler blocking mode while the motion is running."
+      },
+      {
+        "type": "field_dropdown",
+        "name": "BLOCKING_TYPE",
+        "options": [
+          [
+            "NONE - Resolve on completion.",
+            "NONE"
+          ],
+          [
+            "SOFT - Soft blocking until completion.",
+            "SOFT"
+          ],
+          [
+            "HARD - Hard blocking until completion.",
+            "HARD"
+          ],
+          [
+            "LOOP - Re-execute the motion until released.",
+            "LOOP"
+          ],
+          [
+            "WAIT - Keep waiting after completion until release.",
+            "WAIT"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "name": "DURATION_MS_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds."
+      },
+      {
+        "type": "field_input",
+        "name": "DURATION_MS",
+        "text": "0"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "motion/start_motion",
+    "x_category": "Motion",
+    "x_description": "Q9 motion ID\ub97c \uc9c0\uc815\ud574 motion\uc744 \uc2dc\uc791\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "motion_id",
+        "field": "MOTION_ID",
+        "help_field": "MOTION_ID_HELP",
+        "type": "string",
+        "description": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID."
+      },
+      {
+        "name": "blocking_type",
+        "field": "BLOCKING_TYPE",
+        "help_field": "BLOCKING_TYPE_HELP",
+        "type": "string",
+        "description": "Scheduler blocking mode while the motion is running."
+      },
+      {
+        "name": "duration_ms",
+        "field": "DURATION_MS",
+        "help_field": "DURATION_MS_HELP",
+        "type": "integer",
+        "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_motion_motion_stop_motion",
+    "message0": "%1 motion stop motion",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc744 \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4."
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "motion/stop_motion",
+    "x_category": "Motion",
+    "x_description": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc744 \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4.",
+    "x_parameters": []
+  },
+  {
+    "type": "c_bt_motion_motion_wait_motion_finished",
+    "message0": "%1 motion wait motion finished",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc758 \uc644\ub8cc\ub97c \uae30\ub2e4\ub9b0\ub2e4."
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "motion/wait_motion_finished",
+    "x_category": "Motion",
+    "x_description": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc758 \uc644\ub8cc\ub97c \uae30\ub2e4\ub9b0\ub2e4.",
+    "x_parameters": []
+  }
+]

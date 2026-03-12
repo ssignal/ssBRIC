@@ -1,0 +1,22 @@
+# ROS2 Command Example List
+# module: ECA
+# source: prompt_ros2
+
+## eca_instruction
+ROS2: topic_pub /eca/instruction std_msgs/msg/String
+Example:
+ros2 topic pub --once /eca/instruction std_msgs/msg/String "data: 'pick up the bread'"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## eca_stop
+ROS2: topic_pub /eca/stop std_msgs/msg/String
+Example:
+ros2 topic pub --once /eca/stop std_msgs/msg/String "data: 'stop'"
+Optional parameters:
+- none
+Option conditions:
+- none
+

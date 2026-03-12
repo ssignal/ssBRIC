@@ -1,0 +1,64 @@
+# ROS2 Command Example List
+# module: EMAI
+# source: prompt_ros2
+
+## vla_start
+ROS2: topic_pub /emai/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /emai/command std_msgs/msg/String "data: '{\"to\":\"inference\",\"data\":\"start\",\"model\":\"hamper\",\"msg\":\"folding_towel\"}'"
+Optional parameters:
+- model (str)
+Option conditions:
+- none
+
+## vla_stop
+ROS2: topic_pub /emai/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /emai/command std_msgs/msg/String "data: '{\"to\":\"inference\",\"data\":\"stop\"}'"
+Optional parameters:
+- model (str)
+- msg (str)
+Option conditions:
+- none
+
+## emai_motion
+ROS2: topic_pub /emai/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /emai/command std_msgs/msg/String "data: '{\"to\":\"motion\",\"data\":\"start\",\"msg\":\"wave\"}'"
+Optional parameters:
+- blocking_type (str) - Resolve behavior
+Option conditions:
+- [blocking_type] NONE (condition: resolve on completion)
+- [blocking_type] SOFT (condition: resolve on completion)
+- [blocking_type] HARD (condition: resolve on completion)
+- [blocking_type] LOOP (condition: re-executes motion until stop/release)
+- [blocking_type] WAIT (condition: waits for blocked-action release after completion)
+
+## emai_motion_stop
+ROS2: topic_pub /emai/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /emai/command std_msgs/msg/String "data: '{\"to\":\"motion\",\"data\":\"stop\"}'"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## teleoperation
+ROS2: topic_pub /emai/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /emai/command std_msgs/msg/String "data: '{\"to\":\"teleop\",\"data\":\"start\"}'"
+Optional parameters:
+- none
+Option conditions:
+- [data] start (condition: begin teleoperation)
+- [data] stop (condition: end teleoperation)
+
+## robot_initialize
+ROS2: topic_pub /rodam/robot/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /rodam/robot/command std_msgs/msg/String "data: '{\"command\":\"start\"}'"
+Optional parameters:
+- none
+Option conditions:
+- none
+

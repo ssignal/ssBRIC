@@ -1,0 +1,24 @@
+# ROS2 Command Example List
+# module: AGIBOT
+# source: prompt_ros2
+
+## agibot_forward_order
+ROS2: topic_pub /middleware/agibot/order std_msgs/msg/String
+Example:
+ros2 topic pub --once /middleware/agibot/order std_msgs/msg/String "data: '[{\"id\":\"1\",\"type\":\"NODE\",\"nodeId\":\"farewell\"}]'"
+Optional parameters:
+- none
+Option conditions:
+- none
+
+## agibot_control
+ROS2: topic_pub /middleware/agibot/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /middleware/agibot/command std_msgs/msg/String "data: 'cancel'"
+Optional parameters:
+- none
+Option conditions:
+- [command] cancel (condition: for CORE_EVENT.CANCEL or CORE_EVENT.SKIP_TASK_ACTION)
+- [command] pause (condition: for CORE_EVENT.PAUSE)
+- [command] resume (condition: for CORE_EVENT.RESUME)
+

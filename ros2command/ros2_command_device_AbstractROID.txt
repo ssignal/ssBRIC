@@ -1,0 +1,13 @@
+# ROS2 Command Example List
+# module: AbstractROID
+# source: prompt_ros2
+
+## none
+ROS2: N/A
+Example:
+(No direct ROS2 publish/service command is implemented in this abstract class.)
+Optional parameters:
+- none
+Option conditions:
+- none
+

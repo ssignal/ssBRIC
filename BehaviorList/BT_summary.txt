@@ -1,0 +1,17 @@
+[ Motion ]
+motion/start_motion  -> Q9 기준 motion ID 지정하여 실행
+motion/stop_motion  -> 현재 실행 중인 motion 종료
+motion/wait_motion_finished  -> 현재 실행 중인 motion의 수행 완료 대기
+
+[ 자율 주행 ]
+navigation/move_to_pose -> 특정 좌표로 이동 요청
+navigation/moving_to_pose -> 특정 좌표에 도착 여부
+navigation/stop_move  -> 이동 강제 종료
+navigation/rotate  -> 제자리 회전
+
+[ Sound control ]
+sound/start_play -> webm 같은 sound file play
+sound/start_play_tts -> TTS sound play
+sound/stop_play  -> sound file play 강제 종료
+sound/wait_play_completed -> sound play 수행 완료 대기
+sound/set_volume  -> sound 볼륨 설정

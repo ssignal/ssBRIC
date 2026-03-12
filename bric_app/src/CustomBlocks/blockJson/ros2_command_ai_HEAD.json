@@ -1,0 +1,341 @@
+[
+  {
+    "type": "c_ai_head_eye",
+    "message0": "HEAD eye eye id %1 name %2 loop %3 instant play %4",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "EYE_ID",
+        "text": ""
+      },
+      {
+        "type": "field_input",
+        "name": "NAME",
+        "text": ""
+      },
+      {
+        "type": "field_dropdown",
+        "name": "LOOP",
+        "options": [
+          [
+            "true",
+            "true"
+          ],
+          [
+            "false",
+            "false"
+          ]
+        ]
+      },
+      {
+        "type": "field_dropdown",
+        "name": "INSTANT_PLAY",
+        "options": [
+          [
+            "true",
+            "true"
+          ],
+          [
+            "false",
+            "false"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.EYE",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_led",
+    "message0": "HEAD led led id %1 led %2",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "LED_ID",
+        "text": ""
+      },
+      {
+        "type": "field_input",
+        "name": "LED",
+        "text": ""
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.LED",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_motion",
+    "message0": "HEAD motion motion id %1 task type %2 command type %3 blocking type %4 legacy id %5 preset id %6",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "MOTION_ID",
+        "text": ""
+      },
+      {
+        "type": "field_dropdown",
+        "name": "TASK_TYPE",
+        "options": [
+          [
+            "0 - MOTION_TASK",
+            "0"
+          ],
+          [
+            "4 - LEGACY_MOTION_TASK",
+            "4"
+          ],
+          [
+            "5 - Pause preset path",
+            "5"
+          ],
+          [
+            "6 - Preset path",
+            "6"
+          ]
+        ]
+      },
+      {
+        "type": "field_dropdown",
+        "name": "COMMAND_TYPE",
+        "options": [
+          [
+            "0 - default start",
+            "0"
+          ],
+          [
+            "2 (only when task_type == 5)",
+            "2"
+          ],
+          [
+            "4 - stop all",
+            "4"
+          ]
+        ]
+      },
+      {
+        "type": "field_dropdown",
+        "name": "BLOCKING_TYPE",
+        "options": [
+          [
+            "NONE - resolve on completion",
+            "NONE"
+          ],
+          [
+            "SOFT - resolve on completion",
+            "SOFT"
+          ],
+          [
+            "HARD - resolve on completion",
+            "HARD"
+          ],
+          [
+            "LOOP - re-executes until release",
+            "LOOP"
+          ],
+          [
+            "WAIT - waits blocked-action release",
+            "WAIT"
+          ]
+        ]
+      },
+      {
+        "type": "field_number",
+        "name": "LEGACY_ID",
+        "value": 0,
+        "precision": 1
+      },
+      {
+        "type": "field_number",
+        "name": "PRESET_ID",
+        "value": 0,
+        "precision": 1
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.MOTION",
+    "helpUrl": "",
+    "x_dynamic": {
+      "root_field": "TASK_TYPE",
+      "child_fields_by_value": {
+        "0": [
+          "MOTION_ID"
+        ],
+        "4": [
+          "LEGACY_ID"
+        ],
+        "5": [
+          "MOTION_ID"
+        ],
+        "6": [
+          "PRESET_ID"
+        ],
+        "2": [
+          "TASK_TYPE"
+        ]
+      },
+      "all_child_fields": [
+        "LEGACY_ID",
+        "MOTION_ID",
+        "PRESET_ID",
+        "TASK_TYPE"
+      ],
+      "conditional_dropdowns": {
+        "COMMAND_TYPE": {
+          "base_options": [
+            [
+              "0 - default start",
+              "0"
+            ],
+            [
+              "4 - stop all",
+              "4"
+            ]
+          ],
+          "options_by_root": {
+            "5": [
+              [
+                "2 (only when task_type == 5)",
+                "2"
+              ]
+            ]
+          },
+          "all_options": [
+            [
+              "0 - default start",
+              "0"
+            ],
+            [
+              "2 (only when task_type == 5)",
+              "2"
+            ],
+            [
+              "4 - stop all",
+              "4"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  {
+    "type": "c_ai_head_sound_tts",
+    "message0": "HEAD sound_tts sound id or text %1 main type %2 sub type %3 text value %4 number value %5",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "SOUND_ID_OR_TEXT",
+        "text": ""
+      },
+      {
+        "type": "field_number",
+        "name": "MAIN_TYPE",
+        "value": 1,
+        "precision": 1
+      },
+      {
+        "type": "field_number",
+        "name": "SUB_TYPE",
+        "value": 6,
+        "precision": 1
+      },
+      {
+        "type": "field_input",
+        "name": "TEXT_VALUE",
+        "text": ""
+      },
+      {
+        "type": "field_number",
+        "name": "NUMBER_VALUE",
+        "value": 0,
+        "precision": 1
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.SOUND",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_sound_music_url",
+    "message0": "HEAD sound_music_url url %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "URL",
+        "text": ""
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.SOUND",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_sound_stop",
+    "message0": "HEAD sound_stop main type %1 sub type %2",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "MAIN_TYPE",
+        "value": 10,
+        "precision": 1
+      },
+      {
+        "type": "field_number",
+        "name": "SUB_TYPE",
+        "value": 1,
+        "precision": 1
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "stopSound()",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_estop",
+    "message0": "HEAD estop enabled %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "ENABLED",
+        "options": [
+          [
+            "true",
+            "true"
+          ],
+          [
+            "false",
+            "false"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.ESTOP",
+    "helpUrl": ""
+  },
+  {
+    "type": "c_ai_head_docking",
+    "message0": "HEAD docking",
+    "args0": [],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "VDA_ACTION.DOCKING",
+    "helpUrl": ""
+  }
+]

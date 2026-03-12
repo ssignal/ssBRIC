@@ -1,0 +1,62 @@
+{
+  "name": "my-blockly",
+  "version": "0.1.0",
+  "description": "my practice for using Blockly in React",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@blockly/field-angle": "^3.0.12",
+    "@blockly/field-dependent-dropdown": "^3.0.12",
+    "@blockly/field-grid-dropdown": "^4.0.11",
+    "@blockly/field-slider": "^6.1.5",
+    "@blockly/workspace-backpack": "^5.3.5",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/material": "^5.15.14",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "blockly": "^10.3.1",
+    "highlight.js": "^11.9.0",
+    "js-interpreter": "^5.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "react-use-websocket": "^4.8.1",
+    "roslib": "^1.4.1",
+    "vm": "^0.1.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "upNstart": "cd ../; python3 ./ros2command/generate_from_prompt_block.py --repo-root ./ --prompt prompt_block; cd -; npm run start",
+    "upNstartBT": "cd ../; python3 ./BehaviorList/generate_block.py --repo-root . --prompt prompt_block_btList; cd -; npm run start",
+    "genBT": "cd ../toBT; python3 generator.py tmp.js",
+    "genBTGPT": "cd ../toBT; python3 genBT_chatGPT.py tmp.js; cd -",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

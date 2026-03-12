@@ -1,0 +1,43 @@
+# ROS2 Command Example List
+# module: DATA
+# source: prompt_ros2
+
+## robot_command
+ROS2: topic_pub /rodam/robot/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /rodam/robot/command std_msgs/msg/String "data: '{\"command\":\"boot\",\"data\":{},\"metadata\":{}}'"
+Optional parameters:
+- namespace (str) - default '/rodam'
+- data (json) - optional command payload
+- metadata (json) - optional metadata payload
+Option conditions:
+- [command] boot (condition: allowed when type == robotCommand)
+- [command] shutdown (condition: allowed when type == robotCommand)
+
+## logger_command
+ROS2: topic_pub /rodam/logger/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /rodam/logger/command std_msgs/msg/String "data: '{\"command\":\"start\",\"data\":{},\"metadata\":{}}'"
+Optional parameters:
+- namespace (str) - default '/rodam'
+- data (json) - optional command payload
+- metadata (json) - optional metadata payload
+Option conditions:
+- [command] start (condition: allowed when type == loggerCommand)
+- [command] save (condition: allowed when type == loggerCommand)
+- [command] cancel (condition: allowed when type == loggerCommand)
+
+## rexel_command
+ROS2: topic_pub /rodam/rexel/command std_msgs/msg/String
+Example:
+ros2 topic pub --once /rodam/rexel/command std_msgs/msg/String "data: '{\"command\":\"start\",\"data\":{},\"metadata\":{}}'"
+Optional parameters:
+- namespace (str) - default '/rodam'
+- data (json) - optional command payload
+- metadata (json) - optional metadata payload
+Option conditions:
+- [command] start (condition: allowed when type == rexelCommand)
+- [command] stop (condition: allowed when type == rexelCommand)
+- [command] synchronize (condition: allowed when type == rexelCommand)
+- [command] unsynchronize (condition: allowed when type == rexelCommand)
+

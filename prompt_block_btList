@@ -1,0 +1,60 @@
+# Objective
+  - Create source generator ./BehaviorList/generate_block.py with the rules below.
+    Create a Blockly blocks description in json format refer to the target json file.
+    Create a nodejs file for Block Register for each json files in the Json Output Path.
+    Create a nodejs file that includes functions for Code Generator for each blocks.
+    Add the Block into the toolbox.
+
+# conditions
+## Block register
+  Load json file that describe block info.
+  Register it using Blockly.Blocks
+## Code Generator
+  - Create a function for each blocks and register it using "javascriptGenerator.forBlock"
+  - The function
+    Call the function
+      lgROBOTInterface({   "type": "Action",  "action": {AAAA}, "parameter": {BBBB}})
+    AAAA: action of the item in BehaviorList
+    BBBB: parameters of the block set by user.
+## Toolbox
+  Add the new catagery for the new blocks.
+  The category name is the 'category' of each item.
+
+# File Path
+## BehaviorList
+  ./BehaviroList/BT_List.json
+## Block Register
+  - Output Path: bric_app/src/CustomBlocks/ros2Blocks_{YYY}.js
+    YYY: category of each item in BehaviroList
+## Toolbox
+  Output Path: ./Toolbox/toolboxCustomBasic.js
+## Code generator
+  - Output Path: bric_app/src/Generators/ros2Blocks_{YYY}.js
+    YYY: category of each item in BehaviroList
+
+# Special Case
+## options
+  If a item has options, use dropdown menu.
+  If a item has no options, use input box.
+## min max
+  If a item has only one of min or max, use input box and use it as default value.
+  If a item has min, use dropdown menu.
+## description
+### Description for a block
+  Add a question icon on the left side of a block.
+  Only when the mouse is on the question icon, onMouse event, show the 'description' on a floting box.
+### Description for parameters
+  Add a question icon before each parameter.
+## question icon
+  It is not a text.
+  Circle icon include '?' in the center of the circle.
+  Background color is white.
+  the '?' color is black.
+  The black circle line surround the icon.
+
+
+# Default value
+  If there is no min or max value for a default value, set the value below according to it's type.
+## float: 0.0
+## int: 0
+## string: empty string.

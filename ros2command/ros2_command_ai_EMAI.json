@@ -1,0 +1,211 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/EMAI.js",
+  "module": "EMAI",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "vla_start",
+      "event": "VDA_ACTION.VLA",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/emai/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "vla_id",
+          "type": "str",
+          "required": true,
+          "description": "ID from /api/action/vla/list"
+        },
+        {
+          "name": "to",
+          "type": "str",
+          "required": true,
+          "description": "default inference",
+          "default": "inference"
+        },
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "default": "start"
+        },
+        {
+          "name": "model",
+          "type": "str",
+          "required": false
+        },
+        {
+          "name": "msg",
+          "type": "str",
+          "required": true,
+          "description": "instruction"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /emai/command std_msgs/msg/String \"data: '{\\\"to\\\":\\\"inference\\\",\\\"data\\\":\\\"start\\\",\\\"model\\\":\\\"hamper\\\",\\\"msg\\\":\\\"folding_towel\\\"}'\""
+    },
+    {
+      "command_id": "vla_stop",
+      "event": "stopVLA()",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/emai/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "to",
+          "type": "str",
+          "required": true,
+          "default": "inference"
+        },
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "default": "stop"
+        },
+        {
+          "name": "model",
+          "type": "str",
+          "required": false
+        },
+        {
+          "name": "msg",
+          "type": "str",
+          "required": false
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /emai/command std_msgs/msg/String \"data: '{\\\"to\\\":\\\"inference\\\",\\\"data\\\":\\\"stop\\\"}'\""
+    },
+    {
+      "command_id": "emai_motion",
+      "event": "VDA_ACTION.EMAI_MOTION",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/emai/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "robot_motion_id",
+          "type": "str",
+          "required": true,
+          "description": "ID from /api/action/robotmotion/list"
+        },
+        {
+          "name": "motion_data",
+          "type": "str",
+          "required": true,
+          "description": "Raw motion command payload"
+        },
+        {
+          "name": "blocking_type",
+          "type": "str",
+          "required": false,
+          "description": "Resolve behavior",
+          "options": [
+            {
+              "value": "NONE",
+              "condition": "resolve on completion"
+            },
+            {
+              "value": "SOFT",
+              "condition": "resolve on completion"
+            },
+            {
+              "value": "HARD",
+              "condition": "resolve on completion"
+            },
+            {
+              "value": "LOOP",
+              "condition": "re-executes motion until stop/release"
+            },
+            {
+              "value": "WAIT",
+              "condition": "waits for blocked-action release after completion"
+            }
+          ]
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /emai/command std_msgs/msg/String \"data: '{\\\"to\\\":\\\"motion\\\",\\\"data\\\":\\\"start\\\",\\\"msg\\\":\\\"wave\\\"}'\""
+    },
+    {
+      "command_id": "emai_motion_stop",
+      "event": "stopMotion()",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/emai/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "to",
+          "type": "str",
+          "required": true,
+          "default": "motion"
+        },
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "default": "stop"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /emai/command std_msgs/msg/String \"data: '{\\\"to\\\":\\\"motion\\\",\\\"data\\\":\\\"stop\\\"}'\""
+    },
+    {
+      "command_id": "teleoperation",
+      "event": "VDA_ACTION.TELEOPERATION",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/emai/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "to",
+          "type": "str",
+          "required": true,
+          "default": "teleop"
+        },
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "options": [
+            {
+              "value": "start",
+              "condition": "begin teleoperation"
+            },
+            {
+              "value": "stop",
+              "condition": "end teleoperation"
+            }
+          ]
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /emai/command std_msgs/msg/String \"data: '{\\\"to\\\":\\\"teleop\\\",\\\"data\\\":\\\"start\\\"}'\""
+    },
+    {
+      "command_id": "robot_initialize",
+      "event": "CORE_EVENT.AI_INITIALIZE",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/rodam/robot/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "command",
+          "type": "str",
+          "required": true,
+          "default": "start"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /rodam/robot/command std_msgs/msg/String \"data: '{\\\"command\\\":\\\"start\\\"}'\""
+    }
+  ]
+}

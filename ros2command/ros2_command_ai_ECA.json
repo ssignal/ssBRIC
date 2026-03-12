@@ -1,0 +1,45 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/ECA.js",
+  "module": "ECA",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "eca_instruction",
+      "event": "pubInstruction(data)",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/eca/instruction",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "description": "Instruction text or serialized payload"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /eca/instruction std_msgs/msg/String \"data: 'pick up the bread'\""
+    },
+    {
+      "command_id": "eca_stop",
+      "event": "pubStop()",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/eca/stop",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "description": "fixed stop command",
+          "default": "stop"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /eca/stop std_msgs/msg/String \"data: 'stop'\""
+    }
+  ]
+}

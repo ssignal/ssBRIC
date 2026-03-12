@@ -1,0 +1,57 @@
+# Objective
+  Create source generator ./update_block.py with the rules below.
+## Create a Blockly blocks description in json format refer to the target json file.
+## Create a nodejs file for Block Register for each json files in the Json Output Path.
+## Create a nodejs file that includes functions for Code Generator for each blocks.
+## Add the Block into the toolbox.
+
+# conditions
+## Block register
+  Load json file that describe block info.
+  Register it using Blockly.Blocks
+## Code Generator
+  - Create a function for each blocks and register it using "javascriptGenerator.forBlock"
+  - The function
+    just print block info and parameters set by user.
+## Toolbox
+  Add the new catagery for the new blocks.
+  The category name is the lastest surffix of the json output file name.
+
+# File Path
+## Json file for blocks
+  - Target Path: ros2command
+  - Target Files: 
+    ros2_command_ai_HEAD.json
+    ros2_command_ai_ECA.json
+  - Output Path: bric_app/src/CustomBlocks/blockJson/{XXX}.js
+  - XXX: target file name except extention.
+## Block Register
+  Output Path: bric_app/src/CustomBlocks/ros2Blocks_{YYY}.js
+  YYY: the lastest surffix of the Json output file.
+## Toolbox
+  Output Path: ./Toolbox/toolboxCustomBasic.js
+## Code generator
+  Output Path: bric_app/src/Generators/ros2Blocks_{YYY}.js
+  YYY: the lastest surffix of the Json output file.
+
+# Special Case
+## Active parameter by option
+If a parameter has options and each option enables different child parameters:
+  - Name definition
+    rootParam: selector parameter (ex: task_type)
+    options: possible values for rootParam
+    childParam: parameter that is active only for a specific option value
+  - Block behavior
+    Show only active childParams for the selected option of rootParam.
+    The order of parameters is in rootParam, options, and childParams.
+    Show the description with the options.
+    Refer to the condition of each options.
+      > Check the 'condition'
+        If the condition describe, a condition it should be.
+        ex) only when task_type == 5. This option shows only when task_type == 5.
+    When rootParam changes, update visible childParams immediately.
+    Hide non-active childParams.
+    Validate dependent option fields (ex: command_type) based on rootParam.
+  - Code generator behavior
+    Generate ros2 command with the parameters.
+    Do not include hidden/non-active childParams in generated output.

@@ -1,0 +1,158 @@
+{
+  "target_path": "./ros/device",
+  "source_file": "app/src/ros/device/AMRMicom.js",
+  "module": "AMRMicom",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "micom_charger_control",
+      "event": "CORE_EVENT.MICOM_CHARGER_CONTROL",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/charger_cmd",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "is_on",
+          "type": "bool",
+          "required": true
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": true,
+          "condition": "charger on",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "on"
+          }
+        },
+        {
+          "value": false,
+          "condition": "charger off",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "empty string"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/charger_cmd amr_interfaces/srv/MicomRequest \"{data: 'on'}\""
+    },
+    {
+      "command_id": "micom_disable_lidar",
+      "event": "CORE_EVENT.MICOM_DISABLE_LIDAR",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/ignore_lidar",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "is_disable",
+          "type": "bool",
+          "required": true
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": true,
+          "condition": "disable lidar",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "all"
+          }
+        },
+        {
+          "value": false,
+          "condition": "enable lidar",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "empty string"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/ignore_lidar amr_interfaces/srv/MicomRequest \"{data: 'all'}\""
+    },
+    {
+      "command_id": "micom_sound_control",
+      "event": "CORE_EVENT.MICOM_SOUND_CONTROL",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/sound_onoff_req",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "enable",
+          "type": "bool",
+          "required": true
+        },
+        {
+          "name": "req.data",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": true,
+          "condition": "sound on",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "Sound_On"
+          }
+        },
+        {
+          "value": false,
+          "condition": "sound off",
+          "parameters": {
+            "name": "req.data",
+            "type": "str",
+            "required": true,
+            "description": "Sound_Off"
+          }
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest \"{data: 'Sound_On'}\""
+    },
+    {
+      "command_id": "micom_led_control",
+      "event": "CORE_EVENT.MICOM_LED_CONTROL",
+      "ros2": {
+        "type": "service_call",
+        "service": "/amr/micom_manager/led_control",
+        "srv_type": "amr_interfaces/srv/MicomRequest"
+      },
+      "parameters": [
+        {
+          "name": "value",
+          "type": "str",
+          "required": true,
+          "description": "e.g. acs_traffic, navi_obs, navi_abort, navi_normal"
+        }
+      ],
+      "cli_example": "ros2 service call /amr/micom_manager/led_control amr_interfaces/srv/MicomRequest \"{data: 'navi_normal'}\""
+    }
+  ]
+}

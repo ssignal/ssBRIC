@@ -1,0 +1,58 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/TELEOP.js",
+  "module": "TELEOP",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "teleop_command",
+      "event": "TOPIC_SUB_TELEOP_COMMAND",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/teleop/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "cmd",
+          "type": "str",
+          "required": true,
+          "description": "teleop mode command"
+        }
+      ],
+      "options": [
+        {
+          "value": "manual",
+          "condition": "set TELEOPERATION to manual"
+        },
+        {
+          "value": "autonomous",
+          "condition": "set TELEOPERATION to autonomous"
+        },
+        {
+          "value": "waiting",
+          "condition": "internal waiting mode"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /teleop/command std_msgs/msg/String \"data: '{\\\"cmd\\\":\\\"manual\\\"}'\""
+    },
+    {
+      "command_id": "teleop_state",
+      "event": "VDA_ACTION.TELEOPERATION",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/teleop/states",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "type": "str",
+          "required": true,
+          "default": "waiting"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /teleop/states std_msgs/msg/String \"data: '{\\\"state\\\":\\\"waiting\\\"}'\""
+    }
+  ]
+}

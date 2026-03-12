@@ -1,0 +1,330 @@
+[
+  {
+    "type": "c_bt_navigation_navigation_move_to_pose",
+    "message0": "%1 navigation move to pose %2 x %3 %4 y %5 %6 theta %7 %8 behavior tree %9 %10 frame id %11",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc640 \uc790\uc138\ub85c \uc774\ub3d9\uc744 \uc694\uccad\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "X_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Target pose x position in the map frame."
+      },
+      {
+        "type": "field_input",
+        "name": "X",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "Y_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Target pose y position in the map frame."
+      },
+      {
+        "type": "field_input",
+        "name": "Y",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "THETA_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Target heading in radians."
+      },
+      {
+        "type": "field_input",
+        "name": "THETA",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "BEHAVIOR_TREE_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Optional behavior tree filename. When omitted, the default navigation tree is used."
+      },
+      {
+        "type": "field_input",
+        "name": "BEHAVIOR_TREE",
+        "text": ""
+      },
+      {
+        "type": "field_image",
+        "name": "FRAME_ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "ROS frame for the target pose."
+      },
+      {
+        "type": "field_dropdown",
+        "name": "FRAME_ID",
+        "options": [
+          [
+            "map - Default frame used by NAVPose.",
+            "map"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "navigation/move_to_pose",
+    "x_category": "\uc790\uc728 \uc8fc\ud589",
+    "x_description": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc640 \uc790\uc138\ub85c \uc774\ub3d9\uc744 \uc694\uccad\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "x",
+        "field": "X",
+        "help_field": "X_HELP",
+        "type": "float",
+        "description": "Target pose x position in the map frame."
+      },
+      {
+        "name": "y",
+        "field": "Y",
+        "help_field": "Y_HELP",
+        "type": "float",
+        "description": "Target pose y position in the map frame."
+      },
+      {
+        "name": "theta",
+        "field": "THETA",
+        "help_field": "THETA_HELP",
+        "type": "float",
+        "description": "Target heading in radians."
+      },
+      {
+        "name": "behavior_tree",
+        "field": "BEHAVIOR_TREE",
+        "help_field": "BEHAVIOR_TREE_HELP",
+        "type": "string",
+        "description": "Optional behavior tree filename. When omitted, the default navigation tree is used."
+      },
+      {
+        "name": "frame_id",
+        "field": "FRAME_ID",
+        "help_field": "FRAME_ID_HELP",
+        "type": "string",
+        "description": "ROS frame for the target pose."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_navigation_navigation_moving_to_pose",
+    "message0": "%1 navigation moving to pose %2 x %3 %4 y %5 %6 theta %7",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc5d0 \ub3c4\ucc29\ud588\ub294\uc9c0 \ud655\uc778\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "X_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Reference target x position in the map frame."
+      },
+      {
+        "type": "field_input",
+        "name": "X",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "Y_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Reference target y position in the map frame."
+      },
+      {
+        "type": "field_input",
+        "name": "Y",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "THETA_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Reference target heading in radians."
+      },
+      {
+        "type": "field_input",
+        "name": "THETA",
+        "text": "0.0"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "navigation/moving_to_pose",
+    "x_category": "\uc790\uc728 \uc8fc\ud589",
+    "x_description": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc5d0 \ub3c4\ucc29\ud588\ub294\uc9c0 \ud655\uc778\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "x",
+        "field": "X",
+        "help_field": "X_HELP",
+        "type": "float",
+        "description": "Reference target x position in the map frame."
+      },
+      {
+        "name": "y",
+        "field": "Y",
+        "help_field": "Y_HELP",
+        "type": "float",
+        "description": "Reference target y position in the map frame."
+      },
+      {
+        "name": "theta",
+        "field": "THETA",
+        "help_field": "THETA_HELP",
+        "type": "float",
+        "description": "Reference target heading in radians."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_navigation_navigation_stop_move",
+    "message0": "%1 navigation stop move",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\ud604\uc7ac \uc9c4\ud589 \uc911\uc778 navigation goal\uc744 \ucde8\uc18c\ud55c\ub2e4."
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "navigation/stop_move",
+    "x_category": "\uc790\uc728 \uc8fc\ud589",
+    "x_description": "\ud604\uc7ac \uc9c4\ud589 \uc911\uc778 navigation goal\uc744 \ucde8\uc18c\ud55c\ub2e4.",
+    "x_parameters": []
+  },
+  {
+    "type": "c_bt_navigation_navigation_rotate",
+    "message0": "%1 navigation rotate %2 yaw %3 %4 time allowance sec %5",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "\uc81c\uc790\ub9ac\uc5d0\uc11c \ubaa9\ud45c \uac01\ub3c4\ub9cc\ud07c \ud68c\uc804\ud55c\ub2e4."
+      },
+      {
+        "type": "field_image",
+        "name": "YAW_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Target yaw in radians."
+      },
+      {
+        "type": "field_input",
+        "name": "YAW",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "name": "TIME_ALLOWANCE_SEC_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Optional time allowance for the spin action."
+      },
+      {
+        "type": "field_input",
+        "name": "TIME_ALLOWANCE_SEC",
+        "text": "0"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_action": "navigation/rotate",
+    "x_category": "\uc790\uc728 \uc8fc\ud589",
+    "x_description": "\uc81c\uc790\ub9ac\uc5d0\uc11c \ubaa9\ud45c \uac01\ub3c4\ub9cc\ud07c \ud68c\uc804\ud55c\ub2e4.",
+    "x_parameters": [
+      {
+        "name": "yaw",
+        "field": "YAW",
+        "help_field": "YAW_HELP",
+        "type": "float",
+        "description": "Target yaw in radians."
+      },
+      {
+        "name": "time_allowance_sec",
+        "field": "TIME_ALLOWANCE_SEC",
+        "help_field": "TIME_ALLOWANCE_SEC_HELP",
+        "type": "integer",
+        "description": "Optional time allowance for the spin action."
+      }
+    ]
+  }
+]

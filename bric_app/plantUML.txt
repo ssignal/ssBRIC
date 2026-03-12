@@ -1,0 +1,29 @@
+@startuml
+title 배포 다이어그램: 단일 서버 Web App & 다중 사용자, Web Server 통신
+
+node <<client>> as Clients {
+  node "User A 브라우저" as UA
+  node "User B 브라우저" as UB
+  node "User C 브라우저" as UC
+}
+
+cloud "Cloud" {
+    node "App Server" as AppSrv {
+        artifact "Web App" as WebApp
+    }
+}
+
+node "Robot" <<device>> as Robot {
+  node "Api Gateway" as ApiGateway
+  artifact "Robot Controller" as RobotController
+}
+
+UA --> AppSrv : shows web page
+UB --> AppSrv : shows web page
+UC --> AppSrv : shows web page
+
+AppSrv -> ApiGateway : HTTPs
+
+ApiGateway -> RobotController : Command
+
+@enduml

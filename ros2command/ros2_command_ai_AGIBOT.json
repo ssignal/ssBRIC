@@ -1,0 +1,58 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/AGIBOT.js",
+  "module": "AGIBOT",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "agibot_forward_order",
+      "event": "CORE_EVENT.VDA_ORDER",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/middleware/agibot/order",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "order",
+          "type": "json",
+          "required": true,
+          "description": "VDA order array/object serialized to string"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /middleware/agibot/order std_msgs/msg/String \"data: '[{\\\"id\\\":\\\"1\\\",\\\"type\\\":\\\"NODE\\\",\\\"nodeId\\\":\\\"farewell\\\"}]'\""
+    },
+    {
+      "command_id": "agibot_control",
+      "event": "CORE_EVENT.CANCEL|CORE_EVENT.PAUSE|CORE_EVENT.RESUME|CORE_EVENT.SKIP_TASK_ACTION",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/middleware/agibot/command",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "data",
+          "type": "str",
+          "required": true,
+          "description": "Control command string"
+        }
+      ],
+      "options": [
+        {
+          "value": "cancel",
+          "condition": "for CORE_EVENT.CANCEL or CORE_EVENT.SKIP_TASK_ACTION"
+        },
+        {
+          "value": "pause",
+          "condition": "for CORE_EVENT.PAUSE"
+        },
+        {
+          "value": "resume",
+          "condition": "for CORE_EVENT.RESUME"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /middleware/agibot/command std_msgs/msg/String \"data: 'cancel'\""
+    }
+  ]
+}

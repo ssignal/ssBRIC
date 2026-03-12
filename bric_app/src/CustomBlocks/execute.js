@@ -1,0 +1,777 @@
+import Blockly from 'blockly/core';
+import '@blockly/field-angle';
+import '@blockly/field-slider';
+import '@blockly/field-dependent-dropdown';
+
+// block type naming rule : {toolbox_name}_{block_description}
+
+const rotateHeadsetJson = {
+	"message0": "rotate headset to %1",
+	"args0": [		
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"min": 0,
+			"max": 240,
+			"value": 160,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 280,
+			"minorTick": 10,
+			"majorTick": 70
+		}
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_rotateHeadset'] = {
+	init: function() {
+		this.jsonInit(rotateHeadsetJson);
+	}
+}
+
+const rotateHeadsetWithSpeedJson = JSON.parse(JSON.stringify(rotateHeadsetJson));
+rotateHeadsetWithSpeedJson.message0 = "rotate headset to %1 in %2 sec";
+rotateHeadsetWithSpeedJson.args0.push({
+	"type": "field_slider",
+	"name": "SECOND",
+	"min": 0.1,
+	"max": 3,
+	"value": 1,
+	"precision": 0.1,			
+})
+
+Blockly.Blocks['c_execute_rotateHeadsetWithSpeed'] = {
+	init: function() {
+		this.jsonInit(rotateHeadsetWithSpeedJson);
+	}
+}
+
+const moveOneHipJson = {
+	"message0": "move %1 hip to %2",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'HIP',
+			'options': [			
+				['LEFT', 'left'],
+				['RIGHT', 'right']
+			],
+		},
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"min": 0,
+			"max": 22,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 28,
+			"minorTick": 1,
+			"majorTick": 7
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveOneHip'] = {
+	init: function() {
+		this.jsonInit(moveOneHipJson);
+	}
+}
+
+const moveOneHipWithSpeedJson = JSON.parse(JSON.stringify(moveOneHipJson));
+moveOneHipWithSpeedJson.message0 = "move %1 hip to %2 %3";
+moveOneHipWithSpeedJson.args0.push({
+	'type': 'field_dropdown',
+	'name': 'SPEED',
+	'options': [			
+		['SLOW', 'slow'],
+		['NORMAL', 'normal'],
+		['FAST', 'fast']
+	],
+})
+
+Blockly.Blocks['c_execute_moveOneHipWithSpeed'] = {
+	init: function() {
+		this.jsonInit(moveOneHipWithSpeedJson);
+	}
+}
+
+const moveBothHipJson = {
+	"message0": "move left hip to %1 & right hip to %2",
+	"args0": [
+		{
+			"type": "field_angle",
+			"name": "LEFT",
+			"min": 0,
+			"max": 22,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 28,
+			"minorTick": 1,
+			"majorTick": 7
+		},
+		{
+			"type": "field_angle",
+			"name": "RIGHT",
+			"min": 0,
+			"max": 22,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 28,
+			"minorTick": 1,
+			"majorTick": 7
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveBothHip'] = {
+	init: function() {
+		this.jsonInit(moveBothHipJson);
+	}
+}
+
+const moveBothHipWithSpeedJson = JSON.parse(JSON.stringify(moveBothHipJson));
+moveBothHipWithSpeedJson.message0 = "move left hip to %1 & right hip to %2 %3";
+moveBothHipWithSpeedJson.args0.push({
+	'type': 'field_dropdown',
+	'name': 'SPEED',
+	'options': [			
+		['SLOW', 'slow'],
+		['NORMAL', 'normal'],
+		['FAST', 'fast']
+	],
+})
+
+Blockly.Blocks['c_execute_moveBothHipWithSpeed'] = {
+	init: function() {
+		this.jsonInit(moveBothHipWithSpeedJson);
+	}
+}
+
+const tiltBodyJson = {
+	"message0": "tilt body %1 degrees to the %2",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['LEFT', 'left'],
+				['RIGHT', 'right']
+			],
+		},
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"min": 0,
+			"max": 17,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 24,
+			"minorTick": 1,
+			"majorTick": 6
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_tiltBody'] = {
+	init: function() {
+		this.jsonInit(tiltBodyJson);
+	}
+}
+
+const tiltBodyWithSpeedJson = JSON.parse(JSON.stringify(tiltBodyJson));
+tiltBodyWithSpeedJson.message0 = "tilt body %1 degrees to the %2 %3";
+tiltBodyWithSpeedJson.args0.push({
+	'type': 'field_dropdown',
+	'name': 'SPEED',
+	'options': [			
+		['SLOW', 'slow'],
+		['NORMAL', 'normal'],
+		['FAST', 'fast']
+	],
+})
+
+Blockly.Blocks['c_execute_tiltBodyWithSpeed'] = {
+	init: function() {
+		this.jsonInit(tiltBodyWithSpeedJson);
+	}
+}
+
+const moveHeadsetAndHipJson = {
+	"message0": "rotate headset to %1 %2",
+	"args0": [		
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"min": 0,
+			"max": 240,
+			"value": 160,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 280,
+			"minorTick": 10,
+			"majorTick": 70
+		},
+		{
+      "type": "input_end_row"
+    }
+	],
+	"message1": "move left hip to %1 & right hip to %2",
+	"args1": [
+		{
+			"type": "field_angle",
+			"name": "LEFT",
+			"min": 0,
+			"max": 22,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 28,
+			"minorTick": 1,
+			"majorTick": 7
+		},
+		{
+			"type": "field_angle",
+			"name": "RIGHT",
+			"min": 0,
+			"max": 22,
+			"value": 10,
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+			"displayMin": 0,
+			"displayMax": 28,
+			"minorTick": 1,
+			"majorTick": 7
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveHeadsetAndHip'] = {
+	init: function() {
+		this.jsonInit(moveHeadsetAndHipJson);
+	}
+}
+
+const moveHeadsetAndHipWithSpeedJson = JSON.parse(JSON.stringify(moveHeadsetAndHipJson));
+moveHeadsetAndHipWithSpeedJson.message0 = "rotate headset to %1 in %2 sec %3";
+moveHeadsetAndHipWithSpeedJson.args0.splice(1, 0, {
+	"type": "field_slider",
+	"name": "SECOND",
+	"min": 0.1,
+	"max": 3,
+	"value": 1,
+	"precision": 0.1,			
+})
+
+moveHeadsetAndHipWithSpeedJson.message1 = "move left hip to %1 & right hip to %2 %3";
+moveHeadsetAndHipWithSpeedJson.args1.push({
+	'type': 'field_dropdown',
+	'name': 'SPEED',
+	'options': [			
+		['SLOW', 'slow'],
+		['NORMAL', 'normal'],
+		['FAST', 'fast']
+	],
+})
+
+Blockly.Blocks['c_execute_moveHeadsetAndHipWithSpeed'] = {
+	init: function() {
+		this.jsonInit(moveHeadsetAndHipWithSpeedJson);
+	}
+}
+
+const spinInPlaceJson = {
+	"message0": "spin %1 %2",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['LEFT', 'left'],
+				['RIGHT', 'right']
+			],
+		},
+		{
+			'type': 'field_dropdown',
+			'name': 'SPEED',
+			'options': [			
+				['SLOW', '0'],
+				['NORMAL', '1'],
+				['FAST', '2'],
+				['FASTEST', '3']
+			],
+		},	
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_spinInPlace'] = {
+	init: function() {
+		this.jsonInit(spinInPlaceJson);
+	}
+}
+
+const spinDegreesJson = {
+	"message0": "spin %1 degrees to %2",
+	"args0": [
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+		},
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['LEFT', 'left'],
+				['RIGHT', 'right']
+			],
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_spinDegrees'] = {
+	init: function() {
+		this.jsonInit(spinDegreesJson);
+	}
+}
+
+const spinDegreesWithSpeedJson = JSON.parse(JSON.stringify(spinDegreesJson));
+spinDegreesWithSpeedJson.message0 = "spin %1 degrees to %2 %3";
+spinDegreesWithSpeedJson.args0.push({
+	'type': 'field_dropdown',
+	'name': 'SPEED',
+	'options': [			
+		['SLOW', 'slow'],
+		['NORMAL', 'normal'],
+		['FAST', 'fast'],
+		['FASTEST', 'fastest']
+	],
+})
+
+Blockly.Blocks['c_execute_spinDegreesWithSpeed'] = {
+	init: function() {
+		this.jsonInit(spinDegreesWithSpeedJson);
+	}
+}
+
+const moveBackOrForthJson = {
+	"message0": "move %1 %2",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['FORWARD', 'forward'],
+				['BACKWARD', 'backward']
+			],
+		},
+		{
+			'type': 'field_dependent_dropdown',
+			'name': 'SPEED',
+			'parentName': 'DIRECTION',
+			'optionMapping': {
+				'forward': [
+					['SLOW', '0'],
+					['NORMAL', '1'],
+					['FAST', '2'],
+					// ['FASTEST', '3']
+				],
+				'backward': [
+					['SLOW', '0'],
+					['NORMAL', '1'],
+				]
+			}
+		},	
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveBackOrForth'] = {
+	init: function() {
+		this.jsonInit(moveBackOrForthJson);
+	}
+}
+
+const moveDistanceJson = {
+	"message0": "move %1 %2 meters",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['FORWARD', 'forward'],
+				['BACKWARD', 'backward']
+			],
+		},
+		{
+			"type": "field_slider",
+			"name": "DISTANCE",
+			"min": 0,
+			"max": 2,
+			"value": 1,
+			"precision": 0.1
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveDistance'] = {
+	init: function() {
+		this.jsonInit(moveDistanceJson);
+	}
+}
+
+const moveDistanceWithSpeedJson = JSON.parse(JSON.stringify(moveDistanceJson));
+moveDistanceWithSpeedJson.message0 = "move %1 %2 meters %3";
+moveDistanceWithSpeedJson.args0.push({	
+	'type': 'field_dependent_dropdown',
+	'name': 'SPEED',
+	'parentName': 'DIRECTION',
+	'optionMapping': {
+		'forward': [
+			['SLOW', '0'],
+			['NORMAL', '1'],
+			['FAST', '2'],
+			// ['FASTEST', '3']
+		],
+		'backward': [
+			['SLOW', '0'],
+			['NORMAL', '1'],
+		]
+	}	
+})
+
+Blockly.Blocks['c_execute_moveDistanceWithSpeed'] = {
+	init: function() {
+		this.jsonInit(moveDistanceWithSpeedJson);
+	}
+}
+
+const spinDegreesAndMoveJson = {
+	"message0": "spin %1 degrees to %2 and move %3 %4 meters",
+	"args0": [
+		{
+			"type": "field_angle",
+			"name": "ANGLE",
+			"precision": 1,
+			"clockwise": true,
+			"offset": 90,
+		},
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION1',
+			'options': [			
+				['LEFT', 'left'],
+				['RIGHT', 'right']
+			],
+		},
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION2',
+			'options': [			
+				['FORWARD', 'forward'],
+				['BACKWARD', 'backward']
+			],
+		},
+		{
+			"type": "field_slider",
+			"name": "DISTANCE",
+			"min": 0,
+			"max": 2,
+			"value": 1,
+			"precision": 0.1
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_spinDegreesAndMove'] = {
+	init: function() {
+		this.jsonInit(spinDegreesAndMoveJson);
+	}
+}
+
+const moveAlongTurningRadiusJson = {
+	"message0": "move %1 along turning radius %2 meters",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'DIRECTION',
+			'options': [			
+				['CLOCKWISE', 'clockwise'],
+				['COUNTERCLOCKWISE', 'counterclockwise']
+			],
+		},
+		{
+			"type": "field_slider",
+			"name": "RADIUS",
+			"min": 0.3,
+			"max": 1.0,
+			"value": 0.3,
+			"precision": 0.1
+		},
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_moveAlongTurningRadius'] = {
+	init: function() {
+		this.jsonInit(moveAlongTurningRadiusJson);
+	}
+}
+
+const stopHeadsetJson = {
+	"message0": "stop headset motion",
+	"inputsInline": false,
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_stopHeadset'] = {
+	init: function() {
+		this.jsonInit(stopHeadsetJson);
+	}
+}
+
+const stopHipJson = {
+	"message0": "stop hip(body) motion",
+	"inputsInline": false,
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_stopHip'] = {
+	init: function() {
+		this.jsonInit(stopHipJson);
+	}
+}
+
+const stopWheelJson = {
+	"message0": "stop wheel moving",
+	"inputsInline": false,
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_stopWheel'] = {
+	init: function() {
+		this.jsonInit(stopWheelJson);
+	}
+}
+
+const stopAllMovementJson = {
+	"message0": "stop all movement",
+	"inputsInline": false,
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+Blockly.Blocks['c_execute_stopAllMovement'] = {
+	init: function() {
+		this.jsonInit(stopAllMovementJson);
+	}
+}
+
+const facialExpressionOptions = [
+	["Look_Around", "D1_Look_Around"],
+	["Awe", "E1_Awe"],
+	["Exciting", "E2_Exciting_start"],
+	["Surprise", "E3_Surprise"],
+	["Anticipation", "E4_Anticipation_start"],
+	["Confident", "E5_Confident_start"],
+	["Love", "E6_Love_start"],
+	["Delight", "E7_Delight_start"],
+	["Joy", "E8_Joy_start"],
+	["Curiosity", "E9_Curiosity_start"],
+	["Awake_Sleepy", "E10_Awake_Sleepy_start"],
+	["Dozz_Off", "E11_2_Dozz_Off_start"],
+	["DoNotKnow", "E12_DoNotKnow_start"],
+	["Exclamation", "E13_Exclamation_start"],
+	["Dizzy", "E14_Dizzy_start"],
+	["Sadness", "E15_Sadness_start"],
+	["Shame", "E16_Shame_start"],
+	["Anxiety", "E17_Anxiety_start"],
+	["Fear", "E18_Fear_start"],
+	// ["Conversation_Analyzing", "F0_Conversation_Analyzing"],
+	// ["Conversation_Listening", "F0_Conversation_Listening"],
+	// ["Conversation_Recognition", "F0_Conversation_Recognition"],
+	// ["Conversation_Failed", "F13_Conversation_Failed_Icon"],				
+	// ["Music_eyes", "F10_Music_eyes"],				
+	// ["Low_Battery", "F4_Low_Battery"],
+	// ["Power_Off", "F9_Power_Off"],
+	// ["Power_On", "F9_Power_On"],
+	// ["Charging", "S2_Charging"],
+	// ["Neutral_A", "S1_Neutral_A"],
+	// ["Neutral_B", "S1_Neutral_B"],
+	// ["Neutral_C", "S1_Neutral_C"],
+];
+
+const facialExpressionJson = {
+	"message0": "play face animation %1",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'FACE',
+			'options': [],
+		}
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+facialExpressionJson.args0[0].options = facialExpressionOptions;
+
+Blockly.Blocks['c_execute_facialExpression'] = {
+	init: function() {
+		this.jsonInit(facialExpressionJson);
+	}
+}
+
+const playSoundJson = {
+	"message0": "",
+	"args0": [
+		{
+			'type': 'field_dropdown',
+			'name': 'SOUND',
+			'options': [],
+		}
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+const playSoundSyncMsg = "play sound %1 until end";
+const playSoundAsyncMsg = "play sound %1";
+
+const playSoundEmotionOptions = [
+	["Anticipation", "SND_EMOTION_ANTICIPATION"],
+	["Anxiety", "SND_EMOTION_ANXIETY"],
+	["Awake", "SND_EMOTION_AWAKE"],
+	["Awe", "SND_EMOTION_AWE"],
+	["Confident", "SND_EMOTION_CONFIDENT"],
+	["Curiosity", "SND_EMOTION_CURIOSITY"],
+	["Delight", "SND_EMOTION_DELIGHT"],
+	["Dizzy", "SND_EMOTION_DIZZY"],
+	["DoNotKnow", "SND_EMOTION_DONOTKNOW"],
+];
+
+const playSoundEmotionSyncJson = JSON.parse(JSON.stringify(playSoundJson));
+playSoundEmotionSyncJson.message0 = playSoundSyncMsg;
+playSoundEmotionSyncJson.args0[0].options = playSoundEmotionOptions;
+
+Blockly.Blocks['c_execute_playSoundEmotionSync'] = {
+	init: function() {
+		this.jsonInit(playSoundEmotionSyncJson);
+	}
+}
+
+const playSoundEmotionAsyncJson = JSON.parse(JSON.stringify(playSoundJson));
+playSoundEmotionAsyncJson.message0 = playSoundAsyncMsg;
+playSoundEmotionAsyncJson.args0[0].options = playSoundEmotionOptions;
+
+Blockly.Blocks['c_execute_playSoundEmotionAsync'] = {
+	init: function() {
+		this.jsonInit(playSoundEmotionAsyncJson);
+	}
+}
+
+const playTTSJson = {
+	"implicitAlign0": "CENTRE",
+	"message0": '',
+	"args0": [
+		{
+			"type": "input_value",
+			"name": "TEXT",
+		}
+	],
+	"previousStatement": null,
+	"nextStatement": null,
+	"style": "execute_blocks",
+}
+
+const playTTSSyncMsg = "play text %1 to speech until end";
+const playTTSAsyncMsg = "play text %1 to speech";
+
+const playTTSSyncJson = JSON.parse(JSON.stringify(playTTSJson));
+playTTSSyncJson.message0 = playTTSSyncMsg;
+
+Blockly.Blocks['c_execute_playTTSSync'] = {
+	init: function() {
+		this.jsonInit(playTTSSyncJson);
+	},
+
+	onchange: function(e) {		
+		if (this.workspace.isDragging()) return;
+		if (e.type !== Blockly.Events.BLOCK_CHANGE) return;
+		let textVal = this.getChildren()[0].getFieldValue('TEXT');
+		if (textVal === '') {			
+			this.unplug();
+			this.getChildren()[0].setFieldValue('텍스트를 입력해주세요', 'TEXT');
+		}
+	}
+}
+
+const playTTSAsyncJson = JSON.parse(JSON.stringify(playTTSJson));
+playTTSAsyncJson.message0 = playTTSAsyncMsg;
+
+Blockly.Blocks['c_execute_playTTSAsync'] = {
+	init: function() {
+		this.jsonInit(playTTSAsyncJson);
+	}
+}
+
+// Extensions and Mutators

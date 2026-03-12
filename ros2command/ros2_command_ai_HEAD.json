@@ -1,0 +1,337 @@
+{
+  "target_path": "./ros/ai",
+  "source_file": "app/src/ros/ai/HEAD.js",
+  "module": "HEAD",
+  "generated_from": "prompt_ros2",
+  "commands": [
+    {
+      "command_id": "eye",
+      "event": "VDA_ACTION.EYE",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/display_emotion_topic",
+        "msg_type": "application_interfaces/msg/DisplayEmotion"
+      },
+      "parameters": [
+        {
+          "name": "eye_id",
+          "type": "str",
+          "required": true,
+          "description": "ID from /api/action/eye/list"
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "required": true,
+          "description": "mapped from eye_id"
+        },
+        {
+          "name": "loop",
+          "type": "bool",
+          "required": true,
+          "description": "mapped from eye_id"
+        },
+        {
+          "name": "instant_play",
+          "type": "bool",
+          "required": true,
+          "description": "mapped from eye_id"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /display_emotion_topic application_interfaces/msg/DisplayEmotion \"{name: 'happy', loop: false, instant_play: true}\""
+    },
+    {
+      "command_id": "led",
+      "event": "VDA_ACTION.LED",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/qhead_dam/led_control",
+        "msg_type": "qhead_dam_msgs/msg/LedControl"
+      },
+      "parameters": [
+        {
+          "name": "led_id",
+          "type": "str",
+          "required": true,
+          "description": "ID from /api/action/led/list"
+        },
+        {
+          "name": "led",
+          "type": "array<object>",
+          "required": true,
+          "description": "generated as 4 led objects"
+        },
+        {
+          "name": "led[].color_index",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "led[].pattern",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "led[].period",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "led[].brightness",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "led[].direction",
+          "type": "int",
+          "required": true
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /qhead_dam/led_control qhead_dam_msgs/msg/LedControl \"{led: [{color_index: 17, pattern: 100, period: 2000, brightness: 30, direction: 0}, {color_index: 16, pattern: 3, period: 1000, brightness: 30, direction: 0}, {color_index: 21, pattern: 2, period: 1000, brightness: 30, direction: 0}, {color_index: 27, pattern: 1, period: 1000, brightness: 30, direction: 0}]}\""
+    },
+    {
+      "command_id": "motion",
+      "event": "VDA_ACTION.MOTION",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/motion_manager/task_cmd",
+        "msg_type": "motion_manager_msgs/msg/TaskCmd"
+      },
+      "parameters": [
+        {
+          "name": "motion_id",
+          "type": "str",
+          "required": true,
+          "description": "ID from /api/action/motion/list"
+        },
+        {
+          "name": "task_type",
+          "type": "int",
+          "required": true,
+          "options": [
+            {
+              "value": 0,
+              "description": "MOTION_TASK",
+              "parameters": {
+                "name": "motion_id",
+                "type": "int",
+                "required": true,
+                "description": "Used as msg.motion_id"
+              }
+            },
+            {
+              "value": 4,
+              "description": "LEGACY_MOTION_TASK",
+              "parameters": {
+                "name": "legacy_id",
+                "type": "int",
+                "required": true,
+                "description": "Used as msg.legacy_id"
+              }
+            },
+            {
+              "value": 5,
+              "description": "Pause preset path",
+              "parameters": {
+                "name": "motion_id",
+                "type": "int",
+                "required": true,
+                "description": "Used as msg.motion_id"
+              }
+            },
+            {
+              "value": 6,
+              "description": "Preset path",
+              "parameters": {
+                "name": "preset_id",
+                "type": "int",
+                "required": true,
+                "description": "Used as msg.preset_id"
+              }
+            }
+          ]
+        },
+        {
+          "name": "command_type",
+          "type": "int",
+          "required": true,
+          "options": [
+            {
+              "value": 0,
+              "description": "default start"
+            },
+            {
+              "value": 2,
+              "condition": "only when task_type == 5",
+              "parameters": {
+                "name": "task_type",
+                "type": "int",
+                "required": true,
+                "description": "must be 5"
+              }
+            },
+            {
+              "value": 4,
+              "description": "stop all"
+            }
+          ]
+        },
+        {
+          "name": "blocking_type",
+          "type": "str",
+          "required": false,
+          "options": [
+            {
+              "value": "NONE",
+              "description": "resolve on completion"
+            },
+            {
+              "value": "SOFT",
+              "description": "resolve on completion"
+            },
+            {
+              "value": "HARD",
+              "description": "resolve on completion"
+            },
+            {
+              "value": "LOOP",
+              "description": "re-executes until release"
+            },
+            {
+              "value": "WAIT",
+              "description": "waits blocked-action release"
+            }
+          ]
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /motion_manager/task_cmd motion_manager_msgs/msg/TaskCmd '{task_type: 0, command_type: 0, motion_id: 1}'"
+    },
+    {
+      "command_id": "sound_tts",
+      "event": "VDA_ACTION.SOUND",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/sounds_topic",
+        "msg_type": "sounds_interfaces/msg/SoundsEvent"
+      },
+      "parameters": [
+        {
+          "name": "sound_id_or_text",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "main_type",
+          "type": "int",
+          "required": true,
+          "default": 1
+        },
+        {
+          "name": "sub_type",
+          "type": "int",
+          "required": true,
+          "default": 6
+        },
+        {
+          "name": "text_value",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "number_value",
+          "type": "int",
+          "required": true,
+          "default": 0
+        }
+      ],
+      "options": [
+        {
+          "value": "tts",
+          "description": "sound list type == tts or not found"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /sounds_topic sounds_interfaces/msg/SoundsEvent \"{main_type: 1, sub_type: 6, text_value: 'hello', number_value: 0}\""
+    },
+    {
+      "command_id": "sound_music_url",
+      "event": "VDA_ACTION.SOUND",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/music_play_url",
+        "msg_type": "std_msgs/msg/String"
+      },
+      "parameters": [
+        {
+          "name": "url",
+          "type": "str",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": "music",
+          "description": "sound list type == music"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /music_play_url std_msgs/msg/String \"data: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'\""
+    },
+    {
+      "command_id": "sound_stop",
+      "event": "stopSound()",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/sounds_topic",
+        "msg_type": "sounds_interfaces/msg/SoundsEvent"
+      },
+      "parameters": [
+        {
+          "name": "main_type",
+          "type": "int",
+          "required": true,
+          "default": 10
+        },
+        {
+          "name": "sub_type",
+          "type": "int",
+          "required": true,
+          "default": 1
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /sounds_topic sounds_interfaces/msg/SoundsEvent \"{main_type: 10, sub_type: 1}\""
+    },
+    {
+      "command_id": "estop",
+      "event": "VDA_ACTION.ESTOP",
+      "ros2": {
+        "type": "topic_pub",
+        "topic": "/set_soft_estop",
+        "msg_type": "std_msgs/msg/Bool"
+      },
+      "parameters": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "required": true
+        }
+      ],
+      "options": [
+        {
+          "value": true,
+          "description": "only action parameter string 'true' is accepted"
+        },
+        {
+          "value": false,
+          "description": "rejected by current implementation"
+        }
+      ],
+      "cli_example": "ros2 topic pub --once /set_soft_estop std_msgs/msg/Bool \"data: true\""
+    },
+    {
+      "command_id": "docking",
+      "event": "VDA_ACTION.DOCKING",
+      "implementation_status": "registered_event_only",
+      "parameters": [],
+      "cli_example": "(No direct ROS2 publish example; event is registered only in current implementation.)"
+    }
+  ]
+}

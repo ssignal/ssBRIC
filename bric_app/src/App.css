@@ -1,0 +1,32 @@
+#blocklyArea {
+  height: 100vh;
+  background-color: #61dafb;
+}
+
+.funcButton {
+  top: 20px;
+  right: 120px;
+  position: absolute;
+}
+
+#codeView {
+  background-color: #5e7ad4;
+}
+
+#runCodeButton {
+  background-color: #5e7ad4;
+}
+
+#codeDiv {
+  /* height: 50vh; */
+  width: 40vh;
+  top: 90px;
+  right: 100px;
+  background-color:rgb(255, 255, 255);
+  position: absolute;
+  font-size: 10px;
+  border-color:rgb(197, 218, 255);
+  border-style: solid;
+  border-width: 0.1em;
+}
+

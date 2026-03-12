@@ -1,0 +1,52 @@
+# ROS2 Command Example List
+# module: AMRConveyor
+# source: prompt_ros2
+
+## conveyor_reliable_action
+ROS2: service_call /amr/charge/control or /amr/conveyor/control amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/conveyor/control amr_interfaces/srv/MicomRequest "{data: 'FullTrayLoad'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] charge (condition: service=/amr/charge/control) (parameters: req.data: str, required=true)
+- [command] stop-charge (condition: service=/amr/charge/control) (parameters: req.data: str, required=true)
+- [command] full-tray-load (condition: service=/amr/conveyor/control) (parameters: req.data: str, required=true)
+- [command] full-tray-unload (condition: service=/amr/conveyor/control) (parameters: req.data: str, required=true)
+- [command] empty-tray-discharge (condition: service=/amr/conveyor/control) (parameters: req.data: str, required=true)
+
+## conveyor_best_effort_action
+ROS2: service_call /amr/charge/control or /amr/conveyor/control amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/charge/control amr_interfaces/srv/MicomRequest "{data: 'ChargeIdle'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] reset-charge (condition: service=/amr/charge/control) (parameters: req.data: str, required=true)
+- [command] reset-tray (condition: service=/amr/conveyor/control) (parameters: req.data: str, required=true)
+
+## conveyor_instant_hmi
+ROS2: service_call /amr/micom_manager/cv1_req or /amr/micom_manager/cv2_req amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/cv1_req amr_interfaces/srv/MicomRequest "{data: '1F_CV_Load'}"
+Optional parameters:
+- none
+Option conditions:
+- [command] 41108 (condition: CV_2F_LOAD) (parameters: value: int, required=true)
+- [command] 41109 (condition: CV_2F_UNLOAD) (parameters: value: int, required=true)
+- [command] 41113 (condition: CV_2F_STOPPER_UP) (parameters: req.data: str, required=true)
+- [command] 41114 (condition: CV_2F_STOPPER_DOWN) (parameters: req.data: str, required=true)
+- [command] 41105 (condition: CV_1F_LOAD) (parameters: value: int, required=true)
+- [command] 41106 (condition: CV_1F_UNLOAD) (parameters: value: int, required=true)
+- [command] 41111 (condition: CV_1F_STOPPER_UP) (parameters: req.data: str, required=true)
+- [command] 41112 (condition: CV_1F_STOPPER_DOWN) (parameters: req.data: str, required=true)
+
+## set_sound
+ROS2: service_call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest
+Example:
+ros2 service call /amr/micom_manager/sound_onoff_req amr_interfaces/srv/MicomRequest "{data: 'Sound_On'}"
+Optional parameters:
+- none
+Option conditions:
+- none
+

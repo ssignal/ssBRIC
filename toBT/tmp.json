@@ -1,0 +1,166 @@
+{
+  "type": "Sequence",
+  "children": [
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    },
+    {
+      "type": "Action",
+      "action": "navigation/move_to_pose",
+      "parameter": {
+        "x": 0,
+        "y": 0,
+        "theta": 0,
+        "behavior_tree": "",
+        "frame_id": "map"
+      }
+    },
+    {
+      "type": "Action",
+      "action": "sound/start_play",
+      "parameter": {
+        "sound_id": ""
+      }
+    },
+    {
+      "type": "Action",
+      "action": "motion/wait_motion_finished",
+      "parameter": {}
+    }
+  ]
+}
