@@ -30,34 +30,50 @@ def _extract(pattern: str, text: str, default: str = "") -> str:
 
 def parse_prompt(prompt_path: Path) -> dict[str, str]:
     text = prompt_path.read_text(encoding="utf-8")
-    behavior_list_path = _extract(
-        r"## BehaviorList\s*(.*?)\n## Block Register",
+    input_file_a = _extract(
+        r"InputFileA:\s*([^\n]+)",
         text,
         default="./BehaviorList/BTList.json",
     )
-    behavior_list_candidates = re.findall(r"([A-Za-z0-9_./-]+\.json)", behavior_list_path)
-    behavior_list_file = behavior_list_candidates[0] if behavior_list_candidates else "./BehaviorList/BTList.json"
+    input_file_b = _extract(
+        r"InputFileB:\s*([^\n]+)",
+        text,
+        default="./BehaviorList/BTList_bt.json",
+    )
 
     block_register_template = _extract(
-        r"## Block Register\s*-?\s*Output Path:\s*([^\n]+)",
+        r"### Others[\s\S]*?(?:####\s*)?Block Register:\s*([^\n]+)",
         text,
         default="bric_app/src/CustomBlocks/ros2Blocks_{YYY}.js",
     )
     generator_template = _extract(
-        r"## Code generator\s*-?\s*Output Path:\s*([^\n]+)",
+        r"### Others[\s\S]*?(?:####\s*)?Code generator:\s*([^\n]+)",
         text,
         default="bric_app/src/Generators/ros2Blocks_{YYY}.js",
     )
+    bt_function_register = _extract(
+        r"### BT_Function[\s\S]*?(?:####\s*)?Block Register:\s*([^\n]+)",
+        text,
+        default="bric_app/src/CustomBlocks/ros2Blocks_bt_function.js",
+    )
+    bt_function_generator = _extract(
+        r"### BT_Function[\s\S]*?(?:####\s*)?Code generator:\s*([^\n]+)",
+        text,
+        default="bric_app/src/Generators/ros2Blocks_bt_function.js",
+    )
     toolbox_path = _extract(
-        r"## Toolbox\s*Output Path:\s*([^\n]+)",
+        r"Toolbox:\s*([^\n]+)",
         text,
         default="./Toolbox/toolboxCustomBasic.js",
     )
 
     return {
-        "behavior_list_file": behavior_list_file,
+        "input_file_a": input_file_a.strip(),
+        "input_file_b": input_file_b.strip(),
         "block_register_template": block_register_template,
         "generator_template": generator_template,
+        "bt_function_register": bt_function_register,
+        "bt_function_generator": bt_function_generator,
         "toolbox_path": toolbox_path,
     }
 
@@ -228,24 +244,44 @@ def build_arg_from_parameter(param: dict[str, Any]) -> tuple[dict[str, Any], dic
     )
 
 
+def build_enabled_parameter_defs(item: dict[str, Any]) -> list[dict[str, Any]]:
+    parameter_defs = item.get("parametersDef") or {}
+    if not isinstance(parameter_defs, dict):
+        return []
+
+    enabled_parameters: list[dict[str, Any]] = []
+    for name, config in parameter_defs.items():
+        if not isinstance(config, dict) or not config.get("enabled"):
+            continue
+        parameter = dict(config)
+        parameter["name"] = name
+        enabled_parameters.append(parameter)
+
+    return enabled_parameters
+
+
 def build_block_definitions(category: str, items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     module_suffix = resolve_module_suffix(category, items)
     block_defs: list[dict[str, Any]] = []
 
     for item in items:
         action = str(item.get("action", "")).strip()
-        if not action:
+        item_type = str(item.get("type", "")).strip() or "Action"
+        identity = action or item_type
+        if not identity:
             continue
 
-        action_slug = slugify_ascii(action)
-        block_type = f"c_bt_{module_suffix}_{action_slug}"
+        block_slug = slugify_ascii(identity)
+        block_type = f"c_bt_{module_suffix}_{block_slug}"
         parameters = item.get("parameters") or []
+        parameter_defs = build_enabled_parameter_defs(item)
         args: list[dict[str, Any]] = []
         x_parameters: list[dict[str, Any]] = []
+        x_parameter_defs: list[dict[str, Any]] = []
         description = str(item.get("description", "")).strip()
 
         args.append(build_help_icon_arg("HELP_ICON", description))
-        labels = ["%1", humanize(action)]
+        labels = ["%1", humanize(identity)]
 
         for param in parameters:
             arg_def, metadata = build_arg_from_parameter(param)
@@ -254,19 +290,28 @@ def build_block_definitions(category: str, items: list[dict[str, Any]]) -> list[
             x_parameters.append(metadata)
             labels.append(f"%{len(args) - 1} {humanize(metadata['name'])} %{len(args)}")
 
+        for param in parameter_defs:
+            arg_def, metadata = build_arg_from_parameter(param)
+            args.append(build_help_icon_arg(metadata["help_field"], metadata["description"]))
+            args.append(arg_def)
+            x_parameter_defs.append(metadata)
+            labels.append(f"%{len(args) - 1} {humanize(metadata['name'])} %{len(args)}")
+
         block_def = {
             "type": block_type,
             "message0": " ".join(labels).strip(),
             "args0": args,
-            "previousStatement": None,
-            "nextStatement": None,
+            "previousStatement": "BT_NODE",
+            "nextStatement": "BT_NODE",
             "style": "execute_blocks",
             "tooltip": "",
             "helpUrl": "",
+            "x_type": item_type,
             "x_action": action,
             "x_category": category,
             "x_description": description,
             "x_parameters": x_parameters,
+            "x_parameter_defs": x_parameter_defs,
         }
         block_defs.append(block_def)
 
@@ -291,6 +336,15 @@ const registerBlock = (def) => {{
       }}
       const params = Array.isArray(def.x_parameters) ? def.x_parameters : [];
       params.forEach((param) => {{
+        const field = this.getField(param.help_field);
+        const arg = Array.isArray(def.args0) ? def.args0.find((candidate) => candidate?.name === param.help_field) : null;
+        const paramDescription = String(param.description || arg?.x_tooltip || '').trim();
+        if (field && paramDescription) {{
+          field.setTooltip(paramDescription);
+        }}
+      }});
+      const parameterDefs = Array.isArray(def.x_parameter_defs) ? def.x_parameter_defs : [];
+      parameterDefs.forEach((param) => {{
         const field = this.getField(param.help_field);
         const arg = Array.isArray(def.args0) ? def.args0.find((candidate) => candidate?.name === param.help_field) : null;
         const paramDescription = String(param.description || arg?.x_tooltip || '').trim();
@@ -330,24 +384,32 @@ const castValue = (raw, type) => {{
   return raw;
 }};
 
-const buildParameters = (block, def) => {{
+const buildFieldValues = (block, metas) => {{
   const output = {{}};
-  const metas = Array.isArray(def.x_parameters) ? def.x_parameters : [];
   metas.forEach((meta) => {{
     output[meta.name] = castValue(block.getFieldValue(meta.field), meta.type);
   }});
   return output;
 }};
 
+const generateNodeId = () => String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+
 const registerGenerator = (def) => {{
   if (!def || !def.type) return;
   javascriptGenerator.forBlock[def.type] = function (block) {{
     const payload = {{
-      type: 'Action',
-      action: def.x_action,
-      parameter: buildParameters(block, def),
+      type: String(def.x_type || 'Action'),
+      id: generateNodeId(),
+      parameter: buildFieldValues(block, Array.isArray(def.x_parameters) ? def.x_parameters : []),
     }};
-    return `console.log(${{JSON.stringify(JSON.stringify(payload))}});\\n`;
+    const parameterDefs = Array.isArray(def.x_parameter_defs) ? def.x_parameter_defs : [];
+    parameterDefs.forEach((meta) => {{
+      payload[meta.name] = castValue(block.getFieldValue(meta.field), meta.type);
+    }});
+    if (def.x_action) {{
+      payload.action = def.x_action;
+    }}
+    return JSON.stringify(payload);
   }};
 }};
 
@@ -408,6 +470,20 @@ def strip_named_category(content: str, category: str) -> str:
         flags=re.VERBOSE,
     )
     return pattern.sub("\n", content)
+
+
+def strip_obsolete_autogen_blocks(content: str, keep_suffixes: list[str]) -> str:
+    keep = set(keep_suffixes)
+    pattern = re.compile(
+        r"\s*// AUTO-GEN-START: BTLIST_([A-Za-z0-9_]+).*?// AUTO-GEN-END: BTLIST_\1\s*",
+        flags=re.DOTALL,
+    )
+
+    def replacer(match: re.Match[str]) -> str:
+        suffix = match.group(1)
+        return match.group(0) if suffix in keep else "\n"
+
+    return pattern.sub(replacer, content)
 
 
 def resolve_toolbox_path(repo_root: Path, configured_path: str) -> Path:
@@ -505,6 +581,14 @@ def update_index_imports(repo_root: Path, suffixes: list[str], dry_run: bool) ->
     )
 
 
+def cleanup_toolbox_categories(repo_root: Path, toolbox_path: str, suffixes: list[str], dry_run: bool) -> None:
+    toolbox_abs = resolve_toolbox_path(repo_root, toolbox_path)
+    content = toolbox_abs.read_text(encoding="utf-8")
+    cleaned = strip_obsolete_autogen_blocks(content, suffixes)
+    if not dry_run:
+        toolbox_abs.write_text(cleaned, encoding="utf-8")
+
+
 def resolve_output_template(template: str, module_suffix: str) -> str:
     return template.replace("{YYY}", module_suffix)
 
@@ -575,6 +659,14 @@ def generate_for_category(
     return module_suffix
 
 
+def is_bt_logic_item(item: dict[str, Any]) -> bool:
+    parameter_defs = item.get("parametersDef") or {}
+    if not isinstance(parameter_defs, dict):
+        return False
+    children = parameter_defs.get("children") or {}
+    return isinstance(children, dict) and bool(children.get("enabled"))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate Blockly sources from prompt_block_btList")
     parser.add_argument("--repo-root", default=".", help="Repository root path")
@@ -588,13 +680,13 @@ def main() -> int:
         raise FileNotFoundError(f"Prompt file not found: {prompt_path}")
 
     conf = parse_prompt(prompt_path)
-    behavior_list_path = resolve_behavior_list_path(repo_root, conf["behavior_list_file"])
-    items = json.loads(behavior_list_path.read_text(encoding="utf-8"))
-    if not isinstance(items, list):
-        raise ValueError(f"Behavior list must be a JSON array: {behavior_list_path}")
+    input_file_a = resolve_behavior_list_path(repo_root, conf["input_file_a"])
+    items_a = json.loads(input_file_a.read_text(encoding="utf-8"))
+    if not isinstance(items_a, list):
+        raise ValueError(f"Behavior list must be a JSON array: {input_file_a}")
 
     grouped: OrderedDict[str, list[dict[str, Any]]] = OrderedDict()
-    for item in items:
+    for item in items_a:
         category = str(item.get("category", "")).strip()
         if not category:
             continue
@@ -614,6 +706,31 @@ def main() -> int:
             )
         )
 
+    input_file_b = resolve_behavior_list_path(repo_root, conf["input_file_b"])
+    items_b = json.loads(input_file_b.read_text(encoding="utf-8"))
+    if not isinstance(items_b, list):
+        raise ValueError(f"Behavior list must be a JSON array: {input_file_b}")
+
+    bt_function_items = [item for item in items_b if not is_bt_logic_item(item)]
+    if bt_function_items:
+        generated_suffixes.append(
+            generate_for_category(
+                repo_root=repo_root,
+                category="BT Function",
+                items=bt_function_items,
+                block_register_template=conf["bt_function_register"],
+                generator_template=conf["bt_function_generator"],
+                toolbox_path=conf["toolbox_path"],
+                dry_run=args.dry_run,
+            )
+        )
+
+    cleanup_toolbox_categories(
+        repo_root=repo_root,
+        toolbox_path=conf["toolbox_path"],
+        suffixes=generated_suffixes,
+        dry_run=args.dry_run,
+    )
     update_index_imports(repo_root=repo_root, suffixes=generated_suffixes, dry_run=args.dry_run)
     return 0
 

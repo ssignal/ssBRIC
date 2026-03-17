@@ -80,11 +80,12 @@
         "text": "0"
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "motion/start_motion",
     "x_category": "Motion",
     "x_description": "Q9 motion ID\ub97c \uc9c0\uc815\ud574 motion\uc744 \uc2dc\uc791\ud55c\ub2e4.",
@@ -110,7 +111,8 @@
         "type": "integer",
         "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds."
       }
-    ]
+    ],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_motion_motion_stop_motion",
@@ -127,15 +129,17 @@
         "x_tooltip": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc744 \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4."
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "motion/stop_motion",
     "x_category": "Motion",
     "x_description": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc744 \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4.",
-    "x_parameters": []
+    "x_parameters": [],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_motion_motion_wait_motion_finished",
@@ -152,14 +156,16 @@
         "x_tooltip": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc758 \uc644\ub8cc\ub97c \uae30\ub2e4\ub9b0\ub2e4."
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "motion/wait_motion_finished",
     "x_category": "Motion",
     "x_description": "\ud604\uc7ac \uc2e4\ud589 \uc911\uc778 motion\uc758 \uc644\ub8cc\ub97c \uae30\ub2e4\ub9b0\ub2e4.",
-    "x_parameters": []
+    "x_parameters": [],
+    "x_parameter_defs": []
   }
 ]

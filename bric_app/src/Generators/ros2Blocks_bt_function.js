@@ -1,5 +1,5 @@
 import { javascriptGenerator } from 'blockly/javascript';
-import blockDefs from '../CustomBlocks/blockJson/BTList_navigation.json';
+import blockDefs from '../CustomBlocks/blockJson/BTList_bt_function.json';
 
 const castValue = (raw, type) => {
   const normalized = String(type || '').toLowerCase();
@@ -49,4 +49,4 @@ const registerGenerator = (def) => {
 
 (Array.isArray(blockDefs) ? blockDefs : []).forEach(registerGenerator);
 
-export { blockDefs as btListGeneratorsnavigation };
+export { blockDefs as btListGeneratorsbt_function };

@@ -1,5 +1,5 @@
 import Blockly from 'blockly/core';
-import blockDefs from './blockJson/BTList_sound_control.json';
+import blockDefs from './blockJson/BTList_bt_function.json';
 
 const registerBlock = (def) => {
   if (!def || !def.type) return;
@@ -36,4 +36,4 @@ const registerBlock = (def) => {
 
 (Array.isArray(blockDefs) ? blockDefs : []).forEach(registerBlock);
 
-export { blockDefs as btListBlockssound_control };
+export { blockDefs as btListBlocksbt_function };

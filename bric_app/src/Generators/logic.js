@@ -1,46 +1,62 @@
-import { javascriptGenerator, Order } from "blockly/javascript";
+import { javascriptGenerator, Order } from 'blockly/javascript';
 
-javascriptGenerator.forBlock['c_program_start'] = function() {	
-	let code = '';
-	return code;
-};
-
-javascriptGenerator.forBlock['c_logic_wait_until'] = function(block, generator) {
-	/** 
-	 * If condition is always false, the program will be stuck in an infinite loop.
-	 * If condition is always true, this block is useless because next code will be run all the time.
-	 * Therefore condition must be an async function which can become true at some point.
-	 * This block might be used with perception blocks.
-	 * And the corresponding perception function in a robot has to be run before using this block.
-	 * And this block has to get the response of condition function which might be ros topic or feedback of ros service/action.
-	 * Or if condition is just the result of normal operation, it has to be processed properly.
-	**/
-
-	let condition = generator.valueToCode(block, 'UNTIL', Order.LOGICAL_NOT);
-	condition = '!' + condition;
-	let addLoopTrap = 'setLoopTrapCounter();\n';
-	let branch = generator.INDENT + 'checkLoopTrapCounter();\n';
-	branch += generator.INDENT + 'printLoopTrapCounter();\n';
-	const code = addLoopTrap + 'while(' + condition + '){\n' + branch + '}\n';
+javascriptGenerator.forBlock['c_program_start'] = function () {
+  const code = '';
   return code;
 };
 
-javascriptGenerator.forBlock['c_logic_wait_seconds'] = function(block, generator) {
-	const seconds = Number(block.getFieldValue('SECONDS'));
-	const code = 'waitForSeconds(' + seconds + ');\n';
-	return code;
+javascriptGenerator.forBlock['c_logic_wait_until'] = function (
+  block,
+  generator,
+) {
+  /**
+   * If condition is always false, the program will be stuck in an infinite loop.
+   * If condition is always true, this block is useless because next code will be run all the time.
+   * Therefore condition must be an async function which can become true at some point.
+   * This block might be used with perception blocks.
+   * And the corresponding perception function in a robot has to be run before using this block.
+   * And this block has to get the response of condition function which might be ros topic or feedback of ros service/action.
+   * Or if condition is just the result of normal operation, it has to be processed properly.
+   **/
+
+  let condition = generator.valueToCode(block, 'UNTIL', Order.LOGICAL_NOT);
+  condition = '!' + condition;
+  const addLoopTrap = 'setLoopTrapCounter();\n';
+  let branch = generator.INDENT + 'checkLoopTrapCounter();\n';
+  branch += generator.INDENT + 'printLoopTrapCounter();\n';
+  const code = addLoopTrap + 'while(' + condition + '){\n' + branch + '}\n';
+  return code;
+};
+
+javascriptGenerator.forBlock['c_logic_wait_seconds'] = function (
+  block,
+  // generator,
+) {
+  const seconds = Number(block.getFieldValue('SECONDS'));
+  const code = 'waitForSeconds(' + seconds + ');\n';
+  return code;
 };
 
 export function initInterpreterWaitForSeconds(interpreter, globalObject) {
-	// Ensure function name does not conflict with variable names.
-	javascriptGenerator.addReservedWords('waitForSeconds');
+  // Ensure function name does not conflict with variable names.
+  javascriptGenerator.addReservedWords('waitForSeconds');
 
-	const wrapper = interpreter.createAsyncFunction(
-		function (timeInSeconds, callback) {
-			console.log('waitForSeconds:', timeInSeconds * 1000);
-			// Delay the call to the callback.
-			setTimeout(callback, timeInSeconds * 1000);			
-		},
-	);
-	interpreter.setProperty(globalObject, 'waitForSeconds', wrapper);
+  const wrapper = interpreter.createAsyncFunction(
+    function (timeInSeconds, callback) {
+      console.log('waitForSeconds:', timeInSeconds * 1000);
+      // Delay the call to the callback.
+      setTimeout(callback, timeInSeconds * 1000);
+    },
+  );
+  interpreter.setProperty(globalObject, 'waitForSeconds', wrapper);
 }
+
+javascriptGenerator.forBlock['bt_sequence'] = function (block, generator) {
+  const children = generator.statementToCode(block, 'CHILDREN');
+
+  const code = `Sequence([
+${children}
+])`;
+
+  return code;
+};

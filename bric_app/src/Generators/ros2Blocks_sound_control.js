@@ -18,24 +18,32 @@ const castValue = (raw, type) => {
   return raw;
 };
 
-const buildParameters = (block, def) => {
+const buildFieldValues = (block, metas) => {
   const output = {};
-  const metas = Array.isArray(def.x_parameters) ? def.x_parameters : [];
   metas.forEach((meta) => {
     output[meta.name] = castValue(block.getFieldValue(meta.field), meta.type);
   });
   return output;
 };
 
+const generateNodeId = () => String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+
 const registerGenerator = (def) => {
   if (!def || !def.type) return;
   javascriptGenerator.forBlock[def.type] = function (block) {
     const payload = {
-      type: 'Action',
-      action: def.x_action,
-      parameter: buildParameters(block, def),
+      type: String(def.x_type || 'Action'),
+      id: generateNodeId(),
+      parameter: buildFieldValues(block, Array.isArray(def.x_parameters) ? def.x_parameters : []),
     };
-    return `console.log(${JSON.stringify(JSON.stringify(payload))});\n`;
+    const parameterDefs = Array.isArray(def.x_parameter_defs) ? def.x_parameter_defs : [];
+    parameterDefs.forEach((meta) => {
+      payload[meta.name] = castValue(block.getFieldValue(meta.field), meta.type);
+    });
+    if (def.x_action) {
+      payload.action = def.x_action;
+    }
+    return JSON.stringify(payload);
   };
 };
 

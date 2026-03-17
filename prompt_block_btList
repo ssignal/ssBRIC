@@ -7,30 +7,44 @@
 
 # conditions
 ## Block register
-  Load json file that describe block info.
-  Register it using Blockly.Blocks
+  - Load json file that describe block info.
+  - Register it using Blockly.Blocks
+  - For InputFileB
+    If the 'children' enabled is true, This block is treated as a block in 'BT_Logic' cateogry.
+    Others are in 'BT_Function'.
 ## Code Generator
   - Create a function for each blocks and register it using "javascriptGenerator.forBlock"
-  - The function
-    Call the function
-      lgROBOTInterface({   "type": "Action",  "action": {AAAA}, "parameter": {BBBB}})
-    AAAA: action of the item in BehaviorList
-    BBBB: parameters of the block set by user.
+  - The function returns the json string including the items.
+    1. type: 'type' of the item, default is 'Action'
+    2. action: 'action' of the item if exist.
+    3. parameter: items in 'parameters'
+    4. id: the 8 digits unique random string.
+    6. other parameters in 'parametersDef' of the item.
+      Only items with the 'enabled: true' is used.
+      This items added to as a key like 'type' and 'action', not in 'parameter'.
 ## Toolbox
   Add the new catagery for the new blocks.
   The category name is the 'category' of each item.
 
 # File Path
-## BehaviorList
-  ./BehaviroList/BT_List.json
-## Block Register
-  - Output Path: bric_app/src/CustomBlocks/ros2Blocks_{YYY}.js
-    YYY: category of each item in BehaviroList
-## Toolbox
-  Output Path: ./Toolbox/toolboxCustomBasic.js
-## Code generator
-  - Output Path: bric_app/src/Generators/ros2Blocks_{YYY}.js
-    YYY: category of each item in BehaviroList
+## input
+  InputFileA: ./BehaviorList/BTList.json
+  InputFileB: ./BehaviorList/BTList_bt.json
+## output
+  Toolbox: ./Toolbox/toolboxCustomBasic.js
+### BT_Logic
+  Input file: InputFileB
+  Block Register: bric_app/src/CustomBlocks/bt_logic.js
+  Code generator: bric_app/src/Generators/bt_logic.js
+### BT_Function
+  Input file: InputFileB
+  Block Register: bric_app/src/CustomBlocks/ros2Blocks_bt_function.js
+  Code generator: bric_app/src/Generators/ros2Blocks_bt_function.js
+### Others
+  Input file: InputFileA
+  Block Register: bric_app/src/CustomBlocks/ros2Blocks_{YYY}.js
+  Code generator: bric_app/src/Generators/ros2Blocks_{YYY}.js
+  YYY: category of each item in BehaviroList
 
 # Special Case
 ## options

@@ -196,7 +196,7 @@ Blockly.Blocks['c_developer_rootChecker'] = {
 		if (this.workspace.isDragging()) return;
 		if (e.type !== Blockly.Events.BLOCK_MOVE) return;
 		
-		if (this.checkRootBlock() !== 'c_program_start') {			
+		if (!['c_program_start', 'bt_program_start'].includes(this.checkRootBlock())) {			
 			this.setEnabled(false);
 			this.setWarningText('Need to be attached to the start block tree.');
 		} else {

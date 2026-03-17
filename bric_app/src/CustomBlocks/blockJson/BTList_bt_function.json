@@ -1,7 +1,7 @@
 [
   {
-    "type": "c_bt_navigation_navigation_move_to_pose",
-    "message0": "%1 navigation move to pose %2 x %3 %4 y %5 %6 theta %7 %8 behavior tree %9 %10 frame id %11",
+    "type": "c_bt_bt_function_subtree",
+    "message0": "%1 Subtree %2 id %3",
     "args0": [
       {
         "type": "field_image",
@@ -11,300 +11,116 @@
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc640 \uc790\uc138\ub85c \uc774\ub3d9\uc744 \uc694\uccad\ud55c\ub2e4."
+        "x_tooltip": ""
       },
       {
         "type": "field_image",
-        "name": "X_HELP",
+        "name": "ID_HELP",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "Target pose x position in the map frame."
+        "x_tooltip": ""
       },
       {
         "type": "field_input",
-        "name": "X",
-        "text": "0.0"
-      },
+        "name": "ID",
+        "text": ""
+      }
+    ],
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_type": "Subtree",
+    "x_action": "",
+    "x_category": "BT Function",
+    "x_description": "",
+    "x_parameters": [],
+    "x_parameter_defs": [
+      {
+        "name": "id",
+        "field": "ID",
+        "help_field": "ID_HELP",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "c_bt_bt_function_action",
+    "message0": "%1 Action %2 action %3 %4 id %5 %6 parameter %7 %8 tickrate %9",
+    "args0": [
       {
         "type": "field_image",
-        "name": "Y_HELP",
+        "name": "HELP_ICON",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "Target pose y position in the map frame."
-      },
-      {
-        "type": "field_input",
-        "name": "Y",
-        "text": "0.0"
+        "x_tooltip": ""
       },
       {
         "type": "field_image",
-        "name": "THETA_HELP",
+        "name": "ACTION_HELP",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "Target heading in radians."
+        "x_tooltip": ""
       },
       {
         "type": "field_input",
-        "name": "THETA",
-        "text": "0.0"
-      },
-      {
-        "type": "field_image",
-        "name": "BEHAVIOR_TREE_HELP",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "Optional behavior tree filename. When omitted, the default navigation tree is used."
-      },
-      {
-        "type": "field_input",
-        "name": "BEHAVIOR_TREE",
+        "name": "ACTION",
         "text": ""
       },
       {
         "type": "field_image",
-        "name": "FRAME_ID_HELP",
+        "name": "ID_HELP",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "ROS frame for the target pose."
-      },
-      {
-        "type": "field_dropdown",
-        "name": "FRAME_ID",
-        "options": [
-          [
-            "map - Default frame used by NAVPose.",
-            "map"
-          ]
-        ]
-      }
-    ],
-    "previousStatement": "BT_NODE",
-    "nextStatement": "BT_NODE",
-    "style": "execute_blocks",
-    "tooltip": "",
-    "helpUrl": "",
-    "x_type": "Action",
-    "x_action": "navigation/move_to_pose",
-    "x_category": "\uc790\uc728 \uc8fc\ud589",
-    "x_description": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc640 \uc790\uc138\ub85c \uc774\ub3d9\uc744 \uc694\uccad\ud55c\ub2e4.",
-    "x_parameters": [
-      {
-        "name": "x",
-        "field": "X",
-        "help_field": "X_HELP",
-        "type": "float",
-        "description": "Target pose x position in the map frame."
-      },
-      {
-        "name": "y",
-        "field": "Y",
-        "help_field": "Y_HELP",
-        "type": "float",
-        "description": "Target pose y position in the map frame."
-      },
-      {
-        "name": "theta",
-        "field": "THETA",
-        "help_field": "THETA_HELP",
-        "type": "float",
-        "description": "Target heading in radians."
-      },
-      {
-        "name": "behavior_tree",
-        "field": "BEHAVIOR_TREE",
-        "help_field": "BEHAVIOR_TREE_HELP",
-        "type": "string",
-        "description": "Optional behavior tree filename. When omitted, the default navigation tree is used."
-      },
-      {
-        "name": "frame_id",
-        "field": "FRAME_ID",
-        "help_field": "FRAME_ID_HELP",
-        "type": "string",
-        "description": "ROS frame for the target pose."
-      }
-    ],
-    "x_parameter_defs": []
-  },
-  {
-    "type": "c_bt_navigation_navigation_moving_to_pose",
-    "message0": "%1 navigation moving to pose %2 x %3 %4 y %5 %6 theta %7",
-    "args0": [
-      {
-        "type": "field_image",
-        "name": "HELP_ICON",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc5d0 \ub3c4\ucc29\ud588\ub294\uc9c0 \ud655\uc778\ud55c\ub2e4."
-      },
-      {
-        "type": "field_image",
-        "name": "X_HELP",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "Reference target x position in the map frame."
+        "x_tooltip": ""
       },
       {
         "type": "field_input",
-        "name": "X",
-        "text": "0.0"
+        "name": "ID",
+        "text": ""
       },
       {
         "type": "field_image",
-        "name": "Y_HELP",
+        "name": "PARAMETER_HELP",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "Reference target y position in the map frame."
+        "x_tooltip": ""
       },
       {
         "type": "field_input",
-        "name": "Y",
-        "text": "0.0"
+        "name": "PARAMETER",
+        "text": ""
       },
       {
         "type": "field_image",
-        "name": "THETA_HELP",
+        "name": "TICKRATE_HELP",
         "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
         "width": 18,
         "height": 18,
         "alt": "?",
         "flipRtl": false,
-        "x_tooltip": "Reference target heading in radians."
+        "x_tooltip": "Tick period in milliseconds."
       },
       {
         "type": "field_input",
-        "name": "THETA",
-        "text": "0.0"
-      }
-    ],
-    "previousStatement": "BT_NODE",
-    "nextStatement": "BT_NODE",
-    "style": "execute_blocks",
-    "tooltip": "",
-    "helpUrl": "",
-    "x_type": "Action",
-    "x_action": "navigation/moving_to_pose",
-    "x_category": "\uc790\uc728 \uc8fc\ud589",
-    "x_description": "\uc9c0\uc815\ud55c \uc88c\ud45c\uc5d0 \ub3c4\ucc29\ud588\ub294\uc9c0 \ud655\uc778\ud55c\ub2e4.",
-    "x_parameters": [
-      {
-        "name": "x",
-        "field": "X",
-        "help_field": "X_HELP",
-        "type": "float",
-        "description": "Reference target x position in the map frame."
-      },
-      {
-        "name": "y",
-        "field": "Y",
-        "help_field": "Y_HELP",
-        "type": "float",
-        "description": "Reference target y position in the map frame."
-      },
-      {
-        "name": "theta",
-        "field": "THETA",
-        "help_field": "THETA_HELP",
-        "type": "float",
-        "description": "Reference target heading in radians."
-      }
-    ],
-    "x_parameter_defs": []
-  },
-  {
-    "type": "c_bt_navigation_navigation_stop_move",
-    "message0": "%1 navigation stop move",
-    "args0": [
-      {
-        "type": "field_image",
-        "name": "HELP_ICON",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "\ud604\uc7ac \uc9c4\ud589 \uc911\uc778 navigation goal\uc744 \ucde8\uc18c\ud55c\ub2e4."
-      }
-    ],
-    "previousStatement": "BT_NODE",
-    "nextStatement": "BT_NODE",
-    "style": "execute_blocks",
-    "tooltip": "",
-    "helpUrl": "",
-    "x_type": "Action",
-    "x_action": "navigation/stop_move",
-    "x_category": "\uc790\uc728 \uc8fc\ud589",
-    "x_description": "\ud604\uc7ac \uc9c4\ud589 \uc911\uc778 navigation goal\uc744 \ucde8\uc18c\ud55c\ub2e4.",
-    "x_parameters": [],
-    "x_parameter_defs": []
-  },
-  {
-    "type": "c_bt_navigation_navigation_rotate",
-    "message0": "%1 navigation rotate %2 yaw %3 %4 time allowance sec %5",
-    "args0": [
-      {
-        "type": "field_image",
-        "name": "HELP_ICON",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "\uc81c\uc790\ub9ac\uc5d0\uc11c \ubaa9\ud45c \uac01\ub3c4\ub9cc\ud07c \ud68c\uc804\ud55c\ub2e4."
-      },
-      {
-        "type": "field_image",
-        "name": "YAW_HELP",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "Target yaw in radians."
-      },
-      {
-        "type": "field_input",
-        "name": "YAW",
-        "text": "0.0"
-      },
-      {
-        "type": "field_image",
-        "name": "TIME_ALLOWANCE_SEC_HELP",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
-        "width": 18,
-        "height": 18,
-        "alt": "?",
-        "flipRtl": false,
-        "x_tooltip": "Optional time allowance for the spin action."
-      },
-      {
-        "type": "field_input",
-        "name": "TIME_ALLOWANCE_SEC",
+        "name": "TICKRATE",
         "text": "0"
       }
     ],
@@ -314,25 +130,255 @@
     "tooltip": "",
     "helpUrl": "",
     "x_type": "Action",
-    "x_action": "navigation/rotate",
-    "x_category": "\uc790\uc728 \uc8fc\ud589",
-    "x_description": "\uc81c\uc790\ub9ac\uc5d0\uc11c \ubaa9\ud45c \uac01\ub3c4\ub9cc\ud07c \ud68c\uc804\ud55c\ub2e4.",
-    "x_parameters": [
+    "x_action": "",
+    "x_category": "BT Function",
+    "x_description": "",
+    "x_parameters": [],
+    "x_parameter_defs": [
       {
-        "name": "yaw",
-        "field": "YAW",
-        "help_field": "YAW_HELP",
-        "type": "float",
-        "description": "Target yaw in radians."
+        "name": "action",
+        "field": "ACTION",
+        "help_field": "ACTION_HELP",
+        "type": "string",
+        "description": ""
       },
       {
-        "name": "time_allowance_sec",
-        "field": "TIME_ALLOWANCE_SEC",
-        "help_field": "TIME_ALLOWANCE_SEC_HELP",
+        "name": "id",
+        "field": "ID",
+        "help_field": "ID_HELP",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameter",
+        "field": "PARAMETER",
+        "help_field": "PARAMETER_HELP",
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "tickrate",
+        "field": "TICKRATE",
+        "help_field": "TICKRATE_HELP",
         "type": "integer",
-        "description": "Optional time allowance for the spin action."
+        "description": "Tick period in milliseconds."
+      }
+    ]
+  },
+  {
+    "type": "c_bt_bt_function_actiondummy",
+    "message0": "%1 ActionDummy %2 id %3",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_image",
+        "name": "ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_input",
+        "name": "ID",
+        "text": ""
       }
     ],
-    "x_parameter_defs": []
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_type": "ActionDummy",
+    "x_action": "",
+    "x_category": "BT Function",
+    "x_description": "",
+    "x_parameters": [],
+    "x_parameter_defs": [
+      {
+        "name": "id",
+        "field": "ID",
+        "help_field": "ID_HELP",
+        "type": "string",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "c_bt_bt_function_condition",
+    "message0": "%1 Condition %2 condition %3 %4 id %5 %6 parameter %7",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_image",
+        "name": "CONDITION_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_input",
+        "name": "CONDITION",
+        "text": ""
+      },
+      {
+        "type": "field_image",
+        "name": "ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_input",
+        "name": "ID",
+        "text": ""
+      },
+      {
+        "type": "field_image",
+        "name": "PARAMETER_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_input",
+        "name": "PARAMETER",
+        "text": ""
+      }
+    ],
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_type": "Condition",
+    "x_action": "",
+    "x_category": "BT Function",
+    "x_description": "",
+    "x_parameters": [],
+    "x_parameter_defs": [
+      {
+        "name": "condition",
+        "field": "CONDITION",
+        "help_field": "CONDITION_HELP",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "id",
+        "field": "ID",
+        "help_field": "ID_HELP",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "parameter",
+        "field": "PARAMETER",
+        "help_field": "PARAMETER_HELP",
+        "type": "object",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "c_bt_bt_function_sleep",
+    "message0": "%1 Sleep %2 id %3 %4 tickrate %5",
+    "args0": [
+      {
+        "type": "field_image",
+        "name": "HELP_ICON",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_image",
+        "name": "ID_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": ""
+      },
+      {
+        "type": "field_input",
+        "name": "ID",
+        "text": ""
+      },
+      {
+        "type": "field_image",
+        "name": "TICKRATE_HELP",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'><circle cx='9' cy='9' r='7.25' fill='white' stroke='black' stroke-width='1.5'/><text x='9' y='12.2' text-anchor='middle' font-family='Arial,sans-serif' font-size='11' font-weight='700' fill='black'>?</text></svg>",
+        "width": 18,
+        "height": 18,
+        "alt": "?",
+        "flipRtl": false,
+        "x_tooltip": "Sleep time in milliseconds."
+      },
+      {
+        "type": "field_input",
+        "name": "TICKRATE",
+        "text": "0"
+      }
+    ],
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
+    "style": "execute_blocks",
+    "tooltip": "",
+    "helpUrl": "",
+    "x_type": "Sleep",
+    "x_action": "",
+    "x_category": "BT Function",
+    "x_description": "",
+    "x_parameters": [],
+    "x_parameter_defs": [
+      {
+        "name": "id",
+        "field": "ID",
+        "help_field": "ID_HELP",
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tickrate",
+        "field": "TICKRATE",
+        "help_field": "TICKRATE_HELP",
+        "type": "integer",
+        "description": "Sleep time in milliseconds."
+      }
+    ]
   }
 ]

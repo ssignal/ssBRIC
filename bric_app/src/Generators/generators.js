@@ -5,15 +5,14 @@ import * as loopsGenerator from './loops.js';
 import * as motionGenerator from './motion.js';
 import * as developerGenerator from './developer.js';
 // AUTO-GEN-START: ROS2_GENERATOR_IMPORTS
-import './ros2Blocks_ECA.js';
-import './ros2Blocks_HEAD.js';
 // AUTO-GEN-END: ROS2_GENERATOR_IMPORTS
 // AUTO-GEN-START: BTLIST_GENERATOR_IMPORTS
+import './ros2Blocks_bt_function.js';
 import './ros2Blocks_motion.js';
 import './ros2Blocks_navigation.js';
 import './ros2Blocks_sound_control.js';
 // AUTO-GEN-END: BTLIST_GENERATOR_IMPORTS
-import * as ros2BlocksHEADGenerator from './ros2Blocks_HEAD.js';
+import * as btLogic from './bt_logic.js'
 
 export {
 	perceptionGenerator,
@@ -22,5 +21,5 @@ export {
 	loopsGenerator,	
 	motionGenerator,
 	developerGenerator,
-	ros2BlocksHEADGenerator
+  btLogic,
 };

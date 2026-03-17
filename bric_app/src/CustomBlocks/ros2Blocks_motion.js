@@ -21,6 +21,15 @@ const registerBlock = (def) => {
           field.setTooltip(paramDescription);
         }
       });
+      const parameterDefs = Array.isArray(def.x_parameter_defs) ? def.x_parameter_defs : [];
+      parameterDefs.forEach((param) => {
+        const field = this.getField(param.help_field);
+        const arg = Array.isArray(def.args0) ? def.args0.find((candidate) => candidate?.name === param.help_field) : null;
+        const paramDescription = String(param.description || arg?.x_tooltip || '').trim();
+        if (field && paramDescription) {
+          field.setTooltip(paramDescription);
+        }
+      });
     },
   };
 };

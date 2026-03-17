@@ -29,11 +29,12 @@
         "text": ""
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "sound/start_play",
     "x_category": "Sound control",
     "x_description": "\ub4f1\ub85d\ub41c sound/music \ud56d\ubaa9\uc744 \uc7ac\uc0dd\ud55c\ub2e4.",
@@ -45,7 +46,8 @@
         "type": "string",
         "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL."
       }
-    ]
+    ],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_sound_control_sound_start_play_tts",
@@ -77,11 +79,12 @@
         "text": ""
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "sound/start_play_tts",
     "x_category": "Sound control",
     "x_description": "\uc785\ub825\ud55c \ud14d\uc2a4\ud2b8\ub97c TTS\ub85c \uc7ac\uc0dd\ud55c\ub2e4.",
@@ -93,7 +96,8 @@
         "type": "string",
         "description": "Text to speak."
       }
-    ]
+    ],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_sound_control_sound_stop_play",
@@ -110,15 +114,17 @@
         "x_tooltip": "\ud604\uc7ac \uc7ac\uc0dd \uc911\uc778 sound\ub97c \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4."
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "sound/stop_play",
     "x_category": "Sound control",
     "x_description": "\ud604\uc7ac \uc7ac\uc0dd \uc911\uc778 sound\ub97c \uac15\uc81c\ub85c \uc885\ub8cc\ud55c\ub2e4.",
-    "x_parameters": []
+    "x_parameters": [],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_sound_control_sound_wait_play_completed",
@@ -135,15 +141,17 @@
         "x_tooltip": "\ud604\uc7ac sound \uc7ac\uc0dd\uc774 \ub05d\ub0a0 \ub54c\uae4c\uc9c0 \uae30\ub2e4\ub9b0\ub2e4."
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "sound/wait_play_completed",
     "x_category": "Sound control",
     "x_description": "\ud604\uc7ac sound \uc7ac\uc0dd\uc774 \ub05d\ub0a0 \ub54c\uae4c\uc9c0 \uae30\ub2e4\ub9b0\ub2e4.",
-    "x_parameters": []
+    "x_parameters": [],
+    "x_parameter_defs": []
   },
   {
     "type": "c_bt_sound_control_sound_set_volume",
@@ -216,11 +224,12 @@
         ]
       }
     ],
-    "previousStatement": null,
-    "nextStatement": null,
+    "previousStatement": "BT_NODE",
+    "nextStatement": "BT_NODE",
     "style": "execute_blocks",
     "tooltip": "",
     "helpUrl": "",
+    "x_type": "Action",
     "x_action": "sound/set_volume",
     "x_category": "Sound control",
     "x_description": "sound \ubcfc\ub968\uc744 \uc124\uc815\ud55c\ub2e4.",
@@ -232,6 +241,7 @@
         "type": "integer",
         "description": "Playback volume level."
       }
-    ]
+    ],
+    "x_parameter_defs": []
   }
 ]
