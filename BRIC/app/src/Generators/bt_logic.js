@@ -1,0 +1,264 @@
+const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
+
+function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
+function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => JSON.parse(v)); }
+
+javascriptGenerator.forBlock['bt_logic__fallback'] = function(block, generator) {
+  const node = {
+    type: 'Fallback',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__ifthenelse'] = function(block, generator) {
+  const node = {
+    type: 'IfThenElse',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__parallel'] = function(block, generator) {
+  const node = {
+    type: 'Parallel',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['threshold'] = Number.parseInt(block.getFieldValue('PARAM_THRESHOLD') || '0', 10);
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__pipelinesequence'] = function(block, generator) {
+  const node = {
+    type: 'PipelineSequence',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__pipelineselect'] = function(block, generator) {
+  const node = {
+    type: 'PipelineSelect',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['index'] = Number.parseInt(block.getFieldValue('PARAM_INDEX') || '0', 10);
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__reactivefallback'] = function(block, generator) {
+  const node = {
+    type: 'ReactiveFallback',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__reactivesequence'] = function(block, generator) {
+  const node = {
+    type: 'ReactiveSequence',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__recovery'] = function(block, generator) {
+  const node = {
+    type: 'Recovery',
+    id: randomId(),
+  };
+  node['attempt'] = Number.parseInt(block.getFieldValue('PARAM_ATTEMPT') || '0', 10);
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__sequence'] = function(block, generator) {
+  const node = {
+    type: 'Sequence',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__sequencestar'] = function(block, generator) {
+  const node = {
+    type: 'SequenceStar',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__delay'] = function(block, generator) {
+  const node = {
+    type: 'Delay',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__forcesuccess'] = function(block, generator) {
+  const node = {
+    type: 'ForceSuccess',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__forcefailure'] = function(block, generator) {
+  const node = {
+    type: 'ForceFailure',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__inverse'] = function(block, generator) {
+  const node = {
+    type: 'Inverse',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__loop'] = function(block, generator) {
+  const node = {
+    type: 'Loop',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['repeat'] = Number.parseInt(block.getFieldValue('PARAM_REPEAT') || '0', 10);
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__retry'] = function(block, generator) {
+  const node = {
+    type: 'Retry',
+    id: randomId(),
+  };
+  node['attempt'] = Number.parseInt(block.getFieldValue('PARAM_ATTEMPT') || '0', 10);
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__retryuntilsuccess'] = function(block, generator) {
+  const node = {
+    type: 'RetryUntilSuccess',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__repeat'] = function(block, generator) {
+  const node = {
+    type: 'Repeat',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['repeat'] = Number.parseInt(block.getFieldValue('PARAM_REPEAT') || '0', 10);
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__timeout'] = function(block, generator) {
+  const node = {
+    type: 'Timeout',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  node['timeout'] = Number.parseInt(block.getFieldValue('PARAM_TIMEOUT') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['bt_logic__whiledoelse'] = function(block, generator) {
+  const node = {
+    type: 'WhileDoElse',
+    id: randomId(),
+  };
+  node['id'] = block.getFieldValue('PARAM_ID') || '';
+  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
+  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
+  node.children = parseChildNodes(childrenRaw);
+  return JSON.stringify(node) + '\n';
+};
+
+
+function registerGenerators_bt_logic() { return true; }
+window.BRIC = window.BRIC || {};
+window.BRIC.generatorRegistrars = window.BRIC.generatorRegistrars || [];
+window.BRIC.generatorRegistrars.push(registerGenerators_bt_logic);

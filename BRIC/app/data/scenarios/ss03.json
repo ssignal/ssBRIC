@@ -1,0 +1,59 @@
+{
+  "type": "Root",
+  "id": "63756081",
+  "LinkParameter": "",
+  "child": {
+    "type": "Sequence",
+    "id": "",
+    "tickrate": 0,
+    "children": [
+      {
+        "type": "Sleep",
+        "id": "",
+        "tickrate": 0
+      },
+      {
+        "type": "ForceSuccess",
+        "id": "",
+        "tickrate": 0,
+        "children": [
+          {
+            "type": "Action",
+            "action": "motion/start_motion",
+            "parameter": {
+              "motion_id": "",
+              "blocking_type": "NONE",
+              "duration_ms": 0
+            },
+            "id": "21602566"
+          },
+          {
+            "type": "Sleep",
+            "id": "",
+            "tickrate": 0
+          },
+          {
+            "type": "Action",
+            "action": "navigation/stop_move",
+            "parameter": {},
+            "id": "75308704"
+          }
+        ]
+      },
+      {
+        "type": "Action",
+        "action": "motion/wait_motion_finished",
+        "parameter": {},
+        "id": "31815152"
+      },
+      {
+        "type": "Action",
+        "action": "sound/start_play",
+        "parameter": {
+          "sound_id": ""
+        },
+        "id": "42863633"
+      }
+    ]
+  }
+}

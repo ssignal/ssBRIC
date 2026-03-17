@@ -1,0 +1,12 @@
+# objective
+  Create behavior list, BT_List.json, refer to the ./BT_List_ex.json.
+    BT_List_ex.json is a example for behavior list for Sleep.
+
+# Commands
+  Refer to the namespace in BehaviorTree in "./src/common/behaviortree/basetype.cpp" 
+
+# Parameters
+  This is the default parameters of the command.
+  Check the source code in common/behavirotree/node/XXXX.cpp
+  The parameters that is used in the command should be set enable true, otherwise it should be set false.
+  Check the each parameter refer to the whole source code, and modify it's type and set min, max value if able.

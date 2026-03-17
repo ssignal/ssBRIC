@@ -1,0 +1,51 @@
+[
+  {
+    "category": "BT Function",
+    "type": "Sleep",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "string"
+      },
+      "children": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": false,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "string"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "string"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "string"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "---",
+        "min": 6000,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  }
+]

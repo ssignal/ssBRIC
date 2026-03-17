@@ -1,0 +1,3623 @@
+{
+  "generated_at": "2026-03-17T07:21:39.345549Z",
+  "behavior": [
+    {
+      "block_type": "behavior__motion__motion_start_motion",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "motion/start_motion",
+      "action": "motion/start_motion",
+      "description": "Q9 motion ID를 지정해 motion을 시작한다.",
+      "json": {
+        "type": "behavior__motion__motion_start_motion",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "motion/start_motion",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_MOTION_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "motion_id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_MOTION_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_BLOCKING_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "blocking_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_BLOCKING_TYPE",
+            "options": [
+              [
+                "NONE",
+                "NONE"
+              ],
+              [
+                "SOFT",
+                "SOFT"
+              ],
+              [
+                "HARD",
+                "HARD"
+              ],
+              [
+                "LOOP",
+                "LOOP"
+              ],
+              [
+                "WAIT",
+                "WAIT"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_DURATION_MS"
+          },
+          {
+            "type": "field_label",
+            "text": "duration_ms"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_DURATION_MS",
+            "text": "0"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "Q9 motion ID를 지정해 motion을 시작한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "motion_id",
+          "field": "PARAM_MOTION_ID",
+          "type": "string",
+          "description": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID."
+        },
+        {
+          "name": "blocking_type",
+          "field": "PARAM_BLOCKING_TYPE",
+          "type": "string",
+          "description": "Scheduler blocking mode while the motion is running."
+        },
+        {
+          "name": "duration_ms",
+          "field": "PARAM_DURATION_MS",
+          "type": "integer",
+          "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__motion__motion_stop_motion",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "motion/stop_motion",
+      "action": "motion/stop_motion",
+      "description": "현재 실행 중인 motion을 강제로 종료한다.",
+      "json": {
+        "type": "behavior__motion__motion_stop_motion",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "motion/stop_motion",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "현재 실행 중인 motion을 강제로 종료한다.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__motion__motion_wait_motion_finished",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "motion/wait_motion_finished",
+      "action": "motion/wait_motion_finished",
+      "description": "현재 실행 중인 motion의 완료를 기다린다.",
+      "json": {
+        "type": "behavior__motion__motion_wait_motion_finished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "motion/wait_motion_finished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "현재 실행 중인 motion의 완료를 기다린다.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__item__navigation_move_to_pose",
+      "category": "자율 주행",
+      "kind": "behavior",
+      "label": "navigation/move_to_pose",
+      "action": "navigation/move_to_pose",
+      "description": "지정한 좌표와 자세로 이동을 요청한다.",
+      "json": {
+        "type": "behavior__item__navigation_move_to_pose",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14 %15 %16 %17",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/move_to_pose",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_X"
+          },
+          {
+            "type": "field_label",
+            "text": "x"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_X",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_Y"
+          },
+          {
+            "type": "field_label",
+            "text": "y"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_Y",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_THETA"
+          },
+          {
+            "type": "field_label",
+            "text": "theta"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_THETA",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_BEHAVIOR_TREE"
+          },
+          {
+            "type": "field_label",
+            "text": "behavior_tree"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_BEHAVIOR_TREE",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_FRAME_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "frame_id"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_FRAME_ID",
+            "options": [
+              [
+                "map",
+                "map"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "지정한 좌표와 자세로 이동을 요청한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "x",
+          "field": "PARAM_X",
+          "type": "float",
+          "description": "Target pose x position in the map frame."
+        },
+        {
+          "name": "y",
+          "field": "PARAM_Y",
+          "type": "float",
+          "description": "Target pose y position in the map frame."
+        },
+        {
+          "name": "theta",
+          "field": "PARAM_THETA",
+          "type": "float",
+          "description": "Target heading in radians."
+        },
+        {
+          "name": "behavior_tree",
+          "field": "PARAM_BEHAVIOR_TREE",
+          "type": "string",
+          "description": "Optional behavior tree filename. When omitted, the default navigation tree is used."
+        },
+        {
+          "name": "frame_id",
+          "field": "PARAM_FRAME_ID",
+          "type": "string",
+          "description": "ROS frame for the target pose."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__item__navigation_moving_to_pose",
+      "category": "자율 주행",
+      "kind": "behavior",
+      "label": "navigation/moving_to_pose",
+      "action": "navigation/moving_to_pose",
+      "description": "지정한 좌표에 도착했는지 확인한다.",
+      "json": {
+        "type": "behavior__item__navigation_moving_to_pose",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/moving_to_pose",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_X"
+          },
+          {
+            "type": "field_label",
+            "text": "x"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_X",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_Y"
+          },
+          {
+            "type": "field_label",
+            "text": "y"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_Y",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_THETA"
+          },
+          {
+            "type": "field_label",
+            "text": "theta"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_THETA",
+            "text": "0.0"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "지정한 좌표에 도착했는지 확인한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "x",
+          "field": "PARAM_X",
+          "type": "float",
+          "description": "Reference target x position in the map frame."
+        },
+        {
+          "name": "y",
+          "field": "PARAM_Y",
+          "type": "float",
+          "description": "Reference target y position in the map frame."
+        },
+        {
+          "name": "theta",
+          "field": "PARAM_THETA",
+          "type": "float",
+          "description": "Reference target heading in radians."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__item__navigation_stop_move",
+      "category": "자율 주행",
+      "kind": "behavior",
+      "label": "navigation/stop_move",
+      "action": "navigation/stop_move",
+      "description": "현재 진행 중인 navigation goal을 취소한다.",
+      "json": {
+        "type": "behavior__item__navigation_stop_move",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/stop_move",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "현재 진행 중인 navigation goal을 취소한다.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__item__navigation_rotate",
+      "category": "자율 주행",
+      "kind": "behavior",
+      "label": "navigation/rotate",
+      "action": "navigation/rotate",
+      "description": "제자리에서 목표 각도만큼 회전한다.",
+      "json": {
+        "type": "behavior__item__navigation_rotate",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/rotate",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_YAW"
+          },
+          {
+            "type": "field_label",
+            "text": "yaw"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_YAW",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TIME_ALLOWANCE_SEC"
+          },
+          {
+            "type": "field_label",
+            "text": "time_allowance_sec"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TIME_ALLOWANCE_SEC",
+            "text": "0"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "제자리에서 목표 각도만큼 회전한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "yaw",
+          "field": "PARAM_YAW",
+          "type": "float",
+          "description": "Target yaw in radians."
+        },
+        {
+          "name": "time_allowance_sec",
+          "field": "PARAM_TIME_ALLOWANCE_SEC",
+          "type": "integer",
+          "description": "Optional time allowance for the spin action."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound_control__sound_start_play",
+      "category": "Sound control",
+      "kind": "behavior",
+      "label": "sound/start_play",
+      "action": "sound/start_play",
+      "description": "등록된 sound/music 항목을 재생한다.",
+      "json": {
+        "type": "behavior__sound_control__sound_start_play",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/start_play",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_SOUND_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "sound_id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_SOUND_ID",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "등록된 sound/music 항목을 재생한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "sound_id",
+          "field": "PARAM_SOUND_ID",
+          "type": "string",
+          "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound_control__sound_start_play_tts",
+      "category": "Sound control",
+      "kind": "behavior",
+      "label": "sound/start_play_tts",
+      "action": "sound/start_play_tts",
+      "description": "입력한 텍스트를 TTS로 재생한다.",
+      "json": {
+        "type": "behavior__sound_control__sound_start_play_tts",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/start_play_tts",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TEXT"
+          },
+          {
+            "type": "field_label",
+            "text": "text"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TEXT",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "입력한 텍스트를 TTS로 재생한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "text",
+          "field": "PARAM_TEXT",
+          "type": "string",
+          "description": "Text to speak."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound_control__sound_stop_play",
+      "category": "Sound control",
+      "kind": "behavior",
+      "label": "sound/stop_play",
+      "action": "sound/stop_play",
+      "description": "현재 재생 중인 sound를 강제로 종료한다.",
+      "json": {
+        "type": "behavior__sound_control__sound_stop_play",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/stop_play",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "현재 재생 중인 sound를 강제로 종료한다.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound_control__sound_wait_play_completed",
+      "category": "Sound control",
+      "kind": "behavior",
+      "label": "sound/wait_play_completed",
+      "action": "sound/wait_play_completed",
+      "description": "현재 sound 재생이 끝날 때까지 기다린다.",
+      "json": {
+        "type": "behavior__sound_control__sound_wait_play_completed",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/wait_play_completed",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "현재 sound 재생이 끝날 때까지 기다린다.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound_control__sound_set_volume",
+      "category": "Sound control",
+      "kind": "behavior",
+      "label": "sound/set_volume",
+      "action": "sound/set_volume",
+      "description": "sound 볼륨을 설정한다.",
+      "json": {
+        "type": "behavior__sound_control__sound_set_volume",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/set_volume",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_VOLUME"
+          },
+          {
+            "type": "field_label",
+            "text": "volume"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_VOLUME",
+            "options": [
+              [
+                "1",
+                "1"
+              ],
+              [
+                "2",
+                "2"
+              ],
+              [
+                "3",
+                "3"
+              ],
+              [
+                "4",
+                "4"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "6"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "10",
+                "10"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "sound 볼륨을 설정한다.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "volume",
+          "field": "PARAM_VOLUME",
+          "type": "integer",
+          "description": "Playback volume level."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    }
+  ],
+  "bt_logic": [
+    {
+      "block_type": "bt_logic__fallback",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Fallback",
+      "node_type": "Fallback",
+      "description": "",
+      "json": {
+        "type": "bt_logic__fallback",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Fallback",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__ifthenelse",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "IfThenElse",
+      "node_type": "IfThenElse",
+      "description": "",
+      "json": {
+        "type": "bt_logic__ifthenelse",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "IfThenElse",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__parallel",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Parallel",
+      "node_type": "Parallel",
+      "description": "",
+      "json": {
+        "type": "bt_logic__parallel",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Parallel",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_THRESHOLD"
+          },
+          {
+            "type": "field_label",
+            "text": "threshold"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_THRESHOLD",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "threshold",
+          "field": "PARAM_THRESHOLD",
+          "type": "integer",
+          "description": "Number of child successes required to return success."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "parameter",
+        "threshold",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__pipelinesequence",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "PipelineSequence",
+      "node_type": "PipelineSequence",
+      "description": "",
+      "json": {
+        "type": "bt_logic__pipelinesequence",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "PipelineSequence",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__pipelineselect",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "PipelineSelect",
+      "node_type": "PipelineSelect",
+      "description": "",
+      "json": {
+        "type": "bt_logic__pipelineselect",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "PipelineSelect",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_INDEX"
+          },
+          {
+            "type": "field_label",
+            "text": "index"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_INDEX",
+            "text": "1"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "index",
+          "field": "PARAM_INDEX",
+          "type": "integer",
+          "description": "1-based child index whose result decides the node result."
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "index",
+        "parameter",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__reactivefallback",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ReactiveFallback",
+      "node_type": "ReactiveFallback",
+      "description": "",
+      "json": {
+        "type": "bt_logic__reactivefallback",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ReactiveFallback",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__reactivesequence",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ReactiveSequence",
+      "node_type": "ReactiveSequence",
+      "description": "",
+      "json": {
+        "type": "bt_logic__reactivesequence",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ReactiveSequence",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__recovery",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Recovery",
+      "node_type": "Recovery",
+      "description": "",
+      "json": {
+        "type": "bt_logic__recovery",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Recovery",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ATTEMPT"
+          },
+          {
+            "type": "field_label",
+            "text": "attempt"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ATTEMPT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "attempt",
+          "field": "PARAM_ATTEMPT",
+          "type": "integer",
+          "description": "Number of recovery attempts."
+        },
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "attempt",
+        "id",
+        "parameter",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__sequence",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Sequence",
+      "node_type": "Sequence",
+      "description": "",
+      "json": {
+        "type": "bt_logic__sequence",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Sequence",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__sequencestar",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "SequenceStar",
+      "node_type": "SequenceStar",
+      "description": "",
+      "json": {
+        "type": "bt_logic__sequencestar",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "SequenceStar",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__delay",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Delay",
+      "node_type": "Delay",
+      "description": "",
+      "json": {
+        "type": "bt_logic__delay",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Delay",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Delay time in milliseconds before the child is updated."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__forcesuccess",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ForceSuccess",
+      "node_type": "ForceSuccess",
+      "description": "",
+      "json": {
+        "type": "bt_logic__forcesuccess",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ForceSuccess",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__forcefailure",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ForceFailure",
+      "node_type": "ForceFailure",
+      "description": "",
+      "json": {
+        "type": "bt_logic__forcefailure",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ForceFailure",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__inverse",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Inverse",
+      "node_type": "Inverse",
+      "description": "",
+      "json": {
+        "type": "bt_logic__inverse",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Inverse",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__loop",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Loop",
+      "node_type": "Loop",
+      "description": "",
+      "json": {
+        "type": "bt_logic__loop",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Loop",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "integer",
+          "description": "Iteration count. 0 means infinite loop."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "parameter",
+        "repeat",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__retry",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Retry",
+      "node_type": "Retry",
+      "description": "",
+      "json": {
+        "type": "bt_logic__retry",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Retry",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ATTEMPT"
+          },
+          {
+            "type": "field_label",
+            "text": "attempt"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ATTEMPT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "attempt",
+          "field": "PARAM_ATTEMPT",
+          "type": "integer",
+          "description": "Number of retry attempts."
+        },
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "attempt",
+        "id",
+        "parameter",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__retryuntilsuccess",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "RetryUntilSuccess",
+      "node_type": "RetryUntilSuccess",
+      "description": "",
+      "json": {
+        "type": "bt_logic__retryuntilsuccess",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "RetryUntilSuccess",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__repeat",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Repeat",
+      "node_type": "Repeat",
+      "description": "",
+      "json": {
+        "type": "bt_logic__repeat",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Repeat",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "integer",
+          "description": "Number of repetitions before returning success."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "parameter",
+        "repeat",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__timeout",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Timeout",
+      "node_type": "Timeout",
+      "description": "Not used",
+      "json": {
+        "type": "bt_logic__timeout",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Timeout",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TIMEOUT"
+          },
+          {
+            "type": "field_label",
+            "text": "timeout"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TIMEOUT",
+            "text": "1"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "Not used",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        },
+        {
+          "name": "timeout",
+          "field": "PARAM_TIMEOUT",
+          "type": "integer",
+          "description": "Timeout in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "parameter",
+        "tickrate",
+        "timeout"
+      ]
+    },
+    {
+      "block_type": "bt_logic__whiledoelse",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "WhileDoElse",
+      "node_type": "WhileDoElse",
+      "description": "",
+      "json": {
+        "type": "bt_logic__whiledoelse",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "WhileDoElse",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    }
+  ],
+  "bt_function": [
+    {
+      "block_type": "bt_function__root",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Root",
+      "node_type": "Root",
+      "description": "",
+      "json": {
+        "type": "bt_function__root",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Root",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_LINKPARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "LinkParameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_LINKPARAMETER",
+            "text": ""
+          }
+        ],
+        "colour": "#8c564b",
+        "tooltip": "",
+        "helpUrl": "",
+        "message1": "child %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILD",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "LinkParameter",
+          "field": "PARAM_LINKPARAMETER",
+          "type": "object",
+          "description": ""
+        }
+      ],
+      "has_children": false,
+      "has_child": true,
+      "enabled_keys": [
+        "LinkParameter"
+      ]
+    },
+    {
+      "block_type": "bt_function__subtree",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Subtree",
+      "node_type": "Subtree",
+      "description": "",
+      "json": {
+        "type": "bt_function__subtree",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Subtree",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "id"
+      ]
+    },
+    {
+      "block_type": "bt_function__action",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Action",
+      "node_type": "Action",
+      "description": "",
+      "json": {
+        "type": "bt_function__action",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Action",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ACTION"
+          },
+          {
+            "type": "field_label",
+            "text": "action"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ACTION",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "action",
+          "field": "PARAM_ACTION",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "action",
+        "id",
+        "parameter",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_function__actiondummy",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "ActionDummy",
+      "node_type": "ActionDummy",
+      "description": "",
+      "json": {
+        "type": "bt_function__actiondummy",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ActionDummy",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "id"
+      ]
+    },
+    {
+      "block_type": "bt_function__condition",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Condition",
+      "node_type": "Condition",
+      "description": "",
+      "json": {
+        "type": "bt_function__condition",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Condition",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_CONDITION"
+          },
+          {
+            "type": "field_label",
+            "text": "condition"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_CONDITION",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PARAMETER"
+          },
+          {
+            "type": "field_label",
+            "text": "parameter"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PARAMETER",
+            "text": ""
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "condition",
+          "field": "PARAM_CONDITION",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "parameter",
+          "field": "PARAM_PARAMETER",
+          "type": "object",
+          "description": ""
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "condition",
+        "id",
+        "parameter"
+      ]
+    },
+    {
+      "block_type": "bt_function__sleep",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Sleep",
+      "node_type": "Sleep",
+      "description": "",
+      "json": {
+        "type": "bt_function__sleep",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Sleep",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Sleep time in milliseconds."
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "id",
+        "tickrate"
+      ]
+    }
+  ],
+  "custom_modules": [
+    "ros2Blocks_motion.js",
+    "ros2Blocks_item.js",
+    "ros2Blocks_sound_control.js",
+    "bt_logic.js",
+    "bt_function.js"
+  ],
+  "generator_modules": [
+    "ros2Blocks_motion.js",
+    "ros2Blocks_item.js",
+    "ros2Blocks_sound_control.js",
+    "bt_logic.js",
+    "bt_function.js"
+  ]
+}

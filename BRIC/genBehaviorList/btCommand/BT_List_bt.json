@@ -1,0 +1,1430 @@
+[
+  {
+    "category": "BT Function",
+    "type": "Root",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": true,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": false,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": false,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Subtree",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": false,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Action",
+    "parametersDef": {
+      "action": {
+        "enabled": true,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "ActionDummy",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": false,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Condition",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": true,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": false,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Sleep",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": false,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Sleep time in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Fallback",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "IfThenElse",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Parallel",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "threshold": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Number of child successes required to return success.",
+        "min": 0,
+        "max": null
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "PipelineSequence",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "PipelineSelect",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "index": {
+        "enabled": true,
+        "type": "integer",
+        "description": "1-based child index whose result decides the node result.",
+        "min": 1,
+        "max": null
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "ReactiveFallback",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "ReactiveSequence",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Recovery",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "attempt": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Number of recovery attempts.",
+        "min": 0,
+        "max": null
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Sequence",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "SequenceStar",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Delay",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Delay time in milliseconds before the child is updated.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "ForceSuccess",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "ForceFailure",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Inverse",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Loop",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "repeat": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Iteration count. 0 means infinite loop.",
+        "min": 0,
+        "max": null
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Retry",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "attempt": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Number of retry attempts.",
+        "min": 0,
+        "max": null
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "RetryUntilSuccess",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Repeat",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "repeat": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Number of repetitions before returning success.",
+        "min": 0,
+        "max": null
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "Timeout",
+    "description": "Not used",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": true,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "timeout": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Timeout in milliseconds.",
+        "min": 1,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  },
+  {
+    "category": "BT Function",
+    "type": "WhileDoElse",
+    "parametersDef": {
+      "action": {
+        "enabled": false,
+        "type": "string"
+      },
+      "child": {
+        "enabled": false,
+        "type": "object"
+      },
+      "children": {
+        "enabled": true,
+        "type": "array"
+      },
+      "condition": {
+        "enabled": false,
+        "type": "string"
+      },
+      "id": {
+        "enabled": true,
+        "type": "string"
+      },
+      "LinkParameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "name": {
+        "enabled": false,
+        "type": "string"
+      },
+      "parameter": {
+        "enabled": false,
+        "type": "object"
+      },
+      "Root": {
+        "enabled": false,
+        "type": "object"
+      },
+      "tickrate": {
+        "enabled": true,
+        "type": "integer",
+        "description": "Tick period in milliseconds.",
+        "min": 0,
+        "max": null
+      },
+      "type": {
+        "enabled": false,
+        "type": "string"
+      }
+    }
+  }
+]
