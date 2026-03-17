@@ -1,0 +1,24 @@
+{
+  "type": "Root",
+  "id": "82228581",
+  "LinkParameter": "",
+  "child": {
+    "type": "Sequence",
+    "id": "",
+    "tickrate": 0,
+    "children": [
+      {
+        "type": "Action",
+        "action": "navigation/stop_move",
+        "parameter": {},
+        "id": "80428880"
+      },
+      {
+        "type": "Action",
+        "action": "sound/stop_play",
+        "parameter": {},
+        "id": "59093616"
+      }
+    ]
+  }
+}

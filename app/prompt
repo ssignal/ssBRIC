@@ -1,0 +1,138 @@
+###################################################
+# Objective
+ Create a web app in python including Google Blockly Editing.
+ The output of the Blockly Editer is the Behavior Tree in json formated.
+
+###################################################
+# Conditions
+## Category
+  There is no default category supported by Google Blockly.
+  They will be added by 'Generator'
+## Folder tree
+  CustomBlocks: './static/generated/CustomBlocks'. Block Definition.
+  Generators: './static/generated/Generators/'. Code generators
+  Toolbox: './static/generated/Toolbox/'. There is a file 'toolboxCustomBasic.js' Json formated Toolbox info.
+  Theme: './static/generated/Theme/'. There is a file 'themeForCustomBasic.js' Json formated Theme file for Blocks.
+
+###################################################
+# Pages
+## Main Page -------------------------------
+  - Background: LG CLOiD image
+### Scenario
+  - Scnerio List: Show the saved Scnerio list (Behavior Tree)
+  - Delete Button: Remove selected Scenario.
+  - Create Button: to Create a new Scnerio with the Blockly Editor.
+  - Edit Button: to edit a selected Scnerio with the Blockly Editor.
+### Block
+  - Update Button
+    Load and Update the Block List from fixed location file. ./btInfo.
+## Edit Page -------------------------------
+  - Show the Google Blockly Edit page.
+  - If there are blocks or category, show it left side as a normal Blockly app.
+  - If there is a selected scenario on the Main Page, show it on the screen.
+    The Behavior Tree should be convert to Brockly Json format refer to the json file in btInfo folder.
+    Convert only items that has been vound in btInfo, and show the error list.
+  - Behavior Tree JSON should not be shown in the right side area.
+  - When clicking `Generate BT JSON`, show Behavior Tree JSON in popup window at center of window.
+    Popup height should be over 70% of window height.
+    Popup card uses main app theme style.
+    JSON text area uses light background color for readability.
+    JSON text should be selectable and copyable to system clipboard.
+    `Confirm` button closes the popup window.
+  - In scenario name input field, pressing `Enter` should save scenario.
+    It should behave same as clicking `Save Scenario` button.
+## Top Menu -------------------------------
+  Top area shows title text `BRIC BT Studio`.
+  Clicking `BRIC BT Studio` goes back to Main page.
+## Notification -------------------------------
+  Notification toast message should be shown in the center of the window.
+  For scenario Add/Save and Delete actions, include the scenario file name in the message.
+  Example messages:
+   - Saved: {scenario_name}.json
+   - Deleted: {scenario_name}.json
+
+###################################################
+# Generat Blocks.
+     Create a Blockly blocks description in json format refer to the target json file.
+     Create a nodejs file for Block Register for each json files in the Json Output Path.
+     Create a nodejs file that includes functions for Code Generator for each blocks.
+     Add the Block into the toolbox.
+## conditions -------------------------------
+### Block register
+   - Load json file that describe block info.
+   - Register it using Blockly.Blocks
+   - For InputFileB
+     If the 'children' enabled is true, This block is treated as a block in 'BT_Logic' cateogry.
+     Others are in 'BT_Function'.
+### Code Generator
+   - Create a function for each blocks and register it using "javascriptGenerator.forBlock"
+   - The function returns the json string including the items.
+     1. type: 'type' of the item, default is 'Action'
+     2. action: 'action' of the item if exist.
+     3. parameter: items in 'parameters'
+     4. id: the 8 digits unique random string.
+     6. other parameters in 'parametersDef' of the item.
+       Only items with the 'enabled: true' is used.
+       This items added to as a key like 'type' and 'action', not in 'parameter'.
+### Toolbox
+  Add the new catagery for the new blocks.
+  The category name is the 'category' of each item.
+  Category order is fixed:
+   - BT Logic
+   - BT Function
+   - 자율주행
+   - Motion
+   - Sound control
+  Do not include Root block in BT Function toolbox category.
+### Block / Category Color
+  Each block uses the color of its category.
+  Root block is a special block and does not follow category color.
+  Root block color is fixed to '#8c564b'.
+## File Path -------------------------------
+### input
+  InputFileA: ./btInfo/BTList.json
+  InputFileB: ./btInfo/BTList_bt.json
+### output
+  Toolbox: ./static/generated/Toolbox/toolboxCustomBasic.js
+#### Behaviros
+  Input file: InputFileA
+  Block Register: ./static/generated/CustomBlocks/ros2Blocks_{YYY}.js
+  Code generator: ./static/generated/Generators/ros2Blocks_{YYY}.js
+  YYY: category of each item in BehaviroList
+#### BT Logic
+  Input file: InputFileB
+  Block Register: ./static/generated/CustomBlocks/bt_logic.js
+  Code generator: ./static/generated/Generators/bt_logic.js
+#### BT Function
+  Input file: InputFileB
+  Block Register: ./static/generated/CustomBlocks/bt_function.js
+  Code generator: ./static/generated/Generators/bt_function.js
+## Special Case -------------------------------
+### Generated JS scope isolation
+  Generated files in `./static/generated/CustomBlocks` and `./static/generated/Generators` are loaded sequentially in the browser.
+  Do not use shared top-level variable names across files (e.g. `const BLOCKS`) in global scope.
+  Each generated file must isolate its scope (e.g. wrap file content in IIFE) to avoid redeclaration errors.
+  If redeclaration happens, only the first-loaded category may work and other category items will not be shown.
+### options
+  If a item has options, use dropdown menu.
+  If a item has no options, use input box.
+### min max
+  If a item has only one of min or max, use input box and use it as default value.
+  If a item has min, use dropdown menu.
+### description
+#### Description for a block
+  Add a question icon on the left side of a block.
+  Only when the mouse is on the question icon, onMouse event, show the 'description' on a floting box.
+#### Description for parameters
+  Add a question icon before each parameter.
+### question icon
+   It is not a text.
+   Circle icon include '?' in the center of the circle.
+   Background color is white.
+   the '?' color is black.
+   The black circle line surround the icon.
+## Default value -------------------------------
+   If there is no min or max value for a default value, set the value below according to it's type.
+### float: 0.0
+### int: 0
+### string: empty string.

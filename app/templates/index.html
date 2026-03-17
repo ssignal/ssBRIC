@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BRIC Behavior Tree Editor</title>
+  <link rel="stylesheet" href="/static/style.css?v={{ css_version }}">
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <header class="top-menu">
+    <button id="brand-home" class="brand-btn" type="button">BRIC BT Studio</button>
+  </header>
+
+  <main>
+    <section id="page-main" class="page active">
+      <div class="panel glass">
+        <h2>Scenario</h2>
+        <p class="hint">Select a saved behavior tree scenario.</p>
+        <select id="scenario-list" size="14"></select>
+        <div class="row-actions">
+          <button id="btn-create" type="button">Create</button>
+          <button id="btn-edit" type="button">Edit</button>
+          <button id="btn-delete" type="button" class="danger">Delete</button>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <h2>Blocks</h2>
+        <p class="hint">Reload block metadata from <code>./btInfo</code> and regenerate Toolbox/Generators.</p>
+        <button id="btn-update-blocks" type="button">Update Blocks</button>
+        <pre id="update-result"></pre>
+      </div>
+    </section>
+
+    <section id="page-edit" class="page">
+      <div class="editor-toolbar glass">
+        <label for="scenario-name">Scenario Name</label>
+        <input id="scenario-name" type="text" placeholder="scenario_001">
+        <button id="btn-save" type="button">Save Scenario</button>
+        <button id="btn-export" type="button">Generate BT JSON</button>
+      </div>
+
+      <div class="editor-grid">
+        <div class="workspace-shell glass">
+          <div id="blocklyDiv"></div>
+        </div>
+        <div class="side-shell glass">
+          <h3>Conversion Errors</h3>
+          <ul id="error-list"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="json-modal" class="json-modal">
+    <div class="json-modal-card glass">
+      <h3>Behavior Tree JSON</h3>
+      <textarea id="json-modal-text" readonly spellcheck="false"></textarea>
+      <div class="json-modal-actions">
+        <button id="btn-json-confirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js?v={{ js_version }}"></script>
+</body>
+</html>
