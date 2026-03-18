@@ -40,7 +40,7 @@
         <label for="scenario-name">Scenario Name</label>
         <input id="scenario-name" type="text" placeholder="scenario_001">
         <button id="btn-save" type="button">Save Scenario</button>
-        <button id="btn-export" type="button">Generate BT JSON</button>
+        <button id="btn-export" type="button">Behavior Tree</button>
       </div>
 
       <div class="editor-grid">
@@ -60,7 +60,23 @@
       <h3>Behavior Tree JSON</h3>
       <textarea id="json-modal-text" readonly spellcheck="false"></textarea>
       <div class="json-modal-actions">
+        <button id="btn-json-tree" type="button">View Tree</button>
         <button id="btn-json-confirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tree-modal" class="json-modal">
+    <div class="json-modal-card tree-modal-card glass">
+      <h3>Graphical Tree</h3>
+      <div id="tree-canvas-wrap">
+        <svg id="tree-canvas" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="json-modal-actions">
+        <button id="btn-tree-zoom-in" type="button">Zoom In</button>
+        <button id="btn-tree-zoom-out" type="button">Zoom Out</button>
+        <button id="btn-tree-json" type="button">JSON</button>
+        <button id="btn-tree-confirm" type="button">Confirm</button>
       </div>
     </div>
   </div>

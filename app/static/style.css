@@ -238,6 +238,14 @@ button.danger {
   display: flex;
 }
 
+#json-modal {
+  z-index: 1301;
+}
+
+#tree-modal {
+  z-index: 1300;
+}
+
 .json-modal-card {
   width: min(860px, calc(100vw - 40px));
   height: 78vh;
@@ -270,7 +278,33 @@ button.danger {
 
 .json-modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tree-modal-card {
+  width: min(78vw, calc(100vw - 40px));
+}
+
+#tree-canvas-wrap {
+  flex: 1;
+  min-height: 0;
+  border-radius: 10px;
+  border: 1px solid #9fb0c6;
+  background: #dce5f1;
+  overflow: auto;
+  cursor: grab;
+  user-select: none;
+}
+
+#tree-canvas {
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#tree-canvas-wrap.dragging {
+  cursor: grabbing;
 }
 
 @media (max-width: 980px) {
