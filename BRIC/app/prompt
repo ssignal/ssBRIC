@@ -17,7 +17,7 @@
 ###################################################
 # Pages
 ## Main Page -------------------------------
-  - Background: LG CLOiD image
+  - Background: use image file in `./static/assets`.
 ### Scenario
   - Scnerio List: Show the saved Scnerio list (Behavior Tree)
   - Delete Button: Remove selected Scenario.
