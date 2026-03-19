@@ -1,0 +1,106 @@
+{
+  "type": "Root",
+  "id": "22497580",
+  "LinkParameter": "",
+  "child": {
+    "type": "Sequence",
+    "id": "",
+    "tickrate": 0,
+    "children": [
+      {
+        "type": "Sleep",
+        "id": "",
+        "tickrate": 1
+      },
+      {
+        "type": "Parallel",
+        "id": "",
+        "parameter": "1",
+        "threshold": 0,
+        "tickrate": 0,
+        "children": [
+          {
+            "type": "Sequence",
+            "id": "",
+            "tickrate": 0,
+            "children": [
+              {
+                "type": "Action",
+                "action": "navigation/move_to_pose",
+                "parameter": {
+                  "x": 0,
+                  "y": 0,
+                  "theta": 0,
+                  "behavior_tree": "",
+                  "frame_id": "map"
+                },
+                "id": "78246956"
+              },
+              {
+                "type": "ForceSuccess",
+                "id": "",
+                "tickrate": 0,
+                "children": [
+                  {
+                    "type": "Action",
+                    "action": "navigation/moving_to_pose",
+                    "parameter": {
+                      "x": 0,
+                      "y": 0,
+                      "theta": 0
+                    },
+                    "id": "11121678"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "Sequence",
+            "id": "",
+            "tickrate": 0,
+            "children": [
+              {
+                "type": "Action",
+                "action": "motion/start_motion",
+                "parameter": {
+                  "motion_id": "",
+                  "blocking_type": "LOOP",
+                  "duration_ms": 0
+                },
+                "id": "29270807"
+              },
+              {
+                "type": "Action",
+                "action": "motion/wait_motion_finished",
+                "parameter": {},
+                "id": "47682505"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Action",
+        "action": "motion/stop_motion",
+        "parameter": {},
+        "id": "69332316"
+      },
+      {
+        "type": "Sleep",
+        "id": "",
+        "tickrate": 1
+      },
+      {
+        "type": "Action",
+        "action": "motion/start_motion",
+        "parameter": {
+          "motion_id": "0",
+          "blocking_type": "NONE",
+          "duration_ms": 0
+        },
+        "id": "15859623"
+      }
+    ]
+  }
+}
