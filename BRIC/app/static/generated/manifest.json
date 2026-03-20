@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-20T04:24:48.942097Z",
+  "generated_at": "2026-03-20T05:56:52.105112Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -7,10 +7,10 @@
       "kind": "behavior",
       "label": "motion/start_motion",
       "action": "motion/start_motion",
-      "description": "Q9 motion ID를 지정해 motion을 시작한다.",
+      "description": "Motion 시작 명령",
       "json": {
         "type": "behavior__motion__motion_start_motion",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
         "args0": [
           {
             "type": "field_image",
@@ -31,15 +31,15 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_MOTION_ID"
+            "name": "HELP_NAME"
           },
           {
             "type": "field_label",
-            "text": "motion_id"
+            "text": "name"
           },
           {
             "type": "field_input",
-            "name": "PARAM_MOTION_ID",
+            "name": "PARAM_NAME",
             "text": ""
           },
           {
@@ -48,35 +48,23 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_BLOCKING_TYPE"
+            "name": "HELP_STATE"
           },
           {
             "type": "field_label",
-            "text": "blocking_type"
+            "text": "state"
           },
           {
             "type": "field_dropdown",
-            "name": "PARAM_BLOCKING_TYPE",
+            "name": "PARAM_STATE",
             "options": [
               [
-                "NONE",
-                "NONE"
+                "motion",
+                "motion"
               ],
               [
-                "SOFT",
-                "SOFT"
-              ],
-              [
-                "HARD",
-                "HARD"
-              ],
-              [
-                "LOOP",
-                "LOOP"
-              ],
-              [
-                "WAIT",
-                "WAIT"
+                "emai_motion",
+                "emai_motion"
               ]
             ]
           },
@@ -86,42 +74,79 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_DURATION_MS"
+            "name": "HELP_REPEAT"
           },
           {
             "type": "field_label",
-            "text": "duration_ms"
+            "text": "repeat"
           },
           {
-            "type": "field_input",
-            "name": "PARAM_DURATION_MS",
-            "text": "0"
+            "type": "field_dropdown",
+            "name": "PARAM_REPEAT",
+            "options": [
+              [
+                "once",
+                "once"
+              ],
+              [
+                "loop",
+                "loop"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ACTION"
+          },
+          {
+            "type": "field_label",
+            "text": "action"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_ACTION",
+            "options": [
+              [
+                "all",
+                "all"
+              ]
+            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#d62728",
-        "tooltip": "Q9 motion ID를 지정해 motion을 시작한다.",
+        "colour": "#2ca02c",
+        "tooltip": "Motion 시작 명령",
         "helpUrl": ""
       },
       "parameters": [
         {
-          "name": "motion_id",
-          "field": "PARAM_MOTION_ID",
+          "name": "name",
+          "field": "PARAM_NAME",
           "type": "string",
-          "description": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID."
+          "description": "Motion name"
         },
         {
-          "name": "blocking_type",
-          "field": "PARAM_BLOCKING_TYPE",
+          "name": "state",
+          "field": "PARAM_STATE",
           "type": "string",
-          "description": "Scheduler blocking mode while the motion is running."
+          "description": "Motion engine type"
         },
         {
-          "name": "duration_ms",
-          "field": "PARAM_DURATION_MS",
-          "type": "integer",
-          "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds."
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "string",
+          "description": "Motion repetition type"
+        },
+        {
+          "name": "action",
+          "field": "PARAM_ACTION",
+          "type": "string",
+          "description": "Motion part"
         }
       ],
       "has_children": false,
@@ -133,10 +158,10 @@
       "kind": "behavior",
       "label": "motion/stop_motion",
       "action": "motion/stop_motion",
-      "description": "현재 실행 중인 motion을 강제로 종료한다.",
+      "description": "Motion 강제 종료 명령",
       "json": {
         "type": "behavior__motion__motion_stop_motion",
-        "message0": "%1 %2",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -150,15 +175,48 @@
             "type": "field_label",
             "text": "motion/stop_motion",
             "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_MODE"
+          },
+          {
+            "type": "field_label",
+            "text": "mode"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_MODE",
+            "options": [
+              [
+                "normal",
+                "normal"
+              ],
+              [
+                "immediately",
+                "immediately"
+              ]
+            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#d62728",
-        "tooltip": "현재 실행 중인 motion을 강제로 종료한다.",
+        "colour": "#2ca02c",
+        "tooltip": "Motion 강제 종료 명령",
         "helpUrl": ""
       },
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "mode",
+          "field": "PARAM_MODE",
+          "type": "string",
+          "description": "Motion stop type"
+        }
+      ],
       "has_children": false,
       "enabled_keys": []
     },
@@ -168,7 +226,7 @@
       "kind": "behavior",
       "label": "motion/wait_motion_finished",
       "action": "motion/wait_motion_finished",
-      "description": "현재 실행 중인 motion의 완료를 기다린다.",
+      "description": "Motion 완료 여부 확인",
       "json": {
         "type": "behavior__motion__motion_wait_motion_finished",
         "message0": "%1 %2",
@@ -189,8 +247,8 @@
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#d62728",
-        "tooltip": "현재 실행 중인 motion의 완료를 기다린다.",
+        "colour": "#2ca02c",
+        "tooltip": "Motion 완료 여부 확인",
         "helpUrl": ""
       },
       "parameters": [],
@@ -198,14 +256,14 @@
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__item__navigation_move_to_pose",
-      "category": "자율 주행",
+      "block_type": "behavior__navigation__navigation_move_to_pose",
+      "category": "Navigation",
       "kind": "behavior",
       "label": "navigation/move_to_pose",
       "action": "navigation/move_to_pose",
-      "description": "지정한 좌표와 자세로 이동을 요청한다.",
+      "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
       "json": {
-        "type": "behavior__item__navigation_move_to_pose",
+        "type": "behavior__navigation__navigation_move_to_pose",
         "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14 %15 %16 %17",
         "args0": [
           {
@@ -227,6 +285,32 @@
             "width": 16,
             "height": 16,
             "alt": "?",
+            "name": "HELP_POSE_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "pose_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_POSE_TYPE",
+            "options": [
+              [
+                "map",
+                "map"
+              ],
+              [
+                "earth",
+                "earth"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
             "name": "HELP_X"
           },
           {
@@ -261,15 +345,15 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_THETA"
+            "name": "HELP_Z"
           },
           {
             "type": "field_label",
-            "text": "theta"
+            "text": "z"
           },
           {
             "type": "field_input",
-            "name": "PARAM_THETA",
+            "name": "PARAM_Z",
             "text": "0.0"
           },
           {
@@ -288,80 +372,58 @@
             "type": "field_input",
             "name": "PARAM_BEHAVIOR_TREE",
             "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_FRAME_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "frame_id"
-          },
-          {
-            "type": "field_dropdown",
-            "name": "PARAM_FRAME_ID",
-            "options": [
-              [
-                "map",
-                "map"
-              ]
-            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#2ca02c",
-        "tooltip": "지정한 좌표와 자세로 이동을 요청한다.",
+        "colour": "#d62728",
+        "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
         "helpUrl": ""
       },
       "parameters": [
         {
+          "name": "pose_type",
+          "field": "PARAM_POSE_TYPE",
+          "type": "string",
+          "description": "map (indoor), earth (outdoor)"
+        },
+        {
           "name": "x",
           "field": "PARAM_X",
           "type": "float",
-          "description": "Target pose x position in the map frame."
+          "description": "Euler pose x"
         },
         {
           "name": "y",
           "field": "PARAM_Y",
           "type": "float",
-          "description": "Target pose y position in the map frame."
+          "description": "Euler pose y"
         },
         {
-          "name": "theta",
-          "field": "PARAM_THETA",
+          "name": "z",
+          "field": "PARAM_Z",
           "type": "float",
-          "description": "Target heading in radians."
+          "description": "Euler pose z (degree unit)"
         },
         {
           "name": "behavior_tree",
           "field": "PARAM_BEHAVIOR_TREE",
           "type": "string",
-          "description": "Optional behavior tree filename. When omitted, the default navigation tree is used."
-        },
-        {
-          "name": "frame_id",
-          "field": "PARAM_FRAME_ID",
-          "type": "string",
-          "description": "ROS frame for the target pose."
+          "description": "It can be omitted as default"
         }
       ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__item__navigation_wait_move_finished",
-      "category": "자율 주행",
+      "block_type": "behavior__navigation__navigation_move_in_direction",
+      "category": "Navigation",
       "kind": "behavior",
-      "label": "navigation/wait_move_finished",
-      "action": "navigation/wait_move_finished",
-      "description": "지정한 좌표에 도착했는지 확인한다.",
+      "label": "navigation/move_in_direction",
+      "action": "navigation/move_in_direction",
+      "description": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
       "json": {
-        "type": "behavior__item__navigation_wait_move_finished",
+        "type": "behavior__navigation__navigation_move_in_direction",
         "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
@@ -374,7 +436,7 @@
           },
           {
             "type": "field_label",
-            "text": "navigation/wait_move_finished",
+            "text": "navigation/move_in_direction",
             "name": "TITLE"
           },
           {
@@ -383,15 +445,15 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_X"
+            "name": "HELP_DISTANCE"
           },
           {
             "type": "field_label",
-            "text": "x"
+            "text": "distance"
           },
           {
             "type": "field_input",
-            "name": "PARAM_X",
+            "name": "PARAM_DISTANCE",
             "text": "0.0"
           },
           {
@@ -400,16 +462,101 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_Y"
+            "name": "HELP_VELOCITY"
           },
           {
             "type": "field_label",
-            "text": "y"
+            "text": "velocity"
           },
           {
-            "type": "field_input",
-            "name": "PARAM_Y",
-            "text": "0.0"
+            "type": "field_dropdown",
+            "name": "PARAM_VELOCITY",
+            "options": [
+              [
+                "0.00",
+                "0.00"
+              ],
+              [
+                "0.05",
+                "0.05"
+              ],
+              [
+                "0.10",
+                "0.10"
+              ],
+              [
+                "0.15",
+                "0.15"
+              ],
+              [
+                "0.20",
+                "0.20"
+              ],
+              [
+                "0.25",
+                "0.25"
+              ],
+              [
+                "0.30",
+                "0.30"
+              ],
+              [
+                "0.35",
+                "0.35"
+              ],
+              [
+                "0.40",
+                "0.40"
+              ],
+              [
+                "0.45",
+                "0.45"
+              ],
+              [
+                "0.50",
+                "0.50"
+              ],
+              [
+                "0.55",
+                "0.55"
+              ],
+              [
+                "0.60",
+                "0.60"
+              ],
+              [
+                "0.65",
+                "0.65"
+              ],
+              [
+                "0.70",
+                "0.70"
+              ],
+              [
+                "0.75",
+                "0.75"
+              ],
+              [
+                "0.80",
+                "0.80"
+              ],
+              [
+                "0.85",
+                "0.85"
+              ],
+              [
+                "0.90",
+                "0.90"
+              ],
+              [
+                "0.95",
+                "0.95"
+              ],
+              [
+                "1.00",
+                "1.00"
+              ]
+            ]
           },
           {
             "type": "field_image",
@@ -417,92 +564,66 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_THETA"
+            "name": "HELP_DIRECTION"
           },
           {
             "type": "field_label",
-            "text": "theta"
+            "text": "direction"
           },
           {
-            "type": "field_input",
-            "name": "PARAM_THETA",
-            "text": "0.0"
+            "type": "field_dropdown",
+            "name": "PARAM_DIRECTION",
+            "options": [
+              [
+                "forward",
+                "forward"
+              ],
+              [
+                "backwards",
+                "backwards"
+              ]
+            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#2ca02c",
-        "tooltip": "지정한 좌표에 도착했는지 확인한다.",
+        "colour": "#d62728",
+        "tooltip": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
         "helpUrl": ""
       },
       "parameters": [
         {
-          "name": "x",
-          "field": "PARAM_X",
+          "name": "distance",
+          "field": "PARAM_DISTANCE",
           "type": "float",
-          "description": "Reference target x position in the map frame."
+          "description": "Distance to move from the current position (meter unit)"
         },
         {
-          "name": "y",
-          "field": "PARAM_Y",
+          "name": "velocity",
+          "field": "PARAM_VELOCITY",
           "type": "float",
-          "description": "Reference target y position in the map frame."
+          "description": "Movement velocity (m/s unit)"
         },
         {
-          "name": "theta",
-          "field": "PARAM_THETA",
-          "type": "float",
-          "description": "Reference target heading in radians."
+          "name": "direction",
+          "field": "PARAM_DIRECTION",
+          "type": "string",
+          "description": "Direction to move"
         }
       ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__item__navigation_stop_move",
-      "category": "자율 주행",
-      "kind": "behavior",
-      "label": "navigation/stop_move",
-      "action": "navigation/stop_move",
-      "description": "현재 진행 중인 navigation goal을 취소한다.",
-      "json": {
-        "type": "behavior__item__navigation_stop_move",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "navigation/stop_move",
-            "name": "TITLE"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#2ca02c",
-        "tooltip": "현재 진행 중인 navigation goal을 취소한다.",
-        "helpUrl": ""
-      },
-      "parameters": [],
-      "has_children": false,
-      "enabled_keys": []
-    },
-    {
-      "block_type": "behavior__item__navigation_rotate",
-      "category": "자율 주행",
+      "block_type": "behavior__navigation__navigation_rotate",
+      "category": "Navigation",
       "kind": "behavior",
       "label": "navigation/rotate",
       "action": "navigation/rotate",
-      "description": "제자리에서 목표 각도만큼 회전한다.",
+      "description": "제자리 회전 명령",
       "json": {
-        "type": "behavior__item__navigation_rotate",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "type": "behavior__navigation__navigation_rotate",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -523,68 +644,200 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_YAW"
+            "name": "HELP_ANGLE"
           },
           {
             "type": "field_label",
-            "text": "yaw"
+            "text": "angle"
           },
           {
-            "type": "field_input",
-            "name": "PARAM_YAW",
-            "text": "0.0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TIME_ALLOWANCE_SEC"
-          },
-          {
-            "type": "field_label",
-            "text": "time_allowance_sec"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TIME_ALLOWANCE_SEC",
-            "text": "0"
+            "type": "field_dropdown",
+            "name": "PARAM_ANGLE",
+            "options": [
+              [
+                "-180.00",
+                "-180.00"
+              ],
+              [
+                "-162.00",
+                "-162.00"
+              ],
+              [
+                "-144.00",
+                "-144.00"
+              ],
+              [
+                "-126.00",
+                "-126.00"
+              ],
+              [
+                "-108.00",
+                "-108.00"
+              ],
+              [
+                "-90.00",
+                "-90.00"
+              ],
+              [
+                "-72.00",
+                "-72.00"
+              ],
+              [
+                "-54.00",
+                "-54.00"
+              ],
+              [
+                "-36.00",
+                "-36.00"
+              ],
+              [
+                "-18.00",
+                "-18.00"
+              ],
+              [
+                "0.00",
+                "0.00"
+              ],
+              [
+                "18.00",
+                "18.00"
+              ],
+              [
+                "36.00",
+                "36.00"
+              ],
+              [
+                "54.00",
+                "54.00"
+              ],
+              [
+                "72.00",
+                "72.00"
+              ],
+              [
+                "90.00",
+                "90.00"
+              ],
+              [
+                "108.00",
+                "108.00"
+              ],
+              [
+                "126.00",
+                "126.00"
+              ],
+              [
+                "144.00",
+                "144.00"
+              ],
+              [
+                "162.00",
+                "162.00"
+              ],
+              [
+                "180.00",
+                "180.00"
+              ]
+            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#2ca02c",
-        "tooltip": "제자리에서 목표 각도만큼 회전한다.",
+        "colour": "#d62728",
+        "tooltip": "제자리 회전 명령",
         "helpUrl": ""
       },
       "parameters": [
         {
-          "name": "yaw",
-          "field": "PARAM_YAW",
+          "name": "angle",
+          "field": "PARAM_ANGLE",
           "type": "float",
-          "description": "Target yaw in radians."
-        },
-        {
-          "name": "time_allowance_sec",
-          "field": "PARAM_TIME_ALLOWANCE_SEC",
-          "type": "integer",
-          "description": "Optional time allowance for the spin action."
+          "description": "Rotation angle (degree unit)"
         }
       ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__sound_control__sound_start_play",
-      "category": "Sound control",
+      "block_type": "behavior__navigation__navigation_wait_move_finished",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "navigation/wait_move_finished",
+      "action": "navigation/wait_move_finished",
+      "description": "주행/회전 완료 여부 확인",
+      "json": {
+        "type": "behavior__navigation__navigation_wait_move_finished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/wait_move_finished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "주행/회전 완료 여부 확인",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__navigation__navigation_stop_move",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "navigation/stop_move",
+      "action": "navigation/stop_move",
+      "description": "주행/회전 강제 종료",
+      "json": {
+        "type": "behavior__navigation__navigation_stop_move",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "navigation/stop_move",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "주행/회전 강제 종료",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound__sound_start_play",
+      "category": "Sound",
       "kind": "behavior",
       "label": "sound/start_play",
       "action": "sound/start_play",
-      "description": "등록된 sound/music 항목을 재생한다.",
+      "description": "일반 sound play 명령",
       "json": {
-        "type": "behavior__sound_control__sound_start_play",
-        "message0": "%1 %2 %3 %4 %5",
+        "type": "behavior__sound__sound_start_play",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -605,45 +858,91 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_SOUND_ID"
+            "name": "HELP_ID"
           },
           {
             "type": "field_label",
-            "text": "sound_id"
+            "text": "id"
           },
           {
             "type": "field_input",
-            "name": "PARAM_SOUND_ID",
+            "name": "PARAM_ID",
+            "text": "2000"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PATH"
+          },
+          {
+            "type": "field_label",
+            "text": "path"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PATH",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
             "text": ""
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#9467bd",
-        "tooltip": "등록된 sound/music 항목을 재생한다.",
+        "tooltip": "일반 sound play 명령",
         "helpUrl": ""
       },
       "parameters": [
         {
-          "name": "sound_id",
-          "field": "PARAM_SOUND_ID",
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID to play sound (default: 2000)"
+        },
+        {
+          "name": "path",
+          "field": "PARAM_PATH",
           "type": "string",
-          "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL."
+          "description": "Sound file path to play"
+        },
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "bool",
+          "description": "Sound playback repetition type"
         }
       ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__sound_control__sound_start_play_tts",
-      "category": "Sound control",
+      "block_type": "behavior__sound__sound_start_play_tts",
+      "category": "Sound",
       "kind": "behavior",
       "label": "sound/start_play_tts",
       "action": "sound/start_play_tts",
-      "description": "입력한 텍스트를 TTS로 재생한다.",
+      "description": "TTS play 명령",
       "json": {
-        "type": "behavior__sound_control__sound_start_play_tts",
-        "message0": "%1 %2 %3 %4 %5",
+        "type": "behavior__sound__sound_start_play_tts",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -657,6 +956,23 @@
             "type": "field_label",
             "text": "sound/start_play_tts",
             "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
           },
           {
             "type": "field_image",
@@ -679,65 +995,36 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#9467bd",
-        "tooltip": "입력한 텍스트를 TTS로 재생한다.",
+        "tooltip": "TTS play 명령",
         "helpUrl": ""
       },
       "parameters": [
         {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID to play sound (default: 2000)"
+        },
+        {
           "name": "text",
           "field": "PARAM_TEXT",
           "type": "string",
-          "description": "Text to speak."
+          "description": "Text to play TTS"
         }
       ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__sound_control__sound_stop_play",
-      "category": "Sound control",
-      "kind": "behavior",
-      "label": "sound/stop_play",
-      "action": "sound/stop_play",
-      "description": "현재 재생 중인 sound를 강제로 종료한다.",
-      "json": {
-        "type": "behavior__sound_control__sound_stop_play",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "sound/stop_play",
-            "name": "TITLE"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#9467bd",
-        "tooltip": "현재 재생 중인 sound를 강제로 종료한다.",
-        "helpUrl": ""
-      },
-      "parameters": [],
-      "has_children": false,
-      "enabled_keys": []
-    },
-    {
-      "block_type": "behavior__sound_control__sound_wait_play_completed",
-      "category": "Sound control",
+      "block_type": "behavior__sound__sound_wait_play_completed",
+      "category": "Sound",
       "kind": "behavior",
       "label": "sound/wait_play_completed",
       "action": "sound/wait_play_completed",
-      "description": "현재 sound 재생이 끝날 때까지 기다린다.",
+      "description": "Sound/TTS play 완료 여부 확인",
       "json": {
-        "type": "behavior__sound_control__sound_wait_play_completed",
-        "message0": "%1 %2",
+        "type": "behavior__sound__sound_wait_play_completed",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -751,27 +1038,110 @@
             "type": "field_label",
             "text": "sound/wait_play_completed",
             "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#9467bd",
-        "tooltip": "현재 sound 재생이 끝날 때까지 기다린다.",
+        "tooltip": "Sound/TTS play 완료 여부 확인",
         "helpUrl": ""
       },
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID given for playing sound"
+        }
+      ],
       "has_children": false,
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__sound_control__sound_set_volume",
-      "category": "Sound control",
+      "block_type": "behavior__sound__sound_stop_play",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "sound/stop_play",
+      "action": "sound/stop_play",
+      "description": "Sound/TTS play 강제 종료",
+      "json": {
+        "type": "behavior__sound__sound_stop_play",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "sound/stop_play",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "Sound/TTS play 강제 종료",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID given for playing sound"
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__sound__sound_set_volume",
+      "category": "Sound",
       "kind": "behavior",
       "label": "sound/set_volume",
       "action": "sound/set_volume",
-      "description": "sound 볼륨을 설정한다.",
+      "description": "Sound volume 조절 명령",
       "json": {
-        "type": "behavior__sound_control__sound_set_volume",
+        "type": "behavior__sound__sound_set_volume",
         "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
@@ -803,6 +1173,10 @@
             "type": "field_dropdown",
             "name": "PARAM_VOLUME",
             "options": [
+              [
+                "0",
+                "0"
+              ],
               [
                 "1",
                 "1"
@@ -849,7 +1223,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#9467bd",
-        "tooltip": "sound 볼륨을 설정한다.",
+        "tooltip": "Sound volume 조절 명령",
         "helpUrl": ""
       },
       "parameters": [
@@ -857,7 +1231,241 @@
           "name": "volume",
           "field": "PARAM_VOLUME",
           "type": "integer",
-          "description": "Playback volume level."
+          "description": "Volume value (0 ~ 10)"
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__lcd__lcd_play_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "lcd/play_animation",
+      "action": "lcd/play_animation",
+      "description": "Head LCD에 animation 변경 명령 (eye 포함)",
+      "json": {
+        "type": "behavior__lcd__lcd_play_animation",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "lcd/play_animation",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PATH"
+          },
+          {
+            "type": "field_label",
+            "text": "path"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PATH",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_INSTANT_PLAY"
+          },
+          {
+            "type": "field_label",
+            "text": "instant_play"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_INSTANT_PLAY",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "Head LCD에 animation 변경 명령 (eye 포함)",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "path",
+          "field": "PARAM_PATH",
+          "type": "string",
+          "description": "Animation file path to play"
+        },
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "bool",
+          "description": "Animation repetition type"
+        },
+        {
+          "name": "instant_play",
+          "field": "PARAM_INSTANT_PLAY",
+          "type": "bool",
+          "description": "Decide if the animation plays immediately or after the current animation is completed."
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__lcd__lcd_stop_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "lcd/stop_animation",
+      "action": "lcd/stop_animation",
+      "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+      "json": {
+        "type": "behavior__lcd__lcd_stop_animation",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "lcd/stop_animation",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__device__device_set_led",
+      "category": "Device",
+      "kind": "behavior",
+      "label": "device/set_led",
+      "action": "device/set_led",
+      "description": "몸체의 LED의 light 제어 명령",
+      "json": {
+        "type": "behavior__device__device_set_led",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "device/set_led",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#e377c2",
+        "tooltip": "몸체의 LED의 light 제어 명령",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__etc__demo_set_demo_id",
+      "category": "Etc",
+      "kind": "behavior",
+      "label": "demo/set_demo_id",
+      "action": "demo/set_demo_id",
+      "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+      "json": {
+        "type": "behavior__etc__demo_set_demo_id",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "demo/set_demo_id",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_NAME"
+          },
+          {
+            "type": "field_label",
+            "text": "name"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_NAME",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#7f7f7f",
+        "tooltip": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "field": "PARAM_NAME",
+          "type": "string",
+          "description": "Demo name to specify the demo"
         }
       ],
       "has_children": false,
@@ -2054,15 +2662,21 @@
   ],
   "custom_modules": [
     "ros2Blocks_motion.js",
-    "ros2Blocks_item.js",
-    "ros2Blocks_sound_control.js",
+    "ros2Blocks_navigation.js",
+    "ros2Blocks_sound.js",
+    "ros2Blocks_lcd.js",
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
     "bt_logic.js",
     "bt_function.js"
   ],
   "generator_modules": [
     "ros2Blocks_motion.js",
-    "ros2Blocks_item.js",
-    "ros2Blocks_sound_control.js",
+    "ros2Blocks_navigation.js",
+    "ros2Blocks_sound.js",
+    "ros2Blocks_lcd.js",
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
     "bt_logic.js",
     "bt_function.js"
   ]

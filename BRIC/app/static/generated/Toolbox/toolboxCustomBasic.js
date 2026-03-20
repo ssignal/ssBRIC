@@ -81,29 +81,6 @@ window.toolboxCustomBasic = {
     },
     {
       "kind": "category",
-      "name": "자율주행",
-      "categorystyle": "item_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__item__navigation_move_to_pose"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__item__navigation_wait_move_finished"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__item__navigation_stop_move"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__item__navigation_rotate"
-        }
-      ]
-    },
-    {
-      "kind": "category",
       "name": "Motion",
       "categorystyle": "motion_category",
       "contents": [
@@ -123,28 +100,92 @@ window.toolboxCustomBasic = {
     },
     {
       "kind": "category",
-      "name": "Sound control",
-      "categorystyle": "sound_control_category",
+      "name": "Navigation",
+      "categorystyle": "navigation_category",
       "contents": [
         {
           "kind": "block",
-          "type": "behavior__sound_control__sound_start_play"
+          "type": "behavior__navigation__navigation_move_to_pose"
         },
         {
           "kind": "block",
-          "type": "behavior__sound_control__sound_start_play_tts"
+          "type": "behavior__navigation__navigation_move_in_direction"
         },
         {
           "kind": "block",
-          "type": "behavior__sound_control__sound_stop_play"
+          "type": "behavior__navigation__navigation_rotate"
         },
         {
           "kind": "block",
-          "type": "behavior__sound_control__sound_wait_play_completed"
+          "type": "behavior__navigation__navigation_wait_move_finished"
         },
         {
           "kind": "block",
-          "type": "behavior__sound_control__sound_set_volume"
+          "type": "behavior__navigation__navigation_stop_move"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Sound",
+      "categorystyle": "sound_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_start_play"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_start_play_tts"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_wait_play_completed"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_stop_play"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_set_volume"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "LCD",
+      "categorystyle": "lcd_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__lcd__lcd_play_animation"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__lcd__lcd_stop_animation"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Device",
+      "categorystyle": "device_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__device__device_set_led"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Etc",
+      "categorystyle": "etc_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__etc__demo_set_demo_id"
         }
       ]
     }

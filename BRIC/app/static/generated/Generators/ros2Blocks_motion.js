@@ -6,9 +6,10 @@ function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim
 
 javascriptGenerator.forBlock['behavior__motion__motion_start_motion'] = function(block, generator) {
   const parameter = {};
-  parameter['motion_id'] = block.getFieldValue('PARAM_MOTION_ID') || '';
-  parameter['blocking_type'] = block.getFieldValue('PARAM_BLOCKING_TYPE') || '';
-  parameter['duration_ms'] = Number.parseInt(block.getFieldValue('PARAM_DURATION_MS') || '0', 10);
+  parameter['name'] = block.getFieldValue('PARAM_NAME') || '';
+  parameter['state'] = block.getFieldValue('PARAM_STATE') || '';
+  parameter['repeat'] = block.getFieldValue('PARAM_REPEAT') || '';
+  parameter['action'] = block.getFieldValue('PARAM_ACTION') || '';
   const node = {
     type: 'Action',
     action: 'motion/start_motion',
@@ -20,6 +21,7 @@ javascriptGenerator.forBlock['behavior__motion__motion_start_motion'] = function
 
 javascriptGenerator.forBlock['behavior__motion__motion_stop_motion'] = function(block, generator) {
   const parameter = {};
+  parameter['mode'] = block.getFieldValue('PARAM_MODE') || '';
   const node = {
     type: 'Action',
     action: 'motion/stop_motion',

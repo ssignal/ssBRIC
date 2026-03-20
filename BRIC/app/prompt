@@ -133,9 +133,15 @@
 ### options
   If a item has options, use dropdown menu.
   If a item has no options, use input box.
+### Sound id
+  Default value of `id` in `Sound` category is `2000`.
+  For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.
+  If all such `start_play` blocks are removed, reset the next `id` value to the default `2000`.
 ### min max
   If a item has only one of min or max, use input box and use it as default value.
   If a item has min, use dropdown menu.
+  If parameter type is float and both min and max exist, create dropdown options with 20 steps (inclusive).
+  Example: min=0, max=1 -> 0.00, 0.05, 0.10, ... , 1.00
 ### description
 #### Description for a block
   Add a question icon on the left side of a block only if 'description' exists and is not empty.

@@ -59,13 +59,34 @@ def default_value(param_type: str) -> str:
     return ""
 
 
-def range_options(min_v: Any, max_v: Any) -> List[List[str]]:
+def range_options(min_v: Any, max_v: Any, param_type: str = "") -> List[List[str]]:
     if min_v is None or max_v is None:
         return []
     if not isinstance(min_v, (int, float)) or not isinstance(max_v, (int, float)):
         return []
     if max_v < min_v:
         return []
+
+    kind = (param_type or "").lower()
+    if kind in ("float", "double", "number"):
+        # Float ranges use exactly 20 steps (inclusive endpoints => 21 options).
+        steps = 20
+        delta = (float(max_v) - float(min_v)) / steps
+        decimals = 2
+        if delta != 0:
+            txt = f"{delta:.10f}".rstrip("0").rstrip(".")
+            if "." in txt:
+                decimals = max(2, min(6, len(txt.split(".")[1])))
+
+        out = []
+        for i in range(steps + 1):
+            v = float(min_v) + (delta * i)
+            if i == steps:
+                v = float(max_v)
+            sv = f"{v:.{decimals}f}"
+            out.append([sv, sv])
+        return out
+
     if max_v - min_v > 200:
         return []
     out = []
@@ -162,6 +183,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
     for param in item.get("parameters", []):
         name = param.get("name", "param")
         p_type = (param.get("type") or "string").lower()
+        default_v = param.get("default")
         options = param.get("options") or []
         min_v = param.get("min")
         max_v = param.get("max")
@@ -189,12 +211,14 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
             args0.append({"type": "field_dropdown", "name": field_name, "options": dd})
             default = dd[0][1] if dd else ""
         else:
-            ranged = range_options(min_v, max_v)
+            ranged = range_options(min_v, max_v, p_type)
             if min_v is not None and max_v is not None and ranged:
                 args0.append({"type": "field_dropdown", "name": field_name, "options": ranged})
                 default = ranged[0][1]
             else:
-                if min_v is not None and max_v is None:
+                if default_v is not None:
+                    default = safe_value(default_v)
+                elif min_v is not None and max_v is None:
                     default = safe_value(min_v)
                 elif max_v is not None and min_v is None:
                     default = safe_value(max_v)
@@ -280,16 +304,19 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
         args0.append({"type": "field_label", "text": key})
 
         meta_type = (meta.get("type") or "string").lower()
+        default_v = meta.get("default")
         min_v = meta.get("min")
         max_v = meta.get("max")
         field_name = f"PARAM_{slugify(key).upper()}"
 
-        ranged = range_options(min_v, max_v)
+        ranged = range_options(min_v, max_v, meta_type)
         if min_v is not None and max_v is not None and ranged:
             args0.append({"type": "field_dropdown", "name": field_name, "options": ranged})
             default = ranged[0][1]
         else:
-            if min_v is not None and max_v is None:
+            if default_v is not None:
+                default = safe_value(default_v)
+            elif min_v is not None and max_v is None:
                 default = safe_value(min_v)
             elif max_v is not None and min_v is None:
                 default = safe_value(max_v)

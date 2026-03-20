@@ -2,52 +2,62 @@
   {
     "category": "Motion",
     "action": "motion/start_motion",
-    "description": "Q9 motion ID를 지정해 motion을 시작한다.",
+    "description": "Motion 시작 명령",
     "enabled": true,
     "parameters": [
       {
-        "name": "motion_id",
+        "name": "name",
         "type": "string",
-        "description": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID.",
+        "description": "Motion name",
         "options": [],
         "min": null,
         "max": null
       },
       {
-        "name": "blocking_type",
+        "name": "state",
         "type": "string",
-        "description": "Scheduler blocking mode while the motion is running.",
+        "description": "Motion engine type",
         "options": [
           {
-            "value": "NONE",
-            "description": "Resolve on completion."
+            "value": "motion",
+            "description": "Motion engine type"
           },
           {
-            "value": "SOFT",
-            "description": "Soft blocking until completion."
-          },
-          {
-            "value": "HARD",
-            "description": "Hard blocking until completion."
-          },
-          {
-            "value": "LOOP",
-            "description": "Re-execute the motion until released."
-          },
-          {
-            "value": "WAIT",
-            "description": "Keep waiting after completion until release."
+            "value": "emai_motion",
+            "description": "Motion engine type"
           }
         ],
         "min": null,
         "max": null
       },
       {
-        "name": "duration_ms",
-        "type": "integer",
-        "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds.",
-        "options": [],
-        "min": 0,
+        "name": "repeat",
+        "type": "string",
+        "description": "Motion repetition type",
+        "options": [
+          {
+            "value": "once",
+            "description": "Run once"
+          },
+          {
+            "value": "loop",
+            "description": "Repeat continuously"
+          }
+        ],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "action",
+        "type": "string",
+        "description": "Motion part",
+        "options": [
+          {
+            "value": "all",
+            "description": "Apply to all parts"
+          }
+        ],
+        "min": null,
         "max": null
       }
     ]
@@ -55,63 +65,21 @@
   {
     "category": "Motion",
     "action": "motion/stop_motion",
-    "description": "현재 실행 중인 motion을 강제로 종료한다.",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "Motion",
-    "action": "motion/wait_motion_finished",
-    "description": "현재 실행 중인 motion의 완료를 기다린다.",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "자율 주행",
-    "action": "navigation/move_to_pose",
-    "description": "지정한 좌표와 자세로 이동을 요청한다.",
+    "description": "Motion 강제 종료 명령",
     "enabled": true,
     "parameters": [
       {
-        "name": "x",
-        "type": "float",
-        "description": "Target pose x position in the map frame.",
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "y",
-        "type": "float",
-        "description": "Target pose y position in the map frame.",
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "theta",
-        "type": "float",
-        "description": "Target heading in radians.",
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "behavior_tree",
+        "name": "mode",
         "type": "string",
-        "description": "Optional behavior tree filename. When omitted, the default navigation tree is used.",
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "frame_id",
-        "type": "string",
-        "description": "ROS frame for the target pose.",
+        "description": "Motion stop type",
         "options": [
           {
-            "value": "map",
-            "description": "Default frame used by NAVPose."
+            "value": "normal",
+            "description": "Normal stop"
+          },
+          {
+            "value": "immediately",
+            "description": "Immediate stop"
           }
         ],
         "min": null,
@@ -120,15 +88,39 @@
     ]
   },
   {
-    "category": "자율 주행",
-    "action": "navigation/wait_move_finished",
-    "description": "지정한 좌표에 도착했는지 확인한다.",
+    "category": "Motion",
+    "action": "motion/wait_motion_finished",
+    "description": "Motion 완료 여부 확인",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/move_to_pose",
+    "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
     "enabled": true,
     "parameters": [
       {
+        "name": "pose_type",
+        "type": "string",
+        "description": "map (indoor), earth (outdoor)",
+        "options": [
+          {
+            "value": "map",
+            "description": "Indoor map frame"
+          },
+          {
+            "value": "earth",
+            "description": "Outdoor earth frame"
+          }
+        ],
+        "min": null,
+        "max": null
+      },
+      {
         "name": "x",
         "type": "float",
-        "description": "Reference target x position in the map frame.",
+        "description": "Euler pose x",
         "options": [],
         "min": null,
         "max": null
@@ -136,62 +128,142 @@
       {
         "name": "y",
         "type": "float",
-        "description": "Reference target y position in the map frame.",
+        "description": "Euler pose y",
         "options": [],
         "min": null,
         "max": null
       },
       {
-        "name": "theta",
+        "name": "z",
         "type": "float",
-        "description": "Reference target heading in radians.",
+        "description": "Euler pose z (degree unit)",
         "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "behavior_tree",
+        "type": "string",
+        "description": "It can be omitted as default",
+        "options": [],
+        "min": null,
+        "max": null,
+        "enabled": false
+      }
+    ]
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/move_in_direction",
+    "description": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "distance",
+        "type": "float",
+        "description": "Distance to move from the current position (meter unit)",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "velocity",
+        "type": "float",
+        "description": "Movement velocity (m/s unit)",
+        "options": [],
+        "min": 0,
+        "max": 1
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "description": "Direction to move",
+        "options": [
+          {
+            "value": "forward",
+            "description": "Move forward"
+          },
+          {
+            "value": "backwards",
+            "description": "Move backwards"
+          }
+        ],
         "min": null,
         "max": null
       }
     ]
   },
   {
-    "category": "자율 주행",
-    "action": "navigation/stop_move",
-    "description": "현재 진행 중인 navigation goal을 취소한다.",
+    "category": "Navigation",
+    "action": "navigation/rotate",
+    "description": "제자리 회전 명령",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "angle",
+        "type": "float",
+        "description": "Rotation angle (degree unit)",
+        "options": [],
+        "min": -180,
+        "max": 180
+      }
+    ]
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/wait_move_finished",
+    "description": "주행/회전 완료 여부 확인",
     "enabled": true,
     "parameters": []
   },
   {
-    "category": "자율 주행",
-    "action": "navigation/rotate",
-    "description": "제자리에서 목표 각도만큼 회전한다.",
+    "category": "Navigation",
+    "action": "navigation/stop_move",
+    "description": "주행/회전 강제 종료",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/get_current_pose",
+    "description": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
+    "enabled": false,
+    "parameters": []
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/get_angle_to_0",
+    "description": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
+    "enabled": false,
+    "parameters": []
+  },
+  {
+    "category": "Sound",
+    "action": "sound/start_play",
+    "description": "일반 sound play 명령",
     "enabled": true,
     "parameters": [
       {
-        "name": "yaw",
-        "type": "float",
-        "description": "Target yaw in radians.",
+        "name": "id",
+        "type": "integer",
+        "description": "Handle ID to play sound (default: 2000)",
+        "default": 2000,
         "options": [],
         "min": null,
         "max": null
       },
       {
-        "name": "time_allowance_sec",
-        "type": "integer",
-        "description": "Optional time allowance for the spin action.",
-        "options": [],
-        "min": 0,
-        "max": null
-      }
-    ]
-  },
-  {
-    "category": "Sound control",
-    "action": "sound/start_play",
-    "description": "등록된 sound/music 항목을 재생한다.",
-    "enabled": true,
-    "parameters": [
-      {
-        "name": "sound_id",
+        "name": "path",
         "type": "string",
-        "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL.",
+        "description": "Sound file path to play",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "repeat",
+        "type": "bool",
+        "description": "Sound playback repetition type",
         "options": [],
         "min": null,
         "max": null
@@ -199,15 +271,24 @@
     ]
   },
   {
-    "category": "Sound control",
+    "category": "Sound",
     "action": "sound/start_play_tts",
-    "description": "입력한 텍스트를 TTS로 재생한다.",
+    "description": "TTS play 명령",
     "enabled": true,
     "parameters": [
+      {
+        "name": "id",
+        "type": "integer",
+        "description": "Handle ID to play sound (default: 2000)",
+        "default": 2000,
+        "options": [],
+        "min": null,
+        "max": null
+      },
       {
         "name": "text",
         "type": "string",
-        "description": "Text to speak.",
+        "description": "Text to play TTS",
         "options": [],
         "min": null,
         "max": null
@@ -215,32 +296,114 @@
     ]
   },
   {
-    "category": "Sound control",
-    "action": "sound/stop_play",
-    "description": "현재 재생 중인 sound를 강제로 종료한다.",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "Sound control",
+    "category": "Sound",
     "action": "sound/wait_play_completed",
-    "description": "현재 sound 재생이 끝날 때까지 기다린다.",
+    "description": "Sound/TTS play 완료 여부 확인",
     "enabled": true,
-    "parameters": []
+    "parameters": [
+      {
+        "name": "id",
+        "type": "integer",
+        "description": "Handle ID given for playing sound",
+        "default": 2000,
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
   },
   {
-    "category": "Sound control",
+    "category": "Sound",
+    "action": "sound/stop_play",
+    "description": "Sound/TTS play 강제 종료",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "id",
+        "type": "integer",
+        "description": "Handle ID given for playing sound",
+        "default": 2000,
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Sound",
     "action": "sound/set_volume",
-    "description": "sound 볼륨을 설정한다.",
+    "description": "Sound volume 조절 명령",
     "enabled": true,
     "parameters": [
       {
         "name": "volume",
         "type": "integer",
-        "description": "Playback volume level.",
+        "description": "Volume value (0 ~ 10)",
         "options": [],
-        "min": 1,
+        "min": 0,
         "max": 10
+      }
+    ]
+  },
+  {
+    "category": "LCD",
+    "action": "lcd/play_animation",
+    "description": "Head LCD에 animation 변경 명령 (eye 포함)",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "path",
+        "type": "string",
+        "description": "Animation file path to play",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "repeat",
+        "type": "bool",
+        "description": "Animation repetition type",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "instant_play",
+        "type": "bool",
+        "description": "Decide if the animation plays immediately or after the current animation is completed.",
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "LCD",
+    "action": "lcd/stop_animation",
+    "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Device",
+    "action": "device/set_led",
+    "description": "몸체의 LED의 light 제어 명령",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Etc",
+    "action": "demo/set_demo_id",
+    "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Demo name to specify the demo",
+        "options": [],
+        "min": null,
+        "max": null
       }
     ]
   }
