@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-20T01:59:59.250804Z",
+  "generated_at": "2026-03-20T03:52:48.008578Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -866,82 +866,12 @@
   ],
   "bt_logic": [
     {
-      "block_type": "bt_logic__fallback",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "Fallback",
-      "node_type": "Fallback",
-      "description": "",
-      "json": {
-        "type": "bt_logic__fallback",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "Fallback",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "tickrate"
-      ]
-    },
-    {
       "block_type": "bt_logic__ifthenelse",
       "category": "BT_Logic",
       "kind": "bt_logic",
       "label": "IfThenElse",
       "node_type": "IfThenElse",
-      "description": "",
+      "description": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 작업/ 조건 실패시 작업",
       "json": {
         "type": "bt_logic__ifthenelse",
         "message0": "%1 %2 %3 %4 %5",
@@ -978,7 +908,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 작업/ 조건 실패시 작업",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -1014,7 +944,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__parallel",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -1028,23 +958,6 @@
             "type": "field_label",
             "text": "Parallel",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -1097,12 +1010,6 @@
       },
       "parameters": [
         {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
           "name": "threshold",
           "field": "PARAM_THRESHOLD",
           "type": "integer",
@@ -1118,336 +1025,7 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "parameter",
         "threshold",
-        "tickrate"
-      ]
-    },
-    {
-      "block_type": "bt_logic__pipelinesequence",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "PipelineSequence",
-      "node_type": "PipelineSequence",
-      "description": "",
-      "json": {
-        "type": "bt_logic__pipelinesequence",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "PipelineSequence",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "tickrate"
-      ]
-    },
-    {
-      "block_type": "bt_logic__pipelineselect",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "PipelineSelect",
-      "node_type": "PipelineSelect",
-      "description": "",
-      "json": {
-        "type": "bt_logic__pipelineselect",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "PipelineSelect",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_INDEX"
-          },
-          {
-            "type": "field_label",
-            "text": "index"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_INDEX",
-            "text": "1"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "index",
-          "field": "PARAM_INDEX",
-          "type": "integer",
-          "description": "1-based child index whose result decides the node result."
-        },
-        {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "index",
-        "parameter",
-        "tickrate"
-      ]
-    },
-    {
-      "block_type": "bt_logic__reactivefallback",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "ReactiveFallback",
-      "node_type": "ReactiveFallback",
-      "description": "",
-      "json": {
-        "type": "bt_logic__reactivefallback",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "ReactiveFallback",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "tickrate"
-      ]
-    },
-    {
-      "block_type": "bt_logic__reactivesequence",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "ReactiveSequence",
-      "node_type": "ReactiveSequence",
-      "description": "",
-      "json": {
-        "type": "bt_logic__reactivesequence",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "ReactiveSequence",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
         "tickrate"
       ]
     },
@@ -1457,10 +1035,10 @@
       "kind": "bt_logic",
       "label": "Recovery",
       "node_type": "Recovery",
-      "description": "",
+      "description": "연결된 작업이 실패할 경우, 지정된 횟수 만큼 작업 반복 실행.",
       "json": {
         "type": "bt_logic__recovery",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -1498,23 +1076,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1528,7 +1089,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "연결된 작업이 실패할 경우, 지정된 횟수 만큼 작업 반복 실행.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -1549,12 +1110,6 @@
           "description": "Number of recovery attempts."
         },
         {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1565,7 +1120,6 @@
       "has_child": false,
       "enabled_keys": [
         "attempt",
-        "parameter",
         "tickrate"
       ]
     },
@@ -1640,82 +1194,12 @@
       ]
     },
     {
-      "block_type": "bt_logic__sequencestar",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "SequenceStar",
-      "node_type": "SequenceStar",
-      "description": "",
-      "json": {
-        "type": "bt_logic__sequencestar",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "SequenceStar",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "tickrate"
-      ]
-    },
-    {
       "block_type": "bt_logic__delay",
       "category": "BT_Logic",
       "kind": "bt_logic",
       "label": "Delay",
       "node_type": "Delay",
-      "description": "",
+      "description": "지정된 시간만큼 대기 후 연결된 작업 실행.",
       "json": {
         "type": "bt_logic__delay",
         "message0": "%1 %2 %3 %4 %5",
@@ -1752,7 +1236,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "지정된 시간만큼 대기 후 연결된 작업 실행.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -1785,7 +1269,7 @@
       "kind": "bt_logic",
       "label": "ForceSuccess",
       "node_type": "ForceSuccess",
-      "description": "",
+      "description": "연결된 작업의 결과를 모두 성공으로 처리.",
       "json": {
         "type": "bt_logic__forcesuccess",
         "message0": "%1 %2 %3 %4 %5",
@@ -1822,7 +1306,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "연결된 작업의 결과를 모두 성공으로 처리.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -1855,7 +1339,7 @@
       "kind": "bt_logic",
       "label": "ForceFailure",
       "node_type": "ForceFailure",
-      "description": "",
+      "description": "연결된 작업의 결과를 모두 실패로 처리.",
       "json": {
         "type": "bt_logic__forcefailure",
         "message0": "%1 %2 %3 %4 %5",
@@ -1892,7 +1376,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "연결된 작업의 결과를 모두 실패로 처리.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -1998,7 +1482,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__loop",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -2012,23 +1496,6 @@
             "type": "field_label",
             "text": "Loop",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2081,12 +1548,6 @@
       },
       "parameters": [
         {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "integer",
@@ -2102,126 +1563,7 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "parameter",
         "repeat",
-        "tickrate"
-      ]
-    },
-    {
-      "block_type": "bt_logic__retry",
-      "category": "BT_Logic",
-      "kind": "bt_logic",
-      "label": "Retry",
-      "node_type": "Retry",
-      "description": "",
-      "json": {
-        "type": "bt_logic__retry",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "Retry",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ATTEMPT"
-          },
-          {
-            "type": "field_label",
-            "text": "attempt"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ATTEMPT",
-            "text": "0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_TICKRATE"
-          },
-          {
-            "type": "field_label",
-            "text": "tickrate"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_TICKRATE",
-            "text": "0"
-          }
-        ],
-        "colour": "#1f77b4",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "message1": "children %1",
-        "args1": [
-          {
-            "type": "input_statement",
-            "name": "CHILDREN",
-            "check": "BTNode"
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "attempt",
-          "field": "PARAM_ATTEMPT",
-          "type": "integer",
-          "description": "Number of retry attempts."
-        },
-        {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
-          "name": "tickrate",
-          "field": "PARAM_TICKRATE",
-          "type": "integer",
-          "description": "Tick period in milliseconds."
-        }
-      ],
-      "has_children": true,
-      "has_child": false,
-      "enabled_keys": [
-        "attempt",
-        "parameter",
         "tickrate"
       ]
     },
@@ -2304,7 +1646,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__repeat",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -2318,23 +1660,6 @@
             "type": "field_label",
             "text": "Repeat",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2387,12 +1712,6 @@
       },
       "parameters": [
         {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "integer",
@@ -2408,7 +1727,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "parameter",
         "repeat",
         "tickrate"
       ]
@@ -2419,10 +1737,10 @@
       "kind": "bt_logic",
       "label": "Timeout",
       "node_type": "Timeout",
-      "description": "Not used",
+      "description": "지정된 시간내에 연결된 작업 완료 되어야 성공.",
       "json": {
         "type": "bt_logic__timeout",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -2436,23 +1754,6 @@
             "type": "field_label",
             "text": "Timeout",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2490,7 +1791,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "Not used",
+        "tooltip": "지정된 시간내에 연결된 작업 완료 되어야 성공.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -2504,12 +1805,6 @@
         ]
       },
       "parameters": [
-        {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
         {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
@@ -2526,7 +1821,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "parameter",
         "tickrate",
         "timeout"
       ]
@@ -2537,7 +1831,7 @@
       "kind": "bt_logic",
       "label": "WhileDoElse",
       "node_type": "WhileDoElse",
-      "description": "",
+      "description": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 반복될 작업/ 조건 실패시 작업",
       "json": {
         "type": "bt_logic__whiledoelse",
         "message0": "%1 %2 %3 %4 %5",
@@ -2574,7 +1868,7 @@
           }
         ],
         "colour": "#1f77b4",
-        "tooltip": "",
+        "tooltip": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 반복될 작업/ 조건 실패시 작업",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
@@ -2646,42 +1940,6 @@
       "enabled_keys": []
     },
     {
-      "block_type": "bt_function__subtree",
-      "category": "BT_Function",
-      "kind": "bt_function",
-      "label": "Subtree",
-      "node_type": "Subtree",
-      "description": "",
-      "json": {
-        "type": "bt_function__subtree",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "Subtree",
-            "name": "TITLE"
-          }
-        ],
-        "colour": "#ff7f0e",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode"
-      },
-      "parameters": [],
-      "has_children": false,
-      "has_child": false,
-      "enabled_keys": []
-    },
-    {
       "block_type": "bt_function__action",
       "category": "BT_Function",
       "kind": "bt_function",
@@ -2690,7 +1948,7 @@
       "description": "",
       "json": {
         "type": "bt_function__action",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -2728,23 +1986,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -2771,12 +2012,6 @@
           "description": ""
         },
         {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2787,7 +2022,6 @@
       "has_child": false,
       "enabled_keys": [
         "action",
-        "parameter",
         "tickrate"
       ]
     },
@@ -2828,98 +2062,12 @@
       "enabled_keys": []
     },
     {
-      "block_type": "bt_function__condition",
-      "category": "BT_Function",
-      "kind": "bt_function",
-      "label": "Condition",
-      "node_type": "Condition",
-      "description": "",
-      "json": {
-        "type": "bt_function__condition",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "Condition",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_CONDITION"
-          },
-          {
-            "type": "field_label",
-            "text": "condition"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_CONDITION",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "parameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PARAMETER",
-            "text": ""
-          }
-        ],
-        "colour": "#ff7f0e",
-        "tooltip": "",
-        "helpUrl": "",
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode"
-      },
-      "parameters": [
-        {
-          "name": "condition",
-          "field": "PARAM_CONDITION",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "parameter",
-          "field": "PARAM_PARAMETER",
-          "type": "object",
-          "description": ""
-        }
-      ],
-      "has_children": false,
-      "has_child": false,
-      "enabled_keys": [
-        "condition",
-        "parameter"
-      ]
-    },
-    {
       "block_type": "bt_function__sleep",
       "category": "BT_Function",
       "kind": "bt_function",
       "label": "Sleep",
       "node_type": "Sleep",
-      "description": "",
+      "description": "지정된 시간 만큼 대기.",
       "json": {
         "type": "bt_function__sleep",
         "message0": "%1 %2 %3 %4 %5",
@@ -2956,7 +2104,7 @@
           }
         ],
         "colour": "#ff7f0e",
-        "tooltip": "",
+        "tooltip": "지정된 시간 만큼 대기.",
         "helpUrl": "",
         "previousStatement": "BTNode",
         "nextStatement": "BTNode"

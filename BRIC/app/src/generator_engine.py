@@ -80,6 +80,17 @@ def normalize_category(cat: str) -> str:
     return cat.strip()
 
 
+def is_item_enabled(item: Dict[str, Any]) -> bool:
+    value = item.get("enabled", True)
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, str):
+        return value.strip().lower() not in ("", "0", "false", "no", "off")
+    return bool(value)
+
+
 def order_categories(categories: Dict[str, List[str]]) -> List[Tuple[str, List[str]]]:
     ordered: List[Tuple[str, List[str]]] = []
     used = set()
@@ -486,6 +497,8 @@ def emit_index(path: Path, modules: List[str], register_name: str):
 def emit_toolbox(path: Path, categories: List[Tuple[str, List[str]]]):
     contents = []
     for cat, block_types in categories:
+        if not block_types:
+            continue
         display_name = display_category_name(cat)
         contents.append(
             {
@@ -552,11 +565,15 @@ def generate_all() -> Dict[str, Any]:
 
     behavior_groups: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for item in behavior_list:
+        if not is_item_enabled(item):
+            continue
         behavior_groups[normalize_category(item.get("category", "General"))].append(build_behavior_block(item))
 
     bt_logic = []
     bt_function = []
     for item in bt_list:
+        if not is_item_enabled(item):
+            continue
         b = build_bt_block(item)
         if b["kind"] == "bt_logic":
             bt_logic.append(b)
@@ -576,10 +593,15 @@ def generate_all() -> Dict[str, Any]:
     custom_modules.extend(["bt_logic.js", "bt_function.js"])
     gen_modules.extend(["bt_logic.js", "bt_function.js"])
 
-    toolbox_categories["BT_Logic"] = [b["block_type"] for b in bt_logic]
-    toolbox_categories["BT_Function"] = [
+    bt_logic_types = [b["block_type"] for b in bt_logic]
+    if bt_logic_types:
+        toolbox_categories["BT_Logic"] = bt_logic_types
+
+    bt_function_types = [
         b["block_type"] for b in bt_function if b.get("node_type") != "Root"
     ]
+    if bt_function_types:
+        toolbox_categories["BT_Function"] = bt_function_types
 
     ordered_categories = order_categories(toolbox_categories)
 
