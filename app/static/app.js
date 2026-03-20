@@ -25,6 +25,10 @@
 
   let workspace = null;
   let moduleManifest = null;
+  let startPlayIdDefault = 2000;
+  let startPlayNextId = 2000;
+  let startPlayBlockTypes = new Set();
+  let startPlayAssignedIds = new Map();
   let treeScene = null;
   const treeView = {
     scale: 1,
@@ -150,6 +154,140 @@
 
     (window.BRIC.blockRegistrars || []).forEach((fn) => fn());
     (window.BRIC.generatorRegistrars || []).forEach((fn) => fn());
+    rebuildStartPlayBlockConfig();
+  }
+
+  function rebuildStartPlayBlockConfig() {
+    startPlayBlockTypes = new Set();
+    startPlayIdDefault = 2000;
+    startPlayNextId = startPlayIdDefault;
+    startPlayAssignedIds = new Map();
+
+    const behavior = (moduleManifest && moduleManifest.behavior) || [];
+    behavior.forEach((item) => {
+      const action = String(item.action || '');
+      const category = String(item.category || '');
+      if (!action.includes('start_play')) {
+        return;
+      }
+      if (category !== 'Sound') {
+        return;
+      }
+      const blockType = String(item.block_type || '');
+      if (!blockType) {
+        return;
+      }
+      startPlayBlockTypes.add(blockType);
+      const args0 = (((item || {}).json || {}).args0) || [];
+      const idArg = args0.find((arg) => arg && arg.name === 'PARAM_ID');
+      const parsed = Number.parseInt(idArg && idArg.text, 10);
+      if (Number.isFinite(parsed)) {
+        startPlayIdDefault = parsed;
+      }
+    });
+    startPlayNextId = startPlayIdDefault;
+  }
+
+  function isStartPlayBlock(block) {
+    return !!(block && startPlayBlockTypes.has(block.type));
+  }
+
+  function refreshStartPlayIdState() {
+    if (!workspace || !startPlayBlockTypes.size) {
+      return;
+    }
+    const blocks = workspace.getAllBlocks(false).filter((b) => isStartPlayBlock(b));
+    if (!blocks.length) {
+      startPlayAssignedIds.clear();
+      startPlayNextId = startPlayIdDefault;
+      return;
+    }
+
+    const alive = new Set(blocks.map((b) => b.id));
+    const nextMap = new Map();
+    let maxAssigned = startPlayIdDefault - 1;
+
+    startPlayAssignedIds.forEach((val, id) => {
+      if (!alive.has(id)) {
+        return;
+      }
+      nextMap.set(id, val);
+      maxAssigned = Math.max(maxAssigned, val);
+    });
+
+    blocks.forEach((block) => {
+      if (nextMap.has(block.id)) {
+        return;
+      }
+      const current = Number.parseInt(block.getFieldValue('PARAM_ID'), 10);
+      if (Number.isFinite(current)) {
+        nextMap.set(block.id, current);
+        maxAssigned = Math.max(maxAssigned, current);
+      }
+    });
+
+    startPlayAssignedIds = nextMap;
+    startPlayNextId = Math.max(startPlayIdDefault, maxAssigned + 1);
+  }
+
+  function assignStartPlayId(block) {
+    if (!isStartPlayBlock(block)) {
+      return;
+    }
+    const field = block.getField('PARAM_ID');
+    if (!field) {
+      return;
+    }
+
+    let assigned = startPlayAssignedIds.get(block.id);
+    if (!Number.isFinite(assigned)) {
+      const current = Number.parseInt(block.getFieldValue('PARAM_ID'), 10);
+      if (Number.isFinite(current) && current !== startPlayIdDefault) {
+        assigned = current;
+      } else {
+        assigned = startPlayNextId;
+      }
+      startPlayAssignedIds.set(block.id, assigned);
+      startPlayNextId = Math.max(startPlayNextId, assigned + 1);
+    }
+
+    const currentText = String(block.getFieldValue('PARAM_ID') || '');
+    const nextText = String(assigned);
+    if (currentText !== nextText) {
+      block.setFieldValue(nextText, 'PARAM_ID');
+    }
+  }
+
+  function handleStartPlayIdChange(event) {
+    if (!workspace || !startPlayBlockTypes.size || !event) {
+      return;
+    }
+    if (event.isUiEvent) {
+      return;
+    }
+
+    const created = event.type === Blockly.Events.BLOCK_CREATE || event.type === 'create';
+    const deleted = event.type === Blockly.Events.BLOCK_DELETE || event.type === 'delete';
+
+    if (deleted && Array.isArray(event.ids)) {
+      event.ids.forEach((id) => startPlayAssignedIds.delete(id));
+      if (!startPlayAssignedIds.size) {
+        startPlayNextId = startPlayIdDefault;
+      }
+      refreshStartPlayIdState();
+      return;
+    }
+
+    if (created && Array.isArray(event.ids)) {
+      event.ids.forEach((id) => {
+        const block = workspace.getBlockById(id);
+        if (!block || block.isDisposed()) {
+          return;
+        }
+        assignStartPlayId(block);
+      });
+      refreshStartPlayIdState();
+    }
   }
 
   function injectWorkspace() {
@@ -167,6 +305,8 @@
       zoom: { controls: true, wheel: true, startScale: 0.95 },
       trashcan: true,
     });
+    workspace.addChangeListener(handleStartPlayIdChange);
+    refreshStartPlayIdState();
   }
 
   function ensureRootBlock() {
@@ -241,6 +381,7 @@
     refs.scenarioName.value = name;
     workspace.clear();
     Blockly.serialization.workspaces.load(response.workspace, workspace);
+    refreshStartPlayIdState();
     renderErrors(response.errors || []);
   }
 
@@ -252,6 +393,7 @@
     }
     workspace.clear();
     ensureRootBlock();
+    refreshStartPlayIdState();
     if (refs.jsonOutput) {
       refs.jsonOutput.textContent = '';
     }

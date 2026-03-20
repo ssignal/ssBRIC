@@ -18,14 +18,23 @@ window.themeForCustomBasic = {
     "bt_function_category": {
       "colour": "#ff7f0e"
     },
-    "item_category": {
+    "motion_category": {
       "colour": "#2ca02c"
     },
-    "motion_category": {
+    "navigation_category": {
       "colour": "#d62728"
     },
-    "sound_control_category": {
+    "sound_category": {
       "colour": "#9467bd"
+    },
+    "lcd_category": {
+      "colour": "#8c564b"
+    },
+    "device_category": {
+      "colour": "#e377c2"
+    },
+    "etc_category": {
+      "colour": "#7f7f7f"
     }
   },
   "componentStyles": {
