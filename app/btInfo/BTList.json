@@ -3,6 +3,7 @@
     "category": "Motion",
     "action": "motion/start_motion",
     "description": "Q9 motion ID를 지정해 motion을 시작한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "motion_id",
@@ -55,18 +56,21 @@
     "category": "Motion",
     "action": "motion/stop_motion",
     "description": "현재 실행 중인 motion을 강제로 종료한다.",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "Motion",
     "action": "motion/wait_motion_finished",
     "description": "현재 실행 중인 motion의 완료를 기다린다.",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "자율 주행",
     "action": "navigation/move_to_pose",
     "description": "지정한 좌표와 자세로 이동을 요청한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "x",
@@ -119,6 +123,7 @@
     "category": "자율 주행",
     "action": "navigation/wait_move_finished",
     "description": "지정한 좌표에 도착했는지 확인한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "x",
@@ -150,12 +155,14 @@
     "category": "자율 주행",
     "action": "navigation/stop_move",
     "description": "현재 진행 중인 navigation goal을 취소한다.",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "자율 주행",
     "action": "navigation/rotate",
     "description": "제자리에서 목표 각도만큼 회전한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "yaw",
@@ -179,6 +186,7 @@
     "category": "Sound control",
     "action": "sound/start_play",
     "description": "등록된 sound/music 항목을 재생한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "sound_id",
@@ -194,6 +202,7 @@
     "category": "Sound control",
     "action": "sound/start_play_tts",
     "description": "입력한 텍스트를 TTS로 재생한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "text",
@@ -209,18 +218,21 @@
     "category": "Sound control",
     "action": "sound/stop_play",
     "description": "현재 재생 중인 sound를 강제로 종료한다.",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "Sound control",
     "action": "sound/wait_play_completed",
     "description": "현재 sound 재생이 끝날 때까지 기다린다.",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "Sound control",
     "action": "sound/set_volume",
     "description": "sound 볼륨을 설정한다.",
+    "enabled": true,
     "parameters": [
       {
         "name": "volume",

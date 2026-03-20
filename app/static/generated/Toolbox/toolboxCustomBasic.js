@@ -8,10 +8,6 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
-          "type": "bt_logic__fallback"
-        },
-        {
-          "kind": "block",
           "type": "bt_logic__ifthenelse"
         },
         {
@@ -20,31 +16,11 @@ window.toolboxCustomBasic = {
         },
         {
           "kind": "block",
-          "type": "bt_logic__pipelinesequence"
-        },
-        {
-          "kind": "block",
-          "type": "bt_logic__pipelineselect"
-        },
-        {
-          "kind": "block",
-          "type": "bt_logic__reactivefallback"
-        },
-        {
-          "kind": "block",
-          "type": "bt_logic__reactivesequence"
-        },
-        {
-          "kind": "block",
           "type": "bt_logic__recovery"
         },
         {
           "kind": "block",
           "type": "bt_logic__sequence"
-        },
-        {
-          "kind": "block",
-          "type": "bt_logic__sequencestar"
         },
         {
           "kind": "block",
@@ -65,10 +41,6 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "bt_logic__loop"
-        },
-        {
-          "kind": "block",
-          "type": "bt_logic__retry"
         },
         {
           "kind": "block",
@@ -95,19 +67,11 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
-          "type": "bt_function__subtree"
-        },
-        {
-          "kind": "block",
           "type": "bt_function__action"
         },
         {
           "kind": "block",
           "type": "bt_function__actiondummy"
-        },
-        {
-          "kind": "block",
-          "type": "bt_function__condition"
         },
         {
           "kind": "block",

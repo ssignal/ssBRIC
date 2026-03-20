@@ -15,21 +15,12 @@ javascriptGenerator.forBlock['bt_function__root'] = function(block, generator) {
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['bt_function__subtree'] = function(block, generator) {
-  const node = {
-    type: 'Subtree',
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
 javascriptGenerator.forBlock['bt_function__action'] = function(block, generator) {
   const node = {
     type: 'Action',
     id: randomId(),
   };
   node['action'] = block.getFieldValue('PARAM_ACTION') || '';
-  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
   node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
   return JSON.stringify(node) + '\n';
 };
@@ -39,16 +30,6 @@ javascriptGenerator.forBlock['bt_function__actiondummy'] = function(block, gener
     type: 'ActionDummy',
     id: randomId(),
   };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['bt_function__condition'] = function(block, generator) {
-  const node = {
-    type: 'Condition',
-    id: randomId(),
-  };
-  node['condition'] = block.getFieldValue('PARAM_CONDITION') || '';
-  node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
   return JSON.stringify(node) + '\n';
 };
 

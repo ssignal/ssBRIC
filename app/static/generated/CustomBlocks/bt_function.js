@@ -31,32 +31,8 @@ const BLOCKS = [
     ]
   },
   {
-    "type": "bt_function__subtree",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "Subtree",
-        "name": "TITLE"
-      }
-    ],
-    "colour": "#ff7f0e",
-    "tooltip": "",
-    "helpUrl": "",
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode"
-  },
-  {
     "type": "bt_function__action",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
     "args0": [
       {
         "type": "field_image",
@@ -86,23 +62,6 @@ const BLOCKS = [
       {
         "type": "field_input",
         "name": "PARAM_ACTION",
-        "text": ""
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_PARAMETER"
-      },
-      {
-        "type": "field_label",
-        "text": "parameter"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_PARAMETER",
         "text": ""
       },
       {
@@ -154,64 +113,6 @@ const BLOCKS = [
     "nextStatement": "BTNode"
   },
   {
-    "type": "bt_function__condition",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "Condition",
-        "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_CONDITION"
-      },
-      {
-        "type": "field_label",
-        "text": "condition"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_CONDITION",
-        "text": ""
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_PARAMETER"
-      },
-      {
-        "type": "field_label",
-        "text": "parameter"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_PARAMETER",
-        "text": ""
-      }
-    ],
-    "colour": "#ff7f0e",
-    "tooltip": "",
-    "helpUrl": "",
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode"
-  },
-  {
     "type": "bt_function__sleep",
     "message0": "%1 %2 %3 %4 %5",
     "args0": [
@@ -247,7 +148,7 @@ const BLOCKS = [
       }
     ],
     "colour": "#ff7f0e",
-    "tooltip": "",
+    "tooltip": "지정된 시간 만큼 대기.",
     "helpUrl": "",
     "previousStatement": "BTNode",
     "nextStatement": "BTNode"
@@ -255,25 +156,17 @@ const BLOCKS = [
 ];
 const BLOCK_TOOLTIPS = {
   "bt_function__root": "",
-  "bt_function__subtree": "",
   "bt_function__action": "",
   "bt_function__actiondummy": "",
-  "bt_function__condition": "",
-  "bt_function__sleep": ""
+  "bt_function__sleep": "지정된 시간 만큼 대기."
 };
 const PARAM_TOOLTIPS = {
   "bt_function__root": {},
-  "bt_function__subtree": {},
   "bt_function__action": {
     "PARAM_ACTION": "",
-    "PARAM_PARAMETER": "",
     "PARAM_TICKRATE": "Tick period in milliseconds."
   },
   "bt_function__actiondummy": {},
-  "bt_function__condition": {
-    "PARAM_CONDITION": "",
-    "PARAM_PARAMETER": ""
-  },
   "bt_function__sleep": {
     "PARAM_TICKRATE": "Sleep time in milliseconds."
   }
