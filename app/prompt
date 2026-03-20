@@ -138,7 +138,8 @@
   If a item has min, use dropdown menu.
 ### description
 #### Description for a block
-  Add a question icon on the left side of a block.
+  Add a question icon on the left side of a block only if 'description' exists and is not empty.
+  If there is no 'description' or it is empty, hide the question icon.
   Only when the mouse is on the question icon, onMouse event, show the 'description' on a floting box.
 #### Description for parameters
   Add a question icon before each parameter.
