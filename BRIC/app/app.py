@@ -14,6 +14,19 @@ MANIFEST_PATH = GENERATED_DIR / "manifest.json"
 app = Flask(__name__)
 
 
+def load_port(default: int = 8000) -> int:
+    port_file = BASE_DIR / "port"
+    if not port_file.exists():
+        return default
+    try:
+        value = int(port_file.read_text(encoding="utf-8").strip())
+    except (ValueError, TypeError):
+        return default
+    if 1 <= value <= 65535:
+        return value
+    return default
+
+
 def scenario_path(name: str) -> Path:
     safe = (
         "".join(c for c in name if c.isalnum() or c in ("-", "_", " "))
@@ -269,4 +282,4 @@ def scenario_as_blockly(name: str):
 
 if __name__ == "__main__":
     generate_all()
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=load_port(), debug=True)
