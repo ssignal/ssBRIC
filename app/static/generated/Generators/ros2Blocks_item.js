@@ -20,14 +20,14 @@ javascriptGenerator.forBlock['behavior__item__navigation_move_to_pose'] = functi
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['behavior__item__navigation_moving_to_pose'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__item__navigation_wait_move_finished'] = function(block, generator) {
   const parameter = {};
   parameter['x'] = Number.parseFloat(block.getFieldValue('PARAM_X') || '0');
   parameter['y'] = Number.parseFloat(block.getFieldValue('PARAM_Y') || '0');
   parameter['theta'] = Number.parseFloat(block.getFieldValue('PARAM_THETA') || '0');
   const node = {
     type: 'Action',
-    action: 'navigation/moving_to_pose',
+    action: 'navigation/wait_move_finished',
     parameter,
     id: randomId(),
   };
