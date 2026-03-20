@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BRIC Behavior Tree Editor</title>
+  <title>BRIC Scenario Studio</title>
   <link rel="stylesheet" href="/static/style.css?v={{ css_version }}">
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
@@ -11,7 +11,7 @@
 <body>
   <div class="bg-overlay"></div>
   <header class="top-menu">
-    <button id="brand-home" class="brand-btn" type="button">BRIC BT Studio</button>
+    <button id="brand-home" class="brand-btn" type="button">BRIC Scenario Studio</button>
   </header>
 
   <main>
@@ -46,10 +46,6 @@
       <div class="editor-grid">
         <div class="workspace-shell glass">
           <div id="blocklyDiv"></div>
-        </div>
-        <div class="side-shell glass">
-          <h3>Conversion Errors</h3>
-          <ul id="error-list"></ul>
         </div>
       </div>
     </section>

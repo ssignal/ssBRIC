@@ -14,7 +14,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "device/set_led",
+        "text": "set_led",
         "name": "TITLE"
       }
     ],

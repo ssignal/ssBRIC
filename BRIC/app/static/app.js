@@ -94,10 +94,16 @@
   }
 
   function clearErrors() {
+    if (!refs.errorList) {
+      return;
+    }
     refs.errorList.innerHTML = '';
   }
 
   function renderErrors(errors) {
+    if (!refs.errorList) {
+      return;
+    }
     clearErrors();
     (errors || []).forEach((err) => {
       const li = document.createElement('li');

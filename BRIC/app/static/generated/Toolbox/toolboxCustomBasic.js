@@ -36,10 +36,6 @@ window.toolboxCustomBasic = {
         },
         {
           "kind": "block",
-          "type": "bt_logic__inverse"
-        },
-        {
-          "kind": "block",
           "type": "bt_logic__loop"
         },
         {

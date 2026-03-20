@@ -14,7 +14,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "sound/start_play",
+        "text": "start_play",
         "name": "TITLE"
       },
       {
@@ -89,7 +89,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "sound/start_play_tts",
+        "text": "start_play_tts",
         "name": "TITLE"
       },
       {
@@ -147,7 +147,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "sound/wait_play_completed",
+        "text": "wait_play_completed",
         "name": "TITLE"
       },
       {
@@ -188,7 +188,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "sound/stop_play",
+        "text": "stop_play",
         "name": "TITLE"
       },
       {
@@ -229,7 +229,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "sound/set_volume",
+        "text": "set_volume",
         "name": "TITLE"
       },
       {

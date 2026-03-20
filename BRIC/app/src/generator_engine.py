@@ -168,13 +168,14 @@ def display_category_name(cat: str) -> str:
 def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
     category = normalize_category(item.get("category", "General"))
     action = item.get("action", "unknown/action")
+    action_label = str(action).split("/")[-1] if "/" in str(action) else str(action)
     block_type = f"behavior__{slugify(category)}__{slugify(action)}"
     description = clean_text(item.get("description", ""))
 
     args0 = [
         {
             "type": "field_label",
-            "text": action,
+            "text": action_label,
             "name": "TITLE"
         }
     ]
@@ -264,7 +265,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         "block_type": block_type,
         "category": category,
         "kind": "behavior",
-        "label": action,
+        "label": action_label,
         "action": action,
         "description": description,
         "json": block_json,

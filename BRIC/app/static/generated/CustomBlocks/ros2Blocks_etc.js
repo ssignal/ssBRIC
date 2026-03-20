@@ -14,7 +14,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "demo/set_demo_id",
+        "text": "set_demo_id",
         "name": "TITLE"
       },
       {

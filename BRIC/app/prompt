@@ -31,7 +31,7 @@
   - If there are blocks or category, show it left side as a normal Blockly app.
   - If there is a selected scenario on the Main Page, show it on the screen.
     The Behavior Tree should be convert to Brockly Json format refer to the json file in btInfo folder.
-    Convert only items that has been vound in btInfo, and show the error list.
+    Convert only items that has been vound in btInfo.
   - Behavior Tree JSON should not be shown in the right side area.
   - In scenario name input field, pressing `Enter` should save scenario.
     It should behave same as clicking `Save Scenario` button.
@@ -59,8 +59,8 @@
   - `JSON` button opens Behavior Tree JSON window.
   - `Confirm` button closes Graphical Tree window.
 ## Top Menu -------------------------------
-  Top area shows title text `BRIC BT Studio`.
-  Clicking `BRIC BT Studio` goes back to Main page.
+  Top area shows title text `BRIC Scenario Studio`.
+  Clicking `BRIC Scenario Studio` goes back to Main page.
 ## Notification -------------------------------
   Notification toast message should be shown in the center of the window.
   For scenario Add/Save and Delete actions, include the scenario file name in the message.
@@ -78,6 +78,7 @@
 ### Block register
    - Load json file that describe block info.
    - Register it using Blockly.Blocks
+   - For InputFileA blocks, use only the last part of `action` after `/` as the block name label.
    - For InputFileB
      If the 'children' enabled is true, This block is treated as a block in 'BT_Logic' cateogry.
      Others are in 'BT_Function'.
