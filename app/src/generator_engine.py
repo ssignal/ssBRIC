@@ -118,6 +118,18 @@ def is_item_enabled(item: Dict[str, Any]) -> bool:
     return bool(value)
 
 
+def is_enabled(value: Any, default: bool = True) -> bool:
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, str):
+        return value.strip().lower() not in ("", "0", "false", "no", "off")
+    return bool(value)
+
+
 def order_categories(categories: Dict[str, List[str]]) -> List[Tuple[str, List[str]]]:
     ordered: List[Tuple[str, List[str]]] = []
     used = set()
@@ -181,6 +193,8 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
 
     param_meta: List[Dict[str, Any]] = []
     for param in item.get("parameters", []):
+        if not is_enabled(param.get("enabled"), True):
+            continue
         name = param.get("name", "param")
         p_type = (param.get("type") or "string").lower()
         default_v = param.get("default")

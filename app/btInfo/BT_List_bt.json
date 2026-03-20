@@ -1055,7 +1055,7 @@
   {
     "category": "BT Function",
     "type": "Inverse",
-    "enabled": true,
+    "enabled": false,
     "parametersDef": {
       "action": {
         "enabled": false,

@@ -2,7 +2,7 @@
 const BLOCKS = [
   {
     "type": "behavior__navigation__navigation_move_to_pose",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14 %15 %16 %17",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
     "args0": [
       {
         "type": "field_image",
@@ -93,23 +93,6 @@ const BLOCKS = [
         "type": "field_input",
         "name": "PARAM_Z",
         "text": "0.0"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_BEHAVIOR_TREE"
-      },
-      {
-        "type": "field_label",
-        "text": "behavior_tree"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_BEHAVIOR_TREE",
-        "text": ""
       }
     ],
     "previousStatement": "BTNode",
@@ -474,8 +457,7 @@ const PARAM_TOOLTIPS = {
     "PARAM_POSE_TYPE": "map (indoor), earth (outdoor)",
     "PARAM_X": "Euler pose x",
     "PARAM_Y": "Euler pose y",
-    "PARAM_Z": "Euler pose z (degree unit)",
-    "PARAM_BEHAVIOR_TREE": "It can be omitted as default"
+    "PARAM_Z": "Euler pose z (degree unit)"
   },
   "behavior__navigation__navigation_move_in_direction": {
     "PARAM_DISTANCE": "Distance to move from the current position (meter unit)",

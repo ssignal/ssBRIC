@@ -87,6 +87,8 @@
      1. type: 'type' of the item, default is 'Action'
      2. action: 'action' of the item if exist.
      3. parameter: items in 'parameters'
+       For InputFileA (`BTList.json`), each parameter item includes `enabled`.
+       Only parameters with `enabled: true` are shown/used in block UI and generation.
      4. id: the 8 digits unique random string.
      6. other parameters in 'parametersDef' of the item.
        Only items with the 'enabled: true' is used.
