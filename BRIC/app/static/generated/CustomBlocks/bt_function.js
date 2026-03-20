@@ -2,16 +2,8 @@
 const BLOCKS = [
   {
     "type": "bt_function__root",
-    "message0": "%1 %2",
+    "message0": "%1",
     "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
       {
         "type": "field_label",
         "text": "Root",
@@ -32,16 +24,8 @@ const BLOCKS = [
   },
   {
     "type": "bt_function__action",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+    "message0": "%1 %2 %3 %4 %5 %6 %7",
     "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
       {
         "type": "field_label",
         "text": "Action",
@@ -90,16 +74,8 @@ const BLOCKS = [
   },
   {
     "type": "bt_function__actiondummy",
-    "message0": "%1 %2",
+    "message0": "%1",
     "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
       {
         "type": "field_label",
         "text": "ActionDummy",

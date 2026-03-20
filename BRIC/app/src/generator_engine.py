@@ -44,6 +44,12 @@ def safe_value(v: Any) -> str:
     return str(v)
 
 
+def clean_text(v: Any) -> str:
+    if v is None:
+        return ""
+    return str(v).strip()
+
+
 def default_value(param_type: str) -> str:
     kind = (param_type or "").lower()
     if kind in ("float", "double", "number"):
@@ -130,22 +136,27 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
     category = normalize_category(item.get("category", "General"))
     action = item.get("action", "unknown/action")
     block_type = f"behavior__{slugify(category)}__{slugify(action)}"
+    description = clean_text(item.get("description", ""))
 
     args0 = [
-        {
-            "type": "field_image",
-            "src": QUESTION_ICON_DATA_URI,
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-        },
         {
             "type": "field_label",
             "text": action,
             "name": "TITLE"
         }
     ]
+    if description:
+        args0.insert(
+            0,
+            {
+                "type": "field_image",
+                "src": QUESTION_ICON_DATA_URI,
+                "width": 16,
+                "height": 16,
+                "alt": "?",
+                "name": "HELP"
+            },
+        )
 
     param_meta: List[Dict[str, Any]] = []
     for param in item.get("parameters", []):
@@ -207,7 +218,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": 210,
-        "tooltip": item.get("description", ""),
+        "tooltip": description,
         "helpUrl": ""
     }
 
@@ -217,7 +228,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         "kind": "behavior",
         "label": action,
         "action": action,
-        "description": item.get("description", ""),
+        "description": description,
         "json": block_json,
         "parameters": param_meta,
         "has_children": False,
@@ -229,18 +240,21 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
     block_kind = "bt_logic" if bool((item.get("parametersDef") or {}).get("children", {}).get("enabled")) else "bt_function"
     type_name = item.get("type", "Node")
     block_type = f"{block_kind}__{slugify(type_name)}"
+    description = clean_text(item.get("description", ""))
 
-    args0 = [
-        {
-            "type": "field_image",
-            "src": QUESTION_ICON_DATA_URI,
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-        },
-        {"type": "field_label", "text": type_name, "name": "TITLE"}
-    ]
+    args0 = [{"type": "field_label", "text": type_name, "name": "TITLE"}]
+    if description:
+        args0.insert(
+            0,
+            {
+                "type": "field_image",
+                "src": QUESTION_ICON_DATA_URI,
+                "width": 16,
+                "height": 16,
+                "alt": "?",
+                "name": "HELP"
+            },
+        )
 
     params_def = item.get("parametersDef") or {}
     enabled_keys = []
@@ -294,7 +308,7 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
         "message0": " ".join(["%" + str(i + 1) for i in range(len(args0))]),
         "args0": args0,
         "colour": 35 if block_kind == "bt_logic" else 125,
-        "tooltip": item.get("description", ""),
+        "tooltip": description,
         "helpUrl": ""
     }
 
@@ -320,7 +334,7 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
         "kind": block_kind,
         "label": type_name,
         "node_type": type_name,
-        "description": item.get("description", ""),
+        "description": description,
         "json": block_json,
         "parameters": [{"name": k, **v} for k, v in field_map.items()],
         "has_children": has_children,
