@@ -362,47 +362,6 @@ const BLOCKS = [
     ]
   },
   {
-    "type": "bt_logic__inverse",
-    "message0": "%1 %2 %3 %4",
-    "args0": [
-      {
-        "type": "field_label",
-        "text": "Inverse",
-        "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_TICKRATE"
-      },
-      {
-        "type": "field_label",
-        "text": "tickrate"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_TICKRATE",
-        "text": "0"
-      }
-    ],
-    "colour": "#1f77b4",
-    "tooltip": "",
-    "helpUrl": "",
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "message1": "children %1",
-    "args1": [
-      {
-        "type": "input_statement",
-        "name": "CHILDREN",
-        "check": "BTNode"
-      }
-    ]
-  },
-  {
     "type": "bt_logic__loop",
     "message0": "%1 %2 %3 %4 %5 %6 %7",
     "args0": [
@@ -683,7 +642,6 @@ const BLOCK_TOOLTIPS = {
   "bt_logic__delay": "지정된 시간만큼 대기 후 연결된 작업 실행.",
   "bt_logic__forcesuccess": "연결된 작업의 결과를 모두 성공으로 처리.",
   "bt_logic__forcefailure": "연결된 작업의 결과를 모두 실패로 처리.",
-  "bt_logic__inverse": "",
   "bt_logic__loop": "",
   "bt_logic__retryuntilsuccess": "",
   "bt_logic__repeat": "",
@@ -712,9 +670,6 @@ const PARAM_TOOLTIPS = {
     "PARAM_TICKRATE": "Tick period in milliseconds."
   },
   "bt_logic__forcefailure": {
-    "PARAM_TICKRATE": "Tick period in milliseconds."
-  },
-  "bt_logic__inverse": {
     "PARAM_TICKRATE": "Tick period in milliseconds."
   },
   "bt_logic__loop": {

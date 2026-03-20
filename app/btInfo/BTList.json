@@ -9,33 +9,54 @@
         "name": "name",
         "type": "string",
         "description": "Motion name",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "state",
         "type": "string",
         "description": "Motion engine type",
+        "enabled": true,
         "options": [
           {
-            "value": "motion",
+            "value": "autonomous",
             "description": "Motion engine type"
           },
           {
             "value": "emai_motion",
             "description": "Motion engine type"
+          },
+          {
+            "value": "exp_motion",
+            "description": "Motion engine type"
+          },
+          {
+            "value": "freeze",
+            "description": "Motion engine type"
+          },
+          {
+            "value": "mani_motion",
+            "description": "Motion engine type"
+          },
+          {
+            "value": "motion",
+            "description": "Motion engine type"
+          },
+          {
+            "value": "ps_motion",
+            "description": "Motion engine type"
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "repeat",
         "type": "string",
         "description": "Motion repetition type",
+        "enabled": true,
         "options": [
           {
             "value": "once",
@@ -47,13 +68,13 @@
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "action",
         "type": "string",
         "description": "Motion part",
+        "enabled": true,
         "options": [
           {
             "value": "all",
@@ -61,8 +82,7 @@
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -76,6 +96,7 @@
         "name": "mode",
         "type": "string",
         "description": "Motion stop type",
+        "enabled": true,
         "options": [
           {
             "value": "normal",
@@ -87,8 +108,7 @@
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -109,6 +129,7 @@
         "name": "pose_type",
         "type": "string",
         "description": "map (indoor), earth (outdoor)",
+        "enabled": true,
         "options": [
           {
             "value": "map",
@@ -120,44 +141,43 @@
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "x",
         "type": "float",
         "description": "Euler pose x",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "y",
         "type": "float",
         "description": "Euler pose y",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "z",
         "type": "float",
         "description": "Euler pose z (degree unit)",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "behavior_tree",
         "type": "string",
         "description": "It can be omitted as default",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": false
+        "max": null
       }
     ]
   },
@@ -171,24 +191,25 @@
         "name": "distance",
         "type": "float",
         "description": "Distance to move from the current position (meter unit)",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "velocity",
         "type": "float",
         "description": "Movement velocity (m/s unit)",
+        "enabled": true,
         "options": [],
         "min": 0,
-        "max": 1,
-        "enabled": true
+        "max": 1
       },
       {
         "name": "direction",
         "type": "string",
         "description": "Direction to move",
+        "enabled": true,
         "options": [
           {
             "value": "forward",
@@ -200,8 +221,7 @@
           }
         ],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -215,10 +235,10 @@
         "name": "angle",
         "type": "float",
         "description": "Rotation angle (degree unit)",
+        "enabled": true,
         "options": [],
         "min": -180,
-        "max": 180,
-        "enabled": true
+        "max": 180
       }
     ]
   },
@@ -261,28 +281,28 @@
         "type": "integer",
         "description": "Handle ID to play sound (default: 2000)",
         "default": 2000,
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "path",
         "type": "string",
         "description": "Sound file path to play",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "repeat",
         "type": "bool",
         "description": "Sound playback repetition type",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -297,19 +317,19 @@
         "type": "integer",
         "description": "Handle ID to play sound (default: 2000)",
         "default": 2000,
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "text",
         "type": "string",
         "description": "Text to play TTS",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -324,10 +344,10 @@
         "type": "integer",
         "description": "Handle ID given for playing sound",
         "default": 2000,
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -342,10 +362,10 @@
         "type": "integer",
         "description": "Handle ID given for playing sound",
         "default": 2000,
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -359,10 +379,10 @@
         "name": "volume",
         "type": "integer",
         "description": "Volume value (0 ~ 10)",
+        "enabled": true,
         "options": [],
         "min": 0,
-        "max": 10,
-        "enabled": true
+        "max": 10
       }
     ]
   },
@@ -376,28 +396,28 @@
         "name": "path",
         "type": "string",
         "description": "Animation file path to play",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "repeat",
         "type": "bool",
         "description": "Animation repetition type",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       },
       {
         "name": "instant_play",
         "type": "bool",
         "description": "Decide if the animation plays immediately or after the current animation is completed.",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   },
@@ -425,10 +445,10 @@
         "name": "name",
         "type": "string",
         "description": "Demo name to specify the demo",
+        "enabled": true,
         "options": [],
         "min": null,
-        "max": null,
-        "enabled": true
+        "max": null
       }
     ]
   }

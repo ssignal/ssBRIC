@@ -83,17 +83,6 @@ javascriptGenerator.forBlock['bt_logic__forcefailure'] = function(block, generat
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['bt_logic__inverse'] = function(block, generator) {
-  const node = {
-    type: 'Inverse',
-    id: randomId(),
-  };
-  node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
-  const childrenRaw = generator.statementToCode(block, 'CHILDREN');
-  node.children = parseChildNodes(childrenRaw);
-  return JSON.stringify(node) + '\n';
-};
-
 javascriptGenerator.forBlock['bt_logic__loop'] = function(block, generator) {
   const node = {
     type: 'Loop',

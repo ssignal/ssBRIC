@@ -176,7 +176,7 @@ button.danger {
 
 .editor-grid {
   display: grid;
-  grid-template-columns: 1fr 330px;
+  grid-template-columns: 1fr;
   gap: 12px;
   min-height: calc(100vh - 190px);
 }

@@ -14,7 +14,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "motion/start_motion",
+        "text": "start_motion",
         "name": "TITLE"
       },
       {
@@ -51,12 +51,32 @@ const BLOCKS = [
         "name": "PARAM_STATE",
         "options": [
           [
-            "motion",
-            "motion"
+            "autonomous",
+            "autonomous"
           ],
           [
             "emai_motion",
             "emai_motion"
+          ],
+          [
+            "exp_motion",
+            "exp_motion"
+          ],
+          [
+            "freeze",
+            "freeze"
+          ],
+          [
+            "mani_motion",
+            "mani_motion"
+          ],
+          [
+            "motion",
+            "motion"
+          ],
+          [
+            "ps_motion",
+            "ps_motion"
           ]
         ]
       },
@@ -129,7 +149,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "motion/stop_motion",
+        "text": "stop_motion",
         "name": "TITLE"
       },
       {
@@ -179,7 +199,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "motion/wait_motion_finished",
+        "text": "wait_motion_finished",
         "name": "TITLE"
       }
     ],

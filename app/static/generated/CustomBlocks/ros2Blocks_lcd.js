@@ -14,7 +14,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "lcd/play_animation",
+        "text": "play_animation",
         "name": "TITLE"
       },
       {
@@ -89,7 +89,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "lcd/stop_animation",
+        "text": "stop_animation",
         "name": "TITLE"
       }
     ],
