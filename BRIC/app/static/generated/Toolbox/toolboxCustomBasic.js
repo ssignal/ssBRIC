@@ -126,7 +126,7 @@ window.toolboxCustomBasic = {
         },
         {
           "kind": "block",
-          "type": "behavior__item__navigation_moving_to_pose"
+          "type": "behavior__item__navigation_wait_move_finished"
         },
         {
           "kind": "block",

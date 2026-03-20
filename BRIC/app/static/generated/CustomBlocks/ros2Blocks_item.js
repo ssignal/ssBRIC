@@ -115,7 +115,7 @@ const BLOCKS = [
     "helpUrl": ""
   },
   {
-    "type": "behavior__item__navigation_moving_to_pose",
+    "type": "behavior__item__navigation_wait_move_finished",
     "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
     "args0": [
       {
@@ -128,7 +128,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "navigation/moving_to_pose",
+        "text": "navigation/wait_move_finished",
         "name": "TITLE"
       },
       {
@@ -274,7 +274,7 @@ const BLOCKS = [
 ];
 const BLOCK_TOOLTIPS = {
   "behavior__item__navigation_move_to_pose": "지정한 좌표와 자세로 이동을 요청한다.",
-  "behavior__item__navigation_moving_to_pose": "지정한 좌표에 도착했는지 확인한다.",
+  "behavior__item__navigation_wait_move_finished": "지정한 좌표에 도착했는지 확인한다.",
   "behavior__item__navigation_stop_move": "현재 진행 중인 navigation goal을 취소한다.",
   "behavior__item__navigation_rotate": "제자리에서 목표 각도만큼 회전한다."
 };
@@ -286,7 +286,7 @@ const PARAM_TOOLTIPS = {
     "PARAM_BEHAVIOR_TREE": "Optional behavior tree filename. When omitted, the default navigation tree is used.",
     "PARAM_FRAME_ID": "ROS frame for the target pose."
   },
-  "behavior__item__navigation_moving_to_pose": {
+  "behavior__item__navigation_wait_move_finished": {
     "PARAM_X": "Reference target x position in the map frame.",
     "PARAM_Y": "Reference target y position in the map frame.",
     "PARAM_THETA": "Reference target heading in radians."

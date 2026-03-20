@@ -117,7 +117,7 @@
   },
   {
     "category": "자율 주행",
-    "action": "navigation/moving_to_pose",
+    "action": "navigation/wait_move_finished",
     "description": "지정한 좌표에 도착했는지 확인한다.",
     "parameters": [
       {

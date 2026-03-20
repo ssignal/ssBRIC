@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-19T00:41:03.978636Z",
+  "generated_at": "2026-03-20T01:59:59.250804Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -354,14 +354,14 @@
       "enabled_keys": []
     },
     {
-      "block_type": "behavior__item__navigation_moving_to_pose",
+      "block_type": "behavior__item__navigation_wait_move_finished",
       "category": "자율 주행",
       "kind": "behavior",
-      "label": "navigation/moving_to_pose",
-      "action": "navigation/moving_to_pose",
+      "label": "navigation/wait_move_finished",
+      "action": "navigation/wait_move_finished",
       "description": "지정한 좌표에 도착했는지 확인한다.",
       "json": {
-        "type": "behavior__item__navigation_moving_to_pose",
+        "type": "behavior__item__navigation_wait_move_finished",
         "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
@@ -374,7 +374,7 @@
           },
           {
             "type": "field_label",
-            "text": "navigation/moving_to_pose",
+            "text": "navigation/wait_move_finished",
             "name": "TITLE"
           },
           {
@@ -874,7 +874,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__fallback",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -895,23 +895,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -940,12 +923,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -955,7 +932,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -968,7 +944,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__ifthenelse",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -989,23 +965,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1034,12 +993,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1049,7 +1002,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1062,7 +1014,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__parallel",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -1076,23 +1028,6 @@
             "type": "field_label",
             "text": "Parallel",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -1162,12 +1097,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -1189,7 +1118,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "parameter",
         "threshold",
         "tickrate"
@@ -1204,7 +1132,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__pipelinesequence",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1218,23 +1146,6 @@
             "type": "field_label",
             "text": "PipelineSequence",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -1270,12 +1181,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1285,7 +1190,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1298,7 +1202,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__pipelineselect",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -1312,23 +1216,6 @@
             "type": "field_label",
             "text": "PipelineSelect",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -1398,12 +1285,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "index",
           "field": "PARAM_INDEX",
           "type": "integer",
@@ -1425,7 +1306,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "index",
         "parameter",
         "tickrate"
@@ -1440,7 +1320,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__reactivefallback",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1461,23 +1341,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1506,12 +1369,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1521,7 +1378,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1534,7 +1390,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__reactivesequence",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1555,23 +1411,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1600,12 +1439,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1615,7 +1448,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1628,7 +1460,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__recovery",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -1659,23 +1491,6 @@
             "type": "field_input",
             "name": "PARAM_ATTEMPT",
             "text": "0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -1734,12 +1549,6 @@
           "description": "Number of recovery attempts."
         },
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -1756,7 +1565,6 @@
       "has_child": false,
       "enabled_keys": [
         "attempt",
-        "id",
         "parameter",
         "tickrate"
       ]
@@ -1770,7 +1578,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__sequence",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1791,23 +1599,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1836,12 +1627,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1851,7 +1636,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1864,7 +1648,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__sequencestar",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1885,23 +1669,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -1930,12 +1697,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -1945,7 +1706,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -1958,7 +1718,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__delay",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -1979,23 +1739,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -2024,12 +1767,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2039,7 +1776,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -2052,7 +1788,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__forcesuccess",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -2073,23 +1809,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -2118,12 +1837,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2133,7 +1846,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -2146,7 +1858,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__forcefailure",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -2167,23 +1879,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -2212,12 +1907,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2227,7 +1916,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -2240,7 +1928,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__inverse",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -2261,23 +1949,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_TICKRATE"
           },
           {
@@ -2306,12 +1977,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2321,7 +1986,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -2334,7 +1998,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__loop",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -2348,23 +2012,6 @@
             "type": "field_label",
             "text": "Loop",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2434,12 +2081,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -2461,7 +2102,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "parameter",
         "repeat",
         "tickrate"
@@ -2476,7 +2116,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__retry",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -2507,23 +2147,6 @@
             "type": "field_input",
             "name": "PARAM_ATTEMPT",
             "text": "0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2582,12 +2205,6 @@
           "description": "Number of retry attempts."
         },
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -2604,7 +2221,6 @@
       "has_child": false,
       "enabled_keys": [
         "attempt",
-        "id",
         "parameter",
         "tickrate"
       ]
@@ -2618,7 +2234,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__retryuntilsuccess",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -2632,23 +2248,6 @@
             "type": "field_label",
             "text": "RetryUntilSuccess",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2684,12 +2283,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -2699,7 +2292,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     },
@@ -2712,7 +2304,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__repeat",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -2726,23 +2318,6 @@
             "type": "field_label",
             "text": "Repeat",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2812,12 +2387,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -2839,7 +2408,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "parameter",
         "repeat",
         "tickrate"
@@ -2854,7 +2422,7 @@
       "description": "Not used",
       "json": {
         "type": "bt_logic__timeout",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -2868,23 +2436,6 @@
             "type": "field_label",
             "text": "Timeout",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -2954,12 +2505,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -2981,7 +2526,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "parameter",
         "tickrate",
         "timeout"
@@ -2996,7 +2540,7 @@
       "description": "",
       "json": {
         "type": "bt_logic__whiledoelse",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -3010,23 +2554,6 @@
             "type": "field_label",
             "text": "WhileDoElse",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -3062,12 +2589,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -3077,7 +2598,6 @@
       "has_children": true,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     }
@@ -3092,7 +2612,7 @@
       "description": "",
       "json": {
         "type": "bt_function__root",
-        "message0": "%1 %2 %3 %4 %5",
+        "message0": "%1 %2",
         "args0": [
           {
             "type": "field_image",
@@ -3106,23 +2626,6 @@
             "type": "field_label",
             "text": "Root",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_LINKPARAMETER"
-          },
-          {
-            "type": "field_label",
-            "text": "LinkParameter"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_LINKPARAMETER",
-            "text": ""
           }
         ],
         "colour": "#8c564b",
@@ -3137,19 +2640,10 @@
           }
         ]
       },
-      "parameters": [
-        {
-          "name": "LinkParameter",
-          "field": "PARAM_LINKPARAMETER",
-          "type": "object",
-          "description": ""
-        }
-      ],
+      "parameters": [],
       "has_children": false,
       "has_child": true,
-      "enabled_keys": [
-        "LinkParameter"
-      ]
+      "enabled_keys": []
     },
     {
       "block_type": "bt_function__subtree",
@@ -3160,7 +2654,7 @@
       "description": "",
       "json": {
         "type": "bt_function__subtree",
-        "message0": "%1 %2 %3 %4 %5",
+        "message0": "%1 %2",
         "args0": [
           {
             "type": "field_image",
@@ -3174,23 +2668,6 @@
             "type": "field_label",
             "text": "Subtree",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           }
         ],
         "colour": "#ff7f0e",
@@ -3199,19 +2676,10 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode"
       },
-      "parameters": [
-        {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        }
-      ],
+      "parameters": [],
       "has_children": false,
       "has_child": false,
-      "enabled_keys": [
-        "id"
-      ]
+      "enabled_keys": []
     },
     {
       "block_type": "bt_function__action",
@@ -3222,7 +2690,7 @@
       "description": "",
       "json": {
         "type": "bt_function__action",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -3252,23 +2720,6 @@
           {
             "type": "field_input",
             "name": "PARAM_ACTION",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
             "text": ""
           },
           {
@@ -3320,12 +2771,6 @@
           "description": ""
         },
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -3342,7 +2787,6 @@
       "has_child": false,
       "enabled_keys": [
         "action",
-        "id",
         "parameter",
         "tickrate"
       ]
@@ -3356,7 +2800,7 @@
       "description": "",
       "json": {
         "type": "bt_function__actiondummy",
-        "message0": "%1 %2 %3 %4 %5",
+        "message0": "%1 %2",
         "args0": [
           {
             "type": "field_image",
@@ -3370,23 +2814,6 @@
             "type": "field_label",
             "text": "ActionDummy",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           }
         ],
         "colour": "#ff7f0e",
@@ -3395,19 +2822,10 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode"
       },
-      "parameters": [
-        {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        }
-      ],
+      "parameters": [],
       "has_children": false,
       "has_child": false,
-      "enabled_keys": [
-        "id"
-      ]
+      "enabled_keys": []
     },
     {
       "block_type": "bt_function__condition",
@@ -3418,7 +2836,7 @@
       "description": "",
       "json": {
         "type": "bt_function__condition",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
         "args0": [
           {
             "type": "field_image",
@@ -3456,23 +2874,6 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
             "name": "HELP_PARAMETER"
           },
           {
@@ -3499,12 +2900,6 @@
           "description": ""
         },
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "parameter",
           "field": "PARAM_PARAMETER",
           "type": "object",
@@ -3515,7 +2910,6 @@
       "has_child": false,
       "enabled_keys": [
         "condition",
-        "id",
         "parameter"
       ]
     },
@@ -3528,7 +2922,7 @@
       "description": "",
       "json": {
         "type": "bt_function__sleep",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
             "type": "field_image",
@@ -3542,23 +2936,6 @@
             "type": "field_label",
             "text": "Sleep",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='white' stroke='black' stroke-width='1.2'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='black' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": ""
           },
           {
             "type": "field_image",
@@ -3586,12 +2963,6 @@
       },
       "parameters": [
         {
-          "name": "id",
-          "field": "PARAM_ID",
-          "type": "string",
-          "description": ""
-        },
-        {
           "name": "tickrate",
           "field": "PARAM_TICKRATE",
           "type": "integer",
@@ -3601,7 +2972,6 @@
       "has_children": false,
       "has_child": false,
       "enabled_keys": [
-        "id",
         "tickrate"
       ]
     }

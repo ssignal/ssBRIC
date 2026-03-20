@@ -9,7 +9,6 @@ javascriptGenerator.forBlock['bt_function__root'] = function(block, generator) {
     type: 'Root',
     id: randomId(),
   };
-  node['LinkParameter'] = block.getFieldValue('PARAM_LINKPARAMETER') || '';
   const childRaw = generator.statementToCode(block, 'CHILD');
   const childNodes = parseChildNodes(childRaw);
   node.child = childNodes.length ? childNodes[0] : null;
@@ -21,7 +20,6 @@ javascriptGenerator.forBlock['bt_function__subtree'] = function(block, generator
     type: 'Subtree',
     id: randomId(),
   };
-  node['id'] = block.getFieldValue('PARAM_ID') || '';
   return JSON.stringify(node) + '\n';
 };
 
@@ -31,7 +29,6 @@ javascriptGenerator.forBlock['bt_function__action'] = function(block, generator)
     id: randomId(),
   };
   node['action'] = block.getFieldValue('PARAM_ACTION') || '';
-  node['id'] = block.getFieldValue('PARAM_ID') || '';
   node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
   node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
   return JSON.stringify(node) + '\n';
@@ -42,7 +39,6 @@ javascriptGenerator.forBlock['bt_function__actiondummy'] = function(block, gener
     type: 'ActionDummy',
     id: randomId(),
   };
-  node['id'] = block.getFieldValue('PARAM_ID') || '';
   return JSON.stringify(node) + '\n';
 };
 
@@ -52,7 +48,6 @@ javascriptGenerator.forBlock['bt_function__condition'] = function(block, generat
     id: randomId(),
   };
   node['condition'] = block.getFieldValue('PARAM_CONDITION') || '';
-  node['id'] = block.getFieldValue('PARAM_ID') || '';
   node['parameter'] = block.getFieldValue('PARAM_PARAMETER') || '';
   return JSON.stringify(node) + '\n';
 };
@@ -62,7 +57,6 @@ javascriptGenerator.forBlock['bt_function__sleep'] = function(block, generator) 
     type: 'Sleep',
     id: randomId(),
   };
-  node['id'] = block.getFieldValue('PARAM_ID') || '';
   node['tickrate'] = Number.parseInt(block.getFieldValue('PARAM_TICKRATE') || '0', 10);
   return JSON.stringify(node) + '\n';
 };
