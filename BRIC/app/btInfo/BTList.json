@@ -11,7 +11,8 @@
         "description": "Motion name",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "state",
@@ -28,7 +29,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "repeat",
@@ -45,7 +47,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "action",
@@ -58,7 +61,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -83,7 +87,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -115,7 +120,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "x",
@@ -123,7 +129,8 @@
         "description": "Euler pose x",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "y",
@@ -131,7 +138,8 @@
         "description": "Euler pose y",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "z",
@@ -139,7 +147,8 @@
         "description": "Euler pose z (degree unit)",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "behavior_tree",
@@ -164,7 +173,8 @@
         "description": "Distance to move from the current position (meter unit)",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "velocity",
@@ -172,7 +182,8 @@
         "description": "Movement velocity (m/s unit)",
         "options": [],
         "min": 0,
-        "max": 1
+        "max": 1,
+        "enabled": true
       },
       {
         "name": "direction",
@@ -189,7 +200,8 @@
           }
         ],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -205,7 +217,8 @@
         "description": "Rotation angle (degree unit)",
         "options": [],
         "min": -180,
-        "max": 180
+        "max": 180,
+        "enabled": true
       }
     ]
   },
@@ -250,7 +263,8 @@
         "default": 2000,
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "path",
@@ -258,7 +272,8 @@
         "description": "Sound file path to play",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "repeat",
@@ -266,7 +281,8 @@
         "description": "Sound playback repetition type",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -283,7 +299,8 @@
         "default": 2000,
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "text",
@@ -291,7 +308,8 @@
         "description": "Text to play TTS",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -308,7 +326,8 @@
         "default": 2000,
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -325,7 +344,8 @@
         "default": 2000,
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -341,7 +361,8 @@
         "description": "Volume value (0 ~ 10)",
         "options": [],
         "min": 0,
-        "max": 10
+        "max": 10,
+        "enabled": true
       }
     ]
   },
@@ -357,7 +378,8 @@
         "description": "Animation file path to play",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "repeat",
@@ -365,7 +387,8 @@
         "description": "Animation repetition type",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       },
       {
         "name": "instant_play",
@@ -373,7 +396,8 @@
         "description": "Decide if the animation plays immediately or after the current animation is completed.",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   },
@@ -403,7 +427,8 @@
         "description": "Demo name to specify the demo",
         "options": [],
         "min": null,
-        "max": null
+        "max": null,
+        "enabled": true
       }
     ]
   }

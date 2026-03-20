@@ -10,7 +10,6 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_move_to_pose'] = 
   parameter['x'] = Number.parseFloat(block.getFieldValue('PARAM_X') || '0');
   parameter['y'] = Number.parseFloat(block.getFieldValue('PARAM_Y') || '0');
   parameter['z'] = Number.parseFloat(block.getFieldValue('PARAM_Z') || '0');
-  parameter['behavior_tree'] = block.getFieldValue('PARAM_BEHAVIOR_TREE') || '';
   const node = {
     type: 'Action',
     action: 'navigation/move_to_pose',
