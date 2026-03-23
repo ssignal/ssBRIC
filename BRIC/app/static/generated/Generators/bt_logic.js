@@ -1,8 +1,24 @@
 (() => {
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
+const OPTION_PARAM_MAP = {
+  "bt_logic__ifthenelse": {},
+  "bt_logic__parallel": {},
+  "bt_logic__recovery": {},
+  "bt_logic__sequence": {},
+  "bt_logic__delay": {},
+  "bt_logic__forcesuccess": {},
+  "bt_logic__forcefailure": {},
+  "bt_logic__loop": {},
+  "bt_logic__retryuntilsuccess": {},
+  "bt_logic__repeat": {},
+  "bt_logic__timeout": {},
+  "bt_logic__whiledoelse": {}
+};
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
 function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => JSON.parse(v)); }
+function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
+function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
 javascriptGenerator.forBlock['bt_logic__ifthenelse'] = function(block, generator) {
   const node = {

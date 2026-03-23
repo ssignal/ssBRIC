@@ -136,6 +136,9 @@
 ### options
   If a item has options, use dropdown menu.
   If a item has no options, use input box.
+  If an option includes `parameters`, show those additional parameters in the block.
+  Additional parameters by option are supported only for 1 depth.
+  Nested option-parameters under those additional parameters are ignored.
 ### Sound id
   Default value of `id` in `Sound` category is `2000`.
   For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.
