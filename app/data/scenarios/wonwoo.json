@@ -1,55 +1,55 @@
 {
   "type": "Root",
-  "id": "22497580",
-  "LinkParameter": "",
+  "id": "16809783",
   "child": {
     "type": "Sequence",
-    "id": "",
+    "id": "10235521",
     "tickrate": 0,
     "children": [
       {
         "type": "Sleep",
-        "id": "",
+        "id": "80004970",
         "tickrate": 1
       },
       {
         "type": "Parallel",
-        "id": "",
-        "parameter": "1",
+        "id": "58441239",
         "threshold": 0,
         "tickrate": 0,
         "children": [
           {
             "type": "Sequence",
-            "id": "",
+            "id": "13019896",
             "tickrate": 0,
             "children": [
               {
                 "type": "Action",
                 "action": "navigation/move_to_pose",
                 "parameter": {
+                  "pose_type": "map",
                   "x": 0,
                   "y": 0,
-                  "theta": 0,
-                  "behavior_tree": "",
-                  "frame_id": "map"
+                  "z": 0,
+                  "behavior_tree": ""
                 },
-                "id": "78246956"
+                "id": "52002031"
               },
               {
                 "type": "ForceSuccess",
-                "id": "",
+                "id": "34556130",
                 "tickrate": 0,
                 "children": [
                   {
                     "type": "Action",
-                    "action": "navigation/moving_to_pose",
+                    "action": "navigation/move_to_pose",
                     "parameter": {
+                      "pose_type": "map",
                       "x": 0,
                       "y": 0,
-                      "theta": 0
+                      "z": 0,
+                      "behavior_tree": ""
                     },
-                    "id": "11121678"
+                    "id": "28596061"
                   }
                 ]
               }
@@ -57,24 +57,25 @@
           },
           {
             "type": "Sequence",
-            "id": "",
+            "id": "21732617",
             "tickrate": 0,
             "children": [
               {
                 "type": "Action",
                 "action": "motion/start_motion",
                 "parameter": {
-                  "motion_id": "",
-                  "blocking_type": "LOOP",
-                  "duration_ms": 0
+                  "name": "",
+                  "state": "autonomous",
+                  "repeat": "once",
+                  "action": "all"
                 },
-                "id": "29270807"
+                "id": "96286062"
               },
               {
                 "type": "Action",
                 "action": "motion/wait_motion_finished",
                 "parameter": {},
-                "id": "47682505"
+                "id": "34154049"
               }
             ]
           }
@@ -83,23 +84,26 @@
       {
         "type": "Action",
         "action": "motion/stop_motion",
-        "parameter": {},
-        "id": "69332316"
+        "parameter": {
+          "mode": "normal"
+        },
+        "id": "91248390"
       },
       {
         "type": "Sleep",
-        "id": "",
+        "id": "29365276",
         "tickrate": 1
       },
       {
         "type": "Action",
         "action": "motion/start_motion",
         "parameter": {
-          "motion_id": "0",
-          "blocking_type": "NONE",
-          "duration_ms": 0
+          "name": "",
+          "state": "autonomous",
+          "repeat": "once",
+          "action": "all"
         },
-        "id": "15859623"
+        "id": "81132102"
       }
     ]
   }

@@ -98,6 +98,61 @@ def range_options(min_v: Any, max_v: Any, param_type: str = "") -> List[List[str
     return out
 
 
+def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> List[Dict[str, Any]]:
+    nested_meta: List[Dict[str, Any]] = []
+    for sub in params or []:
+        if not is_enabled(sub.get("enabled"), True):
+            continue
+
+        sub_name = sub.get("name", "param")
+        sub_type = (sub.get("type") or "string").lower()
+        sub_default_v = sub.get("default")
+        sub_options = sub.get("options") or []
+        sub_min = sub.get("min")
+        sub_max = sub.get("max")
+        sub_field = f"{field_prefix}_{slugify(sub_name).upper()}"
+
+        if sub_options:
+            sub_dd = [
+                [str(sopt.get("value", "")), str(sopt.get("value", ""))]
+                for sopt in sub_options
+            ]
+            sub_default = sub_dd[0][1] if sub_dd else ""
+        else:
+            sub_ranged = range_options(sub_min, sub_max, sub_type)
+            if sub_min is not None and sub_max is not None and sub_ranged:
+                sub_dd = sub_ranged
+                sub_default = sub_ranged[0][1]
+            else:
+                sub_dd = []
+                if sub_default_v is not None:
+                    sub_default = safe_value(sub_default_v)
+                elif sub_min is not None and sub_max is None:
+                    sub_default = safe_value(sub_min)
+                elif sub_max is not None and sub_min is None:
+                    sub_default = safe_value(sub_max)
+                else:
+                    sub_default = default_value(sub_type)
+
+        # Only support one-level option parameters.
+        # Nested option->parameters under these additional parameters are ignored.
+        sub_option_parameters: Dict[str, List[Dict[str, Any]]] = {}
+
+        nested_meta.append(
+            {
+                "name": sub_name,
+                "field": sub_field,
+                "type": sub_type,
+                "description": sub.get("description", ""),
+                "options": sub_dd,
+                "default": sub_default,
+                "option_parameters": sub_option_parameters,
+            }
+        )
+
+    return nested_meta
+
+
 def js_dump(obj: Any) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=2)
 
@@ -221,10 +276,19 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         )
 
         field_name = f"PARAM_{slugify(name).upper()}"
+        option_param_meta: Dict[str, List[Dict[str, Any]]] = {}
         if options:
             dd = [[str(opt.get("value", "")), str(opt.get("value", ""))] for opt in options]
             args0.append({"type": "field_dropdown", "name": field_name, "options": dd})
             default = dd[0][1] if dd else ""
+            for opt in options:
+                opt_value = str(opt.get("value", ""))
+                nested_meta = build_nested_param_meta(
+                    opt.get("parameters") or [],
+                    f"OPT_{slugify(name).upper()}",
+                )
+                if nested_meta:
+                    option_param_meta[opt_value] = nested_meta
         else:
             ranged = range_options(min_v, max_v, p_type)
             if min_v is not None and max_v is not None and ranged:
@@ -246,7 +310,8 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
                 "name": name,
                 "field": field_name,
                 "type": p_type,
-                "description": param.get("description", "")
+                "description": param.get("description", ""),
+                "option_parameters": option_param_meta,
             }
         )
 
@@ -410,12 +475,103 @@ def emit_block_file(path: Path, blocks: List[Dict[str, Any]]):
         b["block_type"]: {p["field"]: p.get("description", "") for p in b.get("parameters", [])}
         for b in blocks
     }
+    option_param_map = {
+        b["block_type"]: {
+            p["field"]: p.get("option_parameters", {})
+            for p in b.get("parameters", [])
+            if p.get("option_parameters")
+        }
+        for b in blocks
+    }
 
     registrar_name = "registerBlocks_" + slugify(path.stem)
     content = f"""(() => {{
 const BLOCKS = {js_dump(arr)};
 const BLOCK_TOOLTIPS = {js_dump(tips)};
 const PARAM_TOOLTIPS = {js_dump(param_tips)};
+const OPTION_PARAM_MAP = {js_dump(option_param_map)};
+const HELP_ICON = {json.dumps(QUESTION_ICON_DATA_URI)};
+
+function snapshotFieldValues(block) {{
+  const out = {{}};
+  (block.inputList || []).forEach((input) => {{
+    (input.fieldRow || []).forEach((field) => {{
+      if (!field || !field.name) return;
+      try {{
+        out[field.name] = block.getFieldValue(field.name);
+      }} catch (err) {{
+        // Ignore unsupported fields.
+      }}
+    }});
+  }});
+  return out;
+}}
+
+function clearDynamicOptionInputs(block) {{
+  const names = (block.inputList || [])
+    .map((input) => input && input.name)
+    .filter((name) => typeof name === 'string' && name.startsWith('OPT_DYN_'));
+  names.forEach((name) => block.removeInput(name, true));
+}}
+
+function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {{
+  (defs || []).forEach((meta) => {{
+    tokenRef.v += 1;
+    const inputName = 'OPT_DYN_' + tokenRef.v;
+    const input = block.appendDummyInput(inputName);
+    const helpFieldName = 'HELP_' + meta.field;
+    input.appendField(new Blockly.FieldImage(HELP_ICON, 16, 16, '?'), helpFieldName);
+    input.appendField(String(meta.name || 'param'));
+
+    const prior = priorValues[meta.field];
+    if (Array.isArray(meta.options) && meta.options.length) {{
+      input.appendField(new Blockly.FieldDropdown(meta.options), meta.field);
+      const nextValue = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
+      if (nextValue) {{
+        try {{
+          block.setFieldValue(nextValue, meta.field);
+        }} catch (err) {{
+          // Ignore when value is outside dropdown options.
+        }}
+      }}
+    }} else {{
+      const txt = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
+      input.appendField(new Blockly.FieldTextInput(txt), meta.field);
+    }}
+
+    const field = block.getField(meta.field);
+    if (field && field.setTooltip) field.setTooltip(meta.description || '');
+    const helpField = block.getField(helpFieldName);
+    if (helpField && helpField.setTooltip) helpField.setTooltip(meta.description || '');
+
+    const selected = block.getFieldValue(meta.field) || '';
+    const nested = ((meta.option_parameters || {{}})[selected]) || [];
+    if (meta.option_parameters && Object.keys(meta.option_parameters).length) {{
+      triggerFields.add(meta.field);
+    }}
+    if (nested.length) {{
+      appendOptionDefs(block, nested, priorValues, tokenRef, triggerFields);
+    }}
+  }});
+}}
+
+function rerenderOptionParams(block, blockType) {{
+  const byField = OPTION_PARAM_MAP[blockType] || {{}};
+  const rootParents = Object.keys(byField);
+  if (!rootParents.length) return;
+
+  const priorValues = snapshotFieldValues(block);
+  clearDynamicOptionInputs(block);
+  const tokenRef = {{ v: 0 }};
+  const triggerFields = new Set(rootParents);
+  rootParents.forEach((parentField) => {{
+    const selected = block.getFieldValue(parentField) || '';
+    const defs = (byField[parentField] || {{}})[selected] || [];
+    appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields);
+  }});
+  block.__optionTriggerFields = triggerFields;
+  if (block.render) block.render();
+}}
 
 function {registrar_name}() {{
   Blockly.defineBlocksWithJsonArray(BLOCKS);
@@ -437,6 +593,24 @@ function {registrar_name}() {{
             helpField.setTooltip(fieldTip || '');
           }}
         }});
+
+        const optionParents = Object.keys(OPTION_PARAM_MAP[blockType] || {{}});
+        rerenderOptionParams(this, blockType);
+        this.setOnChange((event) => {{
+          if (!event || event.isUiEvent) return;
+          if (event.blockId !== this.id) return;
+          if (event.type !== Blockly.Events.BLOCK_CHANGE) return;
+          if (event.element !== 'field') return;
+          const triggerFields = this.__optionTriggerFields || new Set(optionParents);
+          if (!triggerFields.has(event.name)) return;
+          if (this.__renderingOptionParams) return;
+          this.__renderingOptionParams = true;
+          try {{
+            rerenderOptionParams(this, blockType);
+          }} finally {{
+            this.__renderingOptionParams = false;
+          }}
+        }});
       }};
     }}
   }});
@@ -452,9 +626,18 @@ window.BRIC.blockRegistrars.push({registrar_name});
 
 def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
     registrar_name = "registerGenerators_" + slugify(path.stem)
+    option_param_map = {
+        b["block_type"]: {
+            p["field"]: p.get("option_parameters", {})
+            for p in b.get("parameters", [])
+            if p.get("option_parameters")
+        }
+        for b in blocks
+    }
     lines = [
         "(() => {",
         "const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;",
+        f"const OPTION_PARAM_MAP = {js_dump(option_param_map)};",
         "",
     ]
     lines.append(
@@ -462,6 +645,12 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
     )
     lines.append(
         "function parseChildNodes(raw) { return (raw || '').split('\\n').map((v) => v.trim()).filter(Boolean).map((v) => JSON.parse(v)); }"
+    )
+    lines.append(
+        "function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }"
+    )
+    lines.append(
+        "function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }"
     )
     lines.append("")
 
@@ -485,6 +674,13 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
                     )
                 else:
                     lines.append(f"  parameter['{pname}'] = block.getFieldValue('{fname}') || '';")
+
+            lines.append(f"  const optionMetaByField = OPTION_PARAM_MAP['{btype}'] || {{}};")
+            lines.append("  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {")
+            lines.append("    const selected = block.getFieldValue(parentField) || '';")
+            lines.append("    const defs = byOption[selected] || [];")
+            lines.append("    collectOptionParams(block, defs, parameter);")
+            lines.append("  });")
 
             lines.append("  const node = {")
             lines.append("    type: 'Action',")

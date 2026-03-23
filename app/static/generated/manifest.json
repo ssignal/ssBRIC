@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-23T01:20:19.698347Z",
+  "generated_at": "2026-03-23T09:02:37.065749Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -61,10 +61,6 @@
               [
                 "autonomous",
                 "autonomous"
-              ],
-              [
-                "emai_motion",
-                "emai_motion"
               ],
               [
                 "exp_motion",
@@ -148,25 +144,88 @@
           "name": "name",
           "field": "PARAM_NAME",
           "type": "string",
-          "description": "Motion name"
+          "description": "Motion name",
+          "option_parameters": {}
         },
         {
           "name": "state",
           "field": "PARAM_STATE",
           "type": "string",
-          "description": "Motion engine type"
+          "description": "Motion engine type",
+          "option_parameters": {
+            "autonomous": [
+              {
+                "name": "A1",
+                "field": "OPT_STATE_A1",
+                "type": "string",
+                "description": "String A1",
+                "options": [
+                  [
+                    "AA1",
+                    "AA1"
+                  ],
+                  [
+                    "AA2",
+                    "AA2"
+                  ]
+                ],
+                "default": "AA1",
+                "option_parameters": {}
+              },
+              {
+                "name": "A2",
+                "field": "OPT_STATE_A2",
+                "type": "integer",
+                "description": "Int A2",
+                "options": [
+                  [
+                    "10",
+                    "10"
+                  ],
+                  [
+                    "20",
+                    "20"
+                  ]
+                ],
+                "default": "10",
+                "option_parameters": {}
+              }
+            ],
+            "exp_motion": [
+              {
+                "name": "B1",
+                "field": "OPT_STATE_B1",
+                "type": "string",
+                "description": "String B1",
+                "options": [],
+                "default": "",
+                "option_parameters": {}
+              },
+              {
+                "name": "B2",
+                "field": "OPT_STATE_B2",
+                "type": "integer",
+                "description": "Int B2",
+                "options": [],
+                "default": "0",
+                "option_parameters": {}
+              }
+            ]
+          }
         },
         {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "string",
-          "description": "Motion repetition type"
+          "description": "Motion repetition type",
+          "option_parameters": {}
         },
         {
           "name": "action",
           "field": "PARAM_ACTION",
           "type": "string",
-          "description": "Motion part"
+          "description": "Motion part",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -234,7 +293,8 @@
           "name": "mode",
           "field": "PARAM_MODE",
           "type": "string",
-          "description": "Motion stop type"
+          "description": "Motion stop type",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -405,31 +465,36 @@
           "name": "pose_type",
           "field": "PARAM_POSE_TYPE",
           "type": "string",
-          "description": "map (indoor), earth (outdoor)"
+          "description": "map (indoor), earth (outdoor)",
+          "option_parameters": {}
         },
         {
           "name": "x",
           "field": "PARAM_X",
           "type": "float",
-          "description": "Euler pose x"
+          "description": "Euler pose x",
+          "option_parameters": {}
         },
         {
           "name": "y",
           "field": "PARAM_Y",
           "type": "float",
-          "description": "Euler pose y"
+          "description": "Euler pose y",
+          "option_parameters": {}
         },
         {
           "name": "z",
           "field": "PARAM_Z",
           "type": "float",
-          "description": "Euler pose z (degree unit)"
+          "description": "Euler pose z (degree unit)",
+          "option_parameters": {}
         },
         {
           "name": "behavior_tree",
           "field": "PARAM_BEHAVIOR_TREE",
           "type": "string",
-          "description": "It can be omitted as default"
+          "description": "It can be omitted as default",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -616,19 +681,22 @@
           "name": "distance",
           "field": "PARAM_DISTANCE",
           "type": "float",
-          "description": "Distance to move from the current position (meter unit)"
+          "description": "Distance to move from the current position (meter unit)",
+          "option_parameters": {}
         },
         {
           "name": "velocity",
           "field": "PARAM_VELOCITY",
           "type": "float",
-          "description": "Movement velocity (m/s unit)"
+          "description": "Movement velocity (m/s unit)",
+          "option_parameters": {}
         },
         {
           "name": "direction",
           "field": "PARAM_DIRECTION",
           "type": "string",
-          "description": "Direction to move"
+          "description": "Direction to move",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -772,7 +840,8 @@
           "name": "angle",
           "field": "PARAM_ANGLE",
           "type": "float",
-          "description": "Rotation angle (degree unit)"
+          "description": "Rotation angle (degree unit)",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -935,19 +1004,22 @@
           "name": "id",
           "field": "PARAM_ID",
           "type": "integer",
-          "description": "Handle ID to play sound (default: 2000)"
+          "description": "Handle ID to play sound (default: 2000)",
+          "option_parameters": {}
         },
         {
           "name": "path",
           "field": "PARAM_PATH",
           "type": "string",
-          "description": "Sound file path to play"
+          "description": "Sound file path to play",
+          "option_parameters": {}
         },
         {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "bool",
-          "description": "Sound playback repetition type"
+          "description": "Sound playback repetition type",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1023,13 +1095,15 @@
           "name": "id",
           "field": "PARAM_ID",
           "type": "integer",
-          "description": "Handle ID to play sound (default: 2000)"
+          "description": "Handle ID to play sound (default: 2000)",
+          "option_parameters": {}
         },
         {
           "name": "text",
           "field": "PARAM_TEXT",
           "type": "string",
-          "description": "Text to play TTS"
+          "description": "Text to play TTS",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1088,7 +1162,8 @@
           "name": "id",
           "field": "PARAM_ID",
           "type": "integer",
-          "description": "Handle ID given for playing sound"
+          "description": "Handle ID given for playing sound",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1147,7 +1222,8 @@
           "name": "id",
           "field": "PARAM_ID",
           "type": "integer",
-          "description": "Handle ID given for playing sound"
+          "description": "Handle ID given for playing sound",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1251,7 +1327,8 @@
           "name": "volume",
           "field": "PARAM_VOLUME",
           "type": "integer",
-          "description": "Volume value (0 ~ 10)"
+          "description": "Volume value (0 ~ 10)",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1344,19 +1421,22 @@
           "name": "path",
           "field": "PARAM_PATH",
           "type": "string",
-          "description": "Animation file path to play"
+          "description": "Animation file path to play",
+          "option_parameters": {}
         },
         {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "bool",
-          "description": "Animation repetition type"
+          "description": "Animation repetition type",
+          "option_parameters": {}
         },
         {
           "name": "instant_play",
           "field": "PARAM_INSTANT_PLAY",
           "type": "bool",
-          "description": "Decide if the animation plays immediately or after the current animation is completed."
+          "description": "Decide if the animation plays immediately or after the current animation is completed.",
+          "option_parameters": {}
         }
       ],
       "has_children": false,
@@ -1485,7 +1565,8 @@
           "name": "name",
           "field": "PARAM_NAME",
           "type": "string",
-          "description": "Demo name to specify the demo"
+          "description": "Demo name to specify the demo",
+          "option_parameters": {}
         }
       ],
       "has_children": false,

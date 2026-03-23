@@ -22,15 +22,75 @@
         "options": [
           {
             "value": "autonomous",
-            "description": "Motion engine type"
-          },
-          {
-            "value": "emai_motion",
-            "description": "Motion engine type"
+            "description": "Motion engine type",
+            "parameters": [
+              {
+                "name": "A1",
+                "type": "string",
+                "description": "String A1",
+                "enabled": true,
+                "options": [
+                  {
+                    "value": "AA1",
+                    "description": "Motion engine type",
+                    "options": [
+                      {
+                        "value": "10",
+                        "description": "Motion engine type"
+                      }
+                    ]
+                  },
+                  {
+                    "value": "AA2",
+                    "description": "Motion engine type"
+                  }
+                ],
+                "min": null,
+                "max": null
+              },
+              {
+                "name": "A2",
+                "type": "integer",
+                "description": "Int A2",
+                "enabled": true,
+                "options": [
+                  {
+                    "value": "10",
+                    "description": "Motion engine type"
+                  },
+                  {
+                    "value": "20",
+                    "description": "Motion engine type"
+                  }
+                ],
+                "min": null,
+                "max": null
+              }
+            ]
           },
           {
             "value": "exp_motion",
-            "description": "Motion engine type"
+            "description": "Motion engine type",
+            "parameters": [
+              {
+                "name": "B1",
+                "type": "string",
+                "description": "String B1",
+                "enabled": true,
+                "options": [],
+                "min": null,
+                "max": null
+              },
+              {
+                "name": "B2",
+                "type": "integer",
+                "description": "Int B2",
+                "enabled": true,
+                "options": [],
+                "min": null,
+                "max": null
+              }
+            ]
           },
           {
             "value": "freeze",
