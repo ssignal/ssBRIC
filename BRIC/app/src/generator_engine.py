@@ -113,11 +113,16 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
         sub_max = sub.get("max")
         sub_field = f"{field_prefix}_{slugify(sub_name).upper()}"
 
+        sub_option_descriptions: Dict[str, str] = {}
         if sub_options:
             sub_dd = [
                 [str(sopt.get("value", "")), str(sopt.get("value", ""))]
                 for sopt in sub_options
             ]
+            for sopt in sub_options:
+                sub_option_descriptions[str(sopt.get("value", ""))] = clean_text(
+                    sopt.get("description", "")
+                )
             sub_default = sub_dd[0][1] if sub_dd else ""
         else:
             sub_ranged = range_options(sub_min, sub_max, sub_type)
@@ -148,6 +153,7 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
                 "options": sub_dd,
                 "default": sub_default,
                 "option_parameters": sub_option_parameters,
+                "option_descriptions": sub_option_descriptions,
             }
         )
 
@@ -278,8 +284,13 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
 
         field_name = f"PARAM_{slugify(name).upper()}"
         option_param_meta: Dict[str, List[Dict[str, Any]]] = {}
+        option_descriptions: Dict[str, str] = {}
         if options:
             dd = [[str(opt.get("value", "")), str(opt.get("value", ""))] for opt in options]
+            for opt in options:
+                option_descriptions[str(opt.get("value", ""))] = clean_text(
+                    opt.get("description", "")
+                )
             args0.append({"type": "field_dropdown", "name": field_name, "options": dd})
             default = dd[0][1] if dd else ""
             for opt in options:
@@ -313,6 +324,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
                 "type": p_type,
                 "description": param.get("description", ""),
                 "option_parameters": option_param_meta,
+                "option_descriptions": option_descriptions,
             }
         )
 
@@ -484,6 +496,14 @@ def emit_block_file(path: Path, blocks: List[Dict[str, Any]]):
         }
         for b in blocks
     }
+    option_tips = {
+        b["block_type"]: {
+            p["field"]: p.get("option_descriptions", {})
+            for p in b.get("parameters", [])
+            if p.get("option_descriptions")
+        }
+        for b in blocks
+    }
 
     registrar_name = "registerBlocks_" + slugify(path.stem)
     content = f"""(() => {{
@@ -491,6 +511,7 @@ const BLOCKS = {js_dump(arr)};
 const BLOCK_TOOLTIPS = {js_dump(tips)};
 const PARAM_TOOLTIPS = {js_dump(param_tips)};
 const OPTION_PARAM_MAP = {js_dump(option_param_map)};
+const OPTION_TOOLTIPS = {js_dump(option_tips)};
 const HELP_ICON = {json.dumps(QUESTION_ICON_DATA_URI)};
 
 function setClickHelp(field, text) {{
@@ -501,37 +522,100 @@ function setClickHelp(field, text) {{
 
   function ensureHelpPopup() {{
     window.BRIC = window.BRIC || {{}};
-    let el = document.querySelector('.blocklyTooltipDiv');
+    let el = window.BRIC.helpPopupEl || document.querySelector('.blocklyTooltipDiv');
     if (!el) {{
       el = document.createElement('div');
       el.className = 'blocklyTooltipDiv';
       document.body.appendChild(el);
     }}
-    const hide = () => {{
-      el.style.display = 'none';
-      window.BRIC.helpPopupAnchor = null;
-    }};
+    window.BRIC.helpPopupEl = el;
+    if (!window.BRIC.hideHelpPopup) {{
+      window.BRIC.hideHelpPopup = () => {{
+        el.style.display = 'none';
+        window.BRIC.helpPopupAnchor = null;
+      }};
+    }}
     if (!window.BRIC.helpPopupBound) {{
       document.addEventListener('keydown', (evt) => {{
-        if (evt.key === 'Escape') hide();
+        if (evt.key === 'Escape') window.BRIC.hideHelpPopup();
       }});
       document.addEventListener('click', (evt) => {{
         const anchor = window.BRIC.helpPopupAnchor;
         if (!anchor) return;
         if (el.contains(evt.target)) return;
         if (anchor.contains && anchor.contains(evt.target)) return;
-        hide();
+        window.BRIC.hideHelpPopup();
       }}, true);
       window.BRIC.helpPopupBound = true;
     }}
-    window.BRIC.helpPopupEl = el;
-    window.BRIC.hideHelpPopup = hide;
     return el;
   }}
 
-  const onClick = () => {{
+  function showHelpPopup(anchor, text) {{
+    if (!text) return;
     const popup = ensureHelpPopup();
+    const rect = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : null;
+    popup.textContent = String(text);
+    popup.style.display = 'block';
+    if (rect) {{
+      const margin = 8;
+      const preferredLeft = rect.left + rect.width + margin;
+      const top = Math.max(8, rect.top - 4);
+      const maxLeft = window.innerWidth - popup.offsetWidth - 8;
+      let left = Math.min(preferredLeft, maxLeft);
+      if (left < 8) left = 8;
+      popup.style.left = `${{Math.round(left)}}px`;
+      popup.style.top = `${{Math.round(top)}}px`;
+    }} else {{
+      popup.style.left = '12px';
+      popup.style.top = '12px';
+    }}
+    window.BRIC.helpPopupAnchor = anchor || null;
+  }}
+
+  const onClick = () => {{
     const anchor = field.getClickTarget_ ? field.getClickTarget_() : null;
+    showHelpPopup(anchor, msg);
+  }};
+  if (field.setOnClickHandler) {{
+    field.setOnClickHandler(onClick);
+    return;
+  }}
+  if (field.getClickTarget_) {{
+    const target = field.getClickTarget_();
+    if (target && target.addEventListener) {{
+      target.addEventListener('click', onClick);
+    }}
+  }}
+}}
+
+function setHoverOptionHelp(field, optionDescriptions) {{
+  if (!field) return;
+  const byValue = optionDescriptions || {{}};
+  if (!Object.keys(byValue).length) return;
+  field.__bricOptionDescriptions = byValue;
+
+  function ensureHelpPopup() {{
+    window.BRIC = window.BRIC || {{}};
+    let el = window.BRIC.helpPopupEl || document.querySelector('.blocklyTooltipDiv');
+    if (!el) {{
+      el = document.createElement('div');
+      el.className = 'blocklyTooltipDiv';
+      document.body.appendChild(el);
+    }}
+    window.BRIC.helpPopupEl = el;
+    if (!window.BRIC.hideHelpPopup) {{
+      window.BRIC.hideHelpPopup = () => {{
+        el.style.display = 'none';
+        window.BRIC.helpPopupAnchor = null;
+      }};
+    }}
+    return el;
+  }}
+
+  function showHelp(anchor, msg) {{
+    if (!msg) return;
+    const popup = ensureHelpPopup();
     const rect = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : null;
     popup.textContent = msg;
     popup.style.display = 'block';
@@ -548,17 +632,91 @@ function setClickHelp(field, text) {{
       popup.style.left = '12px';
       popup.style.top = '12px';
     }}
-    window.BRIC.helpPopupAnchor = anchor;
-  }};
-  if (field.setOnClickHandler) {{
-    field.setOnClickHandler(onClick);
-    return;
+    window.BRIC.helpPopupAnchor = anchor || null;
   }}
-  if (field.getClickTarget_) {{
-    const target = field.getClickTarget_();
-    if (target && target.addEventListener) {{
-      target.addEventListener('click', onClick);
+
+  const target = field.getClickTarget_ ? field.getClickTarget_() : null;
+  const showSelected = () => {{
+    const currentMap = field.__bricOptionDescriptions || {{}};
+    const value = field.getValue ? String(field.getValue() || '') : '';
+    const msg = currentMap[value] || '';
+    if (!msg) {{
+      if (window.BRIC && window.BRIC.helpPopupAnchor === target && window.BRIC.hideHelpPopup) {{
+        window.BRIC.hideHelpPopup();
+      }}
+      return;
     }}
+    showHelp(target, msg);
+  }};
+  const hide = () => {{
+    if (window.BRIC && window.BRIC.helpPopupAnchor === target && window.BRIC.hideHelpPopup) {{
+      window.BRIC.hideHelpPopup();
+    }}
+  }};
+
+  if (target && !target.__bricOptionHelpBound) {{
+    target.addEventListener('mouseenter', showSelected);
+    target.addEventListener('mousemove', showSelected);
+    target.addEventListener('mouseleave', hide);
+    target.__bricOptionHelpBound = true;
+  }}
+
+  if (typeof field.showEditor_ === 'function' && !field.__bricShowEditorWrapped) {{
+    const baseShowEditor = field.showEditor_.bind(field);
+    field.showEditor_ = function(...args) {{
+      const result = baseShowEditor(...args);
+      window.BRIC = window.BRIC || {{}};
+      window.BRIC.activeOptionHelpField = field;
+
+      window.setTimeout(() => {{
+        const dropdownDiv = document.querySelector('.blocklyDropDownDiv');
+        if (!dropdownDiv) return;
+        if (dropdownDiv.__bricOptionMenuHelpBound) return;
+
+        const findMenuItem = (node) => {{
+          if (!node || !node.closest) return null;
+          return node.closest('.goog-menuitem, .blocklyMenuItem');
+        }};
+        const valueFromMenuItem = (itemEl) => {{
+          if (!itemEl) return '';
+          const dataValue = itemEl.getAttribute('data-value') || (itemEl.dataset && itemEl.dataset.value);
+          if (dataValue != null && String(dataValue).trim()) return String(dataValue).trim();
+          return String(itemEl.textContent || '').trim();
+        }};
+
+        dropdownDiv.addEventListener('mousemove', (evt) => {{
+          const itemEl = findMenuItem(evt.target);
+          const activeField = window.BRIC && window.BRIC.activeOptionHelpField;
+          const currentMap = (activeField && activeField.__bricOptionDescriptions) || {{}};
+          if (!itemEl) return;
+          const value = valueFromMenuItem(itemEl);
+          const msg = currentMap[value] || '';
+          if (!msg) {{
+            if (window.BRIC && window.BRIC.helpPopupAnchor === itemEl && window.BRIC.hideHelpPopup) {{
+              window.BRIC.hideHelpPopup();
+            }}
+            return;
+          }}
+          showHelp(itemEl, msg);
+        }});
+
+        dropdownDiv.addEventListener('mouseleave', () => {{
+          if (window.BRIC && window.BRIC.hideHelpPopup) {{
+            window.BRIC.hideHelpPopup();
+          }}
+        }});
+
+        dropdownDiv.addEventListener('click', () => {{
+          if (window.BRIC && window.BRIC.hideHelpPopup) {{
+            window.BRIC.hideHelpPopup();
+          }}
+        }});
+
+        dropdownDiv.__bricOptionMenuHelpBound = true;
+      }}, 0);
+      return result;
+    }};
+    field.__bricShowEditorWrapped = true;
   }}
 }}
 
@@ -610,7 +768,7 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {{
     }}
 
     const field = block.getField(meta.field);
-    setClickHelp(field, meta.description || '');
+    setHoverOptionHelp(field, meta.option_descriptions || {{}});
     const helpField = block.getField(helpFieldName);
     setClickHelp(helpField, meta.description || '');
 
@@ -654,9 +812,10 @@ function {registrar_name}() {{
         this.setTooltip(tip || '');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {{}};
+        const perOptionField = OPTION_TOOLTIPS[blockType] || {{}};
         Object.entries(perField).forEach(([fieldName, fieldTip]) => {{
           const field = this.getField(fieldName);
-          setClickHelp(field, fieldTip || '');
+          setHoverOptionHelp(field, perOptionField[fieldName] || {{}});
           const helpField = this.getField('HELP_' + fieldName.replace('PARAM_', ''));
           setClickHelp(helpField, fieldTip || '');
         }});
