@@ -21,6 +21,11 @@
 ### Scenario
   - Scnerio List: Show the saved Scnerio list (Behavior Tree)
   - Delete Button: Remove selected Scenario.
+  - Copy Button: Duplicate selected Scenario.
+    - Clicking `Copy` creates a duplicated item with the same name.
+    - The duplicated item starts in inline edit mode on the scenario list.
+    - User inputs new name and presses `Enter` to complete copy.
+    - If user cancels or ends edit without name change, remove the duplicated item.
   - Rename Button: Rename selected Scenario.
     - In normal mode, scenario list items are selectable only.
     - After clicking `Rename`, selected item changes to edit mode.
@@ -68,11 +73,12 @@
   Clicking `BRIC Scenario Studio` goes back to Main page.
 ## Notification -------------------------------
   Notification toast message should be shown in the center of the window.
-  For scenario Add/Save, Delete, and Rename actions, include the scenario name in the message.
+  For scenario Add/Save, Delete, Rename, and Copy actions, include the scenario name in the message.
   Example messages:
    - Saved: {scenario_name}.json
    - Deleted: {scenario_name}.json
    - Renamed: {old_scenario_name} -> {new_scenario_name}
+   - Copied: {source_scenario_name} -> {new_scenario_name}
 
 ###################################################
 # Generate Blocks.

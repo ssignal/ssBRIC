@@ -27,6 +27,10 @@
   let moduleManifest = null;
   let renameSourceName = '';
   let renameInlineEditor = null;
+  let inlineEditMode = '';
+  let inlineCommitInProgress = false;
+  let tempCopyOptionValue = '';
+  let copyScenarioData = null;
   let startPlayIdDefault = 2000;
   let startPlayNextId = 2000;
   let startPlayBlockTypes = new Set();
@@ -151,6 +155,25 @@
     }
   }
 
+  function removeTempCopyOption() {
+    if (!tempCopyOptionValue || !refs.scenarioList) {
+      return;
+    }
+    const options = Array.from(refs.scenarioList.options);
+    const target = options.find((opt) => opt.value === tempCopyOptionValue);
+    if (target) {
+      target.remove();
+    }
+    tempCopyOptionValue = '';
+  }
+
+  function resetInlineEditState() {
+    renameSourceName = '';
+    inlineEditMode = '';
+    inlineCommitInProgress = false;
+    copyScenarioData = null;
+  }
+
   function positionInlineRenameEditor() {
     if (!renameInlineEditor || !refs.scenarioList) {
       return;
@@ -174,42 +197,59 @@
     renameInlineEditor.style.fontSize = window.getComputedStyle(refs.scenarioList).fontSize;
   }
 
-  function beginRenameEdit() {
+  function beginRenameEdit(mode = 'rename', sourceNameOverride = '', displayValue = '') {
     const name = selectedScenarioName();
     if (!name) {
       toast('Select a scenario first.');
       return;
     }
-    renameSourceName = name;
+    renameSourceName = sourceNameOverride || name;
+    inlineEditMode = mode;
     clearInlineRenameEditor(false);
 
     const input = document.createElement('input');
     input.type = 'text';
     input.className = 'scenario-rename-inline';
-    input.value = name;
+    input.value = displayValue || name;
     input.addEventListener('keydown', async (event) => {
       if (event.key === 'Escape') {
         event.preventDefault();
         clearInlineRenameEditor(true);
-        renameSourceName = '';
+        if (inlineEditMode === 'copy') {
+          removeTempCopyOption();
+        }
+        resetInlineEditState();
         return;
       }
       if (event.key !== 'Enter') {
         return;
       }
       event.preventDefault();
+      inlineCommitInProgress = true;
       try {
-        await renameScenario(input.value);
+        if (inlineEditMode === 'copy') {
+          await copyScenario(input.value);
+        } else {
+          await renameScenario(input.value);
+        }
       } catch (err) {
-        toast(err.message || 'Rename failed');
+        toast(err.message || (inlineEditMode === 'copy' ? 'Copy failed' : 'Rename failed'));
+      } finally {
+        inlineCommitInProgress = false;
       }
     });
     input.addEventListener('blur', () => {
+      if (inlineCommitInProgress) {
+        return;
+      }
       if (renameInlineEditor !== input) {
         return;
       }
       clearInlineRenameEditor(false);
-      renameSourceName = '';
+      if (inlineEditMode === 'copy') {
+        removeTempCopyOption();
+      }
+      resetInlineEditState();
     });
 
     renameInlineEditor = input;
@@ -244,7 +284,7 @@
     }
     if (renameInlineEditor) {
       clearInlineRenameEditor(false);
-      renameSourceName = '';
+      resetInlineEditState();
     }
   }
 
@@ -575,7 +615,7 @@
     if (newName === oldName) {
       toast('Scenario name is unchanged.');
       clearInlineRenameEditor(true);
-      renameSourceName = '';
+      resetInlineEditState();
       return;
     }
 
@@ -585,8 +625,62 @@
     });
     await refreshScenarioList((response && response.name) || newName);
     clearInlineRenameEditor(true);
-    renameSourceName = '';
+    resetInlineEditState();
     toast(`Renamed: ${oldName} -> ${newName}`);
+  }
+
+  async function beginCopyEdit() {
+    const sourceName = selectedScenarioName();
+    if (!sourceName) {
+      toast('Select a scenario first.');
+      return;
+    }
+    const sourceResp = await api(`/api/scenarios/${encodeURIComponent(sourceName)}`);
+    copyScenarioData = sourceResp.data;
+    renameSourceName = sourceName;
+    inlineEditMode = 'copy';
+    clearInlineRenameEditor(false);
+    removeTempCopyOption();
+
+    const idx = refs.scenarioList.selectedIndex;
+    const temp = document.createElement('option');
+    tempCopyOptionValue = `__copy__${Date.now()}`;
+    temp.value = tempCopyOptionValue;
+    temp.textContent = sourceName;
+    refs.scenarioList.add(temp, idx + 1);
+    refs.scenarioList.selectedIndex = idx + 1;
+    beginRenameEdit('copy', sourceName, sourceName);
+  }
+
+  async function copyScenario(nextNameRaw) {
+    const sourceName = renameSourceName;
+    if (!sourceName || !copyScenarioData) {
+      throw new Error('Copy source is missing');
+    }
+    const newName = String(nextNameRaw || '').trim();
+    if (!newName) {
+      toast('New scenario name is required.');
+      if (renameInlineEditor) {
+        renameInlineEditor.focus();
+      }
+      return;
+    }
+    if (newName === sourceName) {
+      removeTempCopyOption();
+      clearInlineRenameEditor(true);
+      resetInlineEditState();
+      return;
+    }
+
+    await api('/api/scenarios', {
+      method: 'POST',
+      body: JSON.stringify({ name: newName, data: copyScenarioData }),
+    });
+    await refreshScenarioList(newName);
+    clearInlineRenameEditor(true);
+    removeTempCopyOption();
+    resetInlineEditState();
+    toast(`Copied: ${sourceName} -> ${newName}`);
   }
 
   async function updateBlocks() {
@@ -900,7 +994,8 @@
   refs.brandHome.addEventListener('click', () => showPage('main'));
   refs.scenarioList.addEventListener('change', () => {
     clearInlineRenameEditor(false);
-    renameSourceName = '';
+    removeTempCopyOption();
+    resetInlineEditState();
   });
   refs.scenarioList.addEventListener('scroll', keepInlineRenamePosition);
   window.addEventListener('resize', keepInlineRenamePosition);
@@ -937,6 +1032,17 @@
       toast(err.message || 'Delete failed');
     }
   });
+
+  const btnCopy = document.getElementById('btn-copy');
+  if (btnCopy) {
+    btnCopy.addEventListener('click', async () => {
+      try {
+        await beginCopyEdit();
+      } catch (err) {
+        toast(err.message || 'Copy failed');
+      }
+    });
+  }
 
   const btnRename = document.getElementById('btn-rename');
   if (btnRename) {
