@@ -761,6 +761,15 @@ def emit_toolbox(path: Path, categories: List[Tuple[str, List[str]]]):
             }
         )
 
+    # Google Blockly built-in dynamic category for user-defined functions.
+    contents.append(
+        {
+            "kind": "category",
+            "name": "Functions",
+            "categorystyle": "functions_category",
+            "custom": "PROCEDURE",
+        }
+    )
     toolbox = {"kind": "categoryToolbox", "contents": contents}
     path.write_text(
         "window.toolboxCustomBasic = " + js_dump(toolbox) + ";\n",
@@ -774,6 +783,10 @@ def emit_theme(path: Path, categories: List[str]):
         category_styles[f"{slugify(cat)}_category"] = {
             "colour": COLOR_PALETTE[i % len(COLOR_PALETTE)]
         }
+    # Built-in Functions category uses a dedicated style.
+    category_styles["functions_category"] = {
+        "colour": "#3f51b5",
+    }
 
     theme = {
         "base": "classic",
@@ -781,6 +794,12 @@ def emit_theme(path: Path, categories: List[str]):
             "logic_blocks": {"colourPrimary": "#f39c12"},
             "function_blocks": {"colourPrimary": "#2980b9"},
             "action_blocks": {"colourPrimary": "#27ae60"},
+            # Built-in Blockly function/procedure blocks in Functions category.
+            "procedure_blocks": {
+                "colourPrimary": "#3f51b5",
+                "colourSecondary": "#3647a1",
+                "colourTertiary": "#2f3f8f",
+            },
         },
         "categoryStyles": category_styles,
         "componentStyles": {

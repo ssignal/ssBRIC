@@ -542,7 +542,20 @@
     if (!lines.length) {
       return null;
     }
-    const nodes = lines.map((line) => JSON.parse(line));
+    const nodes = [];
+    lines.forEach((line) => {
+      try {
+        const parsed = JSON.parse(line);
+        if (parsed && typeof parsed === 'object') {
+          nodes.push(parsed);
+        }
+      } catch (err) {
+        // Ignore non-JSON lines (e.g. Blockly built-in function definitions/calls).
+      }
+    });
+    if (!nodes.length) {
+      return null;
+    }
     return nodes.length === 1 ? nodes[0] : nodes;
   }
 
