@@ -1,24 +1,24 @@
 {
-  "type": "Root",
-  "id": "82228581",
   "LinkParameter": "",
   "child": {
-    "type": "Sequence",
-    "id": "",
-    "tickrate": 0,
     "children": [
       {
-        "type": "Action",
         "action": "navigation/stop_move",
+        "id": "80428880",
         "parameter": {},
-        "id": "80428880"
+        "type": "Action"
       },
       {
-        "type": "Action",
         "action": "sound/stop_play",
+        "id": "59093616",
         "parameter": {},
-        "id": "59093616"
+        "type": "Action"
       }
-    ]
-  }
+    ],
+    "id": "",
+    "tickrate": 0,
+    "type": "Sequence"
+  },
+  "id": "82228581",
+  "type": "Root"
 }

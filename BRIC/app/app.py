@@ -236,6 +236,7 @@ def get_scenario(name: str):
 def save_scenario():
     body = request.get_json(silent=True) or {}
     name = body.get("name", "").strip()
+    original_name = str(body.get("original_name", "")).strip()
     data = body.get("data")
     if not name:
         return jsonify({"ok": False, "error": "Scenario name is required"}), 400
@@ -244,8 +245,13 @@ def save_scenario():
 
     try:
         p = scenario_path(name)
+        original_path = scenario_path(original_name) if original_name else None
     except ValueError:
         return jsonify({"ok": False, "error": "Invalid scenario name"}), 400
+
+    # Prevent overwriting a different existing scenario when saving with a new name.
+    if p.exists() and (original_path is None or p != original_path):
+        return jsonify({"ok": False, "error": "Scenario name already exists"}), 409
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -25,6 +25,7 @@
 
   let workspace = null;
   let moduleManifest = null;
+  let editingOriginalScenarioName = '';
   let renameSourceName = '';
   let renameInlineEditor = null;
   let inlineEditMode = '';
@@ -102,7 +103,11 @@
     }
     const targetX = 40;
     const targetY = 40;
-    if (typeof block.moveTo === 'function' && Blockly.utils && Blockly.utils.Coordinate) {
+    if (
+      typeof block.moveTo === 'function' &&
+      Blockly.utils &&
+      Blockly.utils.Coordinate
+    ) {
       block.moveTo(new Blockly.utils.Coordinate(targetX, targetY));
       return;
     }
@@ -184,9 +189,10 @@
       return;
     }
     const rect = refs.scenarioList.getBoundingClientRect();
-    const size = Number.parseInt(refs.scenarioList.getAttribute('size') || '1', 10) || 1;
+    const size =
+      Number.parseInt(refs.scenarioList.getAttribute('size') || '1', 10) || 1;
     const rowH = refs.scenarioList.clientHeight / size;
-    const top = rect.top + (idx * rowH) - refs.scenarioList.scrollTop + 4;
+    const top = rect.top + idx * rowH - refs.scenarioList.scrollTop + 4;
     const editorH = Math.max(26, Math.round(rowH + 6));
     renameInlineEditor.style.left = `${Math.round(rect.left + 2)}px`;
     renameInlineEditor.style.top = `${Math.round(top + 1)}px`;
@@ -194,10 +200,16 @@
     renameInlineEditor.style.width = `${Math.max(40, Math.round(rect.width - 18))}px`;
     renameInlineEditor.style.height = `${editorH}px`;
     renameInlineEditor.style.lineHeight = `${editorH}px`;
-    renameInlineEditor.style.fontSize = window.getComputedStyle(refs.scenarioList).fontSize;
+    renameInlineEditor.style.fontSize = window.getComputedStyle(
+      refs.scenarioList,
+    ).fontSize;
   }
 
-  function beginRenameEdit(mode = 'rename', sourceNameOverride = '', displayValue = '') {
+  function beginRenameEdit(
+    mode = 'rename',
+    sourceNameOverride = '',
+    displayValue = '',
+  ) {
     const name = selectedScenarioName();
     if (!name) {
       toast('Select a scenario first.');
@@ -233,7 +245,10 @@
           await renameScenario(input.value);
         }
       } catch (err) {
-        toast(err.message || (inlineEditMode === 'copy' ? 'Copy failed' : 'Rename failed'));
+        toast(
+          err.message ||
+            (inlineEditMode === 'copy' ? 'Copy failed' : 'Rename failed'),
+        );
       } finally {
         inlineCommitInProgress = false;
       }
@@ -279,7 +294,10 @@
     if (prev) {
       refs.scenarioList.value = prev;
     }
-    if (refs.scenarioList.selectedIndex < 0 && refs.scenarioList.options.length > 0) {
+    if (
+      refs.scenarioList.selectedIndex < 0 &&
+      refs.scenarioList.options.length > 0
+    ) {
       refs.scenarioList.selectedIndex = 0;
     }
     if (renameInlineEditor) {
@@ -304,7 +322,9 @@
       return;
     }
 
-    moduleManifest = await fetch('/static/generated/manifest.json').then((r) => r.json());
+    moduleManifest = await fetch('/static/generated/manifest.json').then((r) =>
+      r.json(),
+    );
     const cache = `?v=${Date.now()}`;
 
     window.BRIC = { blockRegistrars: [], generatorRegistrars: [] };
@@ -344,7 +364,7 @@
         return;
       }
       startPlayBlockTypes.add(blockType);
-      const args0 = (((item || {}).json || {}).args0) || [];
+      const args0 = ((item || {}).json || {}).args0 || [];
       const idArg = args0.find((arg) => arg && arg.name === 'PARAM_ID');
       const parsed = Number.parseInt(idArg && idArg.text, 10);
       if (Number.isFinite(parsed)) {
@@ -362,7 +382,9 @@
     if (!workspace || !startPlayBlockTypes.size) {
       return;
     }
-    const blocks = workspace.getAllBlocks(false).filter((b) => isStartPlayBlock(b));
+    const blocks = workspace
+      .getAllBlocks(false)
+      .filter((b) => isStartPlayBlock(b));
     if (!blocks.length) {
       startPlayAssignedIds.clear();
       startPlayNextId = startPlayIdDefault;
@@ -432,8 +454,10 @@
       return;
     }
 
-    const created = event.type === Blockly.Events.BLOCK_CREATE || event.type === 'create';
-    const deleted = event.type === Blockly.Events.BLOCK_DELETE || event.type === 'delete';
+    const created =
+      event.type === Blockly.Events.BLOCK_CREATE || event.type === 'create';
+    const deleted =
+      event.type === Blockly.Events.BLOCK_DELETE || event.type === 'delete';
 
     if (deleted && Array.isArray(event.ids)) {
       event.ids.forEach((id) => startPlayAssignedIds.delete(id));
@@ -462,7 +486,10 @@
       workspace = null;
     }
 
-    const theme = Blockly.Theme.defineTheme('bricTheme', window.themeForCustomBasic || {});
+    const theme = Blockly.Theme.defineTheme(
+      'bricTheme',
+      window.themeForCustomBasic || {},
+    );
     workspace = Blockly.inject(refs.blocklyDiv, {
       toolbox: window.toolboxCustomBasic,
       theme,
@@ -543,7 +570,10 @@
       return;
     }
     await initEditor(false);
-    const response = await api(`/api/scenarios/${encodeURIComponent(name)}/blockly`);
+    const response = await api(
+      `/api/scenarios/${encodeURIComponent(name)}/blockly`,
+    );
+    editingOriginalScenarioName = name;
     refs.scenarioName.value = name;
     workspace.clear();
     Blockly.serialization.workspaces.load(response.workspace, workspace);
@@ -553,6 +583,7 @@
 
   async function createScenario() {
     await initEditor(false);
+    editingOriginalScenarioName = '';
     refs.scenarioName.value = '';
     if (typeof workspace.scroll === 'function') {
       workspace.scroll(0, 0);
@@ -581,10 +612,15 @@
 
     await api('/api/scenarios', {
       method: 'POST',
-      body: JSON.stringify({ name, data: btJson }),
+      body: JSON.stringify({
+        name,
+        original_name: editingOriginalScenarioName,
+        data: btJson,
+      }),
     });
-    await refreshScenarioList();
-    toast(`Saved: ${name}.json`);
+    editingOriginalScenarioName = name;
+    await refreshScenarioList(name);
+    toast(`Saved: ${name}`);
   }
 
   async function deleteScenario() {
@@ -593,9 +629,11 @@
       toast('Select a scenario first.');
       return;
     }
-    await api(`/api/scenarios/${encodeURIComponent(name)}`, { method: 'DELETE' });
+    await api(`/api/scenarios/${encodeURIComponent(name)}`, {
+      method: 'DELETE',
+    });
     await refreshScenarioList();
-    toast(`Deleted: ${name}.json`);
+    toast(`Deleted: ${name}`);
   }
 
   async function renameScenario(nextNameRaw) {
@@ -635,7 +673,9 @@
       toast('Select a scenario first.');
       return;
     }
-    const sourceResp = await api(`/api/scenarios/${encodeURIComponent(sourceName)}`);
+    const sourceResp = await api(
+      `/api/scenarios/${encodeURIComponent(sourceName)}`,
+    );
     copyScenarioData = sourceResp.data;
     renameSourceName = sourceName;
     inlineEditMode = 'copy';
@@ -698,7 +738,9 @@
 
   function exportJson() {
     const btJson = workspaceToBtJson();
-    const text = btJson ? JSON.stringify(btJson, null, 2) : 'No tree generated.';
+    const text = btJson
+      ? JSON.stringify(btJson, null, 2)
+      : 'No tree generated.';
     if (refs.jsonOutput) {
       refs.jsonOutput.textContent = text;
     }
@@ -739,14 +781,18 @@
       return '#eef3f9';
     }
     if (node.action) {
-      const match = (moduleManifest.behavior || []).find((b) => b.action === node.action);
+      const match = (moduleManifest.behavior || []).find(
+        (b) => b.action === node.action,
+      );
       if (match && match.json && match.json.colour) {
         return String(match.json.colour);
       }
     }
     if (node.type) {
-      const match = [...(moduleManifest.bt_logic || []), ...(moduleManifest.bt_function || [])]
-        .find((b) => b.node_type === node.type);
+      const match = [
+        ...(moduleManifest.bt_logic || []),
+        ...(moduleManifest.bt_function || []),
+      ].find((b) => b.node_type === node.type);
       if (match && match.json && match.json.colour) {
         return String(match.json.colour);
       }
@@ -783,10 +829,17 @@
 
   function normalizeTree(jsonValue) {
     if (Array.isArray(jsonValue)) {
-      if (jsonValue.length === 1 && jsonValue[0] && typeof jsonValue[0] === 'object') {
+      if (
+        jsonValue.length === 1 &&
+        jsonValue[0] &&
+        typeof jsonValue[0] === 'object'
+      ) {
         return jsonValue[0];
       }
-      return { type: 'Tree', children: jsonValue.filter((n) => n && typeof n === 'object') };
+      return {
+        type: 'Tree',
+        children: jsonValue.filter((n) => n && typeof n === 'object'),
+      };
     }
     if (jsonValue && typeof jsonValue === 'object') {
       return jsonValue;
@@ -823,7 +876,13 @@
     }
 
     const rootEntry = walk(root, 0, null);
-    return { root: rootEntry, nodes, edges, maxDepth, maxX: Math.max(nextX - 1, 0) };
+    return {
+      root: rootEntry,
+      nodes,
+      edges,
+      maxDepth,
+      maxX: Math.max(nextX - 1, 0),
+    };
   }
 
   function svgEl(name, attrs = {}) {
@@ -889,7 +948,8 @@
     const rowGap = 96;
     const margin = 28;
     const width = margin * 2 + (layout.maxX + 1) * nodeW + layout.maxX * colGap;
-    const height = margin * 2 + (layout.maxDepth + 1) * nodeH + layout.maxDepth * rowGap;
+    const height =
+      margin * 2 + (layout.maxDepth + 1) * nodeH + layout.maxDepth * rowGap;
 
     refs.treeCanvas.setAttribute('viewBox', `0 0 ${width} ${height}`);
     refs.treeCanvas.setAttribute('width', width);
@@ -931,14 +991,16 @@
         d += ` V ${midY} H ${x2} V ${y2}`;
       }
 
-      treeScene.appendChild(svgEl('path', {
-        d,
-        fill: 'none',
-        stroke: '#35506f',
-        'stroke-width': 2,
-        'stroke-linecap': 'round',
-        'stroke-linejoin': 'round',
-      }));
+      treeScene.appendChild(
+        svgEl('path', {
+          d,
+          fill: 'none',
+          stroke: '#35506f',
+          'stroke-width': 2,
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        }),
+      );
     });
 
     layout.nodes.forEach((entry) => {
@@ -947,36 +1009,42 @@
       const fillColor = nodeColor(entry.node);
       const labelColor = textColorForBackground(fillColor);
       const group = svgEl('g');
-      group.appendChild(svgEl('rect', {
-        x,
-        y,
-        width: nodeW,
-        height: nodeH,
-        rx: 10,
-        ry: 10,
-        fill: fillColor,
-        stroke: '#2d3e52',
-        'stroke-width': 1.5,
-      }));
+      group.appendChild(
+        svgEl('rect', {
+          x,
+          y,
+          width: nodeW,
+          height: nodeH,
+          rx: 10,
+          ry: 10,
+          fill: fillColor,
+          stroke: '#2d3e52',
+          'stroke-width': 1.5,
+        }),
+      );
 
       const label = nodeLabel(entry.node).split('\n');
-      group.appendChild(svgEl('text', {
-        x: x + 10,
-        y: y + 21,
-        fill: labelColor,
-        'font-size': 13,
-        'font-family': 'Segoe UI, Noto Sans, sans-serif',
-        'font-weight': 600,
-      })).textContent = label[0];
+      group.appendChild(
+        svgEl('text', {
+          x: x + 10,
+          y: y + 21,
+          fill: labelColor,
+          'font-size': 13,
+          'font-family': 'Segoe UI, Noto Sans, sans-serif',
+          'font-weight': 600,
+        }),
+      ).textContent = label[0];
 
       if (label[1]) {
-        group.appendChild(svgEl('text', {
-          x: x + 10,
-          y: y + 39,
-          fill: labelColor,
-          'font-size': 11,
-          'font-family': 'Segoe UI, Noto Sans, sans-serif',
-        })).textContent = label[1];
+        group.appendChild(
+          svgEl('text', {
+            x: x + 10,
+            y: y + 39,
+            fill: labelColor,
+            'font-size': 11,
+            'font-family': 'Segoe UI, Noto Sans, sans-serif',
+          }),
+        ).textContent = label[1];
       }
       treeScene.appendChild(group);
     });
@@ -1000,14 +1068,16 @@
   refs.scenarioList.addEventListener('scroll', keepInlineRenamePosition);
   window.addEventListener('resize', keepInlineRenamePosition);
 
-  document.getElementById('btn-update-blocks').addEventListener('click', async () => {
-    try {
-      await updateBlocks();
-    } catch (err) {
-      refs.updateResult.textContent = String(err.message || err);
-      toast('Failed to update blocks.');
-    }
-  });
+  document
+    .getElementById('btn-update-blocks')
+    .addEventListener('click', async () => {
+      try {
+        await updateBlocks();
+      } catch (err) {
+        refs.updateResult.textContent = String(err.message || err);
+        toast('Failed to update blocks.');
+      }
+    });
 
   document.getElementById('btn-create').addEventListener('click', async () => {
     try {
@@ -1069,7 +1139,9 @@
     }
   });
 
-  document.getElementById('btn-export').addEventListener('click', openGraphicalTree);
+  document
+    .getElementById('btn-export')
+    .addEventListener('click', openGraphicalTree);
 
   refs.btnJsonConfirm.addEventListener('click', () => {
     refs.jsonModal.classList.remove('show');
@@ -1102,10 +1174,14 @@
   refs.btnTreeZoomIn.addEventListener('click', () => zoomTree(1.15));
   refs.btnTreeZoomOut.addEventListener('click', () => zoomTree(1 / 1.15));
 
-  refs.treeCanvasWrap.addEventListener('wheel', (event) => {
-    event.preventDefault();
-    zoomTree(event.deltaY < 0 ? 1.1 : 1 / 1.1, event.clientX, event.clientY);
-  }, { passive: false });
+  refs.treeCanvasWrap.addEventListener(
+    'wheel',
+    (event) => {
+      event.preventDefault();
+      zoomTree(event.deltaY < 0 ? 1.1 : 1 / 1.1, event.clientX, event.clientY);
+    },
+    { passive: false },
+  );
 
   refs.treeCanvasWrap.addEventListener('mousedown', (event) => {
     treeView.panning = true;
