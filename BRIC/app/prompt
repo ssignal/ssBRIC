@@ -113,6 +113,7 @@
 ### Toolbox
   Add the new catagery for the new blocks.
   The category name is the 'category' of each item.
+  Add built-in `Functions` category for Blockly function blocks.
   Category order is fixed:
    - BT Logic
    - BT Function
@@ -124,6 +125,7 @@
   Each block uses the color of its category.
   Root block is a special block and does not follow category color.
   Root block color is fixed to '#8c564b'.
+  Blocks in category should use the same color as each category.
 ## File Path -------------------------------
 ### input
   InputFileA: ./btInfo/BTList.json

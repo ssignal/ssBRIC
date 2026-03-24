@@ -184,6 +184,12 @@ window.toolboxCustomBasic = {
           "type": "behavior__etc__demo_set_demo_id"
         }
       ]
+    },
+    {
+      "kind": "category",
+      "name": "Functions",
+      "categorystyle": "functions_category",
+      "custom": "PROCEDURE"
     }
   ]
 };

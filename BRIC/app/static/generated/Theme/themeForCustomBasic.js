@@ -9,6 +9,11 @@ window.themeForCustomBasic = {
     },
     "action_blocks": {
       "colourPrimary": "#27ae60"
+    },
+    "procedure_blocks": {
+      "colourPrimary": "#3f51b5",
+      "colourSecondary": "#3647a1",
+      "colourTertiary": "#2f3f8f"
     }
   },
   "categoryStyles": {
@@ -35,6 +40,9 @@ window.themeForCustomBasic = {
     },
     "etc_category": {
       "colour": "#7f7f7f"
+    },
+    "functions_category": {
+      "colour": "#3f51b5"
     }
   },
   "componentStyles": {
