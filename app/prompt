@@ -174,11 +174,9 @@
 #### Description for parameters
   Add a question icon before each parameter.
 ### question icon
-   It is not a text.
    Circle icon include '?' in the center of the circle.
-   Background color is white.
-   the '?' color is black.
-   The black circle line surround the icon.
+   Background color is blue, the '?' color is white.
+   The circle has a thin white outline.
 ## Default value -------------------------------
    If there is no min or max value for a default value, set the value below according to it's type.
 ### float: 0.0
