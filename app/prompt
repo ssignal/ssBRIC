@@ -154,6 +154,7 @@
 ### options
   If a item has options, use dropdown menu.
   If a item has no options, use input box.
+  If an option has `description`, show it when dropdown menu is opened and mouse is over that option item.
   If an option includes `parameters`, show those additional parameters in the block.
   Additional parameters by option are supported only for 1 depth.
   Nested option-parameters under those additional parameters are ignored.

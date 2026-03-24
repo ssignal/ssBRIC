@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-24T08:12:56.646184Z",
+  "generated_at": "2026-03-24T08:54:54.913888Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -10,7 +10,7 @@
       "description": "Motion 시작 명령",
       "json": {
         "type": "behavior__motion__motion_start_motion",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
         "args0": [
           {
             "type": "field_image",
@@ -31,56 +31,27 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_NAME"
+            "name": "HELP_TASK_TYPE"
           },
           {
             "type": "field_label",
-            "text": "name"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_NAME",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_STATE"
-          },
-          {
-            "type": "field_label",
-            "text": "state"
+            "text": "task_type"
           },
           {
             "type": "field_dropdown",
-            "name": "PARAM_STATE",
+            "name": "PARAM_TASK_TYPE",
             "options": [
               [
-                "autonomous",
-                "autonomous"
+                "Expressive",
+                "Expressive"
               ],
               [
-                "exp_motion",
-                "exp_motion"
+                "Pose",
+                "Pose"
               ],
               [
-                "freeze",
-                "freeze"
-              ],
-              [
-                "mani_motion",
-                "mani_motion"
-              ],
-              [
-                "motion",
-                "motion"
-              ],
-              [
-                "ps_motion",
-                "ps_motion"
+                "Manipulation",
+                "Manipulation"
               ]
             ]
           },
@@ -141,76 +112,169 @@
       },
       "parameters": [
         {
-          "name": "name",
-          "field": "PARAM_NAME",
+          "name": "task_type",
+          "field": "PARAM_TASK_TYPE",
           "type": "string",
-          "description": "Motion name",
-          "option_parameters": {}
-        },
-        {
-          "name": "state",
-          "field": "PARAM_STATE",
-          "type": "string",
-          "description": "Motion engine type",
+          "description": "Motion task type",
           "option_parameters": {
-            "autonomous": [
+            "Expressive": [
               {
-                "name": "A1",
-                "field": "OPT_STATE_A1",
+                "name": "name",
+                "field": "OPT_TASK_TYPE_NAME",
                 "type": "string",
-                "description": "String A1",
+                "description": "Motion name",
                 "options": [
                   [
-                    "AA1",
-                    "AA1"
+                    "wave_two_hand",
+                    "wave_two_hand"
                   ],
                   [
-                    "AA2",
-                    "AA2"
-                  ]
-                ],
-                "default": "AA1",
-                "option_parameters": {}
-              },
-              {
-                "name": "A2",
-                "field": "OPT_STATE_A2",
-                "type": "integer",
-                "description": "Int A2",
-                "options": [
-                  [
-                    "10",
-                    "10"
+                    "pose_hand_heart",
+                    "pose_hand_heart"
                   ],
                   [
-                    "20",
-                    "20"
+                    "present_double",
+                    "present_double"
+                  ],
+                  [
+                    "wave_two_hand_sway",
+                    "wave_two_hand_sway"
+                  ],
+                  [
+                    "head_left_down",
+                    "head_left_down"
+                  ],
+                  [
+                    "head_right_down",
+                    "head_right_down"
+                  ],
+                  [
+                    "head_left_up",
+                    "head_left_up"
+                  ],
+                  [
+                    "head_left_down",
+                    "head_left_down"
+                  ],
+                  [
+                    "double_nod",
+                    "double_nod"
+                  ],
+                  [
+                    "highfive_ready",
+                    "highfive_ready"
+                  ],
+                  [
+                    "highfive_strike",
+                    "highfive_strike"
+                  ],
+                  [
+                    "fistbump_ready",
+                    "fistbump_ready"
+                  ],
+                  [
+                    "fistbump_strike",
+                    "fistbump_strike"
                   ]
                 ],
-                "default": "10",
-                "option_parameters": {}
+                "default": "wave_two_hand",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "wave_two_hand": "양손 가슴높이 손인사",
+                  "pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                  "present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                  "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+                  "head_left_down": "머리 오른쪽 위 이동 후 복귀",
+                  "head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+                  "head_left_up": "머리 왼쪽 위 이동 후 복귀",
+                  "double_nod": "머리 두번 끄덕끄덕",
+                  "highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                  "highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                  "fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                }
               }
             ],
-            "exp_motion": [
+            "Pose": [
               {
-                "name": "B1",
-                "field": "OPT_STATE_B1",
+                "name": "name",
+                "field": "OPT_TASK_TYPE_NAME",
                 "type": "string",
-                "description": "String B1",
-                "options": [],
-                "default": "",
-                "option_parameters": {}
+                "description": "Motion name",
+                "options": [
+                  [
+                    "work_ready",
+                    "work_ready"
+                  ],
+                  [
+                    "move",
+                    "move"
+                  ]
+                ],
+                "default": "work_ready",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+                  "move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+                }
+              }
+            ],
+            "Manipulation": [
+              {
+                "name": "name",
+                "field": "OPT_TASK_TYPE_NAME",
+                "type": "string",
+                "description": "Motion name",
+                "options": [
+                  [
+                    "prepare",
+                    "prepare"
+                  ],
+                  [
+                    "pick_up",
+                    "pick_up"
+                  ],
+                  [
+                    "dump",
+                    "dump"
+                  ],
+                  [
+                    "put_down",
+                    "put_down"
+                  ]
+                ],
+                "default": "prepare",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "prepare": "demo2604_pick_box_ready",
+                  "pick_up": "demo2604_pick_box",
+                  "dump": "demo2604_dump_box",
+                  "put_down": "demo2604_place_box"
+                }
               },
               {
-                "name": "B2",
-                "field": "OPT_STATE_B2",
-                "type": "integer",
-                "description": "Int B2",
-                "options": [],
-                "default": "0",
-                "option_parameters": {}
+                "name": "objects",
+                "field": "OPT_TASK_TYPE_OBJECTS",
+                "type": "string",
+                "description": "objects (string)",
+                "options": [
+                  [
+                    "box",
+                    "box"
+                  ]
+                ],
+                "default": "box",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "box": ""
+                }
               }
             ]
+          },
+          "option_descriptions": {
+            "Expressive": "Expressive motion",
+            "Pose": "Pose motion",
+            "Manipulation": "Manipulation motion"
           }
         },
         {
@@ -218,14 +282,21 @@
           "field": "PARAM_REPEAT",
           "type": "string",
           "description": "Motion repetition type",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {
+            "once": "Run once",
+            "loop": "Repeat continuously"
+          }
         },
         {
           "name": "action",
           "field": "PARAM_ACTION",
           "type": "string",
           "description": "Motion part",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {
+            "all": "Apply to all parts"
+          }
         }
       ],
       "has_children": false,
@@ -294,7 +365,11 @@
           "field": "PARAM_MODE",
           "type": "string",
           "description": "Motion stop type",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {
+            "normal": "Normal stop",
+            "immediately": "Immediate stop"
+          }
         }
       ],
       "has_children": false,
@@ -466,35 +541,43 @@
           "field": "PARAM_POSE_TYPE",
           "type": "string",
           "description": "map (indoor), earth (outdoor)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {
+            "map": "Indoor map frame",
+            "earth": "Outdoor earth frame"
+          }
         },
         {
           "name": "x",
           "field": "PARAM_X",
           "type": "float",
           "description": "Euler pose x",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "y",
           "field": "PARAM_Y",
           "type": "float",
           "description": "Euler pose y",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "z",
           "field": "PARAM_Z",
           "type": "float",
           "description": "Euler pose z (degree unit)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "behavior_tree",
           "field": "PARAM_BEHAVIOR_TREE",
           "type": "string",
           "description": "It can be omitted as default",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -682,21 +765,27 @@
           "field": "PARAM_DISTANCE",
           "type": "float",
           "description": "Distance to move from the current position (meter unit)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "velocity",
           "field": "PARAM_VELOCITY",
           "type": "float",
           "description": "Movement velocity (m/s unit)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "direction",
           "field": "PARAM_DIRECTION",
           "type": "string",
           "description": "Direction to move",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {
+            "forward": "Move forward",
+            "backwards": "Move backwards"
+          }
         }
       ],
       "has_children": false,
@@ -841,7 +930,8 @@
           "field": "PARAM_ANGLE",
           "type": "float",
           "description": "Rotation angle (degree unit)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1005,21 +1095,24 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID to play sound (default: 2000)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "path",
           "field": "PARAM_PATH",
           "type": "string",
           "description": "Sound file path to play",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "bool",
           "description": "Sound playback repetition type",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1096,14 +1189,16 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID to play sound (default: 2000)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "text",
           "field": "PARAM_TEXT",
           "type": "string",
           "description": "Text to play TTS",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1163,7 +1258,8 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID given for playing sound",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1223,7 +1319,8 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID given for playing sound",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1328,7 +1425,8 @@
           "field": "PARAM_VOLUME",
           "type": "integer",
           "description": "Volume value (0 ~ 10)",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1422,21 +1520,24 @@
           "field": "PARAM_PATH",
           "type": "string",
           "description": "Animation file path to play",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "repeat",
           "field": "PARAM_REPEAT",
           "type": "bool",
           "description": "Animation repetition type",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         },
         {
           "name": "instant_play",
           "field": "PARAM_INSTANT_PLAY",
           "type": "bool",
           "description": "Decide if the animation plays immediately or after the current animation is completed.",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
@@ -1566,7 +1667,8 @@
           "field": "PARAM_NAME",
           "type": "string",
           "description": "Demo name to specify the demo",
-          "option_parameters": {}
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "has_children": false,
