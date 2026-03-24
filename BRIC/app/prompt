@@ -170,9 +170,12 @@
 #### Description for a block
   Add a question icon on the left side of a block only if 'description' exists and is not empty.
   If there is no 'description' or it is empty, hide the question icon.
-  Only when the mouse is on the question icon, onMouse event, show the 'description' on a floting box.
+  Clicking the question icon shows the 'description' in a popup UI.
+  Do not use browser alert window for help message.
+  Help popup UI style should be same as `Function` block help popup.
 #### Description for parameters
   Add a question icon before each parameter.
+  Clicking parameter question icon shows its description in the same popup UI.
 ### question icon
    Circle icon include '?' in the center of the circle.
    Background color is blue, the '?' color is white.
