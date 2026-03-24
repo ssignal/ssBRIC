@@ -121,6 +121,17 @@ button {
   padding: 8px;
 }
 
+.scenario-rename-inline {
+  position: fixed;
+  z-index: 2200;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(2, 12, 25, 0.96);
+  color: var(--text);
+  outline: none;
+}
+
 .row-actions {
   margin-top: 12px;
   display: flex;

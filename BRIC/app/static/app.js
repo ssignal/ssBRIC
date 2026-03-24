@@ -25,6 +25,8 @@
 
   let workspace = null;
   let moduleManifest = null;
+  let renameSourceName = '';
+  let renameInlineEditor = null;
   let startPlayIdDefault = 2000;
   let startPlayNextId = 2000;
   let startPlayBlockTypes = new Set();
@@ -55,9 +57,24 @@
       headers: { 'Content-Type': 'application/json' },
       ...options,
     });
-    const payload = await res.json();
+    const contentType = (res.headers.get('content-type') || '').toLowerCase();
+    let payload = {};
+    if (contentType.includes('application/json')) {
+      payload = await res.json();
+    } else {
+      const text = await res.text();
+      payload = { ok: false, error: text || `Request failed: ${path}` };
+    }
     if (!res.ok || payload.ok === false) {
-      throw new Error(payload.error || `Request failed: ${path}`);
+      const message = payload.error || `Request failed: ${path}`;
+      console.error('[API ERROR]', {
+        path,
+        status: res.status,
+        statusText: res.statusText,
+        message,
+        payload,
+      });
+      throw new Error(message);
     }
     return payload;
   }
@@ -117,7 +134,100 @@
     return option ? option.value : '';
   }
 
-  async function refreshScenarioList() {
+  function clearInlineRenameEditor(focusList = false) {
+    if (renameInlineEditor) {
+      const node = renameInlineEditor;
+      renameInlineEditor = null;
+      if (node.parentNode) {
+        try {
+          node.parentNode.removeChild(node);
+        } catch (err) {
+          // Ignore race condition when blur/enter handlers try to remove twice.
+        }
+      }
+    }
+    if (focusList && refs.scenarioList) {
+      refs.scenarioList.focus();
+    }
+  }
+
+  function positionInlineRenameEditor() {
+    if (!renameInlineEditor || !refs.scenarioList) {
+      return;
+    }
+    const idx = refs.scenarioList.selectedIndex;
+    if (idx < 0) {
+      clearInlineRenameEditor(true);
+      return;
+    }
+    const rect = refs.scenarioList.getBoundingClientRect();
+    const size = Number.parseInt(refs.scenarioList.getAttribute('size') || '1', 10) || 1;
+    const rowH = refs.scenarioList.clientHeight / size;
+    const top = rect.top + (idx * rowH) - refs.scenarioList.scrollTop + 4;
+    const editorH = Math.max(26, Math.round(rowH + 6));
+    renameInlineEditor.style.left = `${Math.round(rect.left + 2)}px`;
+    renameInlineEditor.style.top = `${Math.round(top + 1)}px`;
+    // Keep right-side space so the list scrollbar remains visible/usable.
+    renameInlineEditor.style.width = `${Math.max(40, Math.round(rect.width - 18))}px`;
+    renameInlineEditor.style.height = `${editorH}px`;
+    renameInlineEditor.style.lineHeight = `${editorH}px`;
+    renameInlineEditor.style.fontSize = window.getComputedStyle(refs.scenarioList).fontSize;
+  }
+
+  function beginRenameEdit() {
+    const name = selectedScenarioName();
+    if (!name) {
+      toast('Select a scenario first.');
+      return;
+    }
+    renameSourceName = name;
+    clearInlineRenameEditor(false);
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'scenario-rename-inline';
+    input.value = name;
+    input.addEventListener('keydown', async (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        clearInlineRenameEditor(true);
+        renameSourceName = '';
+        return;
+      }
+      if (event.key !== 'Enter') {
+        return;
+      }
+      event.preventDefault();
+      try {
+        await renameScenario(input.value);
+      } catch (err) {
+        toast(err.message || 'Rename failed');
+      }
+    });
+    input.addEventListener('blur', () => {
+      if (renameInlineEditor !== input) {
+        return;
+      }
+      clearInlineRenameEditor(false);
+      renameSourceName = '';
+    });
+
+    renameInlineEditor = input;
+    document.body.appendChild(renameInlineEditor);
+    positionInlineRenameEditor();
+    renameInlineEditor.focus();
+    renameInlineEditor.select();
+  }
+
+  function keepInlineRenamePosition() {
+    if (!renameInlineEditor) {
+      return;
+    }
+    positionInlineRenameEditor();
+  }
+
+  async function refreshScenarioList(preferredName = '') {
+    const prev = preferredName || selectedScenarioName();
     const data = await api('/api/scenarios');
     refs.scenarioList.innerHTML = '';
     data.items.forEach((item) => {
@@ -126,6 +236,16 @@
       option.textContent = item.name;
       refs.scenarioList.appendChild(option);
     });
+    if (prev) {
+      refs.scenarioList.value = prev;
+    }
+    if (refs.scenarioList.selectedIndex < 0 && refs.scenarioList.options.length > 0) {
+      refs.scenarioList.selectedIndex = 0;
+    }
+    if (renameInlineEditor) {
+      clearInlineRenameEditor(false);
+      renameSourceName = '';
+    }
   }
 
   function loadScript(src) {
@@ -438,6 +558,37 @@
     toast(`Deleted: ${name}.json`);
   }
 
+  async function renameScenario(nextNameRaw) {
+    const oldName = renameSourceName || selectedScenarioName();
+    if (!oldName) {
+      toast('Select a scenario first.');
+      return;
+    }
+    const newName = String(nextNameRaw || '').trim();
+    if (!newName) {
+      toast('New scenario name is required.');
+      if (renameInlineEditor) {
+        renameInlineEditor.focus();
+      }
+      return;
+    }
+    if (newName === oldName) {
+      toast('Scenario name is unchanged.');
+      clearInlineRenameEditor(true);
+      renameSourceName = '';
+      return;
+    }
+
+    const response = await api('/api/scenarios/rename', {
+      method: 'POST',
+      body: JSON.stringify({ old_name: oldName, new_name: newName }),
+    });
+    await refreshScenarioList((response && response.name) || newName);
+    clearInlineRenameEditor(true);
+    renameSourceName = '';
+    toast(`Renamed: ${oldName} -> ${newName}`);
+  }
+
   async function updateBlocks() {
     refs.updateResult.textContent = 'Updating block registry...';
     const response = await api('/api/blocks/update', { method: 'POST' });
@@ -747,6 +898,12 @@
   }
 
   refs.brandHome.addEventListener('click', () => showPage('main'));
+  refs.scenarioList.addEventListener('change', () => {
+    clearInlineRenameEditor(false);
+    renameSourceName = '';
+  });
+  refs.scenarioList.addEventListener('scroll', keepInlineRenamePosition);
+  window.addEventListener('resize', keepInlineRenamePosition);
 
   document.getElementById('btn-update-blocks').addEventListener('click', async () => {
     try {
@@ -780,6 +937,11 @@
       toast(err.message || 'Delete failed');
     }
   });
+
+  const btnRename = document.getElementById('btn-rename');
+  if (btnRename) {
+    btnRename.addEventListener('click', beginRenameEdit);
+  }
 
   document.getElementById('btn-save').addEventListener('click', async () => {
     try {
