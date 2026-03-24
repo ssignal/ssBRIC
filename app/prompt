@@ -21,6 +21,11 @@
 ### Scenario
   - Scnerio List: Show the saved Scnerio list (Behavior Tree)
   - Delete Button: Remove selected Scenario.
+  - Rename Button: Rename selected Scenario.
+    - In normal mode, scenario list items are selectable only.
+    - After clicking `Rename`, selected item changes to edit mode.
+    - User edits the selected name inline in the scenario list.
+    - Pressing `Enter` confirms rename.
   - Create Button: to Create a new Scnerio with the Blockly Editor.
   - Edit Button: to edit a selected Scnerio with the Blockly Editor.
 ### Block
@@ -63,10 +68,11 @@
   Clicking `BRIC Scenario Studio` goes back to Main page.
 ## Notification -------------------------------
   Notification toast message should be shown in the center of the window.
-  For scenario Add/Save and Delete actions, include the scenario file name in the message.
+  For scenario Add/Save, Delete, and Rename actions, include the scenario name in the message.
   Example messages:
    - Saved: {scenario_name}.json
    - Deleted: {scenario_name}.json
+   - Renamed: {old_scenario_name} -> {new_scenario_name}
 
 ###################################################
 # Generate Blocks.

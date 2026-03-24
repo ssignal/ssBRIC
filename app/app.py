@@ -265,6 +265,34 @@ def delete_scenario(name: str):
     return jsonify({"ok": True})
 
 
+@app.post("/api/scenarios/rename")
+def rename_scenario():
+    body = request.get_json(silent=True) or {}
+    old_name = str(body.get("old_name", "")).strip()
+    new_name = str(body.get("new_name", "")).strip()
+
+    if not old_name:
+        return jsonify({"ok": False, "error": "Old scenario name is required"}), 400
+    if not new_name:
+        return jsonify({"ok": False, "error": "New scenario name is required"}), 400
+
+    try:
+        old_path = scenario_path(old_name)
+        new_path = scenario_path(new_name)
+    except ValueError:
+        return jsonify({"ok": False, "error": "Invalid scenario name"}), 400
+
+    if not old_path.exists():
+        return jsonify({"ok": False, "error": "Scenario not found"}), 404
+    if old_path == new_path:
+        return jsonify({"ok": True, "name": new_path.stem})
+    if new_path.exists():
+        return jsonify({"ok": False, "error": "Scenario name already exists"}), 409
+
+    old_path.rename(new_path)
+    return jsonify({"ok": True, "name": new_path.stem})
+
+
 @app.get("/api/scenarios/<name>/blockly")
 def scenario_as_blockly(name: str):
     try:
