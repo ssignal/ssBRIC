@@ -275,7 +275,7 @@
         "name": "behavior_tree",
         "type": "string",
         "description": "It can be omitted as default",
-        "enabled": true,
+        "enabled": false,
         "options": [],
         "min": null,
         "max": null

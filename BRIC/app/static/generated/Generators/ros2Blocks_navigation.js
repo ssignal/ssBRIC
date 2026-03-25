@@ -9,7 +9,7 @@ const OPTION_PARAM_MAP = {
 };
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
-function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => JSON.parse(v)); }
+function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }
 function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
 function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
@@ -19,7 +19,6 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_move_to_pose'] = 
   parameter['x'] = Number.parseFloat(block.getFieldValue('PARAM_X') || '0');
   parameter['y'] = Number.parseFloat(block.getFieldValue('PARAM_Y') || '0');
   parameter['z'] = Number.parseFloat(block.getFieldValue('PARAM_Z') || '0');
-  parameter['behavior_tree'] = block.getFieldValue('PARAM_BEHAVIOR_TREE') || '';
   const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_move_to_pose'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';

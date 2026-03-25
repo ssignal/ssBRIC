@@ -1010,7 +1010,7 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
         "function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }"
     )
     lines.append(
-        "function parseChildNodes(raw) { return (raw || '').split('\\n').map((v) => v.trim()).filter(Boolean).map((v) => JSON.parse(v)); }"
+        "function parseChildNodes(raw) { return (raw || '').split('\\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }"
     )
     lines.append(
         "function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }"

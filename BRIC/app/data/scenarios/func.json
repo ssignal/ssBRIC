@@ -1,0 +1,69 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "bt_function__root",
+        "id": "H-{uHJm,u3UwA0oUbpSG",
+        "x": 40,
+        "y": 40,
+        "inputs": {
+          "CHILD": {
+            "block": {
+              "type": "procedures_callnoreturn",
+              "id": "{CaIjn;55GJ~FYY3e06^",
+              "extraState": {
+                "name": "WaitForMove"
+              },
+              "next": {
+                "block": {
+                  "type": "behavior__navigation__navigation_move_to_pose",
+                  "id": "SATQ.QXmLBM)=+ZTCdO-",
+                  "fields": {
+                    "PARAM_POSE_TYPE": "map",
+                    "PARAM_X": "0.0",
+                    "PARAM_Y": "0.0",
+                    "PARAM_Z": "0.0",
+                    "PARAM_BEHAVIOR_TREE": ""
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "procedures_defnoreturn",
+        "id": "U8j0m{Z2ON1.,k0*cEGX",
+        "x": 310,
+        "y": 150,
+        "icons": {
+          "comment": {
+            "text": "Describe this function...",
+            "pinned": false,
+            "height": 80,
+            "width": 160
+          }
+        },
+        "fields": {
+          "NAME": "WaitForMove"
+        },
+        "inputs": {
+          "STACK": {
+            "block": {
+              "type": "behavior__navigation__navigation_move_to_pose",
+              "id": "vl,mwNw$0[U]aTPIEw%R",
+              "fields": {
+                "PARAM_POSE_TYPE": "map",
+                "PARAM_X": "0.0",
+                "PARAM_Y": "0.0",
+                "PARAM_Z": "0.0",
+                "PARAM_BEHAVIOR_TREE": ""
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
