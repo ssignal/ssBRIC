@@ -158,6 +158,19 @@
   If an option includes `parameters`, show those additional parameters in the block.
   Additional parameters by option are supported only for 1 depth.
   Nested option-parameters under those additional parameters are ignored.
+### Function block to Behavior Tree
+  Scenario file is saved in Blockly workspace JSON format.
+  Clicking `Behavior Tree` converts current Blockly workspace to Behavior Tree JSON.
+  Function call block (`procedures_callnoreturn`) is converted to:
+    `{ "type": "Subtree", "id": "XXXXXXXX" }`
+  `id` is the function name (`fields.NAME` / function name state).
+  Behavior Tree top-level object uses parent keys:
+    - `Root`
+    - function ids (function names)
+  Each function key value format:
+    `"XXXXXXXX": { "child": { ... } }`
+  If function body is already a single `Sequence`, do not wrap it with another `Sequence`.
+  In Graphical Tree, render `Root` and each function id as separate trees.
 ### Sound id
   Default value of `id` in `Sound` category is `2000`.
   For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.

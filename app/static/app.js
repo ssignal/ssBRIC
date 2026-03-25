@@ -502,6 +502,63 @@
     refreshStartPlayIdState();
   }
 
+  function patchProcedureCallBlockChecks() {
+    if (!Blockly || !Blockly.Blocks) {
+      return;
+    }
+    ['procedures_callnoreturn', 'procedures_callreturn'].forEach((type) => {
+      const def = Blockly.Blocks[type];
+      if (!def || def.__bricBtNodePatched) {
+        return;
+      }
+      const baseInit = def.init;
+      def.init = function patchedInit(...args) {
+        baseInit.apply(this, args);
+        if (typeof this.setPreviousStatement === 'function') {
+          this.setPreviousStatement(true, 'BTNode');
+        }
+        if (typeof this.setNextStatement === 'function') {
+          this.setNextStatement(true, 'BTNode');
+        }
+      };
+      def.__bricBtNodePatched = true;
+    });
+  }
+
+  function reorderWorkspaceTopBlocks(workspaceState) {
+    if (
+      !workspaceState ||
+      typeof workspaceState !== 'object' ||
+      !workspaceState.blocks ||
+      !Array.isArray(workspaceState.blocks.blocks)
+    ) {
+      return workspaceState;
+    }
+    const out = {
+      ...workspaceState,
+      blocks: {
+        ...workspaceState.blocks,
+        blocks: [...workspaceState.blocks.blocks],
+      },
+    };
+    const orderOf = (b) => {
+      const t = String((b && b.type) || '');
+      if (t === 'procedures_defnoreturn' || t === 'procedures_defreturn') {
+        return 0;
+      }
+      return 1;
+    };
+    out.blocks.blocks.sort((a, b) => {
+      const oa = orderOf(a);
+      const ob = orderOf(b);
+      if (oa !== ob) {
+        return oa - ob;
+      }
+      return String((a && a.id) || '').localeCompare(String((b && b.id) || ''));
+    });
+    return out;
+  }
+
   function ensureRootBlock() {
     if (!workspace) {
       return;
@@ -534,29 +591,189 @@
     if (!workspace) {
       return null;
     }
-    const raw = javascript.javascriptGenerator.workspaceToCode(workspace);
-    const lines = raw
-      .split('\n')
-      .map((v) => v.trim())
-      .filter(Boolean);
-    if (!lines.length) {
+    if (!moduleManifest) {
       return null;
     }
-    const nodes = [];
-    lines.forEach((line) => {
-      try {
-        const parsed = JSON.parse(line);
-        if (parsed && typeof parsed === 'object') {
-          nodes.push(parsed);
-        }
-      } catch (err) {
-        // Ignore non-JSON lines (e.g. Blockly built-in function definitions/calls).
+    const ws = Blockly.serialization.workspaces.save(workspace);
+    const topBlocks =
+      (ws &&
+        ws.blocks &&
+        Array.isArray(ws.blocks.blocks) &&
+        ws.blocks.blocks) ||
+      [];
+    if (!topBlocks.length) {
+      return null;
+    }
+
+    const byType = {};
+    [
+      ...(moduleManifest.behavior || []),
+      ...(moduleManifest.bt_logic || []),
+      ...(moduleManifest.bt_function || []),
+    ].forEach((m) => {
+      if (m && m.block_type) {
+        byType[m.block_type] = m;
       }
     });
-    if (!nodes.length) {
+
+    const randomId = () =>
+      Math.floor(10000000 + Math.random() * 90000000).toString();
+    const cast = (raw, typeName) => {
+      const t = String(typeName || '').toLowerCase();
+      if (t === 'int' || t === 'integer') {
+        const v = Number.parseInt(String(raw ?? '0'), 10);
+        return Number.isFinite(v) ? v : 0;
+      }
+      if (t === 'float' || t === 'double' || t === 'number') {
+        const v = Number.parseFloat(String(raw ?? '0'));
+        return Number.isFinite(v) ? v : 0.0;
+      }
+      return String(raw ?? '');
+    };
+
+    const collectOptionParams = (fields, defs, out) => {
+      (defs || []).forEach((meta) => {
+        const fieldName = meta && meta.field;
+        if (!fieldName) return;
+        const rawValue = fields[fieldName];
+        out[meta.name] = cast(rawValue, meta.type);
+        const selected = String(rawValue ?? '');
+        const nested =
+          ((meta.option_parameters || {})[selected] || []).filter(Boolean);
+        if (nested.length) {
+          collectOptionParams(fields, nested, out);
+        }
+      });
+    };
+
+    const firstInputBlock = (blockState, inputName) =>
+      blockState &&
+      blockState.inputs &&
+      blockState.inputs[inputName] &&
+      blockState.inputs[inputName].block
+        ? blockState.inputs[inputName].block
+        : null;
+
+    const convertBlock = (blockState) => {
+      if (!blockState || typeof blockState !== 'object') {
+        return null;
+      }
+      const type = String(blockState.type || '');
+      const fields = (blockState.fields && { ...blockState.fields }) || {};
+
+      if (type === 'procedures_callnoreturn' || type === 'procedures_callreturn') {
+        const name = String(
+          (blockState.extraState && blockState.extraState.name) ||
+            fields.NAME ||
+            '',
+        ).trim();
+        if (!name) {
+          return null;
+        }
+        return { type: 'Subtree', id: name };
+      }
+
+      const meta = byType[type];
+      if (!meta) {
+        return null;
+      }
+
+      if (meta.kind === 'behavior') {
+        const parameter = {};
+        (meta.parameters || []).forEach((p) => {
+          parameter[p.name] = cast(fields[p.field], p.type);
+          const selected = String(fields[p.field] ?? '');
+          const defs =
+            ((p.option_parameters || {})[selected] || []).filter(Boolean);
+          if (defs.length) {
+            collectOptionParams(fields, defs, parameter);
+          }
+        });
+        return {
+          type: 'Action',
+          action: meta.action,
+          parameter,
+          id: randomId(),
+        };
+      }
+
+      const node = {
+        type: meta.node_type || 'Node',
+        id: randomId(),
+      };
+      (meta.parameters || []).forEach((p) => {
+        node[p.name] = cast(fields[p.field], p.type);
+      });
+
+      if (meta.has_children) {
+        const children = convertStack(firstInputBlock(blockState, 'CHILDREN'));
+        node.children = children;
+      } else if (meta.has_child) {
+        const children = convertStack(firstInputBlock(blockState, 'CHILD'));
+        if (children.length > 1) {
+          node.child = {
+            type: 'Sequence',
+            id: randomId(),
+            children,
+          };
+        } else {
+          node.child = children[0] || null;
+        }
+      }
+      return node;
+    };
+
+    const convertStack = (startBlock) => {
+      const out = [];
+      let cur = startBlock;
+      while (cur) {
+        const node = convertBlock(cur);
+        if (node && typeof node === 'object') {
+          out.push(node);
+        }
+        cur = cur.next && cur.next.block ? cur.next.block : null;
+      }
+      return out;
+    };
+
+    const rootTop = topBlocks.find((b) => String((b && b.type) || '') === 'bt_function__root');
+    const rootNode = rootTop ? convertBlock(rootTop) : null;
+    if (!rootNode) {
       return null;
     }
-    return nodes.length === 1 ? nodes[0] : nodes;
+
+    const result = { Root: rootNode };
+    topBlocks
+      .filter((b) => String((b && b.type) || '') === 'procedures_defnoreturn')
+      .forEach((defBlock) => {
+        const name = String(
+          (defBlock.fields && defBlock.fields.NAME) ||
+            (defBlock.extraState && defBlock.extraState.name) ||
+            '',
+        ).trim();
+        if (!name) {
+          return;
+        }
+        const bodyNodes = convertStack(firstInputBlock(defBlock, 'STACK'));
+        const singleSequence =
+          bodyNodes.length === 1 &&
+          bodyNodes[0] &&
+          typeof bodyNodes[0] === 'object' &&
+          String(bodyNodes[0].type || '') === 'Sequence'
+            ? bodyNodes[0]
+            : null;
+        result[name] = {
+          child:
+            singleSequence ||
+            {
+              type: 'Sequence',
+              id: randomId(),
+              children: bodyNodes,
+            },
+        };
+      });
+
+    return result;
   }
 
   async function initEditor(forceReload = false) {
@@ -569,6 +786,7 @@
     }
 
     await loadBlocklyAssets(forceReload);
+    patchProcedureCallBlockChecks();
     if (!refs.pageEdit.classList.contains('active')) {
       showPage('edit');
       await nextFrame();
@@ -589,7 +807,17 @@
     editingOriginalScenarioName = name;
     refs.scenarioName.value = name;
     workspace.clear();
-    Blockly.serialization.workspaces.load(response.workspace, workspace);
+    const orderedWorkspace = reorderWorkspaceTopBlocks(response.workspace);
+    Blockly.serialization.workspaces.load(orderedWorkspace, workspace);
+    workspace.getAllBlocks(false).forEach((block) => {
+      if (typeof block.setCollapsed === 'function') {
+        block.setCollapsed(false);
+      }
+      if (typeof block.render === 'function') {
+        block.render();
+      }
+    });
+    Blockly.svgResize(workspace);
     refreshStartPlayIdState();
     renderErrors(response.errors || []);
   }
@@ -617,9 +845,19 @@
       refs.scenarioName.focus();
       return;
     }
-    const btJson = workspaceToBtJson();
-    if (!btJson) {
-      toast('No behavior tree to save.');
+    if (!workspace) {
+      toast('Workspace is not ready.');
+      return;
+    }
+    const workspaceJson = Blockly.serialization.workspaces.save(workspace);
+    const blocks =
+      (workspaceJson &&
+        workspaceJson.blocks &&
+        Array.isArray(workspaceJson.blocks.blocks) &&
+        workspaceJson.blocks.blocks) ||
+      [];
+    if (!blocks.length) {
+      toast('No blocks to save.');
       return;
     }
 
@@ -628,7 +866,7 @@
       body: JSON.stringify({
         name,
         original_name: editingOriginalScenarioName,
-        data: btJson,
+        data: workspaceJson,
       }),
     });
     editingOriginalScenarioName = name;
@@ -785,6 +1023,10 @@
 
   function nodeLabel(node) {
     const t = String((node && node.type) || 'Node');
+    if (t === 'Subtree') {
+      const sid = node && node.id ? `\n${String(node.id)}` : '';
+      return `${t}${sid}`;
+    }
     const action = node && node.action ? `\n${node.action}` : '';
     return `${t}${action}`;
   }
@@ -855,9 +1097,39 @@
       };
     }
     if (jsonValue && typeof jsonValue === 'object') {
+      if (
+        !jsonValue.type &&
+        jsonValue.Root &&
+        typeof jsonValue.Root === 'object'
+      ) {
+        return jsonValue.Root;
+      }
       return jsonValue;
     }
     return null;
+  }
+
+  function normalizeForest(jsonValue) {
+    if (jsonValue && typeof jsonValue === 'object' && !Array.isArray(jsonValue)) {
+      if (jsonValue.Root && typeof jsonValue.Root === 'object') {
+        const sections = [{ name: 'Root', root: jsonValue.Root }];
+        Object.keys(jsonValue)
+          .filter((k) => k !== 'Root')
+          .forEach((key) => {
+            const val = jsonValue[key];
+            if (!val || typeof val !== 'object') {
+              return;
+            }
+            const root = val.child && typeof val.child === 'object' ? val.child : val;
+            if (root && typeof root === 'object') {
+              sections.push({ name: key, root });
+            }
+          });
+        return sections;
+      }
+    }
+    const single = normalizeTree(jsonValue);
+    return single ? [{ name: 'Root', root: single }] : [];
   }
 
   function buildLayout(root) {
@@ -948,21 +1220,34 @@
       toast('Invalid JSON for tree view.');
       return false;
     }
-    const root = normalizeTree(parsed);
-    if (!root) {
+    const forest = normalizeForest(parsed);
+    if (!forest.length) {
       toast('No tree data.');
       return false;
     }
 
-    const layout = buildLayout(root);
     const nodeW = 180;
     const nodeH = 52;
     const colGap = 56;
     const rowGap = 96;
     const margin = 28;
-    const width = margin * 2 + (layout.maxX + 1) * nodeW + layout.maxX * colGap;
+    const titleH = 28;
+    const sectionGap = 42;
+
+    const sections = forest.map((section) => {
+      const layout = buildLayout(section.root);
+      const sectionW =
+        margin * 2 + (layout.maxX + 1) * nodeW + layout.maxX * colGap;
+      const treeH =
+        margin * 2 + (layout.maxDepth + 1) * nodeH + layout.maxDepth * rowGap;
+      const sectionH = titleH + treeH;
+      return { ...section, layout, sectionW, sectionH };
+    });
+
+    const width = Math.max(...sections.map((s) => s.sectionW), 640);
     const height =
-      margin * 2 + (layout.maxDepth + 1) * nodeH + layout.maxDepth * rowGap;
+      sections.reduce((sum, s) => sum + s.sectionH, 0) +
+      sectionGap * Math.max(0, sections.length - 1);
 
     refs.treeCanvas.setAttribute('viewBox', `0 0 ${width} ${height}`);
     refs.treeCanvas.setAttribute('width', width);
@@ -972,94 +1257,119 @@
     refs.treeCanvas.appendChild(treeScene);
     resetTreeView();
 
-    function pxX(xIndex) {
-      return margin + xIndex * (nodeW + colGap);
-    }
-
-    function pxY(depth) {
-      return margin + depth * (nodeH + rowGap);
-    }
-
-    layout.edges.forEach(([from, to]) => {
-      const x1 = pxX(from.x) + nodeW / 2;
-      const y1 = pxY(from.depth) + nodeH;
-      const x2 = pxX(to.x) + nodeW / 2;
-      const y2 = pxY(to.depth);
-      const midY = (y1 + y2) / 2;
-      const dx = x2 - x1;
-      const dyTop = Math.max(midY - y1, 0);
-      const dyBottom = Math.max(y2 - midY, 0);
-      const baseR = 12;
-      const r = Math.max(0, Math.min(baseR, Math.abs(dx) / 2, dyTop, dyBottom));
-      const dir = dx >= 0 ? 1 : -1;
-
-      let d = `M ${x1} ${y1}`;
-      if (r > 0) {
-        d += ` V ${midY - r}`;
-        d += ` Q ${x1} ${midY} ${x1 + dir * r} ${midY}`;
-        d += ` H ${x2 - dir * r}`;
-        d += ` Q ${x2} ${midY} ${x2} ${midY + r}`;
-        d += ` V ${y2}`;
-      } else {
-        d += ` V ${midY} H ${x2} V ${y2}`;
-      }
+    let yOffset = 0;
+    sections.forEach((section, index) => {
+      const originY = yOffset;
+      const layout = section.layout;
 
       treeScene.appendChild(
-        svgEl('path', {
-          d,
-          fill: 'none',
-          stroke: '#35506f',
-          'stroke-width': 2,
-          'stroke-linecap': 'round',
-          'stroke-linejoin': 'round',
-        }),
-      );
-    });
-
-    layout.nodes.forEach((entry) => {
-      const x = pxX(entry.x);
-      const y = pxY(entry.depth);
-      const fillColor = nodeColor(entry.node);
-      const labelColor = textColorForBackground(fillColor);
-      const group = svgEl('g');
-      group.appendChild(
-        svgEl('rect', {
-          x,
-          y,
-          width: nodeW,
-          height: nodeH,
-          rx: 10,
-          ry: 10,
-          fill: fillColor,
-          stroke: '#2d3e52',
-          'stroke-width': 1.5,
-        }),
-      );
-
-      const label = nodeLabel(entry.node).split('\n');
-      group.appendChild(
         svgEl('text', {
-          x: x + 10,
-          y: y + 21,
-          fill: labelColor,
-          'font-size': 13,
+          x: margin,
+          y: originY + 20,
+          fill: '#13324d',
+          'font-size': 15,
           'font-family': 'Segoe UI, Noto Sans, sans-serif',
-          'font-weight': 600,
+          'font-weight': 700,
         }),
-      ).textContent = label[0];
+      ).textContent = section.name;
 
-      if (label[1]) {
+      function pxX(xIndex) {
+        return margin + xIndex * (nodeW + colGap);
+      }
+
+      function pxY(depth) {
+        return originY + titleH + margin + depth * (nodeH + rowGap);
+      }
+
+      layout.edges.forEach(([from, to]) => {
+        const x1 = pxX(from.x) + nodeW / 2;
+        const y1 = pxY(from.depth) + nodeH;
+        const x2 = pxX(to.x) + nodeW / 2;
+        const y2 = pxY(to.depth);
+        const midY = (y1 + y2) / 2;
+        const dx = x2 - x1;
+        const dyTop = Math.max(midY - y1, 0);
+        const dyBottom = Math.max(y2 - midY, 0);
+        const baseR = 12;
+        const r = Math.max(
+          0,
+          Math.min(baseR, Math.abs(dx) / 2, dyTop, dyBottom),
+        );
+        const dir = dx >= 0 ? 1 : -1;
+
+        let d = `M ${x1} ${y1}`;
+        if (r > 0) {
+          d += ` V ${midY - r}`;
+          d += ` Q ${x1} ${midY} ${x1 + dir * r} ${midY}`;
+          d += ` H ${x2 - dir * r}`;
+          d += ` Q ${x2} ${midY} ${x2} ${midY + r}`;
+          d += ` V ${y2}`;
+        } else {
+          d += ` V ${midY} H ${x2} V ${y2}`;
+        }
+
+        treeScene.appendChild(
+          svgEl('path', {
+            d,
+            fill: 'none',
+            stroke: '#35506f',
+            'stroke-width': 2,
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round',
+          }),
+        );
+      });
+
+      layout.nodes.forEach((entry) => {
+        const x = pxX(entry.x);
+        const y = pxY(entry.depth);
+        const fillColor = nodeColor(entry.node);
+        const labelColor = textColorForBackground(fillColor);
+        const group = svgEl('g');
+        group.appendChild(
+          svgEl('rect', {
+            x,
+            y,
+            width: nodeW,
+            height: nodeH,
+            rx: 10,
+            ry: 10,
+            fill: fillColor,
+            stroke: '#2d3e52',
+            'stroke-width': 1.5,
+          }),
+        );
+
+        const label = nodeLabel(entry.node).split('\n');
         group.appendChild(
           svgEl('text', {
             x: x + 10,
-            y: y + 39,
+            y: y + 21,
             fill: labelColor,
-            'font-size': 11,
+            'font-size': 13,
             'font-family': 'Segoe UI, Noto Sans, sans-serif',
+            'font-weight': 600,
           }),
-        ).textContent = label[1];
+        ).textContent = label[0];
+
+        if (label[1]) {
+          group.appendChild(
+            svgEl('text', {
+              x: x + 10,
+              y: y + 39,
+              fill: labelColor,
+              'font-size': 11,
+              'font-family': 'Segoe UI, Noto Sans, sans-serif',
+            }),
+          ).textContent = label[1];
+        }
+        treeScene.appendChild(group);
+      });
+
+      yOffset += section.sectionH;
+      if (index < sections.length - 1) {
+        yOffset += sectionGap;
       }
-      treeScene.appendChild(group);
     });
 
     return true;

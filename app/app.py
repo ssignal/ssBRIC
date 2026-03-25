@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -149,6 +150,38 @@ def bt_to_blockly(
     return workspace, errors
 
 
+def is_blockly_workspace_data(data: Any) -> bool:
+    if not isinstance(data, dict):
+        return False
+    blocks = data.get("blocks")
+    if not isinstance(blocks, dict):
+        return False
+    arr = blocks.get("blocks")
+    if not isinstance(arr, list):
+        return False
+    return True
+
+
+def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
+    if not is_blockly_workspace_data(data):
+        return data
+    out = deepcopy(data)
+    arr = out.get("blocks", {}).get("blocks", [])
+    if not isinstance(arr, list):
+        return out
+
+    def order_of(block: Dict[str, Any]) -> int:
+        t = str((block or {}).get("type", ""))
+        if t in ("procedures_defnoreturn", "procedures_defreturn"):
+            return 0
+        return 1
+
+    out["blocks"]["blocks"] = sorted(
+        arr, key=lambda b: (order_of(b), str((b or {}).get("id", "")))
+    )
+    return out
+
+
 @app.route("/")
 def index():
     css_mtime = int((BASE_DIR / "static" / "style.css").stat().st_mtime)
@@ -253,6 +286,9 @@ def save_scenario():
     if p.exists() and (original_path is None or p != original_path):
         return jsonify({"ok": False, "error": "Scenario name already exists"}), 409
 
+    if is_blockly_workspace_data(data):
+        data = reorder_workspace_top_blocks(data)
+
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     return jsonify({"ok": True, "name": p.stem})
@@ -310,6 +346,10 @@ def scenario_as_blockly(name: str):
         return jsonify({"ok": False, "error": "Scenario not found"}), 404
 
     scenario_json = json.loads(p.read_text(encoding="utf-8"))
+    if is_blockly_workspace_data(scenario_json):
+        workspace = reorder_workspace_top_blocks(scenario_json)
+        return jsonify({"ok": True, "workspace": workspace, "errors": []})
+
     workspace, errors = bt_to_blockly(scenario_json, parse_manifest())
     return jsonify({"ok": True, "workspace": workspace, "errors": errors})
 
