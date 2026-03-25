@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-24T08:54:54.913888Z",
+  "generated_at": "2026-03-25T00:59:59.704398Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -2641,20 +2641,12 @@
       "description": "",
       "json": {
         "type": "bt_function__action",
-        "message0": "%1 %2 %3 %4 %5 %6 %7",
+        "message0": "%1 %2 %3 %4 %5 %6",
         "args0": [
           {
             "type": "field_label",
             "text": "Action",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ACTION"
           },
           {
             "type": "field_label",
