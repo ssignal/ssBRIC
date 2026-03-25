@@ -144,12 +144,13 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
         # Nested option->parameters under these additional parameters are ignored.
         sub_option_parameters: Dict[str, List[Dict[str, Any]]] = {}
 
+        sub_description = clean_text(sub.get("description", ""))
         nested_meta.append(
             {
                 "name": sub_name,
                 "field": sub_field,
                 "type": sub_type,
-                "description": sub.get("description", ""),
+                "description": sub_description,
                 "options": sub_dd,
                 "default": sub_default,
                 "option_parameters": sub_option_parameters,
@@ -265,16 +266,18 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         min_v = param.get("min")
         max_v = param.get("max")
 
-        args0.append(
-            {
-                "type": "field_image",
-                "src": QUESTION_ICON_DATA_URI,
-                "width": 16,
-                "height": 16,
-                "alt": "?",
-                "name": f"HELP_{slugify(name).upper()}"
-            }
-        )
+        param_description = clean_text(param.get("description", ""))
+        if param_description:
+            args0.append(
+                {
+                    "type": "field_image",
+                    "src": QUESTION_ICON_DATA_URI,
+                    "width": 16,
+                    "height": 16,
+                    "alt": "?",
+                    "name": f"HELP_{slugify(name).upper()}"
+                }
+            )
         args0.append(
             {
                 "type": "field_label",
@@ -322,7 +325,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
                 "name": name,
                 "field": field_name,
                 "type": p_type,
-                "description": param.get("description", ""),
+                "description": param_description,
                 "option_parameters": option_param_meta,
                 "option_descriptions": option_descriptions,
             }
@@ -384,16 +387,18 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
             continue
         enabled_keys.append(key)
 
-        args0.append(
-            {
-                "type": "field_image",
-                "src": QUESTION_ICON_DATA_URI,
-                "width": 16,
-                "height": 16,
-                "alt": "?",
-                "name": f"HELP_{slugify(key).upper()}"
-            }
-        )
+        key_description = clean_text(meta.get("description", ""))
+        if key_description:
+            args0.append(
+                {
+                    "type": "field_image",
+                    "src": QUESTION_ICON_DATA_URI,
+                    "width": 16,
+                    "height": 16,
+                    "alt": "?",
+                    "name": f"HELP_{slugify(key).upper()}"
+                }
+            )
         args0.append({"type": "field_label", "text": key})
 
         meta_type = (meta.get("type") or "string").lower()
@@ -420,7 +425,7 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
         field_map[key] = {
             "field": field_name,
             "type": meta_type,
-            "description": meta.get("description", "")
+            "description": key_description
         }
 
     block_json = {
@@ -553,17 +558,82 @@ function setClickHelp(field, text) {{
 
   function showHelpPopup(anchor, text) {{
     if (!text) return;
+    const sourceBlock = field.getSourceBlock ? field.getSourceBlock() : null;
+    const blockType = sourceBlock && sourceBlock.type ? String(sourceBlock.type) : '';
+    const isFunctionBlock = blockType.startsWith('bt_function__') || blockType.startsWith('procedures_');
+    let frameColor = (sourceBlock && sourceBlock.getColour && sourceBlock.getColour()) || '#4a67c8';
+    if (/^\\d+(?:\\.\\d+)?$/.test(String(frameColor)) && Blockly.utils && Blockly.utils.colour && Blockly.utils.colour.hsvToHex) {{
+      frameColor = Blockly.utils.colour.hsvToHex(Number(frameColor), 0.45, 0.72);
+    }}
+    const framePx = isFunctionBlock ? 1 : 2;
+    const innerBg = '#e7e5b8';
     const popup = ensureHelpPopup();
     const rect = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : null;
-    popup.textContent = String(text);
+    popup.className = 'blocklyTooltipDiv bricHelpPopup';
+    popup.style.background = 'transparent';
+    popup.style.border = 'none';
+    popup.style.padding = '0';
+    popup.style.pointerEvents = 'none';
+
+    let body = popup.querySelector('.bricHelpBody');
+    let tailOuter = popup.querySelector('.bricHelpTailOuter');
+    let tailInner = popup.querySelector('.bricHelpTailInner');
+    if (!body) {{
+      body = document.createElement('div');
+      body.className = 'bricHelpBody';
+      popup.appendChild(body);
+    }}
+    if (!tailOuter) {{
+      tailOuter = document.createElement('div');
+      tailOuter.className = 'bricHelpTailOuter';
+      popup.appendChild(tailOuter);
+    }}
+    if (!tailInner) {{
+      tailInner = document.createElement('div');
+      tailInner.className = 'bricHelpTailInner';
+      popup.appendChild(tailInner);
+    }}
+
+    body.textContent = String(text);
+    body.style.background = innerBg;
+    body.style.border = `${{framePx}}px solid ${{frameColor}}`;
+    body.style.borderRadius = '5px';
+    body.style.padding = '8px 10px';
+    body.style.color = '#1f1f1f';
+    body.style.boxShadow = `${{framePx}}px ${{framePx}}px 0 0 ${{frameColor}}`;
+    body.style.fontWeight = '500';
+    body.style.lineHeight = '1.35';
+    body.style.maxWidth = '280px';
+    body.style.whiteSpace = 'pre-wrap';
+
+    tailOuter.style.position = 'absolute';
+    tailOuter.style.left = '18px';
+    tailOuter.style.top = 'calc(100% - 1px)';
+    tailOuter.style.width = '0';
+    tailOuter.style.height = '0';
+    tailOuter.style.borderLeft = '10px solid transparent';
+    tailOuter.style.borderRight = '10px solid transparent';
+    tailOuter.style.borderTop = `10px solid ${{frameColor}}`;
+
+    tailInner.style.position = 'absolute';
+    tailInner.style.left = '20px';
+    tailInner.style.top = 'calc(100% - 2px)';
+    tailInner.style.width = '0';
+    tailInner.style.height = '0';
+    tailInner.style.borderLeft = '8px solid transparent';
+    tailInner.style.borderRight = '8px solid transparent';
+    tailInner.style.borderTop = `8px solid ${{innerBg}}`;
+    tailInner.style.marginTop = '0';
+
     popup.style.display = 'block';
     if (rect) {{
-      const margin = 8;
-      const preferredLeft = rect.left + rect.width + margin;
-      const top = Math.max(8, rect.top - 4);
       const maxLeft = window.innerWidth - popup.offsetWidth - 8;
-      let left = Math.min(preferredLeft, maxLeft);
+      let left = Math.min(rect.left - 10, maxLeft);
       if (left < 8) left = 8;
+      const aboveTop = rect.top - popup.offsetHeight - 12;
+      const belowTop = rect.bottom + 10;
+      let top = aboveTop;
+      if (top < 8) top = Math.min(belowTop, window.innerHeight - popup.offsetHeight - 8);
       popup.style.left = `${{Math.round(left)}}px`;
       popup.style.top = `${{Math.round(top)}}px`;
     }} else {{
@@ -615,17 +685,82 @@ function setHoverOptionHelp(field, optionDescriptions) {{
 
   function showHelp(anchor, msg) {{
     if (!msg) return;
+    const sourceBlock = field.getSourceBlock ? field.getSourceBlock() : null;
+    const blockType = sourceBlock && sourceBlock.type ? String(sourceBlock.type) : '';
+    const isFunctionBlock = blockType.startsWith('bt_function__') || blockType.startsWith('procedures_');
+    let frameColor = (sourceBlock && sourceBlock.getColour && sourceBlock.getColour()) || '#4a67c8';
+    if (/^\\d+(?:\\.\\d+)?$/.test(String(frameColor)) && Blockly.utils && Blockly.utils.colour && Blockly.utils.colour.hsvToHex) {{
+      frameColor = Blockly.utils.colour.hsvToHex(Number(frameColor), 0.45, 0.72);
+    }}
+    const framePx = isFunctionBlock ? 1 : 2;
+    const innerBg = '#e7e5b8';
     const popup = ensureHelpPopup();
     const rect = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : null;
-    popup.textContent = msg;
+    popup.className = 'blocklyTooltipDiv bricHelpPopup';
+    popup.style.background = 'transparent';
+    popup.style.border = 'none';
+    popup.style.padding = '0';
+    popup.style.pointerEvents = 'none';
+
+    let body = popup.querySelector('.bricHelpBody');
+    let tailOuter = popup.querySelector('.bricHelpTailOuter');
+    let tailInner = popup.querySelector('.bricHelpTailInner');
+    if (!body) {{
+      body = document.createElement('div');
+      body.className = 'bricHelpBody';
+      popup.appendChild(body);
+    }}
+    if (!tailOuter) {{
+      tailOuter = document.createElement('div');
+      tailOuter.className = 'bricHelpTailOuter';
+      popup.appendChild(tailOuter);
+    }}
+    if (!tailInner) {{
+      tailInner = document.createElement('div');
+      tailInner.className = 'bricHelpTailInner';
+      popup.appendChild(tailInner);
+    }}
+
+    body.textContent = String(msg);
+    body.style.background = innerBg;
+    body.style.border = `${{framePx}}px solid ${{frameColor}}`;
+    body.style.borderRadius = '5px';
+    body.style.padding = '8px 10px';
+    body.style.color = '#1f1f1f';
+    body.style.boxShadow = `${{framePx}}px ${{framePx}}px 0 0 ${{frameColor}}`;
+    body.style.fontWeight = '500';
+    body.style.lineHeight = '1.35';
+    body.style.maxWidth = '280px';
+    body.style.whiteSpace = 'pre-wrap';
+
+    tailOuter.style.position = 'absolute';
+    tailOuter.style.left = '18px';
+    tailOuter.style.top = 'calc(100% - 1px)';
+    tailOuter.style.width = '0';
+    tailOuter.style.height = '0';
+    tailOuter.style.borderLeft = '10px solid transparent';
+    tailOuter.style.borderRight = '10px solid transparent';
+    tailOuter.style.borderTop = `10px solid ${{frameColor}}`;
+
+    tailInner.style.position = 'absolute';
+    tailInner.style.left = '20px';
+    tailInner.style.top = 'calc(100% - 2px)';
+    tailInner.style.width = '0';
+    tailInner.style.height = '0';
+    tailInner.style.borderLeft = '8px solid transparent';
+    tailInner.style.borderRight = '8px solid transparent';
+    tailInner.style.borderTop = `8px solid ${{innerBg}}`;
+    tailInner.style.marginTop = '0';
+
     popup.style.display = 'block';
     if (rect) {{
-      const margin = 8;
-      const preferredLeft = rect.left + rect.width + margin;
-      const top = Math.max(8, rect.top - 4);
       const maxLeft = window.innerWidth - popup.offsetWidth - 8;
-      let left = Math.min(preferredLeft, maxLeft);
+      let left = Math.min(rect.left - 10, maxLeft);
       if (left < 8) left = 8;
+      const aboveTop = rect.top - popup.offsetHeight - 12;
+      const belowTop = rect.bottom + 10;
+      let top = aboveTop;
+      if (top < 8) top = Math.min(belowTop, window.innerHeight - popup.offsetHeight - 8);
       popup.style.left = `${{Math.round(left)}}px`;
       popup.style.top = `${{Math.round(top)}}px`;
     }} else {{
@@ -748,7 +883,10 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {{
     const inputName = 'OPT_DYN_' + tokenRef.v;
     const input = block.appendDummyInput(inputName);
     const helpFieldName = 'HELP_' + meta.field;
-    input.appendField(new Blockly.FieldImage(HELP_ICON, 16, 16, '?'), helpFieldName);
+    const hasHelp = !!String(meta.description || '').trim();
+    if (hasHelp) {{
+      input.appendField(new Blockly.FieldImage(HELP_ICON, 16, 16, '?'), helpFieldName);
+    }}
     input.appendField(String(meta.name || 'param'));
 
     const prior = priorValues[meta.field];
@@ -769,8 +907,10 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {{
 
     const field = block.getField(meta.field);
     setHoverOptionHelp(field, meta.option_descriptions || {{}});
-    const helpField = block.getField(helpFieldName);
-    setClickHelp(helpField, meta.description || '');
+    if (hasHelp) {{
+      const helpField = block.getField(helpFieldName);
+      setClickHelp(helpField, meta.description || '');
+    }}
 
     const selected = block.getFieldValue(meta.field) || '';
     const nested = ((meta.option_parameters || {{}})[selected]) || [];

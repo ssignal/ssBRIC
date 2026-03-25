@@ -1,0 +1,20 @@
+task_type,name,description,parameters
+Expressive,wave_two_hand,양손 가슴높이 손인사,
+,pose_hand_heart,양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!,
+,present_double,양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션,
+,wave_two_hand_sway,양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈 ,
+,head_left_down,머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!),
+,head_right_down,머리 오른쪽 아래 이동 후 복귀,
+,head_left_up,머리 왼쪽 위 이동 후 복귀,
+,head_left_down,머리 오른쪽 위 이동 후 복귀,
+,double_nod,머리 두번 끄덕끄덕,
+,highfive_ready,하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림,
+,highfive_strike,하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!),
+,fistbump_ready,주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림,
+,fistbump_strike,주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!),
+Pose,work_ready,팔꿈치 90도 앞으로 양팔 앞으로 나란히,
+,move,1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태),
+Manipulation,prepare,demo2604_pick_box_ready,objects (string)
+,pick_up,demo2604_pick_box,objects (string)
+,dump,demo2604_dump_box,objects (string)
+,put_down,demo2604_place_box,objects (string)

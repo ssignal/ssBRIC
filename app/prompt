@@ -173,14 +173,20 @@
   If there is no 'description' or it is empty, hide the question icon.
   Clicking the question icon shows the 'description' in a popup UI.
   Do not use browser alert window for help message.
-  Help popup UI style should be same as `Function` block help popup.
 #### Description for parameters
   Add a question icon before each parameter.
   Clicking parameter question icon shows its description in the same popup UI.
-### question icon
+#### Question icon
    Circle icon include '?' in the center of the circle.
    Background color is blue, the '?' color is white.
    The circle has a thin white outline.
+#### Help popup UI
+  Help popup is a custom UI box, not browser default tooltip.
+  Popup has a text box and a pointer tail (upside-down triangle).
+  Frame color follows the source block color.
+  Text box uses light yellow background.
+  There should be no visible line between the text box and pointer tail.
+  `Function` category help popup can keep its own frame thickness.
 ## Default value -------------------------------
    If there is no min or max value for a default value, set the value below according to it's type.
 ### float: 0.0
