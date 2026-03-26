@@ -48,6 +48,7 @@
   - Behavior Tree JSON should not be shown in the right side area.
   - In scenario name input field, pressing `Enter` should save scenario.
     It should behave same as clicking `Save Scenario` button.
+  - `Export` button saves current Behavior Tree JSON to `./data/output/behaviorTree.json`.
   - While editing, keep the original scenario name.
     - If user saves with a new name that does not exist, create a new file.
     - If user saves with a name that already exists and it is not the original editing item, block save and show warning message.

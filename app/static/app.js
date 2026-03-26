@@ -1038,6 +1038,19 @@
     refs.treeModal.classList.add('show');
   }
 
+  async function exportBehaviorTreeFile() {
+    const btJson = workspaceToBtJson();
+    if (!btJson) {
+      toast('No behavior tree to export.');
+      return;
+    }
+    const response = await api('/api/behavior-tree/export', {
+      method: 'POST',
+      body: JSON.stringify({ data: btJson }),
+    });
+    toast(`Exported: ${response.path || 'data/output/behaviorTree.json'}`);
+  }
+
   function nodeLabel(node) {
     const t = String((node && node.type) || 'Node');
     if (t === 'Subtree') {
@@ -1487,6 +1500,17 @@
   document
     .getElementById('btn-export')
     .addEventListener('click', openGraphicalTree);
+
+  const btnExportFile = document.getElementById('btn-export-file');
+  if (btnExportFile) {
+    btnExportFile.addEventListener('click', async () => {
+      try {
+        await exportBehaviorTreeFile();
+      } catch (err) {
+        toast(err.message || 'Export failed');
+      }
+    });
+  }
 
   refs.btnJsonConfirm.addEventListener('click', () => {
     refs.jsonModal.classList.remove('show');

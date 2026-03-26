@@ -1,6 +1,73 @@
 (() => {
 const BLOCKS = [
   {
+    "type": "behavior__navigation__bric_navigation_move_to_pose_node",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "move_to_pose_node",
+        "name": "TITLE"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POSE_TYPE"
+      },
+      {
+        "type": "field_label",
+        "text": "pose_type"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_POSE_TYPE",
+        "options": [
+          [
+            "map",
+            "map"
+          ],
+          [
+            "earth",
+            "earth"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_NAME"
+      },
+      {
+        "type": "field_label",
+        "text": "name"
+      },
+      {
+        "type": "field_input",
+        "name": "PARAM_NAME",
+        "text": ""
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#d62728",
+    "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "helpUrl": ""
+  },
+  {
     "type": "behavior__navigation__navigation_move_to_pose",
     "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
     "args0": [
@@ -446,6 +513,7 @@ const BLOCKS = [
   }
 ];
 const BLOCK_TOOLTIPS = {
+  "behavior__navigation__bric_navigation_move_to_pose_node": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
   "behavior__navigation__navigation_move_to_pose": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
   "behavior__navigation__navigation_move_in_direction": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
   "behavior__navigation__navigation_rotate": "제자리 회전 명령",
@@ -453,6 +521,10 @@ const BLOCK_TOOLTIPS = {
   "behavior__navigation__navigation_stop_move": "주행/회전 강제 종료"
 };
 const PARAM_TOOLTIPS = {
+  "behavior__navigation__bric_navigation_move_to_pose_node": {
+    "PARAM_POSE_TYPE": "map (indoor), earth (outdoor)",
+    "PARAM_NAME": "Node (POI) Name"
+  },
   "behavior__navigation__navigation_move_to_pose": {
     "PARAM_POSE_TYPE": "map (indoor), earth (outdoor)",
     "PARAM_X": "Euler pose x",
@@ -471,6 +543,7 @@ const PARAM_TOOLTIPS = {
   "behavior__navigation__navigation_stop_move": {}
 };
 const OPTION_PARAM_MAP = {
+  "behavior__navigation__bric_navigation_move_to_pose_node": {},
   "behavior__navigation__navigation_move_to_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
   "behavior__navigation__navigation_rotate": {},
@@ -478,6 +551,12 @@ const OPTION_PARAM_MAP = {
   "behavior__navigation__navigation_stop_move": {}
 };
 const OPTION_TOOLTIPS = {
+  "behavior__navigation__bric_navigation_move_to_pose_node": {
+    "PARAM_POSE_TYPE": {
+      "map": "Indoor map frame",
+      "earth": "Outdoor earth frame"
+    }
+  },
   "behavior__navigation__navigation_move_to_pose": {
     "PARAM_POSE_TYPE": {
       "map": "Indoor map frame",
