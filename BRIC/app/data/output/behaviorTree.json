@@ -1,206 +1,32 @@
 {
   "Root": {
     "type": "Root",
-    "id": "45686662",
+    "id": "12083325",
     "child": {
       "type": "Sequence",
-      "id": "87762618",
-      "children": [
-        {
-          "type": "Sequence",
-          "id": "50492724",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "navigation/move_to_pose",
-              "parameter": {
-                "pose_type": "map",
-                "x": 1.64,
-                "y": 0.345,
-                "z": 180
-              },
-              "id": "59943123"
-            },
-            {
-              "type": "Subtree",
-              "id": "WaitMoveFinished"
-            }
-          ]
-        },
-        {
-          "type": "Sequence",
-          "id": "89641955",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "motion/start_motion",
-              "parameter": {
-                "task_type": "Manipulation",
-                "name": "wave_two_hand",
-                "objects": "",
-                "repeat": "once",
-                "action": "all"
-              },
-              "id": "33133753"
-            },
-            {
-              "type": "Action",
-              "action": "motion/wait_motion_finished",
-              "parameter": {},
-              "id": "19266343"
-            }
-          ]
-        },
-        {
-          "type": "Subtree",
-          "id": "Movebackward"
-        },
-        {
-          "type": "Sequence",
-          "id": "59045538",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "navigation/move_to_pose",
-              "parameter": {
-                "pose_type": "map",
-                "x": 1.64,
-                "y": 0.345,
-                "z": 180
-              },
-              "id": "60314023"
-            },
-            {
-              "type": "Subtree",
-              "id": "WaitMoveFinished"
-            }
-          ]
-        },
-        {
-          "type": "Sequence",
-          "id": "38816750",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "motion/start_motion",
-              "parameter": {
-                "task_type": "Manipulation",
-                "name": "wave_two_hand",
-                "objects": "",
-                "repeat": "once",
-                "action": "all"
-              },
-              "id": "51208047"
-            },
-            {
-              "type": "Action",
-              "action": "motion/wait_motion_finished",
-              "parameter": {},
-              "id": "35303607"
-            }
-          ]
-        },
-        {
-          "type": "Subtree",
-          "id": "Movebackward"
-        },
-        {
-          "type": "Sequence",
-          "id": "50256034",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "navigation/move_to_pose",
-              "parameter": {
-                "pose_type": "map",
-                "x": 1.64,
-                "y": 0.345,
-                "z": 180
-              },
-              "id": "47349993"
-            },
-            {
-              "type": "Subtree",
-              "id": "WaitMoveFinished"
-            }
-          ]
-        },
-        {
-          "type": "Sequence",
-          "id": "30237006",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "motion/start_motion",
-              "parameter": {
-                "task_type": "Manipulation",
-                "name": "wave_two_hand",
-                "objects": "",
-                "repeat": "once",
-                "action": "all"
-              },
-              "id": "56612477"
-            },
-            {
-              "type": "Action",
-              "action": "motion/wait_motion_finished",
-              "parameter": {},
-              "id": "81521237"
-            }
-          ]
-        },
-        {
-          "type": "Subtree",
-          "id": "Movebackward"
-        }
-      ]
-    }
-  },
-  "WaitMoveFinished": {
-    "child": {
-      "type": "Sequence",
-      "id": "81615225",
-      "tickrate": 0,
+      "id": "79679416",
       "children": [
         {
           "type": "Action",
-          "action": "navigation/wait_move_finished",
-          "parameter": {},
-          "id": "77871322"
-        },
-        {
-          "type": "Sleep",
-          "id": "40809543",
-          "tickrate": 500
-        }
-      ]
-    }
-  },
-  "Movebackward": {
-    "child": {
-      "type": "Sequence",
-      "id": "81342520",
-      "tickrate": 0,
-      "children": [
-        {
-          "type": "Action",
-          "action": "navigation/move_in_direction",
+          "action": "navigation/move_to_pose",
           "parameter": {
-            "distance": 1,
-            "velocity": 0.6,
-            "direction": "backwards"
+            "pose_type": "map",
+            "x": 2.64,
+            "y": 2.345,
+            "z": 180.0
           },
-          "id": "40544984"
+          "id": "88470111"
         },
         {
-          "type": "Subtree",
-          "id": "WaitMoveFinished"
+          "type": "Action",
+          "action": "navigation/move_to_pose",
+          "parameter": {
+            "pose_type": "map",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "id": "10749581"
         }
       ]
     }

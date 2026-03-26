@@ -222,6 +222,37 @@
   },
   {
     "category": "Navigation",
+    "action": "BRIC.POI:navigation/move_to_pose",
+    "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "name",
+        "type": "string",
+        "description": "Node (POI) Name",
+        "enabled": true,
+        "reference": "POI",
+        "options": [
+          {
+            "value": "PickUp",
+            "description": "pick up the object"
+          },
+          {
+            "value": "Dump",
+            "description": "dump the object"
+          },
+          {
+            "value": "PutDown",
+            "description": "put down the object"
+          }
+        ],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Navigation",
     "action": "navigation/move_to_pose",
     "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
     "enabled": true,

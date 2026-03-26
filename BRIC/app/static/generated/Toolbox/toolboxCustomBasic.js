@@ -101,7 +101,7 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
-          "type": "behavior__navigation__bric_navigation_move_to_pose_node"
+          "type": "behavior__navigation__bric_poi_navigation_move_to_pose"
         },
         {
           "kind": "block",

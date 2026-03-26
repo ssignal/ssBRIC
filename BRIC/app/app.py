@@ -1,4 +1,5 @@
 import json
+import re
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -12,6 +13,7 @@ DATA_DIR = BASE_DIR / "data" / "scenarios"
 OUTPUT_DIR = BASE_DIR / "data" / "output"
 GENERATED_DIR = BASE_DIR / "static" / "generated"
 MANIFEST_PATH = GENERATED_DIR / "manifest.json"
+BRIC_ACTION_RE = re.compile(r"^BRIC\.([A-Za-z0-9_]+):(.*)$")
 
 app = Flask(__name__)
 
@@ -183,6 +185,69 @@ def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
+def preprocess_export_tree(data: Any) -> Any:
+    out = deepcopy(data)
+    ref_cache: Dict[str, Dict[str, Dict[str, Any]]] = {}
+
+    def load_ref(ref_name: str) -> Dict[str, Dict[str, Any]]:
+        if ref_name in ref_cache:
+            return ref_cache[ref_name]
+        p = BASE_DIR / "btInfo" / f"{ref_name}.json"
+        table: Dict[str, Dict[str, Any]] = {}
+        if p.exists():
+            try:
+                raw = json.loads(p.read_text(encoding="utf-8"))
+                if isinstance(raw, list):
+                    for row in raw:
+                        if not isinstance(row, dict):
+                            continue
+                        n = str(row.get("name", "")).strip()
+                        d = row.get("data")
+                        if n and isinstance(d, dict):
+                            table[n] = d
+            except Exception:  # noqa: BLE001
+                table = {}
+        ref_cache[ref_name] = table
+        return table
+
+    def walk(node: Any):
+        if isinstance(node, list):
+            for item in node:
+                walk(item)
+            return
+        if not isinstance(node, dict):
+            return
+
+        action = node.get("action")
+        if isinstance(action, str):
+            m = BRIC_ACTION_RE.match(action.strip())
+            if m:
+                ref_name = m.group(1)
+                real_action = m.group(2).strip()
+                param = node.get("parameter")
+                if isinstance(param, dict):
+                    key_name = str(param.get("name", "")).strip()
+                    matched = load_ref(ref_name).get(key_name)
+                    if isinstance(matched, dict):
+                        node["parameter"] = deepcopy(matched)
+                if real_action:
+                    node["action"] = real_action
+
+        walk(node.get("child"))
+        walk(node.get("children"))
+
+        # Function-map format support: { "Root": {...}, "FuncA": { "child": {...} }, ... }
+        if "Root" in node and isinstance(node.get("Root"), dict):
+            walk(node.get("Root"))
+            for k, v in node.items():
+                if k == "Root":
+                    continue
+                walk(v)
+
+    walk(out)
+    return out
+
+
 @app.route("/")
 def index():
     css_mtime = int((BASE_DIR / "static" / "style.css").stat().st_mtime)
@@ -302,9 +367,11 @@ def export_behavior_tree():
     if data is None:
         return jsonify({"ok": False, "error": "Behavior tree data is required"}), 400
 
+    processed = preprocess_export_tree(data)
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUTPUT_DIR / "behaviorTree.json"
-    out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    out.write_text(json.dumps(processed, ensure_ascii=False, indent=2), encoding="utf-8")
     return jsonify({"ok": True, "path": str(out.relative_to(BASE_DIR))})
 
 
