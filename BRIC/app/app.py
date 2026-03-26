@@ -9,6 +9,7 @@ from src.generator_engine import generate_all
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data" / "scenarios"
+OUTPUT_DIR = BASE_DIR / "data" / "output"
 GENERATED_DIR = BASE_DIR / "static" / "generated"
 MANIFEST_PATH = GENERATED_DIR / "manifest.json"
 
@@ -292,6 +293,19 @@ def save_scenario():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     return jsonify({"ok": True, "name": p.stem})
+
+
+@app.post("/api/behavior-tree/export")
+def export_behavior_tree():
+    body = request.get_json(silent=True) or {}
+    data = body.get("data")
+    if data is None:
+        return jsonify({"ok": False, "error": "Behavior tree data is required"}), 400
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    out = OUTPUT_DIR / "behaviorTree.json"
+    out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return jsonify({"ok": True, "path": str(out.relative_to(BASE_DIR))})
 
 
 @app.delete("/api/scenarios/<name>")

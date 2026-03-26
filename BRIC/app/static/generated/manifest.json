@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T01:36:01.115541Z",
+  "generated_at": "2026-03-26T03:53:57.328749Z",
   "behavior": [
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -407,6 +407,104 @@
         "helpUrl": ""
       },
       "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__navigation__bric_navigation_move_to_pose_node",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "move_to_pose_node",
+      "action": "BRIC/navigation/move_to_pose_node",
+      "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+      "json": {
+        "type": "behavior__navigation__bric_navigation_move_to_pose_node",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "move_to_pose_node",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "pose_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_POSE_TYPE",
+            "options": [
+              [
+                "map",
+                "map"
+              ],
+              [
+                "earth",
+                "earth"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_NAME"
+          },
+          {
+            "type": "field_label",
+            "text": "name"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_NAME",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "pose_type",
+          "field": "PARAM_POSE_TYPE",
+          "type": "string",
+          "description": "map (indoor), earth (outdoor)",
+          "option_parameters": {},
+          "option_descriptions": {
+            "map": "Indoor map frame",
+            "earth": "Outdoor earth frame"
+          }
+        },
+        {
+          "name": "name",
+          "field": "PARAM_NAME",
+          "type": "string",
+          "description": "Node (POI) Name",
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
       "has_children": false,
       "enabled_keys": []
     },
