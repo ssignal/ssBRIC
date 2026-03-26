@@ -1,0 +1,36 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "bt_function__root",
+        "id": "]),xJ::eKQSl3g$U,Gox",
+        "x": 40,
+        "y": 40,
+        "inputs": {
+          "CHILD": {
+            "block": {
+              "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+              "id": ")k3yG6yHZ7Yjiq9i}9L1",
+              "fields": {
+                "PARAM_NAME": "PickUp"
+              },
+              "next": {
+                "block": {
+                  "type": "behavior__navigation__navigation_move_to_pose",
+                  "id": ";k/#hf?LCgi|k(FvFuqY",
+                  "fields": {
+                    "PARAM_POSE_TYPE": "map",
+                    "PARAM_X": "0.0",
+                    "PARAM_Y": "0.0",
+                    "PARAM_Z": "0.0"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

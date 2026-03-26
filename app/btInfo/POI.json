@@ -1,0 +1,29 @@
+[
+  {
+    "name": "PickUp",
+    "data": {
+      "pose_type": "map",
+      "x": 1.640,
+      "y": 1.345,
+      "z": 180.0
+    }
+  },
+  {
+    "name": "Dump",
+    "data": {
+      "pose_type": "map",
+      "x": 2.640,
+      "y": 2.345,
+      "z": 180.0
+    }
+  },
+  {
+    "name": "PutDown",
+    "data": {
+      "pose_type": "map",
+      "y": 3.345,
+      "x": 3.640,
+      "z": 180.0
+    }
+  }
+]

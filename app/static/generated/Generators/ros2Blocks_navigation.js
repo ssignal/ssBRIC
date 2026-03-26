@@ -1,7 +1,7 @@
 (() => {
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
 const OPTION_PARAM_MAP = {
-  "behavior__navigation__bric_navigation_move_to_pose_node": {},
+  "behavior__navigation__bric_poi_navigation_move_to_pose": {},
   "behavior__navigation__navigation_move_to_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
   "behavior__navigation__navigation_rotate": {},
@@ -14,11 +14,10 @@ function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim
 function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
 function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
-javascriptGenerator.forBlock['behavior__navigation__bric_navigation_move_to_pose_node'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__navigation__bric_poi_navigation_move_to_pose'] = function(block, generator) {
   const parameter = {};
-  parameter['pose_type'] = block.getFieldValue('PARAM_POSE_TYPE') || '';
   parameter['name'] = block.getFieldValue('PARAM_NAME') || '';
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__bric_navigation_move_to_pose_node'] || {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__bric_poi_navigation_move_to_pose'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
@@ -26,7 +25,7 @@ javascriptGenerator.forBlock['behavior__navigation__bric_navigation_move_to_pose
   });
   const node = {
     type: 'Action',
-    action: 'BRIC/navigation/move_to_pose_node',
+    action: 'BRIC.POI:navigation/move_to_pose',
     parameter,
     id: randomId(),
   };

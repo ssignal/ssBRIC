@@ -175,6 +175,15 @@
     `"XXXXXXXX": { "child": { ... } }`
   If function body is already a single `Sequence`, do not wrap it with another `Sequence`.
   In Graphical Tree, render `Root` and each function id as separate trees.
+### Reference Action Block
+  If action has `BRIC.XXXX:` prefix, treat it as a reference action block.
+  In Behavior Tree JSON view and Graphical Tree view, do not display the prefix part.
+  Show/display action only with the part after `:`.
+  On `Export`, preprocess this action:
+    - Reference file is `./btInfo/XXXX.json`.
+    - Find matching entry by `parameter.name`.
+    - Replace node `parameter` with matched `data`.
+    - Replace node `action` with the action text after `:`.
 ### Sound id
   Default value of `id` in `Sound` category is `2000`.
   For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.

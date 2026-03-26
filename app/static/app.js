@@ -1006,8 +1006,9 @@
 
   function exportJson() {
     const btJson = workspaceToBtJson();
-    const text = btJson
-      ? JSON.stringify(btJson, null, 2)
+    const viewJson = btJson ? sanitizeBehaviorTreeForView(btJson) : null;
+    const text = viewJson
+      ? JSON.stringify(viewJson, null, 2)
       : 'No tree generated.';
     if (refs.jsonOutput) {
       refs.jsonOutput.textContent = text;
@@ -1025,7 +1026,8 @@
       toast('No tree generated.');
       return;
     }
-    const text = JSON.stringify(btJson, null, 2);
+    const viewJson = sanitizeBehaviorTreeForView(btJson);
+    const text = JSON.stringify(viewJson, null, 2);
     if (refs.jsonOutput) {
       refs.jsonOutput.textContent = text;
     }
@@ -1137,6 +1139,29 @@
       return jsonValue;
     }
     return null;
+  }
+
+  function sanitizeBehaviorTreeForView(value) {
+    const BRIC_PREFIX_RE = /^BRIC\.[A-Za-z0-9_]+:(.*)$/;
+    const walk = (node) => {
+      if (Array.isArray(node)) {
+        return node.map((v) => walk(v));
+      }
+      if (!node || typeof node !== 'object') {
+        return node;
+      }
+      const out = {};
+      Object.entries(node).forEach(([k, v]) => {
+        if (k === 'action' && typeof v === 'string') {
+          const m = BRIC_PREFIX_RE.exec(v.trim());
+          out[k] = m ? m[1].trim() : v;
+        } else {
+          out[k] = walk(v);
+        }
+      });
+      return out;
+    };
+    return walk(value);
   }
 
   function normalizeForest(jsonValue) {
