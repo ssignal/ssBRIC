@@ -1,32 +1,152 @@
 {
   "Root": {
     "type": "Root",
-    "id": "12083325",
+    "id": "42302127",
     "child": {
       "type": "Sequence",
-      "id": "79679416",
+      "id": "39293901",
+      "children": [
+        {
+          "type": "Sequence",
+          "id": "48857452",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "x": 1.64,
+                "y": 1.345,
+                "z": 180.0
+              },
+              "id": "57878090"
+            },
+            {
+              "type": "Subtree",
+              "id": "WaitMoveFinished"
+            }
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "99809733",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "Expressive",
+                "name": "wave_two_hand",
+                "repeat": "once",
+                "action": "all"
+              },
+              "id": "78160850"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "23960893"
+            }
+          ]
+        },
+        {
+          "type": "Subtree",
+          "id": "Movebackward"
+        },
+        {
+          "type": "Sequence",
+          "id": "93098993",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "x": 1.64,
+                "y": 1.345,
+                "z": 180.0
+              },
+              "id": "23762410"
+            },
+            {
+              "type": "Subtree",
+              "id": "WaitMoveFinished"
+            }
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "39548229",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "Expressive",
+                "name": "wave_two_hand",
+                "repeat": "once",
+                "action": "all"
+              },
+              "id": "73630125"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "52523098"
+            }
+          ]
+        },
+        {
+          "type": "Subtree",
+          "id": "Movebackward"
+        }
+      ]
+    }
+  },
+  "WaitMoveFinished": {
+    "child": {
+      "type": "Sequence",
+      "id": "87192870",
+      "tickrate": 0,
       "children": [
         {
           "type": "Action",
-          "action": "navigation/move_to_pose",
-          "parameter": {
-            "pose_type": "map",
-            "x": 2.64,
-            "y": 2.345,
-            "z": 180.0
-          },
-          "id": "88470111"
+          "action": "navigation/wait_move_finished",
+          "parameter": {},
+          "id": "91383557"
         },
         {
+          "type": "Sleep",
+          "id": "34350227",
+          "tickrate": 0
+        }
+      ]
+    }
+  },
+  "Movebackward": {
+    "child": {
+      "type": "Sequence",
+      "id": "95035640",
+      "children": [
+        {
           "type": "Action",
-          "action": "navigation/move_to_pose",
+          "action": "navigation/move_in_direction",
           "parameter": {
-            "pose_type": "map",
-            "x": 0,
-            "y": 0,
-            "z": 0
+            "distance": 1,
+            "velocity": 0,
+            "direction": "backwards"
           },
-          "id": "10749581"
+          "id": "17248586"
+        },
+        {
+          "type": "Subtree",
+          "id": "WaitMoveFinished"
         }
       ]
     }

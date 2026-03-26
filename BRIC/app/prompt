@@ -175,6 +175,8 @@
     `"XXXXXXXX": { "child": { ... } }`
   If function body is already a single `Sequence`, do not wrap it with another `Sequence`.
   In Graphical Tree, render `Root` and each function id as separate trees.
+  For `Root` and Function block output, use `Sequence` as default BT_Logic wrapper when there is no `BT Logic` block in workspace.
+  This rule is only for Behavior Tree generation used by Graphical/JSON view and Export.
 ### Reference Action Block
   If action has `BRIC.XXXX:` prefix, treat it as a reference action block.
   In Behavior Tree JSON view and Graphical Tree view, do not display the prefix part.
