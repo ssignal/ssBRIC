@@ -121,6 +121,40 @@ button {
   padding: 8px;
 }
 
+.scenario-list-wrap {
+  position: relative;
+}
+
+.scenario-list-loading {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(2, 12, 25, 0.56);
+  pointer-events: none;
+}
+
+.scenario-list-loading.show {
+  display: flex;
+}
+
+.spinner {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .scenario-rename-inline {
   position: fixed;
   z-index: 2200;

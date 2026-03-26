@@ -20,6 +20,9 @@
   - Background: use image file in `./static/assets`.
 ### Scenario
   - Scnerio List: Show the saved Scnerio list (Behavior Tree)
+  - Show spinner overlay on scenario list while loading list data.
+    - Spinner is shown from when Main Scenario window appears.
+    - Spinner is hidden only after all scenario list items are loaded and rendered.
   - Delete Button: Remove selected Scenario.
   - Copy Button: Duplicate selected Scenario.
     - Clicking `Copy` creates a duplicated item with the same name.

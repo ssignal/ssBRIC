@@ -4,6 +4,7 @@
     pageEdit: document.getElementById('page-edit'),
     brandHome: document.getElementById('brand-home'),
     scenarioList: document.getElementById('scenario-list'),
+    scenarioListLoading: document.getElementById('scenario-list-loading'),
     scenarioName: document.getElementById('scenario-name'),
     updateResult: document.getElementById('update-result'),
     errorList: document.getElementById('error-list'),
@@ -281,28 +282,44 @@
     positionInlineRenameEditor();
   }
 
-  async function refreshScenarioList(preferredName = '') {
+  function setScenarioListLoading(loading) {
+    if (!refs.scenarioListLoading) {
+      return;
+    }
+    refs.scenarioListLoading.classList.toggle('show', !!loading);
+  }
+
+  async function refreshScenarioList(preferredName = '', manageLoading = true) {
     const prev = preferredName || selectedScenarioName();
-    const data = await api('/api/scenarios');
+    if (manageLoading) {
+      setScenarioListLoading(true);
+    }
     refs.scenarioList.innerHTML = '';
-    data.items.forEach((item) => {
-      const option = document.createElement('option');
-      option.value = item.name;
-      option.textContent = item.name;
-      refs.scenarioList.appendChild(option);
-    });
-    if (prev) {
-      refs.scenarioList.value = prev;
-    }
-    if (
-      refs.scenarioList.selectedIndex < 0 &&
-      refs.scenarioList.options.length > 0
-    ) {
-      refs.scenarioList.selectedIndex = 0;
-    }
-    if (renameInlineEditor) {
-      clearInlineRenameEditor(false);
-      resetInlineEditState();
+    try {
+      const data = await api('/api/scenarios');
+      data.items.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.name;
+        option.textContent = item.name;
+        refs.scenarioList.appendChild(option);
+      });
+      if (prev) {
+        refs.scenarioList.value = prev;
+      }
+      if (
+        refs.scenarioList.selectedIndex < 0 &&
+        refs.scenarioList.options.length > 0
+      ) {
+        refs.scenarioList.selectedIndex = 0;
+      }
+      if (renameInlineEditor) {
+        clearInlineRenameEditor(false);
+        resetInlineEditState();
+      }
+    } finally {
+      if (manageLoading) {
+        setScenarioListLoading(false);
+      }
     }
   }
 
@@ -1376,10 +1393,15 @@
   }
 
   async function bootstrap() {
-    await api('/api/blocks/update', { method: 'POST' });
-    await loadBlocklyAssets(true);
-    await refreshScenarioList();
     showPage('main');
+    setScenarioListLoading(true);
+    try {
+      await api('/api/blocks/update', { method: 'POST' });
+      await loadBlocklyAssets(true);
+      await refreshScenarioList('', false);
+    } finally {
+      setScenarioListLoading(false);
+    }
   }
 
   refs.brandHome.addEventListener('click', () => showPage('main'));

@@ -19,7 +19,12 @@
       <div class="panel glass">
         <h2>Scenario</h2>
         <p class="hint">Select a saved behavior tree scenario.</p>
-        <select id="scenario-list" size="14"></select>
+        <div class="scenario-list-wrap">
+          <select id="scenario-list" size="14"></select>
+          <div id="scenario-list-loading" class="scenario-list-loading" aria-hidden="true">
+            <div class="spinner" aria-label="Loading scenarios"></div>
+          </div>
+        </div>
         <div class="row-actions">
           <button id="btn-create" type="button">Create</button>
           <button id="btn-edit" type="button">Edit</button>
