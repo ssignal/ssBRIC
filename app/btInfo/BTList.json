@@ -50,12 +50,20 @@
                     "description": "머리 왼쪽 위 이동 후 복귀"
                   },
                   {
-                    "value": "head_left_down",
+                    "value": "head_right_up",
                     "description": "머리 오른쪽 위 이동 후 복귀"
                   },
                   {
                     "value": "double_nod",
                     "description": "머리 두번 끄덕끄덕"
+                  },
+                  {
+                    "value": "head_left",
+                    "description": "머리 왼쪽 이동 후 복귀"
+                  },
+                  {
+                    "value": "head_right",
+                    "description": "머리 오른쪽 이동 후 복귀"
                   },
                   {
                     "value": "highfive_ready",
@@ -96,6 +104,14 @@
                   {
                     "value": "move",
                     "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+                  },
+                  {
+                    "value": "recent_joint_neutral",
+                    "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+                  },
+                  {
+                    "value": "neutral",
+                    "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
                   }
                 ],
                 "min": null,
@@ -141,7 +157,7 @@
                 "options": [
                   {
                     "value": "box",
-                    "description": ""
+                    "description": "box"
                   }
                 ],
                 "min": null,
