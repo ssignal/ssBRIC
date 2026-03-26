@@ -621,6 +621,10 @@
     if (!topBlocks.length) {
       return null;
     }
+    const hasAnyBtLogic = workspace
+      .getAllBlocks(false)
+      .some((b) => String((b && b.type) || '').startsWith('bt_logic__'));
+    const shouldForceSequenceWrapper = !hasAnyBtLogic;
 
     const byType = {};
     [
@@ -733,8 +737,24 @@
             id: randomId(),
             children,
           };
+        } else if (children.length === 1) {
+          const onlyChild = children[0];
+          const isRootBlock = String(blockState.type || '') === 'bt_function__root';
+          const needsRootWrap =
+            isRootBlock &&
+            shouldForceSequenceWrapper &&
+            String((onlyChild && onlyChild.type) || '') !== 'Sequence';
+          if (needsRootWrap) {
+            node.child = {
+              type: 'Sequence',
+              id: randomId(),
+              children: [onlyChild],
+            };
+          } else {
+            node.child = onlyChild;
+          }
         } else {
-          node.child = children[0] || null;
+          node.child = null;
         }
       }
       return node;
@@ -779,14 +799,20 @@
           String(bodyNodes[0].type || '') === 'Sequence'
             ? bodyNodes[0]
             : null;
+        let functionChild = null;
+        if (singleSequence) {
+          functionChild = singleSequence;
+        } else if (bodyNodes.length === 1 && !shouldForceSequenceWrapper) {
+          functionChild = bodyNodes[0];
+        } else {
+          functionChild = {
+            type: 'Sequence',
+            id: randomId(),
+            children: bodyNodes,
+          };
+        }
         result[name] = {
-          child:
-            singleSequence ||
-            {
-              type: 'Sequence',
-              id: randomId(),
-              children: bodyNodes,
-            },
+          child: functionChild,
         };
       });
 
