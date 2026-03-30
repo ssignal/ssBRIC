@@ -482,6 +482,9 @@ function registerBlocks_ros2blocks_device() {
 
         const optionParents = Object.keys(OPTION_PARAM_MAP[blockType] || {});
         rerenderOptionParams(this, blockType);
+        this.__bricRerenderOptionParams = () => {
+          rerenderOptionParams(this, blockType);
+        };
         this.setOnChange((event) => {
           if (!event || event.isUiEvent) return;
           if (event.blockId !== this.id) return;

@@ -4,11 +4,7 @@ set -euo pipefail
 SRC_DIR="./app"
 PORT_FILE="port"
 DEST_ROOT="${HOME}/work/ROBO/BRIC_demo"
-
-if [ ! -d "${SRC_DIR}" ]; then
-	echo "Error: source directory not found: ${SRC_DIR}" >&2
-	exit 1
-fi
+MODE="${1:-}"
 
 kst_stamp() {
 	TZ=Asia/Seoul date '+%y%m%d-%H:%M'
@@ -33,13 +29,74 @@ append_stamp_to_title() {
 
 STAMP="$(kst_stamp)"
 
-echo "Remove the target folder: ${DEST_ROOT}"
-rm -rf "${DEST_ROOT}"
-echo "Copy the application source: ${SRC_DIR}"
-cp -rf "${SRC_DIR}" "${DEST_ROOT}"
+print_usage() {
+	echo "Usage: $0 [demo|update|launch]"
+	echo "  demo   : update demo version (append test timestamp title)"
+	echo "  update : update only (no title stamp)"
+	echo "  launch : launch without update"
+}
 
-echo "Append KST stamp in demo copy only: ${STAMP}"
-append_stamp_to_title "${DEST_ROOT}" "${STAMP}"
+choose_mode() {
+	if [ -n "${MODE}" ]; then
+		case "${MODE}" in
+		demo | update | launch)
+			return
+			;;
+		-h | --help | help)
+			print_usage
+			exit 0
+			;;
+		*)
+			echo "Error: invalid mode '${MODE}'" >&2
+			print_usage
+			exit 1
+			;;
+		esac
+	fi
+
+	echo "Select launch option:"
+	echo "1) update demo version"
+	echo "2) update"
+	echo "3) launch without update"
+	read -r -p "Enter choice [1-3]: " choice
+	case "${choice}" in
+	1) MODE="demo" ;;
+	2) MODE="update" ;;
+	3) MODE="launch" ;;
+	*)
+		echo "Error: invalid choice '${choice}'" >&2
+		exit 1
+		;;
+	esac
+}
+
+choose_mode
+
+echo "Mode: ${MODE}"
+if [ "${MODE}" = "demo" ] || [ "${MODE}" = "update" ]; then
+	if [ ! -d "${SRC_DIR}" ]; then
+		echo "Error: source directory not found: ${SRC_DIR}" >&2
+		exit 1
+	fi
+
+	echo "Remove the target folder: ${DEST_ROOT}"
+	rm -rf "${DEST_ROOT}"
+	echo "Copy the application source: ${SRC_DIR}"
+	cp -rf "${SRC_DIR}" "${DEST_ROOT}"
+
+	if [ "${MODE}" = "demo" ]; then
+		echo "Append KST stamp in demo copy only: ${STAMP}"
+		append_stamp_to_title "${DEST_ROOT}" "${STAMP}"
+	else
+		echo "Skip title stamp for update mode"
+	fi
+else
+	if [ ! -d "${DEST_ROOT}" ]; then
+		echo "Error: target directory not found for launch mode: ${DEST_ROOT}" >&2
+		exit 1
+	fi
+	echo "Launch without update: keep existing files in ${DEST_ROOT}"
+fi
 
 cd "${DEST_ROOT}"
 echo "Change the port number for release. 3000"

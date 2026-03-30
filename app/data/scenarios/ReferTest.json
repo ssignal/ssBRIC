@@ -10,20 +10,95 @@
         "inputs": {
           "CHILD": {
             "block": {
-              "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
-              "id": ")k3yG6yHZ7Yjiq9i}9L1",
+              "type": "bt_logic__sequence",
+              "id": "_aOCA_LsEr(cL#n!a_[B",
               "fields": {
-                "PARAM_NAME": "PickUp"
+                "PARAM_TICKRATE": "0"
+              },
+              "inputs": {
+                "CHILDREN": {
+                  "block": {
+                    "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                    "id": "CPgN2kK!j5]N1iSeMh(r",
+                    "fields": {
+                      "PARAM_NAME": "Expressive.present_double"
+                    },
+                    "next": {
+                      "block": {
+                        "type": "behavior__motion__motion_start_motion",
+                        "id": "*!J~A4HH:o;*CM0y6ZYq",
+                        "fields": {
+                          "PARAM_TASK_TYPE": "Expressive",
+                          "PARAM_REPEAT": "once",
+                          "OPT_TASK_TYPE_NAME": "present_double"
+                        }
+                      }
+                    }
+                  }
+                }
               },
               "next": {
                 "block": {
-                  "type": "behavior__navigation__navigation_move_to_pose",
-                  "id": ";k/#hf?LCgi|k(FvFuqY",
+                  "type": "bt_logic__sequence",
+                  "id": "/jtDP!oFUe1nsHWZKZUG",
                   "fields": {
-                    "PARAM_POSE_TYPE": "map",
-                    "PARAM_X": "0.0",
-                    "PARAM_Y": "0.0",
-                    "PARAM_Z": "0.0"
+                    "PARAM_TICKRATE": "0"
+                  },
+                  "inputs": {
+                    "CHILDREN": {
+                      "block": {
+                        "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                        "id": "c;yA$n@24b+hV=qh[(b0",
+                        "fields": {
+                          "PARAM_NAME": "Manipulation.dump",
+                          "OPT_NAME_OBJECTS": "box"
+                        },
+                        "next": {
+                          "block": {
+                            "type": "behavior__motion__motion_start_motion",
+                            "id": "Qc4_JLB{/XDia)i*{aB(",
+                            "fields": {
+                              "PARAM_TASK_TYPE": "Manipulation",
+                              "PARAM_REPEAT": "once",
+                              "OPT_TASK_TYPE_NAME": "dump",
+                              "OPT_TASK_TYPE_OBJECTS": "box"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "bt_logic__sequence",
+                      "id": "zNb2Pp]lq2{kVQ+|Q~*Q",
+                      "fields": {
+                        "PARAM_TICKRATE": "0"
+                      },
+                      "inputs": {
+                        "CHILDREN": {
+                          "block": {
+                            "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+                            "id": ")k3yG6yHZ7Yjiq9i}9L1",
+                            "fields": {
+                              "PARAM_NAME": "PickUp"
+                            },
+                            "next": {
+                              "block": {
+                                "type": "behavior__navigation__navigation_move_to_pose",
+                                "id": ";k/#hf?LCgi|k(FvFuqY",
+                                "fields": {
+                                  "PARAM_POSE_TYPE": "map",
+                                  "PARAM_X": "0.0",
+                                  "PARAM_Y": "0.0",
+                                  "PARAM_Z": "0.0"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
