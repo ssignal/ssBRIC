@@ -1,8 +1,142 @@
 (() => {
 const BLOCKS = [
   {
+    "type": "behavior__motion__bric_start_motion_motion_start_motion",
+    "message0": "%1 %2 %3 %4 %5",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "start_motion",
+        "name": "TITLE"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_NAME"
+      },
+      {
+        "type": "field_label",
+        "text": "name"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_NAME",
+        "options": [
+          [
+            "Expressive.wave_two_hand",
+            "Expressive.wave_two_hand"
+          ],
+          [
+            "Expressive.pose_hand_heart",
+            "Expressive.pose_hand_heart"
+          ],
+          [
+            "Expressive.present_double",
+            "Expressive.present_double"
+          ],
+          [
+            "Expressive.wave_two_hand_sway",
+            "Expressive.wave_two_hand_sway"
+          ],
+          [
+            "Expressive.head_left_down",
+            "Expressive.head_left_down"
+          ],
+          [
+            "Expressive.head_right_down",
+            "Expressive.head_right_down"
+          ],
+          [
+            "Expressive.head_left_up",
+            "Expressive.head_left_up"
+          ],
+          [
+            "Expressive.head_right_up",
+            "Expressive.head_right_up"
+          ],
+          [
+            "Expressive.double_nod",
+            "Expressive.double_nod"
+          ],
+          [
+            "Expressive.head_left",
+            "Expressive.head_left"
+          ],
+          [
+            "Expressive.head_right",
+            "Expressive.head_right"
+          ],
+          [
+            "Expressive.highfive_ready",
+            "Expressive.highfive_ready"
+          ],
+          [
+            "Expressive.highfive_strike",
+            "Expressive.highfive_strike"
+          ],
+          [
+            "Expressive.fistbump_ready",
+            "Expressive.fistbump_ready"
+          ],
+          [
+            "Expressive.fistbump_strike",
+            "Expressive.fistbump_strike"
+          ],
+          [
+            "POS.work_ready",
+            "POS.work_ready"
+          ],
+          [
+            "POS.move",
+            "POS.move"
+          ],
+          [
+            "POS.recent_joint_neutral",
+            "POS.recent_joint_neutral"
+          ],
+          [
+            "POS.neutral",
+            "POS.neutral"
+          ],
+          [
+            "Manipulation.prepare",
+            "Manipulation.prepare"
+          ],
+          [
+            "Manipulation.pick_up",
+            "Manipulation.pick_up"
+          ],
+          [
+            "Manipulation.dump",
+            "Manipulation.dump"
+          ],
+          [
+            "Manipulation.put_down",
+            "Manipulation.put_down"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#2ca02c",
+    "tooltip": "Motion 시작 명령",
+    "helpUrl": ""
+  },
+  {
     "type": "behavior__motion__motion_start_motion",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
     "args0": [
       {
         "type": "field_image",
@@ -70,28 +204,6 @@ const BLOCKS = [
           [
             "loop",
             "loop"
-          ]
-        ]
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_ACTION"
-      },
-      {
-        "type": "field_label",
-        "text": "action"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "PARAM_ACTION",
-        "options": [
-          [
-            "all",
-            "all"
           ]
         ]
       }
@@ -178,15 +290,18 @@ const BLOCKS = [
   }
 ];
 const BLOCK_TOOLTIPS = {
+  "behavior__motion__bric_start_motion_motion_start_motion": "Motion 시작 명령",
   "behavior__motion__motion_start_motion": "Motion 시작 명령",
   "behavior__motion__motion_stop_motion": "Motion 강제 종료 명령",
   "behavior__motion__motion_wait_motion_finished": "Motion 완료 여부 확인"
 };
 const PARAM_TOOLTIPS = {
+  "behavior__motion__bric_start_motion_motion_start_motion": {
+    "PARAM_NAME": "Motion name"
+  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": "Motion task type",
-    "PARAM_REPEAT": "Motion repetition type",
-    "PARAM_ACTION": "Motion part"
+    "PARAM_REPEAT": "Motion repetition type"
   },
   "behavior__motion__motion_stop_motion": {
     "PARAM_MODE": "Motion stop type"
@@ -194,6 +309,86 @@ const PARAM_TOOLTIPS = {
   "behavior__motion__motion_wait_motion_finished": {}
 };
 const OPTION_PARAM_MAP = {
+  "behavior__motion__bric_start_motion_motion_start_motion": {
+    "PARAM_NAME": {
+      "Manipulation.prepare": [
+        {
+          "name": "objects",
+          "field": "OPT_NAME_OBJECTS",
+          "type": "string",
+          "description": "objects (string)",
+          "options": [
+            [
+              "box",
+              "box"
+            ]
+          ],
+          "default": "box",
+          "option_parameters": {},
+          "option_descriptions": {
+            "box": "box"
+          }
+        }
+      ],
+      "Manipulation.pick_up": [
+        {
+          "name": "objects",
+          "field": "OPT_NAME_OBJECTS",
+          "type": "string",
+          "description": "objects (string)",
+          "options": [
+            [
+              "box",
+              "box"
+            ]
+          ],
+          "default": "box",
+          "option_parameters": {},
+          "option_descriptions": {
+            "box": "box"
+          }
+        }
+      ],
+      "Manipulation.dump": [
+        {
+          "name": "objects",
+          "field": "OPT_NAME_OBJECTS",
+          "type": "string",
+          "description": "objects (string)",
+          "options": [
+            [
+              "box",
+              "box"
+            ]
+          ],
+          "default": "box",
+          "option_parameters": {},
+          "option_descriptions": {
+            "box": "box"
+          }
+        }
+      ],
+      "Manipulation.put_down": [
+        {
+          "name": "objects",
+          "field": "OPT_NAME_OBJECTS",
+          "type": "string",
+          "description": "objects (string)",
+          "options": [
+            [
+              "box",
+              "box"
+            ]
+          ],
+          "default": "box",
+          "option_parameters": {},
+          "option_descriptions": {
+            "box": "box"
+          }
+        }
+      ]
+    }
+  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
       "Expressive": [
@@ -376,6 +571,33 @@ const OPTION_PARAM_MAP = {
   "behavior__motion__motion_wait_motion_finished": {}
 };
 const OPTION_TOOLTIPS = {
+  "behavior__motion__bric_start_motion_motion_start_motion": {
+    "PARAM_NAME": {
+      "Expressive.wave_two_hand": "양손 가슴높이 손인사",
+      "Expressive.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+      "Expressive.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+      "Expressive.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+      "Expressive.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+      "Expressive.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+      "Expressive.head_left_up": "머리 왼쪽 위 이동 후 복귀",
+      "Expressive.head_right_up": "머리 오른쪽 위 이동 후 복귀",
+      "Expressive.double_nod": "머리 두번 끄덕끄덕",
+      "Expressive.head_left": "머리 왼쪽 이동 후 복귀",
+      "Expressive.head_right": "머리 오른쪽 이동 후 복귀",
+      "Expressive.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+      "Expressive.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+      "Expressive.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+      "Expressive.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+      "POS.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+      "POS.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+      "POS.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+      "POS.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+      "Manipulation.prepare": "demo2604_pick_box_ready",
+      "Manipulation.pick_up": "demo2604_pick_box",
+      "Manipulation.dump": "demo2604_dump_box",
+      "Manipulation.put_down": "demo2604_place_box"
+    }
+  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
       "Expressive": "Expressive motion",
@@ -385,9 +607,6 @@ const OPTION_TOOLTIPS = {
     "PARAM_REPEAT": {
       "once": "Run once",
       "loop": "Repeat continuously"
-    },
-    "PARAM_ACTION": {
-      "all": "Apply to all parts"
     }
   },
   "behavior__motion__motion_stop_motion": {
@@ -843,6 +1062,9 @@ function registerBlocks_ros2blocks_motion() {
 
         const optionParents = Object.keys(OPTION_PARAM_MAP[blockType] || {});
         rerenderOptionParams(this, blockType);
+        this.__bricRerenderOptionParams = () => {
+          rerenderOptionParams(this, blockType);
+        };
         this.setOnChange((event) => {
           if (!event || event.isUiEvent) return;
           if (event.blockId !== this.id) return;

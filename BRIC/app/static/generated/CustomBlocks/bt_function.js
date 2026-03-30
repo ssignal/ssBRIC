@@ -596,6 +596,9 @@ function registerBlocks_bt_function() {
 
         const optionParents = Object.keys(OPTION_PARAM_MAP[blockType] || {});
         rerenderOptionParams(this, blockType);
+        this.__bricRerenderOptionParams = () => {
+          rerenderOptionParams(this, blockType);
+        };
         this.setOnChange((event) => {
           if (!event || event.isUiEvent) return;
           if (event.blockId !== this.id) return;

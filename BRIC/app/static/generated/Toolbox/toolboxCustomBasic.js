@@ -82,6 +82,10 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
+          "type": "behavior__motion__bric_start_motion_motion_start_motion"
+        },
+        {
+          "kind": "block",
           "type": "behavior__motion__motion_start_motion"
         },
         {

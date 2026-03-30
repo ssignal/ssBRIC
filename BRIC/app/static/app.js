@@ -98,6 +98,91 @@
     return new Promise((resolve) => requestAnimationFrame(() => resolve(true)));
   }
 
+  function collectSerializedOptionFieldValues(workspaceJson) {
+    const byId = new Map();
+    const visitBlock = (blockState) => {
+      if (!blockState || typeof blockState !== 'object') {
+        return;
+      }
+      const id = String(blockState.id || '');
+      const fields =
+        blockState.fields && typeof blockState.fields === 'object'
+          ? blockState.fields
+          : null;
+      if (id && fields) {
+        const optValues = {};
+        Object.entries(fields).forEach(([k, v]) => {
+          if (String(k).startsWith('OPT_')) {
+            optValues[k] = String(v ?? '');
+          }
+        });
+        if (Object.keys(optValues).length) {
+          byId.set(id, optValues);
+        }
+      }
+
+      const inputs = blockState.inputs;
+      if (inputs && typeof inputs === 'object') {
+        Object.values(inputs).forEach((inputState) => {
+          if (
+            inputState &&
+            typeof inputState === 'object' &&
+            inputState.block &&
+            typeof inputState.block === 'object'
+          ) {
+            visitBlock(inputState.block);
+          }
+        });
+      }
+
+      const next = blockState.next;
+      if (next && typeof next === 'object' && next.block) {
+        visitBlock(next.block);
+      }
+    };
+
+    const topBlocks =
+      (workspaceJson &&
+        workspaceJson.blocks &&
+        Array.isArray(workspaceJson.blocks.blocks) &&
+        workspaceJson.blocks.blocks) ||
+      [];
+    topBlocks.forEach((b) => visitBlock(b));
+    return byId;
+  }
+
+  function restoreSerializedOptionFieldValues(workspaceJson) {
+    if (!workspace) {
+      return;
+    }
+    const byId = collectSerializedOptionFieldValues(workspaceJson);
+    if (!byId.size) {
+      return;
+    }
+    workspace.getAllBlocks(false).forEach((block) => {
+      const saved = byId.get(String((block && block.id) || ''));
+      if (!saved) {
+        return;
+      }
+      if (typeof block.__bricRerenderOptionParams === 'function') {
+        block.__bricRerenderOptionParams();
+      }
+      Object.entries(saved).forEach(([fieldName, value]) => {
+        if (!block.getField(fieldName)) {
+          return;
+        }
+        try {
+          block.setFieldValue(String(value ?? ''), fieldName);
+        } catch (err) {
+          // Ignore values that are no longer valid.
+        }
+      });
+      if (typeof block.render === 'function') {
+        block.render();
+      }
+    });
+  }
+
   function placeBlockNearTopLeft(block) {
     if (!workspace || !block || block.isDisposed()) {
       return;
@@ -852,6 +937,7 @@
     workspace.clear();
     const orderedWorkspace = reorderWorkspaceTopBlocks(response.workspace);
     Blockly.serialization.workspaces.load(orderedWorkspace, workspace);
+    restoreSerializedOptionFieldValues(orderedWorkspace);
     workspace.getAllBlocks(false).forEach((block) => {
       if (typeof block.setCollapsed === 'function') {
         block.setCollapsed(false);

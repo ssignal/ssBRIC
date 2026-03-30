@@ -14,6 +14,10 @@ OUTPUT_DIR = BASE_DIR / "data" / "output"
 GENERATED_DIR = BASE_DIR / "static" / "generated"
 MANIFEST_PATH = GENERATED_DIR / "manifest.json"
 BRIC_ACTION_RE = re.compile(r"^BRIC\.([A-Za-z0-9_]+):(.*)$")
+LEGACY_BLOCK_TYPE_MAP = {
+    # Legacy saved workspace type before BRIC reference naming update.
+    "behavior__motion__bric_motion_start_motion": "behavior__motion__bric_start_motion_motion_start_motion",
+}
 
 app = Flask(__name__)
 
@@ -185,6 +189,35 @@ def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
+def normalize_workspace_legacy_block_types(data: Dict[str, Any]) -> Dict[str, Any]:
+    if not is_blockly_workspace_data(data):
+        return data
+    out = deepcopy(data)
+
+    def walk_block(block: Any):
+        if not isinstance(block, dict):
+            return
+        mapped = LEGACY_BLOCK_TYPE_MAP.get(str(block.get("type", "")))
+        if mapped:
+            block["type"] = mapped
+
+        inputs = block.get("inputs")
+        if isinstance(inputs, dict):
+            for inp in inputs.values():
+                if isinstance(inp, dict):
+                    walk_block(inp.get("block"))
+
+        nxt = block.get("next")
+        if isinstance(nxt, dict):
+            walk_block(nxt.get("block"))
+
+    blocks = out.get("blocks", {}).get("blocks", [])
+    if isinstance(blocks, list):
+        for block in blocks:
+            walk_block(block)
+    return out
+
+
 def preprocess_export_tree(data: Any) -> Any:
     out = deepcopy(data)
     ref_cache: Dict[str, Dict[str, Dict[str, Any]]] = {}
@@ -229,7 +262,17 @@ def preprocess_export_tree(data: Any) -> Any:
                     key_name = str(param.get("name", "")).strip()
                     matched = load_ref(ref_name).get(key_name)
                     if isinstance(matched, dict):
-                        node["parameter"] = deepcopy(matched)
+                        # Keep reference-mapped base data, but preserve
+                        # additional user-selected option parameters.
+                        merged_param = deepcopy(matched)
+                        for k, v in param.items():
+                            # Reference key used for lookup; mapped data already
+                            # has normalized values (e.g., task_type/name/repeat).
+                            if k == "name":
+                                continue
+                            if k not in merged_param:
+                                merged_param[k] = deepcopy(v)
+                        node["parameter"] = merged_param
                 if real_action:
                     node["action"] = real_action
 
@@ -428,7 +471,8 @@ def scenario_as_blockly(name: str):
 
     scenario_json = json.loads(p.read_text(encoding="utf-8"))
     if is_blockly_workspace_data(scenario_json):
-        workspace = reorder_workspace_top_blocks(scenario_json)
+        workspace = normalize_workspace_legacy_block_types(scenario_json)
+        workspace = reorder_workspace_top_blocks(workspace)
         return jsonify({"ok": True, "workspace": workspace, "errors": []})
 
     workspace, errors = bt_to_blockly(scenario_json, parse_manifest())

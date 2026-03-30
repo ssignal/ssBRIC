@@ -1,0 +1,186 @@
+[
+  {
+    "name": "Expressive.wave_two_hand",
+    "data": {
+      "task_type": "Expressive",
+      "name": "wave_two_hand",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.pose_hand_heart",
+    "data": {
+      "task_type": "Expressive",
+      "name": "pose_hand_heart",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.present_double",
+    "data": {
+      "task_type": "Expressive",
+      "name": "present_double",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.wave_two_hand_sway",
+    "data": {
+      "task_type": "Expressive",
+      "name": "wave_two_hand_sway",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_left_down",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_left_down",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_right_down",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_right_down",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_left_up",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_left_up",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_right_up",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_right_up",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.double_nod",
+    "data": {
+      "task_type": "Expressive",
+      "name": "double_nod",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_left",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_left",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.head_right",
+    "data": {
+      "task_type": "Expressive",
+      "name": "head_right",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.highfive_ready",
+    "data": {
+      "task_type": "Expressive",
+      "name": "highfive_ready",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.highfive_strike",
+    "data": {
+      "task_type": "Expressive",
+      "name": "highfive_strike",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.fistbump_ready",
+    "data": {
+      "task_type": "Expressive",
+      "name": "fistbump_ready",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Expressive.fistbump_strike",
+    "data": {
+      "task_type": "Expressive",
+      "name": "fistbump_strike",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "POS.work_ready",
+    "data": {
+      "task_type": "POS",
+      "name": "work_ready",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "POS.move",
+    "data": {
+      "task_type": "POS",
+      "name": "move",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "POS.recent_joint_neutral",
+    "data": {
+      "task_type": "POS",
+      "name": "recent_joint_neutral",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "POS.neutral",
+    "data": {
+      "task_type": "POS",
+      "name": "neutral",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Manipulation.prepare",
+    "data": {
+      "task_type": "Manipulation",
+      "name": "prepare",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Manipulation.pick_up",
+    "data": {
+      "task_type": "Manipulation",
+      "name": "pick_up",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Manipulation.dump",
+    "data": {
+      "task_type": "Manipulation",
+      "name": "dump",
+      "repeat": "once"
+    }
+  },
+  {
+    "name": "Manipulation.put_down",
+    "data": {
+      "task_type": "Manipulation",
+      "name": "put_down",
+      "repeat": "once"
+    }
+  }
+]

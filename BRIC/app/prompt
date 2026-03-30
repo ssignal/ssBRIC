@@ -162,6 +162,9 @@
   If an option includes `parameters`, show those additional parameters in the block.
   Additional parameters by option are supported only for 1 depth.
   Nested option-parameters under those additional parameters are ignored.
+  Dynamic option-parameters (`OPT_*`) must be persisted in scenario Blockly JSON on save.
+  On scenario load, dynamic option-parameters must be rebuilt first and then saved `OPT_*` values must be restored.
+  Dynamic parameter values must not be reset to defaults during load.
 ### Function block to Behavior Tree
   Scenario file is saved in Blockly workspace JSON format.
   Clicking `Behavior Tree` converts current Blockly workspace to Behavior Tree JSON.
@@ -184,7 +187,7 @@
   On `Export`, preprocess this action:
     - Reference file is `./btInfo/XXXX.json`.
     - Find matching entry by `parameter.name`.
-    - Replace node `parameter` with matched `data`.
+    - Build node `parameter` from matched `data`, and keep additional parameters from block (e.g., option-parameters like `objects`) if they are not in matched `data`.
     - Replace node `action` with the action text after `:`.
 ### Sound id
   Default value of `id` in `Sound` category is `2000`.
