@@ -415,7 +415,13 @@ def export_behavior_tree():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUTPUT_DIR / "behaviorTree.json"
     out.write_text(json.dumps(processed, ensure_ascii=False, indent=2), encoding="utf-8")
-    return jsonify({"ok": True, "path": str(out.relative_to(BASE_DIR))})
+    return jsonify(
+        {
+            "ok": True,
+            "path": str(out.relative_to(BASE_DIR)),
+            "data": processed,
+        }
+    )
 
 
 @app.delete("/api/scenarios/<name>")

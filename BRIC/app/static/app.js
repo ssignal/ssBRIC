@@ -1132,6 +1132,18 @@
     refs.jsonModalText.select();
   }
 
+  function openJsonModalWithText(text) {
+    const safeText = String(text || '');
+    if (refs.jsonOutput) {
+      refs.jsonOutput.textContent = safeText;
+    }
+    refs.jsonModalText.value = safeText;
+    refs.treeModal.classList.remove('show');
+    refs.jsonModal.classList.add('show');
+    refs.jsonModalText.focus();
+    refs.jsonModalText.select();
+  }
+
   function openGraphicalTree() {
     const btJson = workspaceToBtJson();
     if (!btJson) {
@@ -1162,6 +1174,8 @@
       method: 'POST',
       body: JSON.stringify({ data: btJson }),
     });
+    const exportText = JSON.stringify(response.data || {}, null, 2);
+    openJsonModalWithText(exportText);
     toast(`Exported: ${response.path || 'data/output/behaviorTree.json'}`);
   }
 
