@@ -1,0 +1,305 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "procedures_defnoreturn",
+        "id": "@`g1H/-voeb[%cJ#yVo7",
+        "x": 890,
+        "y": 230,
+        "icons": {
+          "comment": {
+            "text": "Describe this function...",
+            "pinned": false,
+            "height": 80,
+            "width": 160
+          }
+        },
+        "fields": {
+          "NAME": "WaitMoveFinished"
+        },
+        "inputs": {
+          "STACK": {
+            "block": {
+              "type": "bt_logic__sequence",
+              "id": "4PD#-q-K,6=J|*7EY%Ec",
+              "fields": {
+                "PARAM_TICKRATE": "0"
+              },
+              "inputs": {
+                "CHILDREN": {
+                  "block": {
+                    "type": "behavior__navigation__navigation_wait_move_finished",
+                    "id": "}u2[O0i9:=/5_o?rlsUg",
+                    "next": {
+                      "block": {
+                        "type": "bt_function__sleep",
+                        "id": "|v_h@|$9TSL-dPIdG^[!",
+                        "fields": {
+                          "PARAM_TICKRATE": "500"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "procedures_defnoreturn",
+        "id": "Upw|Mrc)vZa+-;|x{P?D",
+        "x": 890,
+        "y": 510,
+        "icons": {
+          "comment": {
+            "text": "Describe this function...",
+            "pinned": false,
+            "height": 80,
+            "width": 160
+          }
+        },
+        "fields": {
+          "NAME": "Movebackward"
+        },
+        "inputs": {
+          "STACK": {
+            "block": {
+              "type": "bt_logic__sequence",
+              "id": "][csnyiy5cLPtf^f$j21",
+              "fields": {
+                "PARAM_TICKRATE": "0"
+              },
+              "inputs": {
+                "CHILDREN": {
+                  "block": {
+                    "type": "behavior__navigation__navigation_move_in_direction",
+                    "id": "ph7YUib^^.FVytM;I14[",
+                    "fields": {
+                      "PARAM_DISTANCE": "1.0",
+                      "PARAM_VELOCITY": "0.60",
+                      "PARAM_DIRECTION": "backwards"
+                    },
+                    "next": {
+                      "block": {
+                        "type": "procedures_callnoreturn",
+                        "id": "`TlL}s^x7`rV/haAI~?H",
+                        "extraState": {
+                          "name": "WaitMoveFinished"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "bt_function__root",
+        "id": ")!+wfe-%%FTz`m}F9XVz",
+        "x": 40,
+        "y": 40,
+        "inputs": {
+          "CHILD": {
+            "block": {
+              "type": "bt_logic__sequence",
+              "id": "v|QW53}2j(K[U`HY;RGk",
+              "fields": {
+                "PARAM_TICKRATE": "0"
+              },
+              "inputs": {
+                "CHILDREN": {
+                  "block": {
+                    "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+                    "id": "f#a(wk]sG7hB{qI1rTt2",
+                    "fields": {
+                      "PARAM_NAME": "PickUp"
+                    },
+                    "next": {
+                      "block": {
+                        "type": "procedures_callnoreturn",
+                        "id": "`4k*x:O$gZ|nt?,]!ja+",
+                        "extraState": {
+                          "name": "WaitMoveFinished"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "next": {
+                "block": {
+                  "type": "bt_logic__sequence",
+                  "id": "WqKb`-!Guv!mfO(2:XCV",
+                  "fields": {
+                    "PARAM_TICKRATE": "0"
+                  },
+                  "inputs": {
+                    "CHILDREN": {
+                      "block": {
+                        "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                        "id": "pOJvveP^KPN+6A}B{I[o",
+                        "fields": {
+                          "PARAM_NAME": "Manipulation.pick_up",
+                          "OPT_NAME_OBJECTS": "box"
+                        },
+                        "next": {
+                          "block": {
+                            "type": "behavior__motion__motion_wait_motion_finished",
+                            "id": "Nw{?1w7lErnoo/M8M=/J"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "procedures_callnoreturn",
+                      "id": "o*aOm;hz$Q{]sJ!gh?y!",
+                      "extraState": {
+                        "name": "Movebackward"
+                      },
+                      "next": {
+                        "block": {
+                          "type": "bt_logic__sequence",
+                          "id": "(.~o8:3l7+*7I4LSlVTE",
+                          "fields": {
+                            "PARAM_TICKRATE": "0"
+                          },
+                          "inputs": {
+                            "CHILDREN": {
+                              "block": {
+                                "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+                                "id": ".JvU=q-(RuG`1P^@8jvZ",
+                                "fields": {
+                                  "PARAM_NAME": "Dump"
+                                },
+                                "next": {
+                                  "block": {
+                                    "type": "procedures_callnoreturn",
+                                    "id": "z).S*+qs7uLnmw]l-YWp",
+                                    "extraState": {
+                                      "name": "WaitMoveFinished"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "next": {
+                            "block": {
+                              "type": "bt_logic__sequence",
+                              "id": "+k7k|865,8b_yT-VRX:,",
+                              "fields": {
+                                "PARAM_TICKRATE": "0"
+                              },
+                              "inputs": {
+                                "CHILDREN": {
+                                  "block": {
+                                    "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                                    "id": "vG5Q.ISkSvqwQadc1!j|",
+                                    "fields": {
+                                      "PARAM_NAME": "Manipulation.dump",
+                                      "OPT_NAME_OBJECTS": "box"
+                                    },
+                                    "next": {
+                                      "block": {
+                                        "type": "behavior__motion__motion_wait_motion_finished",
+                                        "id": "5FAHz?JZga!xllm^|/$,"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "next": {
+                                "block": {
+                                  "type": "procedures_callnoreturn",
+                                  "id": "13Ud6w!9OM7$4ZLuLlFV",
+                                  "extraState": {
+                                    "name": "Movebackward"
+                                  },
+                                  "next": {
+                                    "block": {
+                                      "type": "bt_logic__sequence",
+                                      "id": "EdU(GN!mJWM`EX)PW_Pp",
+                                      "fields": {
+                                        "PARAM_TICKRATE": "0"
+                                      },
+                                      "inputs": {
+                                        "CHILDREN": {
+                                          "block": {
+                                            "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+                                            "id": "7Luhp|@nk(=;M*dH|[tv",
+                                            "fields": {
+                                              "PARAM_NAME": "PutDown"
+                                            },
+                                            "next": {
+                                              "block": {
+                                                "type": "procedures_callnoreturn",
+                                                "id": "ZOQ8d;?D={@zI/Zrs7{;",
+                                                "extraState": {
+                                                  "name": "WaitMoveFinished"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "next": {
+                                        "block": {
+                                          "type": "bt_logic__sequence",
+                                          "id": "PhGYyj@FMyR*f,cX(b%v",
+                                          "fields": {
+                                            "PARAM_TICKRATE": "0"
+                                          },
+                                          "inputs": {
+                                            "CHILDREN": {
+                                              "block": {
+                                                "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                                                "id": "ml6WMZgrfVptwV:87La:",
+                                                "fields": {
+                                                  "PARAM_NAME": "Manipulation.put_down",
+                                                  "OPT_NAME_OBJECTS": "box"
+                                                },
+                                                "next": {
+                                                  "block": {
+                                                    "type": "behavior__motion__motion_wait_motion_finished",
+                                                    "id": "@8`R1JGEC#,DpR,)mWC:"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "next": {
+                                            "block": {
+                                              "type": "procedures_callnoreturn",
+                                              "id": ";8F9qam59(~4re8kXnx@",
+                                              "extraState": {
+                                                "name": "Movebackward"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -469,10 +469,10 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def load_inputs() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-    a_path = BT_INFO_DIR / "BTList.json"
+    a_path = BT_INFO_DIR / "BlockListRobot.json"
     b_path = BT_INFO_DIR / "BTList_bt.json"
     if not b_path.exists():
-        b_path = BT_INFO_DIR / "BT_List_bt.json"
+        b_path = BT_INFO_DIR / "BlockListBT.json"
 
     if not a_path.exists():
         raise FileNotFoundError(f"Missing input: {a_path}")
