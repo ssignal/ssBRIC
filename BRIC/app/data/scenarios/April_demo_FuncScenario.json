@@ -1,0 +1,143 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "procedures_defnoreturn",
+        "id": "Upw|Mrc)vZa+-;|x{P?D",
+        "x": 510,
+        "y": 70,
+        "icons": {
+          "comment": {
+            "text": "Describe this function...",
+            "pinned": false,
+            "height": 80,
+            "width": 160
+          }
+        },
+        "fields": {
+          "NAME": "Movebackward"
+        },
+        "inputs": {
+          "STACK": {
+            "block": {
+              "type": "behavior__navigation__navigation_move_in_direction",
+              "id": "ph7YUib^^.FVytM;I14[",
+              "fields": {
+                "PARAM_DISTANCE": "1.0",
+                "PARAM_VELOCITY": "0.60",
+                "PARAM_DIRECTION": "backwards"
+              },
+              "next": {
+                "block": {
+                  "type": "behavior__scenario__bric_scenario_waitmovefinished",
+                  "id": "9R6OuJb1V@m@(IG6%D1:"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "type": "bt_function__root",
+        "id": ")!+wfe-%%FTz`m}F9XVz",
+        "x": 40,
+        "y": 40,
+        "inputs": {
+          "CHILD": {
+            "block": {
+              "type": "behavior__scenario__bric_scenario_moveandpickupbox",
+              "id": "x9R,4AXZ/pcEjlzy^ygQ",
+              "next": {
+                "block": {
+                  "type": "procedures_callnoreturn",
+                  "id": "o*aOm;hz$Q{]sJ!gh?y!",
+                  "extraState": {
+                    "name": "Movebackward"
+                  },
+                  "next": {
+                    "block": {
+                      "type": "behavior__scenario__bric_scenario_moveanddumpbox",
+                      "id": "[3fwT^7Wkh6LiF0(`kL$",
+                      "next": {
+                        "block": {
+                          "type": "procedures_callnoreturn",
+                          "id": "13Ud6w!9OM7$4ZLuLlFV",
+                          "extraState": {
+                            "name": "Movebackward"
+                          },
+                          "next": {
+                            "block": {
+                              "type": "bt_logic__sequence",
+                              "id": "EdU(GN!mJWM`EX)PW_Pp",
+                              "fields": {
+                                "PARAM_TICKRATE": "0"
+                              },
+                              "inputs": {
+                                "CHILDREN": {
+                                  "block": {
+                                    "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+                                    "id": "7Luhp|@nk(=;M*dH|[tv",
+                                    "fields": {
+                                      "PARAM_NAME": "PutDown"
+                                    },
+                                    "next": {
+                                      "block": {
+                                        "type": "behavior__scenario__bric_scenario_waitmovefinished",
+                                        "id": "Y4.k2b%$*5.%IdRg![cG"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "next": {
+                                "block": {
+                                  "type": "bt_logic__sequence",
+                                  "id": "PhGYyj@FMyR*f,cX(b%v",
+                                  "fields": {
+                                    "PARAM_TICKRATE": "0"
+                                  },
+                                  "inputs": {
+                                    "CHILDREN": {
+                                      "block": {
+                                        "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                                        "id": "ml6WMZgrfVptwV:87La:",
+                                        "fields": {
+                                          "PARAM_NAME": "Manipulation.put_down",
+                                          "OPT_NAME_OBJECTS": "box"
+                                        },
+                                        "next": {
+                                          "block": {
+                                            "type": "behavior__motion__motion_wait_motion_finished",
+                                            "id": "@8`R1JGEC#,DpR,)mWC:"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "next": {
+                                    "block": {
+                                      "type": "procedures_callnoreturn",
+                                      "id": ";8F9qam59(~4re8kXnx@",
+                                      "extraState": {
+                                        "name": "Movebackward"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

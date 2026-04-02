@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-31T02:14:13.012428Z",
+  "generated_at": "2026-04-02T05:28:30.310481Z",
   "behavior": [
     {
       "block_type": "behavior__motion__bric_start_motion_motion_start_motion",
@@ -1970,6 +1970,391 @@
       ],
       "has_children": false,
       "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_april_demo",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "April_demo",
+      "action": "BRIC.SCENARIO:April_demo",
+      "description": "Run scenario: April_demo",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_april_demo",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "April_demo",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: April_demo",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_april_demo_0",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "April_demo_0",
+      "action": "BRIC.SCENARIO:April_demo_0",
+      "description": "Run scenario: April_demo_0",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_april_demo_0",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "April_demo_0",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: April_demo_0",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_april_demo_funcscenario",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "April_demo_FuncScenario",
+      "action": "BRIC.SCENARIO:April_demo_FuncScenario",
+      "description": "Run scenario: April_demo_FuncScenario",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_april_demo_funcscenario",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "April_demo_FuncScenario",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: April_demo_FuncScenario",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_april_demo_simple",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "April_demo_simple",
+      "action": "BRIC.SCENARIO:April_demo_simple",
+      "description": "Run scenario: April_demo_simple",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_april_demo_simple",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "April_demo_simple",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: April_demo_simple",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_motion_sound",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "Motion_Sound",
+      "action": "BRIC.SCENARIO:Motion_Sound",
+      "description": "Run scenario: Motion_Sound",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_motion_sound",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Motion_Sound",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: Motion_Sound",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_moveanddumpbox",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "MoveAndDumpBox",
+      "action": "BRIC.SCENARIO:MoveAndDumpBox",
+      "description": "Run scenario: MoveAndDumpBox",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_moveanddumpbox",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "MoveAndDumpBox",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: MoveAndDumpBox",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_moveandpickupbox",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "MoveAndPickupBox",
+      "action": "BRIC.SCENARIO:MoveAndPickupBox",
+      "description": "Run scenario: MoveAndPickupBox",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_moveandpickupbox",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "MoveAndPickupBox",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: MoveAndPickupBox",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_refertest",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "ReferTest",
+      "action": "BRIC.SCENARIO:ReferTest",
+      "description": "Run scenario: ReferTest",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_refertest",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ReferTest",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: ReferTest",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_scenariotest_recursive",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "ScenarioTest_recursive",
+      "action": "BRIC.SCENARIO:ScenarioTest_recursive",
+      "description": "Run scenario: ScenarioTest_recursive",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_scenariotest_recursive",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ScenarioTest_recursive",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: ScenarioTest_recursive",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_waitmovefinished",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "WaitMoveFinished",
+      "action": "BRIC.SCENARIO:WaitMoveFinished",
+      "description": "Run scenario: WaitMoveFinished",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_waitmovefinished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "WaitMoveFinished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: WaitMoveFinished",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_func",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "func",
+      "action": "BRIC.SCENARIO:func",
+      "description": "Run scenario: func",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_func",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "func",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: func",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": []
     }
   ],
   "bt_logic": [
@@ -3097,6 +3482,7 @@
     "ros2Blocks_lcd.js",
     "ros2Blocks_device.js",
     "ros2Blocks_etc.js",
+    "ros2Blocks_scenario.js",
     "bt_logic.js",
     "bt_function.js"
   ],
@@ -3107,6 +3493,7 @@
     "ros2Blocks_lcd.js",
     "ros2Blocks_device.js",
     "ros2Blocks_etc.js",
+    "ros2Blocks_scenario.js",
     "bt_logic.js",
     "bt_function.js"
   ]

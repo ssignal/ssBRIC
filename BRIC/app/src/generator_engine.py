@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Tuple
 BASE_DIR = Path(__file__).resolve().parent.parent
 BT_INFO_DIR = BASE_DIR / "btInfo"
 OUTPUT_DIR = BASE_DIR / "static" / "generated"
+SCENARIO_DIR = BASE_DIR / "data" / "scenarios"
 
 QUESTION_ICON_DATA_URI = (
     "data:image/svg+xml;utf8,"
@@ -231,7 +232,11 @@ def display_category_name(cat: str) -> str:
 def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
     category = normalize_category(item.get("category", "General"))
     action = item.get("action", "unknown/action")
-    action_label = str(action).split("/")[-1] if "/" in str(action) else str(action)
+    action_text = str(action)
+    if action_text.startswith("BRIC.SCENARIO:"):
+        action_label = action_text.split(":", 1)[1].strip()
+    else:
+        action_label = action_text.split("/")[-1] if "/" in action_text else action_text
     block_type = f"behavior__{slugify(category)}__{slugify(action)}"
     description = clean_text(item.get("description", ""))
 
@@ -1194,6 +1199,20 @@ def emit_theme(path: Path, categories: List[str]):
 
 def generate_all() -> Dict[str, Any]:
     behavior_list, bt_list = load_inputs()
+
+    scenario_items: List[Dict[str, Any]] = []
+    if SCENARIO_DIR.exists():
+        for sf in sorted(SCENARIO_DIR.glob("*.json")):
+            scenario_items.append(
+                {
+                    "category": "Scenario",
+                    "action": f"BRIC.SCENARIO:{sf.stem}",
+                    "description": f"Run scenario: {sf.stem}",
+                    "enabled": True,
+                    "parameters": [],
+                }
+            )
+    behavior_list = list(behavior_list) + scenario_items
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     custom_dir = OUTPUT_DIR / "CustomBlocks"
