@@ -52,6 +52,24 @@ def clean_text(v: Any) -> str:
     return str(v).strip()
 
 
+def split_parented_param_name(name: Any) -> Tuple[str, str, str]:
+    raw = str(name or "param")
+    if "/" in raw:
+        parent, child = raw.split("/", 1)
+        parent = parent.strip()
+        child = child.strip()
+        if parent and child:
+            return raw, parent, child
+    # Backward compatibility for older config format.
+    if "." in raw:
+        parent, child = raw.split(".", 1)
+        parent = parent.strip()
+        child = child.strip()
+        if parent and child:
+            return raw, parent, child
+    return raw, "", raw.strip() or "param"
+
+
 def default_value(param_type: str) -> str:
     kind = (param_type or "").lower()
     if kind in ("float", "double", "number"):
@@ -107,12 +125,13 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
             continue
 
         sub_name = sub.get("name", "param")
+        sub_name_raw, sub_parent_key, sub_output_name = split_parented_param_name(sub_name)
         sub_type = (sub.get("type") or "string").lower()
         sub_default_v = sub.get("default")
         sub_options = sub.get("options") or []
         sub_min = sub.get("min")
         sub_max = sub.get("max")
-        sub_field = f"{field_prefix}_{slugify(sub_name).upper()}"
+        sub_field = f"{field_prefix}_{slugify(sub_name_raw).upper()}"
 
         sub_option_descriptions: Dict[str, str] = {}
         if sub_options:
@@ -149,6 +168,8 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
         nested_meta.append(
             {
                 "name": sub_name,
+                "output_name": sub_output_name,
+                "parent_key": sub_parent_key,
                 "field": sub_field,
                 "type": sub_type,
                 "description": sub_description,
@@ -265,6 +286,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         if not is_enabled(param.get("enabled"), True):
             continue
         name = param.get("name", "param")
+        name_raw, parent_key, output_name = split_parented_param_name(name)
         p_type = (param.get("type") or "string").lower()
         default_v = param.get("default")
         options = param.get("options") or []
@@ -280,17 +302,17 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
                     "width": 16,
                     "height": 16,
                     "alt": "?",
-                    "name": f"HELP_{slugify(name).upper()}"
+                    "name": f"HELP_{slugify(name_raw).upper()}"
                 }
             )
         args0.append(
             {
                 "type": "field_label",
-                "text": name
+                "text": output_name
             }
         )
 
-        field_name = f"PARAM_{slugify(name).upper()}"
+        field_name = f"PARAM_{slugify(name_raw).upper()}"
         option_param_meta: Dict[str, List[Dict[str, Any]]] = {}
         option_descriptions: Dict[str, str] = {}
         if options:
@@ -328,6 +350,8 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         param_meta.append(
             {
                 "name": name,
+                "output_name": output_name,
+                "parent_key": parent_key,
                 "field": field_name,
                 "type": p_type,
                 "description": param_description,
@@ -1024,7 +1048,10 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
         "function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }"
     )
     lines.append(
-        "function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }"
+        "function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }"
+    )
+    lines.append(
+        "function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }"
     )
     lines.append("")
 
@@ -1035,19 +1062,16 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
         if block["kind"] == "behavior":
             lines.append("  const parameter = {};")
             for p in block.get("parameters", []):
-                pname = p["name"]
                 fname = p["field"]
-                ptype = p["type"]
-                if ptype in ("int", "integer"):
-                    lines.append(
-                        f"  parameter['{pname}'] = Number.parseInt(block.getFieldValue('{fname}') || '0', 10);"
-                    )
-                elif ptype in ("float", "double", "number"):
-                    lines.append(
-                        f"  parameter['{pname}'] = Number.parseFloat(block.getFieldValue('{fname}') || '0');"
-                    )
-                else:
-                    lines.append(f"  parameter['{pname}'] = block.getFieldValue('{fname}') || '';")
+                pmeta = {
+                    "name": p.get("name"),
+                    "output_name": p.get("output_name", p.get("name")),
+                    "parent_key": p.get("parent_key", ""),
+                    "type": p.get("type", "string"),
+                }
+                lines.append(
+                    f"  assignParamValue(parameter, {json.dumps(pmeta, ensure_ascii=False)}, block.getFieldValue('{fname}'));"
+                )
 
             lines.append(f"  const optionMetaByField = OPTION_PARAM_MAP['{btype}'] || {{}};")
             lines.append("  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {")

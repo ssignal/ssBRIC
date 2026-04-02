@@ -45,8 +45,8 @@
                         "type": "behavior__motion__bric_start_motion_motion_start_motion",
                         "id": "KMafnxcg[S=Y3f~4Mmec",
                         "fields": {
-                          "PARAM_NAME": "Manipulation.pick_up",
-                          "OPT_NAME_OBJECTS": "box"
+                          "PARAM_NAME": "manipulation.pick_up",
+                          "OPT_NAME_OBJECT": "box"
                         },
                         "next": {
                           "block": {

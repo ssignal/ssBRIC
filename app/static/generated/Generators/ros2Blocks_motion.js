@@ -3,12 +3,14 @@ const javascriptGenerator = (window.javascript && window.javascript.javascriptGe
 const OPTION_PARAM_MAP = {
   "behavior__motion__bric_start_motion_motion_start_motion": {
     "PARAM_NAME": {
-      "Manipulation.prepare": [
+      "manipulation.prepare": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -22,12 +24,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.pick_up": [
+      "manipulation.pick_up": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -41,12 +45,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.dump": [
+      "manipulation.dump": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -60,12 +66,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.put_down": [
+      "manipulation.put_down": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -83,9 +91,11 @@ const OPTION_PARAM_MAP = {
   },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
-      "Expressive": [
+      "exporessive": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -172,9 +182,11 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Pose": [
+      "pose": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -206,9 +218,11 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation": [
+      "manipulation": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -240,10 +254,12 @@ const OPTION_PARAM_MAP = {
           }
         },
         {
-          "name": "objects",
-          "field": "OPT_TASK_TYPE_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -266,11 +282,12 @@ const OPTION_PARAM_MAP = {
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
 function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }
 function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
-function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
+function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }
+function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
 javascriptGenerator.forBlock['behavior__motion__bric_start_motion_motion_start_motion'] = function(block, generator) {
   const parameter = {};
-  parameter['name'] = block.getFieldValue('PARAM_NAME') || '';
+  assignParamValue(parameter, {"name": "name", "output_name": "name", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_NAME'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__motion__bric_start_motion_motion_start_motion'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -288,8 +305,8 @@ javascriptGenerator.forBlock['behavior__motion__bric_start_motion_motion_start_m
 
 javascriptGenerator.forBlock['behavior__motion__motion_start_motion'] = function(block, generator) {
   const parameter = {};
-  parameter['task_type'] = block.getFieldValue('PARAM_TASK_TYPE') || '';
-  parameter['repeat'] = block.getFieldValue('PARAM_REPEAT') || '';
+  assignParamValue(parameter, {"name": "task_type", "output_name": "task_type", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_TASK_TYPE'));
+  assignParamValue(parameter, {"name": "repeat", "output_name": "repeat", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_REPEAT'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__motion__motion_start_motion'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -307,7 +324,7 @@ javascriptGenerator.forBlock['behavior__motion__motion_start_motion'] = function
 
 javascriptGenerator.forBlock['behavior__motion__motion_stop_motion'] = function(block, generator) {
   const parameter = {};
-  parameter['mode'] = block.getFieldValue('PARAM_MODE') || '';
+  assignParamValue(parameter, {"name": "mode", "output_name": "mode", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_MODE'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__motion__motion_stop_motion'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';

@@ -1,152 +1,152 @@
 [
   {
-    "name": "Expressive.wave_two_hand",
+    "name": "exporessive.wave_two_hand",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "wave_two_hand",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.pose_hand_heart",
+    "name": "exporessive.pose_hand_heart",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "pose_hand_heart",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.present_double",
+    "name": "exporessive.present_double",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "present_double",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.wave_two_hand_sway",
+    "name": "exporessive.wave_two_hand_sway",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "wave_two_hand_sway",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_left_down",
+    "name": "exporessive.head_left_down",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_left_down",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_right_down",
+    "name": "exporessive.head_right_down",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_right_down",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_left_up",
+    "name": "exporessive.head_left_up",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_left_up",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_right_up",
+    "name": "exporessive.head_right_up",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_right_up",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.double_nod",
+    "name": "exporessive.double_nod",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "double_nod",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_left",
+    "name": "exporessive.head_left",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_left",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.head_right",
+    "name": "exporessive.head_right",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "head_right",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.highfive_ready",
+    "name": "exporessive.highfive_ready",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "highfive_ready",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.highfive_strike",
+    "name": "exporessive.highfive_strike",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "highfive_strike",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.fistbump_ready",
+    "name": "exporessive.fistbump_ready",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "fistbump_ready",
       "repeat": "once"
     }
   },
   {
-    "name": "Expressive.fistbump_strike",
+    "name": "exporessive.fistbump_strike",
     "data": {
-      "task_type": "Expressive",
+      "task_type": "exporessive",
       "name": "fistbump_strike",
       "repeat": "once"
     }
   },
   {
-    "name": "POS.work_ready",
+    "name": "pose.work_ready",
     "data": {
-      "task_type": "POS",
+      "task_type": "pose",
       "name": "work_ready",
       "repeat": "once"
     }
   },
   {
-    "name": "POS.move",
+    "name": "pose.move",
     "data": {
-      "task_type": "POS",
+      "task_type": "pose",
       "name": "move",
       "repeat": "once"
     }
   },
   {
-    "name": "POS.recent_joint_neutral",
+    "name": "pose.recent_joint_neutral",
     "data": {
-      "task_type": "POS",
+      "task_type": "pose",
       "name": "recent_joint_neutral",
       "repeat": "once"
     }
   },
   {
-    "name": "POS.neutral",
+    "name": "pose.neutral",
     "data": {
-      "task_type": "POS",
+      "task_type": "pose",
       "name": "neutral",
       "repeat": "once"
     }
