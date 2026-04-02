@@ -189,6 +189,21 @@
     - Find matching entry by `parameter.name`.
     - Build node `parameter` from matched `data`, and keep additional parameters from block (e.g., option-parameters like `objects`) if they are not in matched `data`.
     - Replace node `action` with the action text after `:`.
+### Scenario Category
+  Add `Scenario` category blocks from saved scenario files in `./data/scenarios/*.json`.
+  Action format is `BRIC.SCENARIO:XXXX` where `XXXX` is scenario file name (without `.json`).
+  In block UI, show block name as `XXXX` only (hide prefix `BRIC.SCENARIO:`).
+  While editing scenario `S`, hide its own scenario block in `Scenario` category.
+  Recursive-call check for Scenario references is performed when editing starts.
+  On `Save Scenario`, check recursive Scenario references again with current workspace data; if recursive, block save and show warning message.
+  In `Scenario` category, disable items that would create recursive reference with current editing scenario.
+  For `Behavior Tree` (Graphical/JSON view), treat Scenario block as Subtree:
+    - Node: `{ "type": "Subtree", "id": "XXXX" }`
+    - Add subtree entry: `"XXXX": { "child": { ... } }`
+  For `Export`, keep Scenario block as Subtree output in the same format above.
+### Default BT Logic wrapper
+  If subtree root has no `BT Logic` block, wrap by default `Sequence`.
+  This default `Sequence` rule applies to Root, Function subtree, and Scenario subtree.
 ### Sound id
   Default value of `id` in `Sound` category is `2000`.
   For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.

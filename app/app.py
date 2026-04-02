@@ -221,6 +221,228 @@ def normalize_workspace_legacy_block_types(data: Dict[str, Any]) -> Dict[str, An
 def preprocess_export_tree(data: Any) -> Any:
     out = deepcopy(data)
     ref_cache: Dict[str, Dict[str, Dict[str, Any]]] = {}
+    scenario_child_cache: Dict[str, Dict[str, Any] | None] = {}
+    scenario_loading: set[str] = set()
+    manifest = parse_manifest()
+    by_type = {
+        item.get("block_type"): item
+        for item in (
+            (manifest.get("behavior") or [])
+            + (manifest.get("bt_logic") or [])
+            + (manifest.get("bt_function") or [])
+        )
+        if isinstance(item, dict) and item.get("block_type")
+    }
+
+    def random_id() -> str:
+        import random
+
+        return str(random.randint(10000000, 99999999))
+
+    def first_input_block(block_state: Dict[str, Any], input_name: str) -> Dict[str, Any] | None:
+        if not isinstance(block_state, dict):
+            return None
+        inputs = block_state.get("inputs")
+        if not isinstance(inputs, dict):
+            return None
+        inp = inputs.get(input_name)
+        if not isinstance(inp, dict):
+            return None
+        block = inp.get("block")
+        return block if isinstance(block, dict) else None
+
+    def collect_option_params(fields: Dict[str, Any], defs: List[Dict[str, Any]], out_param: Dict[str, Any]):
+        for meta in defs or []:
+            if not isinstance(meta, dict):
+                continue
+            field_name = str(meta.get("field", ""))
+            if not field_name:
+                continue
+            raw_value = fields.get(field_name)
+            out_param[str(meta.get("name", field_name))] = cast_field(
+                raw_value, str(meta.get("type", "string"))
+            )
+            selected = str(raw_value if raw_value is not None else "")
+            nested = ((meta.get("option_parameters") or {}).get(selected) or [])
+            if isinstance(nested, list) and nested:
+                collect_option_params(fields, nested, out_param)
+
+    def convert_workspace_block_to_bt(
+        block_state: Dict[str, Any], should_force_sequence_wrapper: bool
+    ) -> Dict[str, Any] | None:
+        if not isinstance(block_state, dict):
+            return None
+        btype = str(block_state.get("type", ""))
+        fields = block_state.get("fields")
+        if not isinstance(fields, dict):
+            fields = {}
+
+        if btype in ("procedures_callnoreturn", "procedures_callreturn"):
+            extra = block_state.get("extraState")
+            name = ""
+            if isinstance(extra, dict):
+                name = str(extra.get("name", "")).strip()
+            if not name:
+                name = str(fields.get("NAME", "")).strip()
+            if not name:
+                return None
+            return {"type": "Subtree", "id": name}
+
+        meta = by_type.get(btype)
+        if not isinstance(meta, dict):
+            return None
+
+        if meta.get("kind") == "behavior":
+            parameter: Dict[str, Any] = {}
+            for p in meta.get("parameters") or []:
+                if not isinstance(p, dict):
+                    continue
+                field_name = str(p.get("field", ""))
+                if not field_name:
+                    continue
+                parameter[str(p.get("name", field_name))] = cast_field(
+                    fields.get(field_name), str(p.get("type", "string"))
+                )
+                selected = str(fields.get(field_name, ""))
+                defs = ((p.get("option_parameters") or {}).get(selected) or [])
+                if isinstance(defs, list) and defs:
+                    collect_option_params(fields, defs, parameter)
+            return {
+                "type": "Action",
+                "action": str(meta.get("action", "")),
+                "parameter": parameter,
+                "id": random_id(),
+            }
+
+        node: Dict[str, Any] = {
+            "type": str(meta.get("node_type") or "Node"),
+            "id": random_id(),
+        }
+        for p in meta.get("parameters") or []:
+            if not isinstance(p, dict):
+                continue
+            field_name = str(p.get("field", ""))
+            if not field_name:
+                continue
+            node[str(p.get("name", field_name))] = cast_field(
+                fields.get(field_name), str(p.get("type", "string"))
+            )
+
+        def convert_stack(start_block: Dict[str, Any] | None) -> List[Dict[str, Any]]:
+            out_nodes: List[Dict[str, Any]] = []
+            cur = start_block
+            while isinstance(cur, dict):
+                conv = convert_workspace_block_to_bt(cur, should_force_sequence_wrapper)
+                if isinstance(conv, dict):
+                    out_nodes.append(conv)
+                nxt = cur.get("next")
+                cur = nxt.get("block") if isinstance(nxt, dict) else None
+            return out_nodes
+
+        if bool(meta.get("has_children")):
+            node["children"] = convert_stack(first_input_block(block_state, "CHILDREN"))
+        elif bool(meta.get("has_child")):
+            children = convert_stack(first_input_block(block_state, "CHILD"))
+            if len(children) > 1:
+                node["child"] = {"type": "Sequence", "id": random_id(), "children": children}
+            elif len(children) == 1:
+                only_child = children[0]
+                is_root_block = btype == "bt_function__root"
+                needs_root_wrap = (
+                    is_root_block
+                    and should_force_sequence_wrapper
+                    and str((only_child or {}).get("type", "")) != "Sequence"
+                )
+                if needs_root_wrap:
+                    node["child"] = {
+                        "type": "Sequence",
+                        "id": random_id(),
+                        "children": [only_child],
+                    }
+                else:
+                    node["child"] = only_child
+            else:
+                node["child"] = None
+        return node
+
+    def load_scenario_child_bt(scenario_name: str) -> Dict[str, Any] | None:
+        name = str(scenario_name or "").strip()
+        if not name:
+            return None
+        if name in scenario_child_cache:
+            cached = scenario_child_cache[name]
+            return deepcopy(cached) if isinstance(cached, dict) else None
+        if name in scenario_loading:
+            return None
+        scenario_loading.add(name)
+        try:
+            try:
+                p = scenario_path(name)
+            except ValueError:
+                scenario_child_cache[name] = None
+                return None
+            if not p.exists():
+                scenario_child_cache[name] = None
+                return None
+            raw = json.loads(p.read_text(encoding="utf-8"))
+            child_node: Dict[str, Any] | None = None
+            if is_blockly_workspace_data(raw):
+                ws = normalize_workspace_legacy_block_types(raw)
+                tops = ((ws.get("blocks") or {}).get("blocks") or [])
+                if isinstance(tops, list):
+                    has_bt_logic = False
+
+                    def visit(block: Any):
+                        nonlocal has_bt_logic
+                        if not isinstance(block, dict):
+                            return
+                        t = str(block.get("type", ""))
+                        if t.startswith("bt_logic__"):
+                            has_bt_logic = True
+                        inputs = block.get("inputs")
+                        if isinstance(inputs, dict):
+                            for inp in inputs.values():
+                                if isinstance(inp, dict):
+                                    visit(inp.get("block"))
+                        nxt = block.get("next")
+                        if isinstance(nxt, dict):
+                            visit(nxt.get("block"))
+
+                    for tb in tops:
+                        visit(tb)
+                    root = next(
+                        (
+                            tb
+                            for tb in tops
+                            if isinstance(tb, dict)
+                            and str(tb.get("type", "")) == "bt_function__root"
+                        ),
+                        None,
+                    )
+                    root_child = first_input_block(root or {}, "CHILD")
+                    if isinstance(root_child, dict):
+                        child_node = convert_workspace_block_to_bt(
+                            root_child, should_force_sequence_wrapper=not has_bt_logic
+                        )
+            elif isinstance(raw, dict):
+                if isinstance(raw.get("Root"), dict):
+                    root_obj = raw.get("Root") or {}
+                    if isinstance(root_obj.get("child"), dict):
+                        child_node = deepcopy(root_obj.get("child"))
+                    elif isinstance(root_obj.get("children"), list) and root_obj.get("children"):
+                        first = root_obj.get("children")[0]
+                        if isinstance(first, dict):
+                            child_node = deepcopy(first)
+                elif isinstance(raw.get("child"), dict):
+                    child_node = deepcopy(raw.get("child"))
+
+            scenario_child_cache[name] = deepcopy(child_node) if isinstance(child_node, dict) else None
+            return deepcopy(child_node) if isinstance(child_node, dict) else None
+        except Exception:  # noqa: BLE001
+            scenario_child_cache[name] = None
+            return None
+        finally:
+            scenario_loading.discard(name)
 
     def load_ref(ref_name: str) -> Dict[str, Dict[str, Any]]:
         if ref_name in ref_cache:
@@ -253,28 +475,40 @@ def preprocess_export_tree(data: Any) -> Any:
 
         action = node.get("action")
         if isinstance(action, str):
+            if action.strip().startswith("BRIC.SCENARIO:"):
+                scenario_name = action.strip().split(":", 1)[1].strip()
+                expanded = load_scenario_child_bt(scenario_name)
+                if isinstance(expanded, dict):
+                    node.clear()
+                    node.update(expanded)
+                    walk(node)
+                    return
             m = BRIC_ACTION_RE.match(action.strip())
             if m:
                 ref_name = m.group(1)
                 real_action = m.group(2).strip()
-                param = node.get("parameter")
-                if isinstance(param, dict):
-                    key_name = str(param.get("name", "")).strip()
-                    matched = load_ref(ref_name).get(key_name)
-                    if isinstance(matched, dict):
-                        # Keep reference-mapped base data, but preserve
-                        # additional user-selected option parameters.
-                        merged_param = deepcopy(matched)
-                        for k, v in param.items():
-                            # Reference key used for lookup; mapped data already
-                            # has normalized values (e.g., task_type/name/repeat).
-                            if k == "name":
-                                continue
-                            if k not in merged_param:
-                                merged_param[k] = deepcopy(v)
-                        node["parameter"] = merged_param
-                if real_action:
-                    node["action"] = real_action
+                if ref_name == "SCENARIO":
+                    # Scenario reference expansion is handled above for export only.
+                    pass
+                else:
+                    param = node.get("parameter")
+                    if isinstance(param, dict):
+                        key_name = str(param.get("name", "")).strip()
+                        matched = load_ref(ref_name).get(key_name)
+                        if isinstance(matched, dict):
+                            # Keep reference-mapped base data, but preserve
+                            # additional user-selected option parameters.
+                            merged_param = deepcopy(matched)
+                            for k, v in param.items():
+                                # Reference key used for lookup; mapped data already
+                                # has normalized values (e.g., task_type/name/repeat).
+                                if k == "name":
+                                    continue
+                                if k not in merged_param:
+                                    merged_param[k] = deepcopy(v)
+                            node["parameter"] = merged_param
+                    if real_action:
+                        node["action"] = real_action
 
         walk(node.get("child"))
         walk(node.get("children"))
@@ -400,6 +634,18 @@ def save_scenario():
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    try:
+        generate_all()
+    except Exception as exc:  # noqa: BLE001
+        return (
+            jsonify(
+                {
+                    "ok": False,
+                    "error": f"Scenario saved but block update failed: {exc}",
+                }
+            ),
+            500,
+        )
     return jsonify({"ok": True, "name": p.stem})
 
 
@@ -434,6 +680,18 @@ def delete_scenario(name: str):
     if not p.exists():
         return jsonify({"ok": False, "error": "Scenario not found"}), 404
     p.unlink()
+    try:
+        generate_all()
+    except Exception as exc:  # noqa: BLE001
+        return (
+            jsonify(
+                {
+                    "ok": False,
+                    "error": f"Scenario deleted but block update failed: {exc}",
+                }
+            ),
+            500,
+        )
     return jsonify({"ok": True})
 
 
@@ -462,6 +720,18 @@ def rename_scenario():
         return jsonify({"ok": False, "error": "Scenario name already exists"}), 409
 
     old_path.rename(new_path)
+    try:
+        generate_all()
+    except Exception as exc:  # noqa: BLE001
+        return (
+            jsonify(
+                {
+                    "ok": False,
+                    "error": f"Scenario renamed but block update failed: {exc}",
+                }
+            ),
+            500,
+        )
     return jsonify({"ok": True, "name": new_path.stem})
 
 

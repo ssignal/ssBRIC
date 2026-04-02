@@ -1,0 +1,75 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "bt_function__root",
+        "id": "IldU_7N{(J$Wx.Q!2MV`",
+        "x": 40,
+        "y": 40,
+        "inputs": {
+          "CHILD": {
+            "block": {
+              "type": "bt_logic__forcesuccess",
+              "id": "@}=[,|)n6|VKLb:5r?l}",
+              "fields": {
+                "PARAM_TICKRATE": "0"
+              },
+              "inputs": {
+                "CHILDREN": {
+                  "block": {
+                    "type": "bt_logic__parallel",
+                    "id": "v!2Z%U6c!_M%w%+TDsMI",
+                    "fields": {
+                      "PARAM_THRESHOLD": "5000",
+                      "PARAM_TICKRATE": "0"
+                    },
+                    "inputs": {
+                      "CHILDREN": {
+                        "block": {
+                          "type": "bt_logic__sequence",
+                          "id": "$)!(4Y[;](vV6CmJw;9H",
+                          "fields": {
+                            "PARAM_TICKRATE": "0"
+                          },
+                          "inputs": {
+                            "CHILDREN": {
+                              "block": {
+                                "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                                "id": ".4_byol3K9NVv[;!:3!z",
+                                "fields": {
+                                  "PARAM_NAME": "Expressive.wave_two_hand"
+                                },
+                                "next": {
+                                  "block": {
+                                    "type": "behavior__motion__motion_wait_motion_finished",
+                                    "id": "|LW:uJCKAu9KZiP#2*!B"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "next": {
+                            "block": {
+                              "type": "behavior__sound__sound_start_play",
+                              "id": "o7yZfNqFET-A-|opDQCo",
+                              "fields": {
+                                "PARAM_ID": "2000",
+                                "PARAM_PATH": "",
+                                "PARAM_REPEAT": ""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

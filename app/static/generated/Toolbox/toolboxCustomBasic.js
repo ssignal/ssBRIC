@@ -195,6 +195,57 @@ window.toolboxCustomBasic = {
     },
     {
       "kind": "category",
+      "name": "Scenario",
+      "categorystyle": "scenario_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_april_demo"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_april_demo_0"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_april_demo_funcscenario"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_april_demo_simple"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_motion_sound"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_moveanddumpbox"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_moveandpickupbox"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_refertest"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_scenariotest_recursive"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_waitmovefinished"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__scenario__bric_scenario_func"
+        }
+      ]
+    },
+    {
+      "kind": "category",
       "name": "Functions",
       "categorystyle": "functions_category",
       "custom": "PROCEDURE"

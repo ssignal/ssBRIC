@@ -33,6 +33,10 @@
   let inlineCommitInProgress = false;
   let tempCopyOptionValue = '';
   let copyScenarioData = null;
+  let scenarioGuardDisabledNames = new Set();
+  let scenarioGuardToken = 0;
+  let scenarioCatalogStamp = '';
+  let scenarioCategorySyncPromise = null;
   let startPlayIdDefault = 2000;
   let startPlayNextId = 2000;
   let startPlayBlockTypes = new Set();
@@ -582,7 +586,7 @@
     }
   }
 
-  function injectWorkspace() {
+  function injectWorkspace(editingScenarioName = '') {
     if (workspace) {
       workspace.dispose();
       workspace = null;
@@ -592,8 +596,9 @@
       'bricTheme',
       window.themeForCustomBasic || {},
     );
+    const toolbox = getToolboxForEditingScenario(editingScenarioName);
     workspace = Blockly.inject(refs.blocklyDiv, {
-      toolbox: window.toolboxCustomBasic,
+      toolbox,
       theme,
       move: { scrollbars: true, drag: true, wheel: true },
       grid: { spacing: 20, length: 3, colour: '#a8b9cc', snap: true },
@@ -689,7 +694,413 @@
     Blockly.svgResize(workspace);
   }
 
-  function workspaceToBtJson() {
+  function scenarioNameFromAction(action) {
+    const v = String(action || '').trim();
+    if (!v.startsWith('BRIC.SCENARIO:')) {
+      return '';
+    }
+    return v.slice('BRIC.SCENARIO:'.length).trim();
+  }
+
+  function scenarioBlockTypeByName() {
+    const out = new Map();
+    ((moduleManifest && moduleManifest.behavior) || []).forEach((b) => {
+      const name = scenarioNameFromAction(b && b.action);
+      const type = String((b && b.block_type) || '');
+      if (name && type) {
+        out.set(name, type);
+      }
+    });
+    return out;
+  }
+
+  function collectScenarioRefsFromWorkspace(workspaceState, scenarioTypeToName) {
+    const refs = new Set();
+    const visitBlock = (blockState) => {
+      if (!blockState || typeof blockState !== 'object') {
+        return;
+      }
+      const type = String(blockState.type || '');
+      const scenarioName = scenarioTypeToName.get(type);
+      if (scenarioName) {
+        refs.add(scenarioName);
+      }
+      const inputs = blockState.inputs;
+      if (inputs && typeof inputs === 'object') {
+        Object.values(inputs).forEach((inputState) => {
+          if (
+            inputState &&
+            typeof inputState === 'object' &&
+            inputState.block &&
+            typeof inputState.block === 'object'
+          ) {
+            visitBlock(inputState.block);
+          }
+        });
+      }
+      const next = blockState.next;
+      if (next && typeof next === 'object' && next.block) {
+        visitBlock(next.block);
+      }
+    };
+    const topBlocks =
+      (workspaceState &&
+        workspaceState.blocks &&
+        Array.isArray(workspaceState.blocks.blocks) &&
+        workspaceState.blocks.blocks) ||
+      [];
+    topBlocks.forEach((b) => visitBlock(b));
+    return refs;
+  }
+
+  async function findScenarioRecursionCycleOnSave(targetScenarioName, workspaceState) {
+    const target = String(targetScenarioName || '').trim();
+    if (!target || !moduleManifest) {
+      return null;
+    }
+
+    const typeByScenario = scenarioBlockTypeByName();
+    const scenarioTypeToName = new Map();
+    typeByScenario.forEach((type, name) => {
+      scenarioTypeToName.set(type, name);
+    });
+
+    const listResp = await api('/api/scenarios');
+    const existingNames = ((listResp && listResp.items) || [])
+      .map((x) => String((x && x.name) || '').trim())
+      .filter(Boolean);
+    const nameSet = new Set(existingNames);
+    nameSet.add(target);
+
+    const graph = new Map();
+    const currentRefs = collectScenarioRefsFromWorkspace(
+      workspaceState,
+      scenarioTypeToName,
+    );
+    graph.set(target, new Set([...currentRefs].filter((n) => nameSet.has(n))));
+
+    await Promise.all(
+      existingNames
+        .filter((name) => name !== target)
+        .map(async (name) => {
+          try {
+            const resp = await api(`/api/scenarios/${encodeURIComponent(name)}/blockly`);
+            const refs = collectScenarioRefsFromWorkspace(
+              resp && resp.workspace,
+              scenarioTypeToName,
+            );
+            graph.set(name, new Set([...refs].filter((n) => nameSet.has(n))));
+          } catch (err) {
+            graph.set(name, new Set());
+          }
+        }),
+    );
+
+    const inPath = new Set([target]);
+    const dfs = (node, path) => {
+      const next = graph.get(node) || new Set();
+      for (const n of next) {
+        if (n === target) {
+          return [...path, n];
+        }
+        if (inPath.has(n)) {
+          continue;
+        }
+        inPath.add(n);
+        const found = dfs(n, [...path, n]);
+        inPath.delete(n);
+        if (found) {
+          return found;
+        }
+      }
+      return null;
+    };
+
+    return dfs(target, [target]);
+  }
+
+  function makeScenarioCatalogStamp(items) {
+    const rows = (items || [])
+      .map((x) => {
+        const name = String((x && x.name) || '').trim();
+        const updated = String((x && x.updated) || '');
+        return `${name}:${updated}`;
+      })
+      .filter(Boolean)
+      .sort();
+    return rows.join('|');
+  }
+
+  async function syncScenarioCategoryBlocksIfNeeded() {
+    if (scenarioCategorySyncPromise) {
+      return scenarioCategorySyncPromise;
+    }
+    scenarioCategorySyncPromise = (async () => {
+      const listResp = await api('/api/scenarios');
+      const items = ((listResp && listResp.items) || []).filter(Boolean);
+      const nextStamp = makeScenarioCatalogStamp(items);
+      if (nextStamp && nextStamp === scenarioCatalogStamp) {
+        return;
+      }
+      scenarioCatalogStamp = nextStamp;
+
+      const wasScenarioSelected = selectedToolboxCategoryName() === 'Scenario';
+      await api('/api/blocks/update', { method: 'POST' });
+      moduleManifest = null;
+      await loadBlocklyAssets(true);
+      applyToolboxForEditingScenario(editingOriginalScenarioName);
+      if (wasScenarioSelected) {
+        requestAnimationFrame(() => {
+          reopenScenarioCategory();
+        });
+      }
+    })();
+    try {
+      await scenarioCategorySyncPromise;
+    } finally {
+      scenarioCategorySyncPromise = null;
+    }
+  }
+
+  function selectedToolboxCategoryName() {
+    if (!workspace || typeof workspace.getToolbox !== 'function') {
+      return '';
+    }
+    const toolbox = workspace.getToolbox();
+    if (!toolbox || typeof toolbox.getSelectedItem !== 'function') {
+      return '';
+    }
+    const selected = toolbox.getSelectedItem();
+    if (!selected || typeof selected.getName !== 'function') {
+      return '';
+    }
+    return String(selected.getName() || '').trim();
+  }
+
+  function reopenScenarioCategory() {
+    if (!workspace || typeof workspace.getToolbox !== 'function') {
+      return;
+    }
+    const toolbox = workspace.getToolbox();
+    if (!toolbox) {
+      return;
+    }
+
+    try {
+      if (typeof toolbox.getToolboxItems === 'function') {
+        const items = toolbox.getToolboxItems() || [];
+        const target = items.find(
+          (item) =>
+            item &&
+            typeof item.getName === 'function' &&
+            String(item.getName() || '').trim() === 'Scenario',
+        );
+        if (target) {
+          if (typeof toolbox.selectItem_ === 'function') {
+            toolbox.selectItem_(target);
+            return;
+          }
+          if (typeof target.setSelected === 'function') {
+            target.setSelected(true);
+            return;
+          }
+        }
+      }
+    } catch (err) {
+      // Fall through to DOM fallback.
+    }
+
+    const rows = Array.from(document.querySelectorAll('.blocklyTreeRow'));
+    const row = rows.find((el) => String(el.textContent || '').trim() === 'Scenario');
+    if (row && typeof row.click === 'function') {
+      row.click();
+    }
+  }
+
+  function applyScenarioGuardToOpenFlyout(editingScenarioName) {
+    if (!workspace) {
+      return false;
+    }
+    if (selectedToolboxCategoryName() !== 'Scenario') {
+      return false;
+    }
+    const flyout =
+      typeof workspace.getFlyout === 'function' ? workspace.getFlyout() : null;
+    const flyoutWs =
+      flyout && typeof flyout.getWorkspace === 'function'
+        ? flyout.getWorkspace()
+        : null;
+    if (!flyoutWs) {
+      return false;
+    }
+
+    const typeByScenario = scenarioBlockTypeByName();
+    const ownType = typeByScenario.get(String(editingScenarioName || '').trim());
+    const disabledTypes = new Set();
+    scenarioGuardDisabledNames.forEach((scenarioRefName) => {
+      const bt = typeByScenario.get(scenarioRefName);
+      if (bt) {
+        disabledTypes.add(bt);
+      }
+    });
+
+    flyoutWs.getTopBlocks(false).forEach((block) => {
+      const t = String((block && block.type) || '');
+      const disabled = t === ownType || disabledTypes.has(t);
+      if (typeof block.setEnabled === 'function') {
+        block.setEnabled(!disabled);
+      }
+    });
+    return true;
+  }
+
+  async function refreshScenarioReferenceGuard() {
+    const token = ++scenarioGuardToken;
+    const editingName = String(editingOriginalScenarioName || '').trim();
+    if (!editingName || !moduleManifest) {
+      scenarioGuardDisabledNames = new Set();
+      applyToolboxForEditingScenario(editingOriginalScenarioName);
+      return;
+    }
+
+    const typeByScenario = scenarioBlockTypeByName();
+    const scenarioTypeToName = new Map();
+    typeByScenario.forEach((type, name) => {
+      scenarioTypeToName.set(type, name);
+    });
+
+    const listResp = await api('/api/scenarios');
+    const names = ((listResp && listResp.items) || [])
+      .map((x) => String((x && x.name) || '').trim())
+      .filter(Boolean);
+    const nameSet = new Set(names);
+
+    const graph = new Map();
+    await Promise.all(
+      names.map(async (name) => {
+        try {
+          const resp = await api(`/api/scenarios/${encodeURIComponent(name)}/blockly`);
+          const refs = collectScenarioRefsFromWorkspace(
+            resp && resp.workspace,
+            scenarioTypeToName,
+          );
+          graph.set(
+            name,
+            new Set([...refs].filter((r) => nameSet.has(r))),
+          );
+        } catch (err) {
+          graph.set(name, new Set());
+        }
+      }),
+    );
+
+    const reaches = (start, target) => {
+      const seen = new Set();
+      const stack = [start];
+      while (stack.length) {
+        const cur = stack.pop();
+        if (!cur || seen.has(cur)) {
+          continue;
+        }
+        seen.add(cur);
+        const next = graph.get(cur) || new Set();
+        for (const n of next) {
+          if (n === target) {
+            return true;
+          }
+          if (!seen.has(n)) {
+            stack.push(n);
+          }
+        }
+      }
+      return false;
+    };
+
+    const disabled = new Set();
+    names.forEach((name) => {
+      if (name === editingName) {
+        return;
+      }
+      if (reaches(name, editingName)) {
+        disabled.add(name);
+      }
+    });
+
+    if (token !== scenarioGuardToken) {
+      return;
+    }
+    scenarioGuardDisabledNames = disabled;
+    if (!applyScenarioGuardToOpenFlyout(editingOriginalScenarioName)) {
+      applyToolboxForEditingScenario(editingOriginalScenarioName);
+    }
+  }
+
+  function getToolboxForEditingScenario(scenarioName) {
+    const baseToolbox = window.toolboxCustomBasic;
+    if (!baseToolbox || typeof baseToolbox !== 'object') {
+      return baseToolbox;
+    }
+    const name = String(scenarioName || '').trim();
+    if (!name || !moduleManifest) {
+      return baseToolbox;
+    }
+    const typeByScenario = scenarioBlockTypeByName();
+    const hiddenTypes = new Set();
+    const disabledTypes = new Set();
+    const ownType = typeByScenario.get(name);
+    if (ownType) {
+      hiddenTypes.add(ownType);
+    }
+    scenarioGuardDisabledNames.forEach((scenarioRefName) => {
+      const bt = typeByScenario.get(scenarioRefName);
+      if (bt) {
+        disabledTypes.add(bt);
+      }
+    });
+    if (!hiddenTypes.size && !disabledTypes.size) {
+      return baseToolbox;
+    }
+    const cloned = JSON.parse(JSON.stringify(baseToolbox));
+    const categories = Array.isArray(cloned.contents) ? cloned.contents : [];
+    categories.forEach((cat) => {
+      if (!cat || cat.kind !== 'category' || !Array.isArray(cat.contents)) {
+        return;
+      }
+      cat.contents = cat.contents
+        .filter((item) => {
+          if (!item || item.kind !== 'block') {
+            return true;
+          }
+          return !hiddenTypes.has(String(item.type || ''));
+        })
+        .map((item) => {
+          if (!item || item.kind !== 'block') {
+            return item;
+          }
+          const t = String(item.type || '');
+          if (disabledTypes.has(t)) {
+            return { ...item, disabled: true };
+          }
+          return item;
+        });
+    });
+    return cloned;
+  }
+
+  function applyToolboxForEditingScenario(scenarioName) {
+    if (!workspace) {
+      return;
+    }
+    const toolbox = getToolboxForEditingScenario(scenarioName);
+    try {
+      workspace.updateToolbox(toolbox);
+    } catch (err) {
+      // Ignore toolbox update errors to avoid blocking editor flow.
+    }
+  }
+
+  async function workspaceToBtJson(options = {}) {
+    const scenarioAsSubtree = !!(options && options.scenarioAsSubtree);
     if (!workspace) {
       return null;
     }
@@ -752,6 +1163,8 @@
       });
     };
 
+    const cloneJson = (v) => JSON.parse(JSON.stringify(v));
+
     const firstInputBlock = (blockState, inputName) =>
       blockState &&
       blockState.inputs &&
@@ -760,7 +1173,112 @@
         ? blockState.inputs[inputName].block
         : null;
 
-    const convertBlock = (blockState) => {
+    const hasAnyBtLogicInWorkspaceBlocks = (blocks) => {
+      let found = false;
+      const visit = (blockState) => {
+        if (found || !blockState || typeof blockState !== 'object') {
+          return;
+        }
+        const t = String(blockState.type || '');
+        if (t.startsWith('bt_logic__')) {
+          found = true;
+          return;
+        }
+        const inputs = blockState.inputs;
+        if (inputs && typeof inputs === 'object') {
+          Object.values(inputs).forEach((inputState) => {
+            if (
+              inputState &&
+              typeof inputState === 'object' &&
+              inputState.block &&
+              typeof inputState.block === 'object'
+            ) {
+              visit(inputState.block);
+            }
+          });
+        }
+        const next = blockState.next;
+        if (next && typeof next === 'object' && next.block) {
+          visit(next.block);
+        }
+      };
+      (blocks || []).forEach((b) => visit(b));
+      return found;
+    };
+
+    const scenarioNodeCache = new Map();
+    const scenarioLoading = new Set();
+    const scenarioLoadingStack = [];
+    const scenarioSubtrees = {};
+
+    const loadScenarioChildNode = async (scenarioName) => {
+      const name = String(scenarioName || '').trim();
+      if (!name) {
+        return null;
+      }
+      if (scenarioNodeCache.has(name)) {
+        const cached = scenarioNodeCache.get(name);
+        return cached && typeof cached === 'object' ? cloneJson(cached) : null;
+      }
+      if (scenarioLoading.has(name)) {
+        const cycle = [...scenarioLoadingStack, name].join(' -> ');
+        throw new Error(`Recursive scenario reference: ${cycle}`);
+      }
+      scenarioLoading.add(name);
+      scenarioLoadingStack.push(name);
+      try {
+        const response = await api(
+          `/api/scenarios/${encodeURIComponent(name)}/blockly`,
+        );
+        const sws = response && response.workspace;
+        const sTopBlocks =
+          (sws &&
+            sws.blocks &&
+            Array.isArray(sws.blocks.blocks) &&
+            sws.blocks.blocks) ||
+          [];
+        const sRoot = sTopBlocks.find(
+          (b) => String((b && b.type) || '') === 'bt_function__root',
+        );
+        const scenarioShouldForceSequenceWrapper =
+          !hasAnyBtLogicInWorkspaceBlocks(sTopBlocks);
+        const scenarioRootNode = sRoot
+          ? await convertBlock(sRoot, scenarioShouldForceSequenceWrapper)
+          : null;
+        let childNode =
+          scenarioRootNode &&
+          typeof scenarioRootNode === 'object' &&
+          scenarioRootNode.child &&
+          typeof scenarioRootNode.child === 'object'
+            ? scenarioRootNode.child
+            : null;
+        if (!childNode && scenarioShouldForceSequenceWrapper) {
+          childNode = {
+            type: 'Sequence',
+            id: randomId(),
+            children: [],
+          };
+        }
+        scenarioNodeCache.set(name, childNode && typeof childNode === 'object' ? cloneJson(childNode) : null);
+        return childNode;
+      } finally {
+        const top = scenarioLoadingStack[scenarioLoadingStack.length - 1];
+        if (top === name) {
+          scenarioLoadingStack.pop();
+        } else {
+          const idx = scenarioLoadingStack.lastIndexOf(name);
+          if (idx >= 0) {
+            scenarioLoadingStack.splice(idx, 1);
+          }
+        }
+        scenarioLoading.delete(name);
+      }
+    };
+
+    const convertBlock = async (
+      blockState,
+      forceSequenceWrapper = shouldForceSequenceWrapper,
+    ) => {
       if (!blockState || typeof blockState !== 'object') {
         return null;
       }
@@ -785,6 +1303,19 @@
       }
 
       if (meta.kind === 'behavior') {
+        const action = String(meta.action || '');
+        if (scenarioAsSubtree && action.startsWith('BRIC.SCENARIO:')) {
+          const scenarioName = action.slice('BRIC.SCENARIO:'.length).trim();
+          if (!scenarioSubtrees[scenarioName]) {
+            const childNode = await loadScenarioChildNode(scenarioName);
+            scenarioSubtrees[scenarioName] = { child: childNode };
+          }
+          return {
+            type: 'Subtree',
+            id: scenarioName,
+          };
+        }
+
         const parameter = {};
         (meta.parameters || []).forEach((p) => {
           parameter[p.name] = cast(fields[p.field], p.type);
@@ -812,10 +1343,16 @@
       });
 
       if (meta.has_children) {
-        const children = convertStack(firstInputBlock(blockState, 'CHILDREN'));
+        const children = await convertStack(
+          firstInputBlock(blockState, 'CHILDREN'),
+          forceSequenceWrapper,
+        );
         node.children = children;
       } else if (meta.has_child) {
-        const children = convertStack(firstInputBlock(blockState, 'CHILD'));
+        const children = await convertStack(
+          firstInputBlock(blockState, 'CHILD'),
+          forceSequenceWrapper,
+        );
         if (children.length > 1) {
           node.child = {
             type: 'Sequence',
@@ -827,7 +1364,7 @@
           const isRootBlock = String(blockState.type || '') === 'bt_function__root';
           const needsRootWrap =
             isRootBlock &&
-            shouldForceSequenceWrapper &&
+            forceSequenceWrapper &&
             String((onlyChild && onlyChild.type) || '') !== 'Sequence';
           if (needsRootWrap) {
             node.child = {
@@ -845,11 +1382,14 @@
       return node;
     };
 
-    const convertStack = (startBlock) => {
+    const convertStack = async (
+      startBlock,
+      forceSequenceWrapper = shouldForceSequenceWrapper,
+    ) => {
       const out = [];
       let cur = startBlock;
       while (cur) {
-        const node = convertBlock(cur);
+        const node = await convertBlock(cur, forceSequenceWrapper);
         if (node && typeof node === 'object') {
           out.push(node);
         }
@@ -859,24 +1399,32 @@
     };
 
     const rootTop = topBlocks.find((b) => String((b && b.type) || '') === 'bt_function__root');
-    const rootNode = rootTop ? convertBlock(rootTop) : null;
+    const rootNode = rootTop ? await convertBlock(rootTop) : null;
     if (!rootNode) {
       return null;
     }
 
     const result = { Root: rootNode };
-    topBlocks
-      .filter((b) => String((b && b.type) || '') === 'procedures_defnoreturn')
-      .forEach((defBlock) => {
+    for (const defBlock of topBlocks.filter(
+      (b) => String((b && b.type) || '') === 'procedures_defnoreturn',
+    )) {
         const name = String(
           (defBlock.fields && defBlock.fields.NAME) ||
             (defBlock.extraState && defBlock.extraState.name) ||
             '',
         ).trim();
         if (!name) {
-          return;
+          continue;
         }
-        const bodyNodes = convertStack(firstInputBlock(defBlock, 'STACK'));
+        const functionStackRoot = firstInputBlock(defBlock, 'STACK');
+        const functionRootIsBtLogic = String(
+          (functionStackRoot && functionStackRoot.type) || '',
+        ).startsWith('bt_logic__');
+        const shouldWrapFunctionRoot = !functionRootIsBtLogic;
+        const bodyNodes = await convertStack(
+          functionStackRoot,
+          shouldWrapFunctionRoot,
+        );
         const singleSequence =
           bodyNodes.length === 1 &&
           bodyNodes[0] &&
@@ -887,7 +1435,7 @@
         let functionChild = null;
         if (singleSequence) {
           functionChild = singleSequence;
-        } else if (bodyNodes.length === 1 && !shouldForceSequenceWrapper) {
+        } else if (bodyNodes.length === 1 && !shouldWrapFunctionRoot) {
           functionChild = bodyNodes[0];
         } else {
           functionChild = {
@@ -899,17 +1447,25 @@
         result[name] = {
           child: functionChild,
         };
-      });
+    }
+
+    Object.entries(scenarioSubtrees).forEach(([id, subtreeNode]) => {
+      if (!id || result[id]) {
+        return;
+      }
+      result[id] = subtreeNode;
+    });
 
     return result;
   }
 
-  async function initEditor(forceReload = false) {
+  async function initEditor(forceReload = false, editingScenarioName = '') {
     if (workspace && !forceReload) {
       if (!refs.pageEdit.classList.contains('active')) {
         showPage('edit');
         await nextFrame();
       }
+      applyToolboxForEditingScenario(editingScenarioName);
       return;
     }
 
@@ -919,7 +1475,7 @@
       showPage('edit');
       await nextFrame();
     }
-    injectWorkspace();
+    injectWorkspace(editingScenarioName);
     await nextFrame();
   }
 
@@ -928,11 +1484,13 @@
       toast('Select a scenario first.');
       return;
     }
-    await initEditor(false);
+    await initEditor(false, name);
     const response = await api(
       `/api/scenarios/${encodeURIComponent(name)}/blockly`,
     );
     editingOriginalScenarioName = name;
+    await refreshScenarioReferenceGuard();
+    applyToolboxForEditingScenario(editingOriginalScenarioName);
     refs.scenarioName.value = name;
     workspace.clear();
     const orderedWorkspace = reorderWorkspaceTopBlocks(response.workspace);
@@ -952,8 +1510,10 @@
   }
 
   async function createScenario() {
-    await initEditor(false);
+    await initEditor(false, '');
     editingOriginalScenarioName = '';
+    await refreshScenarioReferenceGuard();
+    applyToolboxForEditingScenario('');
     refs.scenarioName.value = '';
     if (typeof workspace.scroll === 'function') {
       workspace.scroll(0, 0);
@@ -990,6 +1550,12 @@
       return;
     }
 
+    const cyclePath = await findScenarioRecursionCycleOnSave(name, workspaceJson);
+    if (Array.isArray(cyclePath) && cyclePath.length >= 2) {
+      toast(`Recursive Scenario call: ${cyclePath.join(' -> ')}`);
+      return;
+    }
+
     await api('/api/scenarios', {
       method: 'POST',
       body: JSON.stringify({
@@ -999,6 +1565,8 @@
       }),
     });
     editingOriginalScenarioName = name;
+    await refreshScenarioReferenceGuard();
+    applyToolboxForEditingScenario(editingOriginalScenarioName);
     await refreshScenarioList(name);
     toast(`Saved: ${name}`);
   }
@@ -1110,14 +1678,15 @@
     moduleManifest = null;
     const onEditPage = refs.pageEdit.classList.contains('active');
     await loadBlocklyAssets(true);
+    await refreshScenarioReferenceGuard();
     if (onEditPage) {
-      await initEditor(true);
+      await initEditor(true, editingOriginalScenarioName);
     }
     toast('Blocks updated from ./btInfo.');
   }
 
-  function exportJson() {
-    const btJson = workspaceToBtJson();
+  async function exportJson() {
+    const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
     const viewJson = btJson ? sanitizeBehaviorTreeForView(btJson) : null;
     const text = viewJson
       ? JSON.stringify(viewJson, null, 2)
@@ -1144,8 +1713,8 @@
     refs.jsonModalText.select();
   }
 
-  function openGraphicalTree() {
-    const btJson = workspaceToBtJson();
+  async function openGraphicalTree() {
+    const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
     if (!btJson) {
       toast('No tree generated.');
       return;
@@ -1165,7 +1734,7 @@
   }
 
   async function exportBehaviorTreeFile() {
-    const btJson = workspaceToBtJson();
+    const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
     if (!btJson) {
       toast('No behavior tree to export.');
       return;
@@ -1650,7 +2219,13 @@
 
   document
     .getElementById('btn-export')
-    .addEventListener('click', openGraphicalTree);
+    .addEventListener('click', async () => {
+      try {
+        await openGraphicalTree();
+      } catch (err) {
+        toast(err.message || 'Behavior Tree generation failed');
+      }
+    });
 
   const btnExportFile = document.getElementById('btn-export-file');
   if (btnExportFile) {
