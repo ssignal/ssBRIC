@@ -21,7 +21,7 @@
                     "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
                     "id": "UPVe|6alw~_B5y^59Cxl",
                     "fields": {
-                      "PARAM_NAME": "PutDown"
+                      "PARAM_NAME": "Dump"
                     },
                     "next": {
                       "block": {
@@ -45,8 +45,8 @@
                         "type": "behavior__motion__bric_start_motion_motion_start_motion",
                         "id": "KMafnxcg[S=Y3f~4Mmec",
                         "fields": {
-                          "PARAM_NAME": "Manipulation.dump",
-                          "OPT_NAME_OBJECTS": "box"
+                          "PARAM_NAME": "manipulation.dump",
+                          "OPT_NAME_OBJECT": "box"
                         },
                         "next": {
                           "block": {

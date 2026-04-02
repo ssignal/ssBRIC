@@ -165,6 +165,12 @@
   Dynamic option-parameters (`OPT_*`) must be persisted in scenario Blockly JSON on save.
   On scenario load, dynamic option-parameters must be rebuilt first and then saved `OPT_*` values must be restored.
   Dynamic parameter values must not be reset to defaults during load.
+### parent keys
+  Parameter name can include parent-key prefix with format `YYYY/XXXX`.
+  In block UI, show only `XXXX` as parameter label.
+  In generated Behavior Tree JSON, store it as nested object:
+    - `"YYYY": { "XXXX": value }`
+  This parent-key mapping rule applies to both normal parameters and option-added parameters.
 ### Function block to Behavior Tree
   Scenario file is saved in Blockly workspace JSON format.
   Clicking `Behavior Tree` converts current Blockly workspace to Behavior Tree JSON.

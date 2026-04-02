@@ -1148,12 +1148,31 @@
       return String(raw ?? '');
     };
 
+    const assignParamValue = (out, meta, rawValue) => {
+      const parentKey = String((meta && meta.parent_key) || '').trim();
+      const childKey = String((meta && (meta.output_name || meta.name)) || '').trim();
+      if (!childKey) {
+        return;
+      }
+      const value = cast(rawValue, meta && meta.type);
+      if (parentKey) {
+        const prev = out[parentKey];
+        if (prev && typeof prev === 'object' && !Array.isArray(prev)) {
+          out[parentKey] = { ...prev, [childKey]: value };
+        } else {
+          out[parentKey] = { [childKey]: value };
+        }
+      } else {
+        out[childKey] = value;
+      }
+    };
+
     const collectOptionParams = (fields, defs, out) => {
       (defs || []).forEach((meta) => {
         const fieldName = meta && meta.field;
         if (!fieldName) return;
         const rawValue = fields[fieldName];
-        out[meta.name] = cast(rawValue, meta.type);
+        assignParamValue(out, meta, rawValue);
         const selected = String(rawValue ?? '');
         const nested =
           ((meta.option_parameters || {})[selected] || []).filter(Boolean);
@@ -1318,7 +1337,7 @@
 
         const parameter = {};
         (meta.parameters || []).forEach((p) => {
-          parameter[p.name] = cast(fields[p.field], p.type);
+          assignParamValue(parameter, p, fields[p.field]);
           const selected = String(fields[p.field] ?? '');
           const defs =
             ((p.option_parameters || {})[selected] || []).filter(Boolean);

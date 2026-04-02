@@ -103,7 +103,7 @@ const BLOCKS = [
         "width": 16,
         "height": 16,
         "alt": "?",
-        "name": "HELP_X"
+        "name": "HELP_POSE_X"
       },
       {
         "type": "field_label",
@@ -111,7 +111,7 @@ const BLOCKS = [
       },
       {
         "type": "field_input",
-        "name": "PARAM_X",
+        "name": "PARAM_POSE_X",
         "text": "0.0"
       },
       {
@@ -120,7 +120,7 @@ const BLOCKS = [
         "width": 16,
         "height": 16,
         "alt": "?",
-        "name": "HELP_Y"
+        "name": "HELP_POSE_Y"
       },
       {
         "type": "field_label",
@@ -128,7 +128,7 @@ const BLOCKS = [
       },
       {
         "type": "field_input",
-        "name": "PARAM_Y",
+        "name": "PARAM_POSE_Y",
         "text": "0.0"
       },
       {
@@ -137,7 +137,7 @@ const BLOCKS = [
         "width": 16,
         "height": 16,
         "alt": "?",
-        "name": "HELP_Z"
+        "name": "HELP_POSE_Z"
       },
       {
         "type": "field_label",
@@ -145,7 +145,7 @@ const BLOCKS = [
       },
       {
         "type": "field_input",
-        "name": "PARAM_Z",
+        "name": "PARAM_POSE_Z",
         "text": "0.0"
       }
     ],
@@ -513,9 +513,9 @@ const PARAM_TOOLTIPS = {
   },
   "behavior__navigation__navigation_move_to_pose": {
     "PARAM_POSE_TYPE": "map (indoor), earth (outdoor)",
-    "PARAM_X": "Euler pose x",
-    "PARAM_Y": "Euler pose y",
-    "PARAM_Z": "Euler pose z (degree unit)"
+    "PARAM_POSE_X": "Euler pose x",
+    "PARAM_POSE_Y": "Euler pose y",
+    "PARAM_POSE_Z": "Euler pose z (degree unit)"
   },
   "behavior__navigation__navigation_move_in_direction": {
     "PARAM_DISTANCE": "Distance to move from the current position (meter unit)",

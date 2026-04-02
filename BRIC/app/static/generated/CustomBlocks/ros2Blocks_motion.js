@@ -34,96 +34,96 @@ const BLOCKS = [
         "name": "PARAM_NAME",
         "options": [
           [
-            "Expressive.wave_two_hand",
-            "Expressive.wave_two_hand"
+            "exporessive.wave_two_hand",
+            "exporessive.wave_two_hand"
           ],
           [
-            "Expressive.pose_hand_heart",
-            "Expressive.pose_hand_heart"
+            "exporessive.pose_hand_heart",
+            "exporessive.pose_hand_heart"
           ],
           [
-            "Expressive.present_double",
-            "Expressive.present_double"
+            "exporessive.present_double",
+            "exporessive.present_double"
           ],
           [
-            "Expressive.wave_two_hand_sway",
-            "Expressive.wave_two_hand_sway"
+            "exporessive.wave_two_hand_sway",
+            "exporessive.wave_two_hand_sway"
           ],
           [
-            "Expressive.head_left_down",
-            "Expressive.head_left_down"
+            "exporessive.head_left_down",
+            "exporessive.head_left_down"
           ],
           [
-            "Expressive.head_right_down",
-            "Expressive.head_right_down"
+            "exporessive.head_right_down",
+            "exporessive.head_right_down"
           ],
           [
-            "Expressive.head_left_up",
-            "Expressive.head_left_up"
+            "exporessive.head_left_up",
+            "exporessive.head_left_up"
           ],
           [
-            "Expressive.head_right_up",
-            "Expressive.head_right_up"
+            "exporessive.head_right_up",
+            "exporessive.head_right_up"
           ],
           [
-            "Expressive.double_nod",
-            "Expressive.double_nod"
+            "exporessive.double_nod",
+            "exporessive.double_nod"
           ],
           [
-            "Expressive.head_left",
-            "Expressive.head_left"
+            "exporessive.head_left",
+            "exporessive.head_left"
           ],
           [
-            "Expressive.head_right",
-            "Expressive.head_right"
+            "exporessive.head_right",
+            "exporessive.head_right"
           ],
           [
-            "Expressive.highfive_ready",
-            "Expressive.highfive_ready"
+            "exporessive.highfive_ready",
+            "exporessive.highfive_ready"
           ],
           [
-            "Expressive.highfive_strike",
-            "Expressive.highfive_strike"
+            "exporessive.highfive_strike",
+            "exporessive.highfive_strike"
           ],
           [
-            "Expressive.fistbump_ready",
-            "Expressive.fistbump_ready"
+            "exporessive.fistbump_ready",
+            "exporessive.fistbump_ready"
           ],
           [
-            "Expressive.fistbump_strike",
-            "Expressive.fistbump_strike"
+            "exporessive.fistbump_strike",
+            "exporessive.fistbump_strike"
           ],
           [
-            "POS.work_ready",
-            "POS.work_ready"
+            "pose.work_ready",
+            "pose.work_ready"
           ],
           [
-            "POS.move",
-            "POS.move"
+            "pose.move",
+            "pose.move"
           ],
           [
-            "POS.recent_joint_neutral",
-            "POS.recent_joint_neutral"
+            "pose.recent_joint_neutral",
+            "pose.recent_joint_neutral"
           ],
           [
-            "POS.neutral",
-            "POS.neutral"
+            "pose.neutral",
+            "pose.neutral"
           ],
           [
-            "Manipulation.prepare",
-            "Manipulation.prepare"
+            "manipulation.prepare",
+            "manipulation.prepare"
           ],
           [
-            "Manipulation.pick_up",
-            "Manipulation.pick_up"
+            "manipulation.pick_up",
+            "manipulation.pick_up"
           ],
           [
-            "Manipulation.dump",
-            "Manipulation.dump"
+            "manipulation.dump",
+            "manipulation.dump"
           ],
           [
-            "Manipulation.put_down",
-            "Manipulation.put_down"
+            "manipulation.put_down",
+            "manipulation.put_down"
           ]
         ]
       }
@@ -168,16 +168,16 @@ const BLOCKS = [
         "name": "PARAM_TASK_TYPE",
         "options": [
           [
-            "Expressive",
-            "Expressive"
+            "exporessive",
+            "exporessive"
           ],
           [
-            "Pose",
-            "Pose"
+            "pose",
+            "pose"
           ],
           [
-            "Manipulation",
-            "Manipulation"
+            "manipulation",
+            "manipulation"
           ]
         ]
       },
@@ -311,12 +311,14 @@ const PARAM_TOOLTIPS = {
 const OPTION_PARAM_MAP = {
   "behavior__motion__bric_start_motion_motion_start_motion": {
     "PARAM_NAME": {
-      "Manipulation.prepare": [
+      "manipulation.prepare": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -330,12 +332,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.pick_up": [
+      "manipulation.pick_up": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -349,12 +353,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.dump": [
+      "manipulation.dump": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -368,12 +374,14 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation.put_down": [
+      "manipulation.put_down": [
         {
-          "name": "objects",
-          "field": "OPT_NAME_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_NAME_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -391,9 +399,11 @@ const OPTION_PARAM_MAP = {
   },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
-      "Expressive": [
+      "exporessive": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -480,9 +490,11 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Pose": [
+      "pose": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -514,9 +526,11 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "Manipulation": [
+      "manipulation": [
         {
           "name": "name",
+          "output_name": "name",
+          "parent_key": "",
           "field": "OPT_TASK_TYPE_NAME",
           "type": "string",
           "description": "Motion name",
@@ -548,10 +562,12 @@ const OPTION_PARAM_MAP = {
           }
         },
         {
-          "name": "objects",
-          "field": "OPT_TASK_TYPE_OBJECTS",
+          "name": "object",
+          "output_name": "object",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_OBJECT",
           "type": "string",
-          "description": "objects (string)",
+          "description": "object (string)",
           "options": [
             [
               "box",
@@ -573,36 +589,36 @@ const OPTION_PARAM_MAP = {
 const OPTION_TOOLTIPS = {
   "behavior__motion__bric_start_motion_motion_start_motion": {
     "PARAM_NAME": {
-      "Expressive.wave_two_hand": "양손 가슴높이 손인사",
-      "Expressive.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
-      "Expressive.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
-      "Expressive.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
-      "Expressive.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
-      "Expressive.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
-      "Expressive.head_left_up": "머리 왼쪽 위 이동 후 복귀",
-      "Expressive.head_right_up": "머리 오른쪽 위 이동 후 복귀",
-      "Expressive.double_nod": "머리 두번 끄덕끄덕",
-      "Expressive.head_left": "머리 왼쪽 이동 후 복귀",
-      "Expressive.head_right": "머리 오른쪽 이동 후 복귀",
-      "Expressive.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
-      "Expressive.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-      "Expressive.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
-      "Expressive.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-      "POS.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
-      "POS.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
-      "POS.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
-      "POS.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
-      "Manipulation.prepare": "demo2604_pick_box_ready",
-      "Manipulation.pick_up": "demo2604_pick_box",
-      "Manipulation.dump": "demo2604_dump_box",
-      "Manipulation.put_down": "demo2604_place_box"
+      "exporessive.wave_two_hand": "양손 가슴높이 손인사",
+      "exporessive.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+      "exporessive.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+      "exporessive.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+      "exporessive.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+      "exporessive.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+      "exporessive.head_left_up": "머리 왼쪽 위 이동 후 복귀",
+      "exporessive.head_right_up": "머리 오른쪽 위 이동 후 복귀",
+      "exporessive.double_nod": "머리 두번 끄덕끄덕",
+      "exporessive.head_left": "머리 왼쪽 이동 후 복귀",
+      "exporessive.head_right": "머리 오른쪽 이동 후 복귀",
+      "exporessive.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+      "exporessive.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+      "exporessive.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+      "exporessive.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+      "pose.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+      "pose.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+      "pose.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+      "pose.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+      "manipulation.prepare": "demo2604_pick_box_ready",
+      "manipulation.pick_up": "demo2604_pick_box",
+      "manipulation.dump": "demo2604_dump_box",
+      "manipulation.put_down": "demo2604_place_box"
     }
   },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
-      "Expressive": "Expressive motion",
-      "Pose": "Pose motion",
-      "Manipulation": "Manipulation motion"
+      "exporessive": "exporessive motion",
+      "pose": "pose motion",
+      "manipulation": "manipulation motion"
     },
     "PARAM_REPEAT": {
       "once": "Run once",

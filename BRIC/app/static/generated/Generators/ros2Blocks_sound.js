@@ -11,13 +11,14 @@ const OPTION_PARAM_MAP = {
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
 function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }
 function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
-function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { out[meta.name] = parseTyped(block.getFieldValue(meta.field), meta.type); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
+function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }
+function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
 javascriptGenerator.forBlock['behavior__sound__sound_start_play'] = function(block, generator) {
   const parameter = {};
-  parameter['id'] = Number.parseInt(block.getFieldValue('PARAM_ID') || '0', 10);
-  parameter['path'] = block.getFieldValue('PARAM_PATH') || '';
-  parameter['repeat'] = block.getFieldValue('PARAM_REPEAT') || '';
+  assignParamValue(parameter, {"name": "id", "output_name": "id", "parent_key": "", "type": "integer"}, block.getFieldValue('PARAM_ID'));
+  assignParamValue(parameter, {"name": "path", "output_name": "path", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_PATH'));
+  assignParamValue(parameter, {"name": "repeat", "output_name": "repeat", "parent_key": "", "type": "bool"}, block.getFieldValue('PARAM_REPEAT'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__sound__sound_start_play'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -35,8 +36,8 @@ javascriptGenerator.forBlock['behavior__sound__sound_start_play'] = function(blo
 
 javascriptGenerator.forBlock['behavior__sound__sound_start_play_tts'] = function(block, generator) {
   const parameter = {};
-  parameter['id'] = Number.parseInt(block.getFieldValue('PARAM_ID') || '0', 10);
-  parameter['text'] = block.getFieldValue('PARAM_TEXT') || '';
+  assignParamValue(parameter, {"name": "id", "output_name": "id", "parent_key": "", "type": "integer"}, block.getFieldValue('PARAM_ID'));
+  assignParamValue(parameter, {"name": "text", "output_name": "text", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_TEXT'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__sound__sound_start_play_tts'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -54,7 +55,7 @@ javascriptGenerator.forBlock['behavior__sound__sound_start_play_tts'] = function
 
 javascriptGenerator.forBlock['behavior__sound__sound_wait_play_completed'] = function(block, generator) {
   const parameter = {};
-  parameter['id'] = Number.parseInt(block.getFieldValue('PARAM_ID') || '0', 10);
+  assignParamValue(parameter, {"name": "id", "output_name": "id", "parent_key": "", "type": "integer"}, block.getFieldValue('PARAM_ID'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__sound__sound_wait_play_completed'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -72,7 +73,7 @@ javascriptGenerator.forBlock['behavior__sound__sound_wait_play_completed'] = fun
 
 javascriptGenerator.forBlock['behavior__sound__sound_stop_play'] = function(block, generator) {
   const parameter = {};
-  parameter['id'] = Number.parseInt(block.getFieldValue('PARAM_ID') || '0', 10);
+  assignParamValue(parameter, {"name": "id", "output_name": "id", "parent_key": "", "type": "integer"}, block.getFieldValue('PARAM_ID'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__sound__sound_stop_play'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
@@ -90,7 +91,7 @@ javascriptGenerator.forBlock['behavior__sound__sound_stop_play'] = function(bloc
 
 javascriptGenerator.forBlock['behavior__sound__sound_set_volume'] = function(block, generator) {
   const parameter = {};
-  parameter['volume'] = Number.parseInt(block.getFieldValue('PARAM_VOLUME') || '0', 10);
+  assignParamValue(parameter, {"name": "volume", "output_name": "volume", "parent_key": "", "type": "integer"}, block.getFieldValue('PARAM_VOLUME'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__sound__sound_set_volume'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
