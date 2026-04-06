@@ -13,7 +13,7 @@
               "type": "behavior__motion__bric_start_motion_motion_start_motion",
               "id": "G5t+(70(@JQS0AFrka5L",
               "fields": {
-                "PARAM_NAME": "Expressive.wave_two_hand"
+                "PARAM_NAME": "expressive_motion.head_right_down"
               },
               "next": {
                 "block": {

@@ -1525,7 +1525,21 @@
     });
     Blockly.svgResize(workspace);
     refreshStartPlayIdState();
-    renderErrors(response.errors || []);
+    const mergedErrors = [...(response.errors || [])];
+    try {
+      const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
+      const refErrors = await fetchReferenceValidationErrors(btJson);
+      if (refErrors.length) {
+        mergedErrors.push(...refErrors);
+        toast(refErrors[0]);
+      }
+    } catch (err) {
+      const msg = String((err && err.message) || err || '').trim();
+      if (msg) {
+        mergedErrors.push(msg);
+      }
+    }
+    renderErrors(mergedErrors);
   }
 
   async function createScenario() {
@@ -1572,6 +1586,13 @@
     const cyclePath = await findScenarioRecursionCycleOnSave(name, workspaceJson);
     if (Array.isArray(cyclePath) && cyclePath.length >= 2) {
       toast(`Recursive Scenario call: ${cyclePath.join(' -> ')}`);
+      return;
+    }
+    const btForValidation = await workspaceToBtJson({ scenarioAsSubtree: true });
+    const refErrors = await fetchReferenceValidationErrors(btForValidation);
+    if (refErrors.length) {
+      renderErrors(refErrors);
+      toast(refErrors[0]);
       return;
     }
 
@@ -1732,10 +1753,29 @@
     refs.jsonModalText.select();
   }
 
+  async function fetchReferenceValidationErrors(btJson) {
+    if (!btJson) {
+      return [];
+    }
+    const response = await api('/api/behavior-tree/validate-references', {
+      method: 'POST',
+      body: JSON.stringify({ data: btJson }),
+    });
+    return ((response && response.errors) || [])
+      .map((e) => String(e || '').trim())
+      .filter(Boolean);
+  }
+
   async function openGraphicalTree() {
     const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
     if (!btJson) {
       toast('No tree generated.');
+      return;
+    }
+    const refErrors = await fetchReferenceValidationErrors(btJson);
+    if (refErrors.length) {
+      renderErrors(refErrors);
+      toast(refErrors[0]);
       return;
     }
     const viewJson = sanitizeBehaviorTreeForView(btJson);
@@ -1756,6 +1796,12 @@
     const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
     if (!btJson) {
       toast('No behavior tree to export.');
+      return;
+    }
+    const refErrors = await fetchReferenceValidationErrors(btJson);
+    if (refErrors.length) {
+      renderErrors(refErrors);
+      toast(refErrors[0]);
       return;
     }
     const response = await api('/api/behavior-tree/export', {

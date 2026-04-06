@@ -103,7 +103,7 @@
                                         "type": "behavior__motion__bric_start_motion_motion_start_motion",
                                         "id": "ml6WMZgrfVptwV:87La:",
                                         "fields": {
-                                          "PARAM_NAME": "exporessive.wave_two_hand"
+                                          "PARAM_NAME": "expressive_motion.wave_two_hand"
                                         },
                                         "next": {
                                           "block": {
