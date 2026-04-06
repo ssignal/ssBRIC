@@ -190,6 +190,10 @@
   If action has `BRIC.XXXX:` prefix, treat it as a reference action block.
   In Behavior Tree JSON view and Graphical Tree view, do not display the prefix part.
   Show/display action only with the part after `:`.
+  Reference block exception:
+    - If reference file or matched reference entry is missing, show error message.
+    - Error check points: editing start, before `Save Scenario`, before `Behavior Tree`, and before `Export`.
+    - If this error exists, block save and conversion/export actions.
   On `Export`, preprocess this action:
     - Reference file is `./btInfo/XXXX.json`.
     - Find matching entry by `parameter.name`.

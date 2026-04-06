@@ -1,10 +1,10 @@
 {
   "Root": {
     "type": "Root",
-    "id": "58983545",
+    "id": "65951040",
     "child": {
       "type": "Sequence",
-      "id": "38946685",
+      "id": "48201201",
       "children": [
         {
           "type": "Subtree",
@@ -24,7 +24,7 @@
         },
         {
           "type": "Sequence",
-          "id": "90602449",
+          "id": "45201372",
           "tickrate": 0,
           "children": [
             {
@@ -38,7 +38,7 @@
                   "z": 180.0
                 }
               },
-              "id": "49461433"
+              "id": "61665455"
             },
             {
               "type": "Subtree",
@@ -48,24 +48,24 @@
         },
         {
           "type": "Sequence",
-          "id": "65589072",
+          "id": "24841240",
           "tickrate": 0,
           "children": [
             {
               "type": "Action",
               "action": "motion/start_motion",
               "parameter": {
-                "task_type": "exporessive",
+                "task_type": "expressive_motion",
                 "name": "wave_two_hand",
-                "repeat": "once"
+                "repeat": 0
               },
-              "id": "44710984"
+              "id": "93945934"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "79993659"
+              "id": "12922038"
             }
           ]
         },
@@ -80,7 +80,7 @@
               "z": 3
             }
           },
-          "id": "76173578"
+          "id": "46020476"
         },
         {
           "type": "Subtree",
@@ -92,7 +92,7 @@
   "Movebackward": {
     "child": {
       "type": "Sequence",
-      "id": "66626612",
+      "id": "11865779",
       "children": [
         {
           "type": "Action",
@@ -102,7 +102,7 @@
             "velocity": 0.6,
             "direction": "backwards"
           },
-          "id": "33204709"
+          "id": "53189611"
         },
         {
           "type": "Subtree",
@@ -114,21 +114,23 @@
   "WaitMoveFinished": {
     "child": {
       "type": "Sequence",
-      "id": "12552348",
+      "id": "62886488",
       "children": [
         {
           "type": "Action",
           "action": "motion/start_motion",
           "parameter": {
-            "name": "Expressive.wave_two_hand"
+            "task_type": "expressive_motion",
+            "name": "head_right_down",
+            "repeat": 0
           },
-          "id": "55751706"
+          "id": "67505300"
         },
         {
           "type": "Action",
           "action": "motion/wait_motion_finished",
           "parameter": {},
-          "id": "62889903"
+          "id": "26847970"
         },
         {
           "type": "Action",
@@ -141,17 +143,17 @@
               "z": 180.0
             }
           },
-          "id": "40657925"
+          "id": "49049957"
         },
         {
           "type": "Action",
           "action": "navigation/wait_move_finished",
           "parameter": {},
-          "id": "95411287"
+          "id": "44822890"
         },
         {
           "type": "Sleep",
-          "id": "88513539",
+          "id": "87604748",
           "tickrate": 0
         }
       ]
@@ -160,11 +162,11 @@
   "MoveAndPickupBox": {
     "child": {
       "type": "Sequence",
-      "id": "99953671",
+      "id": "86310238",
       "children": [
         {
           "type": "Sequence",
-          "id": "42146399",
+          "id": "14018677",
           "tickrate": 0,
           "children": [
             {
@@ -178,7 +180,7 @@
                   "z": 180.0
                 }
               },
-              "id": "29043343"
+              "id": "20747274"
             },
             {
               "type": "Subtree",
@@ -188,23 +190,25 @@
         },
         {
           "type": "Sequence",
-          "id": "24554352",
+          "id": "76684147",
           "tickrate": 0,
           "children": [
             {
               "type": "Action",
               "action": "motion/start_motion",
               "parameter": {
-                "name": "manipulation.pick_up",
+                "task_type": "manipulation",
+                "name": "pick_up",
+                "repeat": 0,
                 "object": "box"
               },
-              "id": "93604868"
+              "id": "46923436"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "16121933"
+              "id": "98594631"
             }
           ]
         }
@@ -214,11 +218,11 @@
   "MoveAndDumpBox": {
     "child": {
       "type": "Sequence",
-      "id": "71800045",
+      "id": "58779110",
       "children": [
         {
           "type": "Sequence",
-          "id": "68832638",
+          "id": "86782686",
           "tickrate": 0,
           "children": [
             {
@@ -232,7 +236,7 @@
                   "z": 180.0
                 }
               },
-              "id": "60307202"
+              "id": "71520788"
             },
             {
               "type": "Subtree",
@@ -242,23 +246,25 @@
         },
         {
           "type": "Sequence",
-          "id": "85239856",
+          "id": "52233973",
           "tickrate": 0,
           "children": [
             {
               "type": "Action",
               "action": "motion/start_motion",
               "parameter": {
-                "name": "manipulation.dump",
+                "task_type": "manipulation",
+                "name": "dump",
+                "repeat": 0,
                 "object": "box"
               },
-              "id": "62904209"
+              "id": "57558095"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "11416476"
+              "id": "46330625"
             }
           ]
         }

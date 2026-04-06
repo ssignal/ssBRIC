@@ -91,7 +91,7 @@ const OPTION_PARAM_MAP = {
   },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
-      "exporessive": [
+      "expressive_motion": [
         {
           "name": "name",
           "output_name": "name",
@@ -182,7 +182,7 @@ const OPTION_PARAM_MAP = {
           }
         }
       ],
-      "pose": [
+      "pose_motion": [
         {
           "name": "name",
           "output_name": "name",

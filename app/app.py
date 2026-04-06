@@ -218,7 +218,43 @@ def normalize_workspace_legacy_block_types(data: Dict[str, Any]) -> Dict[str, An
     return out
 
 
-def preprocess_export_tree(data: Any) -> Any:
+def _match_ref_data(table: Dict[str, Dict[str, Any]], key_name: str) -> Dict[str, Any] | None:
+    key = str(key_name or "").strip()
+    if not key:
+        return None
+    # 1) exact
+    exact = table.get(key)
+    if isinstance(exact, dict):
+        return exact
+    # 2) case-insensitive
+    lower_map = {str(k).lower(): v for k, v in table.items()}
+    ci = lower_map.get(key.lower())
+    if isinstance(ci, dict):
+        return ci
+    # 3) fallback by right-side token after dot/slash when unique
+    suffix = key
+    if "." in key:
+        suffix = key.split(".", 1)[1].strip()
+    elif "/" in key:
+        suffix = key.split("/", 1)[1].strip()
+    if not suffix:
+        return None
+    candidates = []
+    for k, v in table.items():
+        ks = str(k)
+        rs = ks
+        if "." in ks:
+            rs = ks.split(".", 1)[1].strip()
+        elif "/" in ks:
+            rs = ks.split("/", 1)[1].strip()
+        if rs.lower() == suffix.lower() and isinstance(v, dict):
+            candidates.append(v)
+    if len(candidates) == 1:
+        return candidates[0]
+    return None
+
+
+def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None) -> Any:
     out = deepcopy(data)
     ref_cache: Dict[str, Dict[str, Dict[str, Any]]] = {}
     scenario_child_cache: Dict[str, Dict[str, Any] | None] = {}
@@ -465,10 +501,21 @@ def preprocess_export_tree(data: Any) -> Any:
         ref_cache[ref_name] = table
         return table
 
-    def walk(node: Any):
+    seen_errors: set[str] = set()
+
+    def add_resolution_error(msg: str):
+        if resolution_errors is None:
+            return
+        text = str(msg).strip()
+        if not text or text in seen_errors:
+            return
+        seen_errors.add(text)
+        resolution_errors.append(text)
+
+    def walk(node: Any, path: str = "root"):
         if isinstance(node, list):
-            for item in node:
-                walk(item)
+            for idx, item in enumerate(node):
+                walk(item, f"{path}[{idx}]")
             return
         if not isinstance(node, dict):
             return
@@ -481,8 +528,11 @@ def preprocess_export_tree(data: Any) -> Any:
                 if isinstance(expanded, dict):
                     node.clear()
                     node.update(expanded)
-                    walk(node)
+                    walk(node, path)
                     return
+                add_resolution_error(
+                    f"{path}: scenario reference not found or invalid: {scenario_name}"
+                )
             m = BRIC_ACTION_RE.match(action.strip())
             if m:
                 ref_name = m.group(1)
@@ -494,7 +544,17 @@ def preprocess_export_tree(data: Any) -> Any:
                     param = node.get("parameter")
                     if isinstance(param, dict):
                         key_name = str(param.get("name", "")).strip()
-                        matched = load_ref(ref_name).get(key_name)
+                        if not key_name:
+                            add_resolution_error(
+                                f"{path}: missing parameter.name for reference {ref_name}"
+                            )
+                            matched = None
+                        else:
+                            matched = _match_ref_data(load_ref(ref_name), key_name)
+                            if not isinstance(matched, dict):
+                                add_resolution_error(
+                                    f"{path}: reference not found in {ref_name}.json for name '{key_name}'"
+                                )
                         if isinstance(matched, dict):
                             # Keep reference-mapped base data, but preserve
                             # additional user-selected option parameters.
@@ -507,19 +567,23 @@ def preprocess_export_tree(data: Any) -> Any:
                                 if k not in merged_param:
                                     merged_param[k] = deepcopy(v)
                             node["parameter"] = merged_param
+                    else:
+                        add_resolution_error(
+                            f"{path}: missing parameter object for reference {ref_name}"
+                        )
                     if real_action:
                         node["action"] = real_action
 
-        walk(node.get("child"))
-        walk(node.get("children"))
+        walk(node.get("child"), f"{path}.child")
+        walk(node.get("children"), f"{path}.children")
 
         # Function-map format support: { "Root": {...}, "FuncA": { "child": {...} }, ... }
         if "Root" in node and isinstance(node.get("Root"), dict):
-            walk(node.get("Root"))
+            walk(node.get("Root"), f"{path}.Root")
             for k, v in node.items():
                 if k == "Root":
                     continue
-                walk(v)
+                walk(v, f"{path}.{k}")
 
     walk(out)
     return out
@@ -668,6 +732,17 @@ def export_behavior_tree():
             "data": processed,
         }
     )
+
+
+@app.post("/api/behavior-tree/validate-references")
+def validate_behavior_tree_references():
+    body = request.get_json(silent=True) or {}
+    data = body.get("data")
+    if data is None:
+        return jsonify({"ok": False, "error": "Behavior tree data is required"}), 400
+    errors: List[str] = []
+    preprocess_export_tree(data, errors)
+    return jsonify({"ok": True, "errors": errors})
 
 
 @app.delete("/api/scenarios/<name>")
