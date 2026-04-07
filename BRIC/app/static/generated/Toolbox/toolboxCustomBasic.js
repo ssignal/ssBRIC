@@ -204,10 +204,6 @@ window.toolboxCustomBasic = {
         },
         {
           "kind": "block",
-          "type": "behavior__scenario__bric_scenario_april_demo_0"
-        },
-        {
-          "kind": "block",
           "type": "behavior__scenario__bric_scenario_april_demo_funcscenario"
         },
         {
@@ -237,10 +233,6 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "behavior__scenario__bric_scenario_waitmovefinished"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_func"
         }
       ]
     },

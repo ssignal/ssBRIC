@@ -1808,7 +1808,9 @@
       method: 'POST',
       body: JSON.stringify({ data: btJson }),
     });
-    const exportText = JSON.stringify(response.data || {}, null, 2);
+    const exportText = String(response.text || '').trim()
+      ? String(response.text)
+      : JSON.stringify(response.data || {}, null, 2);
     openJsonModalWithText(exportText);
     toast(`Exported: ${response.path || 'data/output/behaviorTree.json'}`);
   }

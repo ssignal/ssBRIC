@@ -2,7 +2,6 @@
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
 const OPTION_PARAM_MAP = {
   "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_0": {},
   "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
   "behavior__scenario__bric_scenario_april_demo_simple": {},
   "behavior__scenario__bric_scenario_motion_sound": {},
@@ -10,8 +9,7 @@ const OPTION_PARAM_MAP = {
   "behavior__scenario__bric_scenario_moveandpickupbox": {},
   "behavior__scenario__bric_scenario_refertest": {},
   "behavior__scenario__bric_scenario_scenariotest_recursive": {},
-  "behavior__scenario__bric_scenario_waitmovefinished": {},
-  "behavior__scenario__bric_scenario_func": {}
+  "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
@@ -31,23 +29,6 @@ javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo'] = f
   const node = {
     type: 'Action',
     action: 'BRIC.SCENARIO:April_demo',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo_0'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_april_demo_0'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:April_demo_0',
     parameter,
     id: randomId(),
   };
@@ -184,23 +165,6 @@ javascriptGenerator.forBlock['behavior__scenario__bric_scenario_waitmovefinished
   const node = {
     type: 'Action',
     action: 'BRIC.SCENARIO:WaitMoveFinished',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_func'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_func'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:func',
     parameter,
     id: randomId(),
   };

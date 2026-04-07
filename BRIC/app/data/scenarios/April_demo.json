@@ -24,7 +24,7 @@
               "type": "bt_logic__sequence",
               "id": "4PD#-q-K,6=J|*7EY%Ec",
               "fields": {
-                "PARAM_TICKRATE": "0"
+                "PARAM_TICKRATE": "500"
               },
               "inputs": {
                 "CHILDREN": {
@@ -69,7 +69,7 @@
               "type": "bt_logic__sequence",
               "id": "][csnyiy5cLPtf^f$j21",
               "fields": {
-                "PARAM_TICKRATE": "0"
+                "PARAM_TICKRATE": "500"
               },
               "inputs": {
                 "CHILDREN": {
@@ -117,9 +117,9 @@
                     "id": "ny=(^2!u:X^RsgK3n)$F",
                     "fields": {
                       "PARAM_POSE_TYPE": "map",
-                      "PARAM_X": "1.640",
-                      "PARAM_Y": "0.345",
-                      "PARAM_Z": "180.0"
+                      "PARAM_POSE_X": "0.0",
+                      "PARAM_POSE_Y": "0.0",
+                      "PARAM_POSE_Z": "0.0"
                     },
                     "next": {
                       "block": {
@@ -146,11 +146,9 @@
                         "type": "behavior__motion__motion_start_motion",
                         "id": "CGsMhciRbZTuu`}rLAYj",
                         "fields": {
-                          "PARAM_TASK_TYPE": "Manipulation",
+                          "PARAM_TASK_TYPE": "expressive_motion",
                           "PARAM_REPEAT": "once",
-                          "PARAM_ACTION": "all",
-                          "OPT_TASK_TYPE_NAME": "pick_up",
-                          "OPT_TASK_TYPE_OBJECTS": "box"
+                          "OPT_TASK_TYPE_NAME": "wave_two_hand"
                         },
                         "next": {
                           "block": {
@@ -182,9 +180,9 @@
                                 "id": "i4S=`1Mu:Heh}D;j(8On",
                                 "fields": {
                                   "PARAM_POSE_TYPE": "map",
-                                  "PARAM_X": "1.640",
-                                  "PARAM_Y": "0.345",
-                                  "PARAM_Z": "180.0"
+                                  "PARAM_POSE_X": "0.0",
+                                  "PARAM_POSE_Y": "0.0",
+                                  "PARAM_POSE_Z": "0.0"
                                 },
                                 "next": {
                                   "block": {
@@ -211,11 +209,9 @@
                                     "type": "behavior__motion__motion_start_motion",
                                     "id": "JWrKSvxKosZi1.O%v%gJ",
                                     "fields": {
-                                      "PARAM_TASK_TYPE": "Manipulation",
+                                      "PARAM_TASK_TYPE": "expressive_motion",
                                       "PARAM_REPEAT": "once",
-                                      "PARAM_ACTION": "all",
-                                      "OPT_TASK_TYPE_NAME": "dump",
-                                      "OPT_TASK_TYPE_OBJECTS": "box"
+                                      "OPT_TASK_TYPE_NAME": "wave_two_hand"
                                     },
                                     "next": {
                                       "block": {
@@ -247,9 +243,9 @@
                                             "id": "lk9T%XQ$RM%7]_6AGJ9j",
                                             "fields": {
                                               "PARAM_POSE_TYPE": "map",
-                                              "PARAM_X": "1.640",
-                                              "PARAM_Y": "0.345",
-                                              "PARAM_Z": "180.0"
+                                              "PARAM_POSE_X": "0.0",
+                                              "PARAM_POSE_Y": "0.0",
+                                              "PARAM_POSE_Z": "0.0"
                                             },
                                             "next": {
                                               "block": {
@@ -276,11 +272,9 @@
                                                 "type": "behavior__motion__motion_start_motion",
                                                 "id": "y}`SWn;?K|0ElRc{riyG",
                                                 "fields": {
-                                                  "PARAM_TASK_TYPE": "Manipulation",
+                                                  "PARAM_TASK_TYPE": "expressive_motion",
                                                   "PARAM_REPEAT": "once",
-                                                  "PARAM_ACTION": "all",
-                                                  "OPT_TASK_TYPE_NAME": "put_down",
-                                                  "OPT_TASK_TYPE_OBJECTS": "box"
+                                                  "OPT_TASK_TYPE_NAME": "wave_two_hand"
                                                 },
                                                 "next": {
                                                   "block": {

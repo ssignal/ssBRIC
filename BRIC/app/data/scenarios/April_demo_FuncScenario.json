@@ -116,22 +116,10 @@
                                   },
                                   "next": {
                                     "block": {
-                                      "type": "behavior__navigation__navigation_move_to_pose",
-                                      "id": "f?pnqR!a!Sofxx5E7XrR",
-                                      "fields": {
-                                        "PARAM_POSE_TYPE": "map",
-                                        "PARAM_POSE_X": "1",
-                                        "PARAM_POSE_Y": "2",
-                                        "PARAM_POSE_Z": "3"
-                                      },
-                                      "next": {
-                                        "block": {
-                                          "type": "procedures_callnoreturn",
-                                          "id": ";8F9qam59(~4re8kXnx@",
-                                          "extraState": {
-                                            "name": "Movebackward"
-                                          }
-                                        }
+                                      "type": "procedures_callnoreturn",
+                                      "id": ";8F9qam59(~4re8kXnx@",
+                                      "extraState": {
+                                        "name": "Movebackward"
                                       }
                                     }
                                   }

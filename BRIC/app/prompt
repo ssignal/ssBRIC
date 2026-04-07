@@ -223,6 +223,10 @@
   If a item has min, use dropdown menu.
   If parameter type is float and both min and max exist, create dropdown options with 20 steps (inclusive).
   Example: min=0, max=1 -> 0.00, 0.05, 0.10, ... , 1.00
+### Float expression format
+  For `Export` Behavior Tree JSON, float-type values must be written in float literal style.
+  Example: use `2.0` (not `2`) for float-type fields.
+  This rule is for Export output file and Export JSON view.
 ### description
 #### Description for a block
   Add a question icon on the left side of a block only if 'description' exists and is not empty.

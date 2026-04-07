@@ -1,30 +1,14 @@
 {
   "Root": {
     "type": "Root",
-    "id": "65951040",
+    "id": "21111873",
     "child": {
       "type": "Sequence",
-      "id": "48201201",
+      "id": "12181021",
       "children": [
         {
-          "type": "Subtree",
-          "id": "MoveAndPickupBox"
-        },
-        {
-          "type": "Subtree",
-          "id": "Movebackward"
-        },
-        {
-          "type": "Subtree",
-          "id": "MoveAndDumpBox"
-        },
-        {
-          "type": "Subtree",
-          "id": "Movebackward"
-        },
-        {
           "type": "Sequence",
-          "id": "45201372",
+          "id": "70192174",
           "tickrate": 0,
           "children": [
             {
@@ -33,12 +17,12 @@
               "parameter": {
                 "pose_type": "map",
                 "pose": {
-                  "y": 3.345,
-                  "x": 3.64,
-                  "z": 180.0
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
                 }
               },
-              "id": "61665455"
+              "id": "82634999"
             },
             {
               "type": "Subtree",
@@ -48,7 +32,7 @@
         },
         {
           "type": "Sequence",
-          "id": "24841240",
+          "id": "12059009",
           "tickrate": 0,
           "children": [
             {
@@ -57,30 +41,119 @@
               "parameter": {
                 "task_type": "expressive_motion",
                 "name": "wave_two_hand",
-                "repeat": 0
+                "repeat": "once"
               },
-              "id": "93945934"
+              "id": "25510036"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "12922038"
+              "id": "37948389"
             }
           ]
         },
         {
-          "type": "Action",
-          "action": "navigation/move_to_pose",
-          "parameter": {
-            "pose_type": "map",
-            "pose": {
-              "x": 1,
-              "y": 2,
-              "z": 3
+          "type": "Subtree",
+          "id": "Movebackward"
+        },
+        {
+          "type": "Sequence",
+          "id": "49203513",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "pose": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                }
+              },
+              "id": "83783199"
+            },
+            {
+              "type": "Subtree",
+              "id": "WaitMoveFinished"
             }
-          },
-          "id": "46020476"
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "48882128",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "expressive_motion",
+                "name": "wave_two_hand",
+                "repeat": "once"
+              },
+              "id": "90953105"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "64616150"
+            }
+          ]
+        },
+        {
+          "type": "Subtree",
+          "id": "Movebackward"
+        },
+        {
+          "type": "Sequence",
+          "id": "93374598",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "pose": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                }
+              },
+              "id": "47511840"
+            },
+            {
+              "type": "Subtree",
+              "id": "WaitMoveFinished"
+            }
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "36086382",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "expressive_motion",
+                "name": "wave_two_hand",
+                "repeat": "once"
+              },
+              "id": "59338019"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "57893049"
+            }
+          ]
         },
         {
           "type": "Subtree",
@@ -89,184 +162,45 @@
       ]
     }
   },
+  "WaitMoveFinished": {
+    "child": {
+      "type": "Sequence",
+      "id": "79537853",
+      "tickrate": 500,
+      "children": [
+        {
+          "type": "Action",
+          "action": "navigation/wait_move_finished",
+          "parameter": {},
+          "id": "89372759"
+        },
+        {
+          "type": "Sleep",
+          "id": "77346734",
+          "tickrate": 500
+        }
+      ]
+    }
+  },
   "Movebackward": {
     "child": {
       "type": "Sequence",
-      "id": "11865779",
+      "id": "48543814",
+      "tickrate": 500,
       "children": [
         {
           "type": "Action",
           "action": "navigation/move_in_direction",
           "parameter": {
-            "distance": 1,
+            "distance": 1.0,
             "velocity": 0.6,
             "direction": "backwards"
           },
-          "id": "53189611"
+          "id": "36136785"
         },
         {
           "type": "Subtree",
           "id": "WaitMoveFinished"
-        }
-      ]
-    }
-  },
-  "WaitMoveFinished": {
-    "child": {
-      "type": "Sequence",
-      "id": "62886488",
-      "children": [
-        {
-          "type": "Action",
-          "action": "motion/start_motion",
-          "parameter": {
-            "task_type": "expressive_motion",
-            "name": "head_right_down",
-            "repeat": 0
-          },
-          "id": "67505300"
-        },
-        {
-          "type": "Action",
-          "action": "motion/wait_motion_finished",
-          "parameter": {},
-          "id": "26847970"
-        },
-        {
-          "type": "Action",
-          "action": "navigation/move_to_pose",
-          "parameter": {
-            "pose_type": "map",
-            "pose": {
-              "x": 1.64,
-              "y": 1.345,
-              "z": 180.0
-            }
-          },
-          "id": "49049957"
-        },
-        {
-          "type": "Action",
-          "action": "navigation/wait_move_finished",
-          "parameter": {},
-          "id": "44822890"
-        },
-        {
-          "type": "Sleep",
-          "id": "87604748",
-          "tickrate": 0
-        }
-      ]
-    }
-  },
-  "MoveAndPickupBox": {
-    "child": {
-      "type": "Sequence",
-      "id": "86310238",
-      "children": [
-        {
-          "type": "Sequence",
-          "id": "14018677",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "navigation/move_to_pose",
-              "parameter": {
-                "pose_type": "map",
-                "pose": {
-                  "x": 1.64,
-                  "y": 1.345,
-                  "z": 180.0
-                }
-              },
-              "id": "20747274"
-            },
-            {
-              "type": "Subtree",
-              "id": "WaitMoveFinished"
-            }
-          ]
-        },
-        {
-          "type": "Sequence",
-          "id": "76684147",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "motion/start_motion",
-              "parameter": {
-                "task_type": "manipulation",
-                "name": "pick_up",
-                "repeat": 0,
-                "object": "box"
-              },
-              "id": "46923436"
-            },
-            {
-              "type": "Action",
-              "action": "motion/wait_motion_finished",
-              "parameter": {},
-              "id": "98594631"
-            }
-          ]
-        }
-      ]
-    }
-  },
-  "MoveAndDumpBox": {
-    "child": {
-      "type": "Sequence",
-      "id": "58779110",
-      "children": [
-        {
-          "type": "Sequence",
-          "id": "86782686",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "navigation/move_to_pose",
-              "parameter": {
-                "pose_type": "map",
-                "pose": {
-                  "x": 2.64,
-                  "y": 2.345,
-                  "z": 180.0
-                }
-              },
-              "id": "71520788"
-            },
-            {
-              "type": "Subtree",
-              "id": "WaitMoveFinished"
-            }
-          ]
-        },
-        {
-          "type": "Sequence",
-          "id": "52233973",
-          "tickrate": 0,
-          "children": [
-            {
-              "type": "Action",
-              "action": "motion/start_motion",
-              "parameter": {
-                "task_type": "manipulation",
-                "name": "dump",
-                "repeat": 0,
-                "object": "box"
-              },
-              "id": "57558095"
-            },
-            {
-              "type": "Action",
-              "action": "motion/wait_motion_finished",
-              "parameter": {},
-              "id": "46330625"
-            }
-          ]
         }
       ]
     }
