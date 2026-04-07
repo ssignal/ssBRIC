@@ -1,5 +1,6 @@
 import json
 import math
+import os
 import re
 from copy import deepcopy
 from pathlib import Path
@@ -34,6 +35,17 @@ def load_port(default: int = 8000) -> int:
     if 1 <= value <= 65535:
         return value
     return default
+
+
+def load_ssl_context():
+    mode = str(os.getenv("BRIC_SSL_MODE", "off")).strip().lower()
+    if mode not in ("on", "true", "1", "adhoc", "cert"):
+        return None
+    cert_file = str(os.getenv("BRIC_SSL_CERT", "")).strip()
+    key_file = str(os.getenv("BRIC_SSL_KEY", "")).strip()
+    if cert_file and key_file:
+        return (cert_file, key_file)
+    return "adhoc"
 
 
 def scenario_path(name: str) -> Path:
@@ -971,4 +983,9 @@ def scenario_as_blockly(name: str):
 
 if __name__ == "__main__":
     generate_all()
-    app.run(host="0.0.0.0", port=load_port(), debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=load_port(),
+        debug=True,
+        ssl_context=load_ssl_context(),
+    )
