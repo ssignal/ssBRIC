@@ -1,0 +1,37 @@
+###################################################
+# HTTPS Protocol
+
+## Purpose
+  Configure HTTPS-related local authorization/env settings.
+
+## Script file
+  - `./scripts/create_local_authorization.sh`
+
+## Create script description
+  Create `./scripts/create_local_authorization.sh` to initialize local authorization and HTTPS env settings.
+  Script requirements:
+  - Generate local token and save `/.local_auth.json`.
+  - Create or update `/.env.local`.
+  - Set/update `LOCAL_AUTH_TOKEN`.
+  - Set/update `BRIC_SSL_MODE=on`.
+  - Ensure keys `BRIC_SSL_CERT` and `BRIC_SSL_KEY` exist (empty allowed).
+  - Support `--force` option to regenerate token and refresh env values.
+  - If auth file already exists and `--force` is not used, script may skip regeneration.
+
+## What the script sets
+  - `LOCAL_AUTH_TOKEN` in `.env.local`
+  - `BRIC_SSL_MODE=on` in `.env.local`
+  - `BRIC_SSL_CERT` key in `.env.local` (empty by default)
+  - `BRIC_SSL_KEY` key in `.env.local` (empty by default)
+
+## Usage
+  - Create/update local auth + HTTPS envs: `./scripts/create_local_authorization.sh`
+  - Regenerate token and refresh envs: `./scripts/create_local_authorization.sh --force`
+
+## Certificate behavior
+  - If `BRIC_SSL_CERT` and `BRIC_SSL_KEY` are set, app uses that cert/key.
+  - If HTTPS is enabled and cert/key are empty, app uses adhoc self-signed certificate.
+
+## Notes
+  - Self-signed certificate can show browser warning (`NET::ERR_CERT_AUTHORITY_INVALID`).
+  - For stable external/NAT HTTPS access, use trusted certificate via reverse proxy.
