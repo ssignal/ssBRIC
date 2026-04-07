@@ -1,4 +1,5 @@
 import json
+import math
 import re
 from copy import deepcopy
 from pathlib import Path
@@ -68,6 +69,141 @@ def cast_field(value: Any, field_type: str) -> Any:
         except (ValueError, TypeError):
             return 0.0
     return str(value)
+
+
+FLOAT_LITERAL_MARKER = "__BT_FLOAT_LITERAL__:"
+
+
+def _is_float_type(type_name: Any) -> bool:
+    t = str(type_name or "").strip().lower()
+    return t in ("float", "double", "number")
+
+
+def _float_literal_string(value: Any) -> str | None:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    fv = float(value)
+    if not math.isfinite(fv):
+        return None
+    if fv.is_integer():
+        return f"{int(fv)}.0"
+    s = str(fv)
+    if "." in s:
+        return s
+    if "e" in s or "E" in s:
+        return s
+    return f"{s}.0"
+
+
+def _collect_float_behavior_param_defs(
+    defs: List[Dict[str, Any]] | None,
+) -> List[Tuple[str, str]]:
+    out: List[Tuple[str, str]] = []
+    seen: set[Tuple[str, str]] = set()
+
+    def visit(items: List[Dict[str, Any]] | None):
+        for p in items or []:
+            if not isinstance(p, dict):
+                continue
+            parent_key = str(p.get("parent_key", "")).strip()
+            output_name = str(p.get("output_name") or p.get("name") or "").strip()
+            if output_name and _is_float_type(p.get("type")):
+                key = (parent_key, output_name)
+                if key not in seen:
+                    seen.add(key)
+                    out.append(key)
+            option_map = p.get("option_parameters")
+            if isinstance(option_map, dict):
+                for nested in option_map.values():
+                    if isinstance(nested, list):
+                        visit(nested)
+
+    visit(defs)
+    return out
+
+
+def format_bt_json_with_float_literals(data: Any, manifest: Dict[str, Any]) -> str:
+    tree = deepcopy(data)
+    behavior_float_defs: Dict[str, List[Tuple[str, str]]] = {}
+    node_float_fields: Dict[str, List[str]] = {}
+
+    for item in manifest.get("behavior") or []:
+        if not isinstance(item, dict):
+            continue
+        action = str(item.get("action", "")).strip()
+        if not action:
+            continue
+        behavior_float_defs[action] = _collect_float_behavior_param_defs(
+            item.get("parameters") if isinstance(item.get("parameters"), list) else []
+        )
+
+    for item in (manifest.get("bt_logic") or []) + (manifest.get("bt_function") or []):
+        if not isinstance(item, dict):
+            continue
+        node_type = str(item.get("node_type", "")).strip()
+        if not node_type:
+            continue
+        fields: List[str] = []
+        for p in item.get("parameters") or []:
+            if not isinstance(p, dict):
+                continue
+            if not _is_float_type(p.get("type")):
+                continue
+            name = str(p.get("name", "")).strip()
+            if name:
+                fields.append(name)
+        node_float_fields[node_type] = fields
+
+    def mark_value(obj: Dict[str, Any], key: str):
+        if key not in obj:
+            return
+        literal = _float_literal_string(obj.get(key))
+        if literal is None:
+            return
+        obj[key] = f"{FLOAT_LITERAL_MARKER}{literal}"
+
+    def walk(node: Any):
+        if isinstance(node, list):
+            for item in node:
+                walk(item)
+            return
+        if not isinstance(node, dict):
+            return
+
+        action = str(node.get("action", "")).strip()
+        if action:
+            param = node.get("parameter")
+            if isinstance(param, dict):
+                for parent_key, output_name in behavior_float_defs.get(action, []):
+                    if parent_key:
+                        parent_obj = param.get(parent_key)
+                        if isinstance(parent_obj, dict):
+                            mark_value(parent_obj, output_name)
+                    else:
+                        mark_value(param, output_name)
+
+        node_type = str(node.get("type", "")).strip()
+        if node_type:
+            for field_name in node_float_fields.get(node_type, []):
+                mark_value(node, field_name)
+
+        walk(node.get("child"))
+        walk(node.get("children"))
+        # Support function-map object format: { Root: {...}, FuncA: {child:{...}}, ... }
+        if "Root" in node and isinstance(node.get("Root"), dict):
+            walk(node.get("Root"))
+            for k, v in node.items():
+                if k == "Root":
+                    continue
+                walk(v)
+
+    walk(tree)
+    text = json.dumps(tree, ensure_ascii=False, indent=2)
+    return re.sub(
+        r'"__BT_FLOAT_LITERAL__:([^"]+)"',
+        lambda m: m.group(1),
+        text,
+    )
 
 
 def bt_to_blockly(
@@ -720,16 +856,19 @@ def export_behavior_tree():
     if data is None:
         return jsonify({"ok": False, "error": "Behavior tree data is required"}), 400
 
+    manifest = parse_manifest()
     processed = preprocess_export_tree(data)
+    export_text = format_bt_json_with_float_literals(processed, manifest)
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUTPUT_DIR / "behaviorTree.json"
-    out.write_text(json.dumps(processed, ensure_ascii=False, indent=2), encoding="utf-8")
+    out.write_text(export_text, encoding="utf-8")
     return jsonify(
         {
             "ok": True,
             "path": str(out.relative_to(BASE_DIR)),
             "data": processed,
+            "text": export_text,
         }
     )
 

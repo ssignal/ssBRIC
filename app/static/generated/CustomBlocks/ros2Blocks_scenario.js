@@ -25,30 +25,6 @@ const BLOCKS = [
     "helpUrl": ""
   },
   {
-    "type": "behavior__scenario__bric_scenario_april_demo_0",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "April_demo_0",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: April_demo_0",
-    "helpUrl": ""
-  },
-  {
     "type": "behavior__scenario__bric_scenario_april_demo_funcscenario",
     "message0": "%1 %2",
     "args0": [
@@ -239,35 +215,10 @@ const BLOCKS = [
     "colour": "#bcbd22",
     "tooltip": "Run scenario: WaitMoveFinished",
     "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_func",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "func",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: func",
-    "helpUrl": ""
   }
 ];
 const BLOCK_TOOLTIPS = {
   "behavior__scenario__bric_scenario_april_demo": "Run scenario: April_demo",
-  "behavior__scenario__bric_scenario_april_demo_0": "Run scenario: April_demo_0",
   "behavior__scenario__bric_scenario_april_demo_funcscenario": "Run scenario: April_demo_FuncScenario",
   "behavior__scenario__bric_scenario_april_demo_simple": "Run scenario: April_demo_simple",
   "behavior__scenario__bric_scenario_motion_sound": "Run scenario: Motion_Sound",
@@ -275,12 +226,10 @@ const BLOCK_TOOLTIPS = {
   "behavior__scenario__bric_scenario_moveandpickupbox": "Run scenario: MoveAndPickupBox",
   "behavior__scenario__bric_scenario_refertest": "Run scenario: ReferTest",
   "behavior__scenario__bric_scenario_scenariotest_recursive": "Run scenario: ScenarioTest_recursive",
-  "behavior__scenario__bric_scenario_waitmovefinished": "Run scenario: WaitMoveFinished",
-  "behavior__scenario__bric_scenario_func": "Run scenario: func"
+  "behavior__scenario__bric_scenario_waitmovefinished": "Run scenario: WaitMoveFinished"
 };
 const PARAM_TOOLTIPS = {
   "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_0": {},
   "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
   "behavior__scenario__bric_scenario_april_demo_simple": {},
   "behavior__scenario__bric_scenario_motion_sound": {},
@@ -288,12 +237,10 @@ const PARAM_TOOLTIPS = {
   "behavior__scenario__bric_scenario_moveandpickupbox": {},
   "behavior__scenario__bric_scenario_refertest": {},
   "behavior__scenario__bric_scenario_scenariotest_recursive": {},
-  "behavior__scenario__bric_scenario_waitmovefinished": {},
-  "behavior__scenario__bric_scenario_func": {}
+  "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const OPTION_PARAM_MAP = {
   "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_0": {},
   "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
   "behavior__scenario__bric_scenario_april_demo_simple": {},
   "behavior__scenario__bric_scenario_motion_sound": {},
@@ -301,12 +248,10 @@ const OPTION_PARAM_MAP = {
   "behavior__scenario__bric_scenario_moveandpickupbox": {},
   "behavior__scenario__bric_scenario_refertest": {},
   "behavior__scenario__bric_scenario_scenariotest_recursive": {},
-  "behavior__scenario__bric_scenario_waitmovefinished": {},
-  "behavior__scenario__bric_scenario_func": {}
+  "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const OPTION_TOOLTIPS = {
   "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_0": {},
   "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
   "behavior__scenario__bric_scenario_april_demo_simple": {},
   "behavior__scenario__bric_scenario_motion_sound": {},
@@ -314,8 +259,7 @@ const OPTION_TOOLTIPS = {
   "behavior__scenario__bric_scenario_moveandpickupbox": {},
   "behavior__scenario__bric_scenario_refertest": {},
   "behavior__scenario__bric_scenario_scenariotest_recursive": {},
-  "behavior__scenario__bric_scenario_waitmovefinished": {},
-  "behavior__scenario__bric_scenario_func": {}
+  "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
