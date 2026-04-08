@@ -22,6 +22,9 @@
     btnTreeConfirm: document.getElementById('btn-tree-confirm'),
     toast: document.getElementById('toast'),
     blocklyDiv: document.getElementById('blocklyDiv'),
+    saveDialog: document.getElementById('save-dialog'),
+    btnSaveConfirm: document.getElementById('btn-save-confirm'),
+    btnSaveCancel: document.getElementById('btn-save-cancel'),
   };
 
   let workspace = null;
@@ -51,9 +54,270 @@
     lastY: 0,
   };
 
+  // Tab management state
+  let tabs = [];
+  let activeTabId = null;
+  let _tabIdSeq = 0;
+  let lastClickBlockId = null;
+  let lastClickTime = 0;
+
   const legacyViewTree = document.getElementById('btn-view-tree');
   if (legacyViewTree) {
     legacyViewTree.remove();
+  }
+
+  // ---- Tab management ----
+
+  function genTabId() {
+    return `t${++_tabIdSeq}`;
+  }
+
+  function makeTab({ label = 'New Scenario', originalName = '', workspaceState = null } = {}) {
+    return {
+      id: genTabId(),
+      label,
+      originalName,
+      workspaceState,
+      startPlayNextId: startPlayIdDefault,
+      startPlayAssignedIds: new Map(),
+      guardDisabledNames: new Set(),
+      errors: [],
+    };
+  }
+
+  function renderTabBar() {
+    const bar = document.getElementById('tab-bar');
+    if (!bar) {
+      return;
+    }
+    bar.innerHTML = '';
+    tabs.forEach((tab, idx) => {
+      const el = document.createElement('div');
+      el.className = `tab${tab.id === activeTabId ? ' active' : ''}`;
+      el.dataset.tabId = tab.id;
+
+      const title = document.createElement('span');
+      title.className = 'tab-title';
+      title.textContent = tab.label;
+      el.appendChild(title);
+
+      if (idx > 0) {
+        const close = document.createElement('span');
+        close.className = 'tab-close';
+        close.textContent = '\u00d7';
+        close.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeTab(tab.id);
+        });
+        el.appendChild(close);
+      }
+
+      el.addEventListener('click', () => switchToTab(tab.id));
+      bar.appendChild(el);
+    });
+  }
+
+  function saveCurrentTabState() {
+    if (!activeTabId) {
+      return;
+    }
+    const tab = tabs.find((t) => t.id === activeTabId);
+    if (!tab) {
+      return;
+    }
+    if (workspace) {
+      tab.workspaceState = Blockly.serialization.workspaces.save(workspace);
+    }
+    tab.originalName = editingOriginalScenarioName;
+    tab.label = editingOriginalScenarioName || 'New Scenario';
+    tab.startPlayNextId = startPlayNextId;
+    tab.startPlayAssignedIds = new Map(startPlayAssignedIds);
+    tab.guardDisabledNames = new Set(scenarioGuardDisabledNames);
+    if (refs.errorList) {
+      tab.errors = Array.from(refs.errorList.querySelectorAll('li')).map(
+        (li) => li.textContent,
+      );
+    }
+  }
+
+  async function loadTabState(tab) {
+    if (!tab || !workspace) {
+      return;
+    }
+    editingOriginalScenarioName = tab.originalName || '';
+    startPlayNextId = tab.startPlayNextId || startPlayIdDefault;
+    startPlayAssignedIds = new Map(tab.startPlayAssignedIds || []);
+    scenarioGuardDisabledNames = new Set(tab.guardDisabledNames || []);
+    workspace.clear();
+    if (tab.workspaceState) {
+      const ordered = reorderWorkspaceTopBlocks(tab.workspaceState);
+      Blockly.serialization.workspaces.load(ordered, workspace);
+      restoreSerializedOptionFieldValues(ordered);
+      workspace.getAllBlocks(false).forEach((block) => {
+        if (typeof block.setCollapsed === 'function') {
+          block.setCollapsed(false);
+        }
+        if (typeof block.render === 'function') {
+          block.render();
+        }
+      });
+    } else {
+      ensureRootBlock();
+    }
+    Blockly.svgResize(workspace);
+    refreshStartPlayIdState();
+    applyToolboxForEditingScenario(editingOriginalScenarioName);
+    renderErrors(tab.errors || []);
+  }
+
+  async function switchToTab(tabId) {
+    if (tabId === activeTabId) {
+      return;
+    }
+    saveCurrentTabState();
+    activeTabId = tabId;
+    renderTabBar();
+    const tab = tabs.find((t) => t.id === tabId);
+    if (tab) {
+      await loadTabState(tab);
+    }
+  }
+
+  function closeTab(tabId) {
+    const idx = tabs.findIndex((t) => t.id === tabId);
+    if (idx <= 0) {
+      return;
+    }
+    const wasActive = tabId === activeTabId;
+    tabs.splice(idx, 1);
+    if (wasActive) {
+      const newIdx = Math.min(idx, tabs.length - 1);
+      activeTabId = tabs[newIdx].id;
+      renderTabBar();
+      loadTabState(tabs[newIdx]);
+    } else {
+      renderTabBar();
+    }
+  }
+
+  function openSaveDialog() {
+    const tab = tabs.find((t) => t.id === activeTabId);
+    const currentName = (tab && tab.originalName) || '';
+    refs.scenarioName.value = currentName;
+    refs.saveDialog.classList.add('show');
+    refs.scenarioName.focus();
+    refs.scenarioName.select();
+  }
+
+  function closeSaveDialog() {
+    if (refs.saveDialog) {
+      refs.saveDialog.classList.remove('show');
+    }
+  }
+
+  function handleBlockClickForDoubleClick(event) {
+    if (!event) {
+      return;
+    }
+    const isClick =
+      event.type === 'click' ||
+      (Blockly.Events && event.type === Blockly.Events.CLICK);
+    if (!isClick) {
+      return;
+    }
+    if (!event.blockId || event.targetType !== 'block') {
+      return;
+    }
+    const now = Date.now();
+    if (event.blockId === lastClickBlockId && now - lastClickTime < 500) {
+      lastClickBlockId = null;
+      lastClickTime = 0;
+      handleScenarioBlockDoubleClick(event.blockId);
+    } else {
+      lastClickBlockId = event.blockId;
+      lastClickTime = now;
+    }
+  }
+
+  function handleScenarioBlockDoubleClick(blockId) {
+    if (!workspace || !moduleManifest) {
+      return;
+    }
+    const block = workspace.getBlockById(blockId);
+    if (!block || block.isDisposed()) {
+      return;
+    }
+    const behaviorMeta = (moduleManifest.behavior || []).find(
+      (b) => b.block_type === block.type,
+    );
+    if (!behaviorMeta) {
+      return;
+    }
+    const action = String(behaviorMeta.action || '');
+    if (!action.startsWith('BRIC.SCENARIO:')) {
+      return;
+    }
+    const scenarioName = action.slice('BRIC.SCENARIO:'.length).trim();
+    if (!scenarioName) {
+      return;
+    }
+    const existingTab = tabs.find((t) => t.originalName === scenarioName);
+    if (existingTab) {
+      switchToTab(existingTab.id);
+      return;
+    }
+    openScenarioInNewTab(scenarioName);
+  }
+
+  async function openScenarioInNewTab(name) {
+    if (!name) {
+      return;
+    }
+    saveCurrentTabState();
+    const newTab = makeTab({ label: name, originalName: name });
+    tabs.push(newTab);
+    activeTabId = newTab.id;
+    renderTabBar();
+    try {
+      const response = await api(
+        `/api/scenarios/${encodeURIComponent(name)}/blockly`,
+      );
+      editingOriginalScenarioName = name;
+      await refreshScenarioReferenceGuard();
+      applyToolboxForEditingScenario(name);
+      workspace.clear();
+      const ordered = reorderWorkspaceTopBlocks(response.workspace);
+      Blockly.serialization.workspaces.load(ordered, workspace);
+      restoreSerializedOptionFieldValues(ordered);
+      workspace.getAllBlocks(false).forEach((block) => {
+        if (typeof block.setCollapsed === 'function') {
+          block.setCollapsed(false);
+        }
+        if (typeof block.render === 'function') {
+          block.render();
+        }
+      });
+      Blockly.svgResize(workspace);
+      refreshStartPlayIdState();
+      const mergedErrors = [...(response.errors || [])];
+      try {
+        const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
+        const refErrors = await fetchReferenceValidationErrors(btJson);
+        if (refErrors.length) {
+          mergedErrors.push(...refErrors);
+        }
+      } catch (_err) {
+        // ignore validation errors here
+      }
+      renderErrors(mergedErrors);
+      const tab = tabs.find((t) => t.id === activeTabId);
+      if (tab) {
+        tab.errors = mergedErrors;
+      }
+      renderTabBar();
+    } catch (err) {
+      toast(err.message || `Failed to open: ${name}`);
+    }
   }
 
   function toast(message) {
@@ -606,6 +870,7 @@
       trashcan: true,
     });
     workspace.addChangeListener(handleStartPlayIdChange);
+    workspace.addChangeListener(handleBlockClickForDoubleClick);
     refreshStartPlayIdState();
   }
 
@@ -1503,14 +1768,36 @@
       toast('Select a scenario first.');
       return;
     }
+
+    // If already open in a tab, switch to it
+    const existingTab = tabs.find((t) => t.originalName === name);
+    if (existingTab) {
+      await initEditor(false, name);
+      if (existingTab.id !== activeTabId) {
+        await switchToTab(existingTab.id);
+      }
+      return;
+    }
+
     await initEditor(false, name);
+
+    // Reuse current tab if it's a new unsaved tab, else open new tab
+    const activeTab = tabs.find((t) => t.id === activeTabId);
+    const canReuseTab = activeTab && !activeTab.originalName;
+    if (!canReuseTab) {
+      saveCurrentTabState();
+      const newTab = makeTab({ label: name, originalName: name });
+      tabs.push(newTab);
+      activeTabId = newTab.id;
+      renderTabBar();
+    }
+
     const response = await api(
       `/api/scenarios/${encodeURIComponent(name)}/blockly`,
     );
     editingOriginalScenarioName = name;
     await refreshScenarioReferenceGuard();
     applyToolboxForEditingScenario(editingOriginalScenarioName);
-    refs.scenarioName.value = name;
     workspace.clear();
     const orderedWorkspace = reorderWorkspaceTopBlocks(response.workspace);
     Blockly.serialization.workspaces.load(orderedWorkspace, workspace);
@@ -1540,24 +1827,54 @@
       }
     }
     renderErrors(mergedErrors);
+    const tab = tabs.find((t) => t.id === activeTabId);
+    if (tab) {
+      tab.label = name;
+      tab.originalName = name;
+      tab.errors = mergedErrors;
+      renderTabBar();
+    }
   }
 
   async function createScenario() {
     await initEditor(false, '');
+
+    const activeTab = tabs.find((t) => t.id === activeTabId);
+    const canReuseTab = activeTab && !activeTab.originalName;
+
+    if (!canReuseTab) {
+      saveCurrentTabState();
+      const newTab = makeTab();
+      tabs.push(newTab);
+      activeTabId = newTab.id;
+    }
+
     editingOriginalScenarioName = '';
+    scenarioGuardDisabledNames = new Set();
     await refreshScenarioReferenceGuard();
     applyToolboxForEditingScenario('');
-    refs.scenarioName.value = '';
-    if (typeof workspace.scroll === 'function') {
-      workspace.scroll(0, 0);
+    if (workspace) {
+      if (typeof workspace.scroll === 'function') {
+        workspace.scroll(0, 0);
+      }
+      workspace.clear();
+      ensureRootBlock();
     }
-    workspace.clear();
-    ensureRootBlock();
-    refreshStartPlayIdState();
+    startPlayNextId = startPlayIdDefault;
+    startPlayAssignedIds = new Map();
     if (refs.jsonOutput) {
       refs.jsonOutput.textContent = '';
     }
     clearErrors();
+
+    const tab = tabs.find((t) => t.id === activeTabId);
+    if (tab) {
+      tab.label = 'New Scenario';
+      tab.originalName = '';
+      tab.workspaceState = null;
+      tab.errors = [];
+    }
+    renderTabBar();
   }
 
   async function saveScenario() {
@@ -1609,6 +1926,12 @@
     applyToolboxForEditingScenario(editingOriginalScenarioName);
     await refreshScenarioList(name);
     toast(`Saved: ${name}`);
+    const activeTab = tabs.find((t) => t.id === activeTabId);
+    if (activeTab) {
+      activeTab.label = name;
+      activeTab.originalName = name;
+      renderTabBar();
+    }
   }
 
   async function deleteScenario() {
@@ -1721,10 +2044,20 @@
     );
     moduleManifest = null;
     const onEditPage = refs.pageEdit.classList.contains('active');
+    if (onEditPage) {
+      saveCurrentTabState();
+    }
     await loadBlocklyAssets(true);
     await refreshScenarioReferenceGuard();
     if (onEditPage) {
       await initEditor(true, editingOriginalScenarioName);
+      const activeTab = tabs.find((t) => t.id === activeTabId);
+      if (activeTab && activeTab.workspaceState) {
+        const ordered = reorderWorkspaceTopBlocks(activeTab.workspaceState);
+        Blockly.serialization.workspaces.load(ordered, workspace);
+        restoreSerializedOptionFieldValues(ordered);
+        refreshStartPlayIdState();
+      }
     }
     toast('Blocks updated from ./btInfo.');
   }
@@ -2197,6 +2530,10 @@
   }
 
   async function bootstrap() {
+    const firstTab = makeTab();
+    tabs.push(firstTab);
+    activeTabId = firstTab.id;
+    renderTabBar();
     showPage('main');
     setScenarioListLoading(true);
     try {
@@ -2268,12 +2605,8 @@
     btnRename.addEventListener('click', beginRenameEdit);
   }
 
-  document.getElementById('btn-save').addEventListener('click', async () => {
-    try {
-      await saveScenario();
-    } catch (err) {
-      toast(err.message || 'Save failed');
-    }
+  document.getElementById('btn-save').addEventListener('click', () => {
+    openSaveDialog();
   });
 
   refs.scenarioName.addEventListener('keydown', async (event) => {
@@ -2281,6 +2614,7 @@
       return;
     }
     event.preventDefault();
+    closeSaveDialog();
     try {
       await saveScenario();
     } catch (err) {
@@ -2387,14 +2721,45 @@
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && refs.treeModal.classList.contains('show')) {
-      refs.treeModal.classList.remove('show');
-      return;
-    }
-    if (event.key === 'Escape' && refs.jsonModal.classList.contains('show')) {
-      refs.jsonModal.classList.remove('show');
+    if (event.key === 'Escape') {
+      if (refs.saveDialog && refs.saveDialog.classList.contains('show')) {
+        closeSaveDialog();
+        return;
+      }
+      if (refs.treeModal.classList.contains('show')) {
+        refs.treeModal.classList.remove('show');
+        return;
+      }
+      if (refs.jsonModal.classList.contains('show')) {
+        refs.jsonModal.classList.remove('show');
+      }
     }
   });
+
+  if (refs.saveDialog) {
+    refs.saveDialog.addEventListener('click', (event) => {
+      if (event.target === refs.saveDialog) {
+        closeSaveDialog();
+      }
+    });
+  }
+
+  if (refs.btnSaveConfirm) {
+    refs.btnSaveConfirm.addEventListener('click', async () => {
+      closeSaveDialog();
+      try {
+        await saveScenario();
+      } catch (err) {
+        toast(err.message || 'Save failed');
+      }
+    });
+  }
+
+  if (refs.btnSaveCancel) {
+    refs.btnSaveCancel.addEventListener('click', () => {
+      closeSaveDialog();
+    });
+  }
 
   bootstrap().catch((err) => {
     refs.updateResult.textContent = String(err.message || err);
