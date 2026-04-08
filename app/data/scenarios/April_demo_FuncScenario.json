@@ -103,7 +103,8 @@
                                         "type": "behavior__motion__bric_start_motion_motion_start_motion",
                                         "id": "ml6WMZgrfVptwV:87La:",
                                         "fields": {
-                                          "PARAM_NAME": "expressive_motion.wave_two_hand"
+                                          "PARAM_NAME": "manipulation.put_down",
+                                          "OPT_NAME_OBJECT": "box"
                                         },
                                         "next": {
                                           "block": {
