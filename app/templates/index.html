@@ -44,11 +44,12 @@
 
     <section id="page-edit" class="page">
       <div class="editor-toolbar glass">
-        <label for="scenario-name">Scenario Name</label>
-        <input id="scenario-name" type="text" placeholder="scenario_001">
-        <button id="btn-save" type="button">Save Scenario</button>
-        <button id="btn-export-file" type="button">Export</button>
-        <button id="btn-export" type="button">Behavior Tree</button>
+        <div id="tab-bar" class="tab-bar"></div>
+        <div class="editor-actions">
+          <button id="btn-save" type="button">Save Scenario</button>
+          <button id="btn-export-file" type="button">Export</button>
+          <button id="btn-export" type="button">Behavior Tree</button>
+        </div>
       </div>
 
       <div class="editor-grid">
@@ -81,6 +82,20 @@
         <button id="btn-tree-zoom-out" type="button">Zoom Out</button>
         <button id="btn-tree-json" type="button">JSON</button>
         <button id="btn-tree-confirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="save-dialog" class="json-modal">
+    <div class="json-modal-card save-dialog-card glass">
+      <h3>Save Scenario</h3>
+      <div class="save-dialog-body">
+        <label for="scenario-name">Scenario Name</label>
+        <input id="scenario-name" type="text" placeholder="scenario_001">
+      </div>
+      <div class="json-modal-actions">
+        <button id="btn-save-confirm" type="button">Confirm</button>
+        <button id="btn-save-cancel" type="button">Cancel</button>
       </div>
     </div>
   </div>
