@@ -21,25 +21,14 @@
         "inputs": {
           "STACK": {
             "block": {
-              "type": "bt_logic__sequence",
-              "id": "4PD#-q-K,6=J|*7EY%Ec",
-              "fields": {
-                "PARAM_TICKRATE": "500"
-              },
-              "inputs": {
-                "CHILDREN": {
-                  "block": {
-                    "type": "behavior__navigation__navigation_wait_move_finished",
-                    "id": "}u2[O0i9:=/5_o?rlsUg",
-                    "next": {
-                      "block": {
-                        "type": "bt_function__sleep",
-                        "id": "|v_h@|$9TSL-dPIdG^[!",
-                        "fields": {
-                          "PARAM_TICKRATE": "500"
-                        }
-                      }
-                    }
+              "type": "behavior__navigation__navigation_wait_move_finished",
+              "id": "}u2[O0i9:=/5_o?rlsUg",
+              "next": {
+                "block": {
+                  "type": "bt_function__sleep",
+                  "id": "|v_h@|$9TSL-dPIdG^[!",
+                  "fields": {
+                    "PARAM_TICKRATE": "500"
                   }
                 }
               }
@@ -66,30 +55,19 @@
         "inputs": {
           "STACK": {
             "block": {
-              "type": "bt_logic__sequence",
-              "id": "][csnyiy5cLPtf^f$j21",
+              "type": "behavior__navigation__navigation_move_in_direction",
+              "id": "ph7YUib^^.FVytM;I14[",
               "fields": {
-                "PARAM_TICKRATE": "500"
+                "PARAM_DISTANCE": "1.0",
+                "PARAM_VELOCITY": "0.60",
+                "PARAM_DIRECTION": "backwards"
               },
-              "inputs": {
-                "CHILDREN": {
-                  "block": {
-                    "type": "behavior__navigation__navigation_move_in_direction",
-                    "id": "ph7YUib^^.FVytM;I14[",
-                    "fields": {
-                      "PARAM_DISTANCE": "1.0",
-                      "PARAM_VELOCITY": "0.60",
-                      "PARAM_DIRECTION": "backwards"
-                    },
-                    "next": {
-                      "block": {
-                        "type": "procedures_callnoreturn",
-                        "id": "`TlL}s^x7`rV/haAI~?H",
-                        "extraState": {
-                          "name": "WaitMoveFinished"
-                        }
-                      }
-                    }
+              "next": {
+                "block": {
+                  "type": "procedures_callnoreturn",
+                  "id": "`TlL}s^x7`rV/haAI~?H",
+                  "extraState": {
+                    "name": "WaitMoveFinished"
                   }
                 }
               }
@@ -117,9 +95,9 @@
                     "id": "ny=(^2!u:X^RsgK3n)$F",
                     "fields": {
                       "PARAM_POSE_TYPE": "map",
-                      "PARAM_POSE_X": "0.0",
-                      "PARAM_POSE_Y": "0.0",
-                      "PARAM_POSE_Z": "0.0"
+                      "PARAM_POSE_X": "1.640",
+                      "PARAM_POSE_Y": "0.345",
+                      "PARAM_POSE_Z": "180.0"
                     },
                     "next": {
                       "block": {
@@ -146,9 +124,10 @@
                         "type": "behavior__motion__motion_start_motion",
                         "id": "CGsMhciRbZTuu`}rLAYj",
                         "fields": {
-                          "PARAM_TASK_TYPE": "expressive_motion",
+                          "PARAM_TASK_TYPE": "manipulation",
                           "PARAM_REPEAT": "once",
-                          "OPT_TASK_TYPE_NAME": "wave_two_hand"
+                          "OPT_TASK_TYPE_NAME": "pick_up",
+                          "OPT_TASK_TYPE_OBJECT": "box"
                         },
                         "next": {
                           "block": {
@@ -180,9 +159,9 @@
                                 "id": "i4S=`1Mu:Heh}D;j(8On",
                                 "fields": {
                                   "PARAM_POSE_TYPE": "map",
-                                  "PARAM_POSE_X": "0.0",
-                                  "PARAM_POSE_Y": "0.0",
-                                  "PARAM_POSE_Z": "0.0"
+                                  "PARAM_POSE_X": "1.640",
+                                  "PARAM_POSE_Y": "1.345",
+                                  "PARAM_POSE_Z": "180.0"
                                 },
                                 "next": {
                                   "block": {
@@ -209,9 +188,10 @@
                                     "type": "behavior__motion__motion_start_motion",
                                     "id": "JWrKSvxKosZi1.O%v%gJ",
                                     "fields": {
-                                      "PARAM_TASK_TYPE": "expressive_motion",
+                                      "PARAM_TASK_TYPE": "manipulation",
                                       "PARAM_REPEAT": "once",
-                                      "OPT_TASK_TYPE_NAME": "wave_two_hand"
+                                      "OPT_TASK_TYPE_NAME": "dump",
+                                      "OPT_TASK_TYPE_OBJECT": "box"
                                     },
                                     "next": {
                                       "block": {
@@ -272,9 +252,10 @@
                                                 "type": "behavior__motion__motion_start_motion",
                                                 "id": "y}`SWn;?K|0ElRc{riyG",
                                                 "fields": {
-                                                  "PARAM_TASK_TYPE": "expressive_motion",
+                                                  "PARAM_TASK_TYPE": "manipulation",
                                                   "PARAM_REPEAT": "once",
-                                                  "OPT_TASK_TYPE_NAME": "wave_two_hand"
+                                                  "OPT_TASK_TYPE_NAME": "put_down",
+                                                  "OPT_TASK_TYPE_OBJECT": "box"
                                                 },
                                                 "next": {
                                                   "block": {
