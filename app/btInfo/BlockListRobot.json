@@ -12,82 +12,6 @@
         "enabled": true,
         "options": [
           {
-            "value": "expressive_motion.wave_two_hand",
-            "description": "양손 가슴높이 손인사"
-          },
-          {
-            "value": "expressive_motion.pose_hand_heart",
-            "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
-          },
-          {
-            "value": "expressive_motion.present_double",
-            "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
-          },
-          {
-            "value": "expressive_motion.wave_two_hand_sway",
-            "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
-          },
-          {
-            "value": "expressive_motion.head_left_down",
-            "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
-          },
-          {
-            "value": "expressive_motion.head_right_down",
-            "description": "머리 오른쪽 아래 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_left_up",
-            "description": "머리 왼쪽 위 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_right_up",
-            "description": "머리 오른쪽 위 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.double_nod",
-            "description": "머리 두번 끄덕끄덕"
-          },
-          {
-            "value": "expressive_motion.head_left",
-            "description": "머리 왼쪽 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_right",
-            "description": "머리 오른쪽 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.highfive_ready",
-            "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
-          },
-          {
-            "value": "expressive_motion.highfive_strike",
-            "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-          },
-          {
-            "value": "expressive_motion.fistbump_ready",
-            "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
-          },
-          {
-            "value": "expressive_motion.fistbump_strike",
-            "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-          },
-          {
-            "value": "pose_motion.work_ready",
-            "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-          },
-          {
-            "value": "pose_motion.move",
-            "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
-          },
-          {
-            "value": "pose_motion.recent_joint_neutral",
-            "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
-          },
-          {
-            "value": "pose_motion.neutral",
-            "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
-          },
-          {
             "value": "manipulation.prepare",
             "description": "demo2604_pick_box_ready",
             "parameters": [
@@ -166,6 +90,82 @@
                 "max": null
               }
             ]
+          },
+          {
+            "value": "expressive_motion.double_nod",
+            "description": "머리 두번 끄덕끄덕"
+          },
+          {
+            "value": "expressive_motion.fistbump_ready",
+            "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+          },
+          {
+            "value": "expressive_motion.fistbump_strike",
+            "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+          },
+          {
+            "value": "expressive_motion.head_left",
+            "description": "머리 왼쪽 이동 후 복귀"
+          },
+          {
+            "value": "expressive_motion.head_left_down",
+            "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+          },
+          {
+            "value": "expressive_motion.head_left_up",
+            "description": "머리 왼쪽 위 이동 후 복귀"
+          },
+          {
+            "value": "expressive_motion.head_right",
+            "description": "머리 오른쪽 이동 후 복귀"
+          },
+          {
+            "value": "expressive_motion.head_right_down",
+            "description": "머리 오른쪽 아래 이동 후 복귀"
+          },
+          {
+            "value": "expressive_motion.head_right_up",
+            "description": "머리 오른쪽 위 이동 후 복귀"
+          },
+          {
+            "value": "expressive_motion.highfive_ready",
+            "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
+          },
+          {
+            "value": "expressive_motion.highfive_strike",
+            "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+          },
+          {
+            "value": "expressive_motion.pose_hand_heart",
+            "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
+          },
+          {
+            "value": "expressive_motion.present_double",
+            "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+          },
+          {
+            "value": "expressive_motion.wave_two_hand",
+            "description": "양손 가슴높이 손인사"
+          },
+          {
+            "value": "expressive_motion.wave_two_hand_sway",
+            "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+          },
+          {
+            "value": "pose_motion.move",
+            "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+          },
+          {
+            "value": "pose_motion.neutral",
+            "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+          },
+          {
+            "value": "pose_motion.recent_joint_neutral",
+            "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+          },
+          {
+            "value": "pose_motion.work_ready",
+            "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
           }
         ],
         "min": null,
@@ -196,48 +196,40 @@
                 "enabled": true,
                 "options": [
                   {
-                    "value": "wave_two_hand",
-                    "description": "양손 가슴높이 손인사"
-                  },
-                  {
-                    "value": "pose_hand_heart",
-                    "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
-                  },
-                  {
-                    "value": "present_double",
-                    "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
-                  },
-                  {
-                    "value": "wave_two_hand_sway",
-                    "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
-                  },
-                  {
-                    "value": "head_left_down",
-                    "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
-                  },
-                  {
-                    "value": "head_right_down",
-                    "description": "머리 오른쪽 아래 이동 후 복귀"
-                  },
-                  {
-                    "value": "head_left_up",
-                    "description": "머리 왼쪽 위 이동 후 복귀"
-                  },
-                  {
-                    "value": "head_right_up",
-                    "description": "머리 오른쪽 위 이동 후 복귀"
-                  },
-                  {
                     "value": "double_nod",
                     "description": "머리 두번 끄덕끄덕"
+                  },
+                  {
+                    "value": "fistbump_ready",
+                    "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+                  },
+                  {
+                    "value": "fistbump_strike",
+                    "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
                   },
                   {
                     "value": "head_left",
                     "description": "머리 왼쪽 이동 후 복귀"
                   },
                   {
+                    "value": "head_left_down",
+                    "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+                  },
+                  {
+                    "value": "head_left_up",
+                    "description": "머리 왼쪽 위 이동 후 복귀"
+                  },
+                  {
                     "value": "head_right",
                     "description": "머리 오른쪽 이동 후 복귀"
+                  },
+                  {
+                    "value": "head_right_down",
+                    "description": "머리 오른쪽 아래 이동 후 복귀"
+                  },
+                  {
+                    "value": "head_right_up",
+                    "description": "머리 오른쪽 위 이동 후 복귀"
                   },
                   {
                     "value": "highfive_ready",
@@ -248,12 +240,20 @@
                     "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
                   },
                   {
-                    "value": "fistbump_ready",
-                    "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+                    "value": "pose_hand_heart",
+                    "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
                   },
                   {
-                    "value": "fistbump_strike",
-                    "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                    "value": "present_double",
+                    "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+                  },
+                  {
+                    "value": "wave_two_hand",
+                    "description": "양손 가슴높이 손인사"
+                  },
+                  {
+                    "value": "wave_two_hand_sway",
+                    "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
                   }
                 ],
                 "min": null,
@@ -272,20 +272,20 @@
                 "enabled": true,
                 "options": [
                   {
-                    "value": "work_ready",
-                    "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-                  },
-                  {
                     "value": "move",
                     "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+                  },
+                  {
+                    "value": "neutral",
+                    "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
                   },
                   {
                     "value": "recent_joint_neutral",
                     "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
                   },
                   {
-                    "value": "neutral",
-                    "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+                    "value": "work_ready",
+                    "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
                   }
                 ],
                 "min": null,

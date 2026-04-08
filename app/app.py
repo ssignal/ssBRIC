@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Tuple
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
+from src.db_sync import sync_block_info_from_db
 from src.generator_engine import generate_all
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -777,8 +778,9 @@ def serve_theme(filename: str):
 @app.post("/api/blocks/update")
 def update_blocks():
     try:
+        db_sync = sync_block_info_from_db(BASE_DIR)
         summary = generate_all()
-        return jsonify({"ok": True, "summary": summary})
+        return jsonify({"ok": True, "summary": summary, "db_sync": db_sync})
     except Exception as exc:  # noqa: BLE001
         return jsonify({"ok": False, "error": str(exc)}), 500
 

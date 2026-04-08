@@ -1,0 +1,54 @@
+###################################################
+# Data loading from DB
+
+## Purpose
+  load data from DB for block list and other features.
+  Update the BlockListRobot.json and POI.json and start_motion.json if there are data changes in the DB.
+  This function is triggered by the button, 'Update Blocks'
+
+## Conditions
+  DB connection parameters are set in dbinfo.json.
+  Create DB library for CRUD with sql query. It should be a different file.
+  Use DB library load data for block list from the table
+  Update only the data scopes specified below, 'Block list' part.
+  Do not update unrelated categories/items.
+  Before writing DB values, remove only the existing values that belong to the same DB-managed scope.
+  Keep all non-targeted existing values as-is.
+  If target table has no rows or no applicable data, keep current values for that target scope.
+
+## Block list
+  - category: motion
+    action: 'motion/start_motion'
+      target: parameters[].task_type.options[].value: 'expressive_motion'
+        DB info for parameters:
+          Table: MotionExpressive
+          Columns
+            value: name
+            description: description
+      target: parameters[].task_type.options[].value: 'pose_motion'
+        DB info for parameters:
+          Table: MotionPose
+          Columns
+            value: name
+            description: description
+    action: 'BRIC.start_motion:motion/start_motion'
+      target: parameters[].name: 'name'
+        DB info for parameters:
+          Table: MotionExpressive
+          Columns for key
+            value: name
+            description: description
+          format:
+            name: 'expressive_motion.{value}'
+      target: parameters[].name: 'name'
+        DB info for parameters:
+          Table: MotionPose
+          Columns for key
+            value: name
+            description: description
+          format:
+            name: 'pose_motion.{value}'
+      merge/update rule:
+        - Remove only existing `expressive_motion.*` values when `MotionExpressive` has rows.
+        - Remove only existing `pose_motion.*` values when `MotionPose` has rows.
+        - Keep other existing values (e.g., manipulation) unchanged.
