@@ -1714,7 +1714,11 @@
   async function updateBlocks() {
     refs.updateResult.textContent = 'Updating block registry...';
     const response = await api('/api/blocks/update', { method: 'POST' });
-    refs.updateResult.textContent = JSON.stringify(response.summary, null, 2);
+    refs.updateResult.textContent = JSON.stringify(
+      { summary: response.summary, db_sync: response.db_sync || null },
+      null,
+      2,
+    );
     moduleManifest = null;
     const onEditPage = refs.pageEdit.classList.contains('active');
     await loadBlocklyAssets(true);
