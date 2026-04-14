@@ -217,8 +217,8 @@ def main():
             drop_all_tables_target(target_db)
 
         if command == "remove_and_copy":
-            print("🔹 Removing data from target...")
-            truncate_database_target(target_db)
+            print("🔹 Removing all tables from target...")
+            drop_all_tables_target(target_db)
 
         if command in ("copy", "remove_and_copy"):
             print(f"🔹 Copying data from {DB_SOURCE} to {target_db}...")
