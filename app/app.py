@@ -4,7 +4,7 @@ import os
 import re
 from copy import deepcopy
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
@@ -19,7 +19,7 @@ MANIFEST_PATH = GENERATED_DIR / "manifest.json"
 BRIC_ACTION_RE = re.compile(r"^BRIC\.([A-Za-z0-9_]+):(.*)$")
 LEGACY_BLOCK_TYPE_MAP = {
     # Legacy saved workspace type before BRIC reference naming update.
-    "behavior__motion__bric_motion_start_motion": "behavior__motion__bric_start_motion_motion_start_motion",
+    "behavior__motion__bric_motion_start_motion": "behavior__motion__bric_start_motion_motion_start_motion",  # noqa: E501
 }
 
 app = Flask(__name__)
@@ -60,7 +60,7 @@ def scenario_path(name: str) -> Path:
     return DATA_DIR / f"{safe}.json"
 
 
-def parse_manifest() -> Dict[str, Any]:
+def parse_manifest() -> dict[str, Any]:
     if not MANIFEST_PATH.exists():
         generate_all()
     if not MANIFEST_PATH.exists():
@@ -109,12 +109,12 @@ def _float_literal_string(value: Any) -> str | None:
 
 
 def _collect_float_behavior_param_defs(
-    defs: List[Dict[str, Any]] | None,
-) -> List[Tuple[str, str]]:
-    out: List[Tuple[str, str]] = []
-    seen: set[Tuple[str, str]] = set()
+    defs: list[dict[str, Any]] | None,
+) -> list[tuple[str, str]]:
+    out: list[tuple[str, str]] = []
+    seen: set[tuple[str, str]] = set()
 
-    def visit(items: List[Dict[str, Any]] | None):
+    def visit(items: list[dict[str, Any]] | None):
         for p in items or []:
             if not isinstance(p, dict):
                 continue
@@ -135,10 +135,10 @@ def _collect_float_behavior_param_defs(
     return out
 
 
-def format_bt_json_with_float_literals(data: Any, manifest: Dict[str, Any]) -> str:
+def format_bt_json_with_float_literals(data: Any, manifest: dict[str, Any]) -> str:
     tree = deepcopy(data)
-    behavior_float_defs: Dict[str, List[Tuple[str, str]]] = {}
-    node_float_fields: Dict[str, List[str]] = {}
+    behavior_float_defs: dict[str, list[tuple[str, str]]] = {}
+    node_float_fields: dict[str, list[str]] = {}
 
     for item in manifest.get("behavior") or []:
         if not isinstance(item, dict):
@@ -156,7 +156,7 @@ def format_bt_json_with_float_literals(data: Any, manifest: Dict[str, Any]) -> s
         node_type = str(item.get("node_type", "")).strip()
         if not node_type:
             continue
-        fields: List[str] = []
+        fields: list[str] = []
         for p in item.get("parameters") or []:
             if not isinstance(p, dict):
                 continue
@@ -167,7 +167,7 @@ def format_bt_json_with_float_literals(data: Any, manifest: Dict[str, Any]) -> s
                 fields.append(name)
         node_float_fields[node_type] = fields
 
-    def mark_value(obj: Dict[str, Any], key: str):
+    def mark_value(obj: dict[str, Any], key: str):
         if key not in obj:
             return
         literal = _float_literal_string(obj.get(key))
@@ -220,9 +220,9 @@ def format_bt_json_with_float_literals(data: Any, manifest: Dict[str, Any]) -> s
 
 
 def bt_to_blockly(
-    bt_data: Any, manifest: Dict[str, Any]
-) -> Tuple[Dict[str, Any], List[str]]:
-    errors: List[str] = []
+    bt_data: Any, manifest: dict[str, Any]
+) -> tuple[dict[str, Any], list[str]]:
+    errors: list[str] = []
 
     behavior_by_action = {
         item.get("action"): item for item in manifest.get("behavior", [])
@@ -232,7 +232,7 @@ def bt_to_blockly(
         for item in (manifest.get("bt_logic", []) + manifest.get("bt_function", []))
     }
 
-    def make_block(node: Dict[str, Any], path: str) -> Dict[str, Any]:
+    def make_block(node: dict[str, Any], path: str) -> dict[str, Any]:
         n_type = node.get("type")
         action = node.get("action")
 
@@ -318,7 +318,7 @@ def is_blockly_workspace_data(data: Any) -> bool:
     return True
 
 
-def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
+def reorder_workspace_top_blocks(data: dict[str, Any]) -> dict[str, Any]:
     if not is_blockly_workspace_data(data):
         return data
     out = deepcopy(data)
@@ -326,7 +326,7 @@ def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
     if not isinstance(arr, list):
         return out
 
-    def order_of(block: Dict[str, Any]) -> int:
+    def order_of(block: dict[str, Any]) -> int:
         t = str((block or {}).get("type", ""))
         if t in ("procedures_defnoreturn", "procedures_defreturn"):
             return 0
@@ -338,7 +338,7 @@ def reorder_workspace_top_blocks(data: Dict[str, Any]) -> Dict[str, Any]:
     return out
 
 
-def normalize_workspace_legacy_block_types(data: Dict[str, Any]) -> Dict[str, Any]:
+def normalize_workspace_legacy_block_types(data: dict[str, Any]) -> dict[str, Any]:
     if not is_blockly_workspace_data(data):
         return data
     out = deepcopy(data)
@@ -367,7 +367,7 @@ def normalize_workspace_legacy_block_types(data: Dict[str, Any]) -> Dict[str, An
     return out
 
 
-def _match_ref_data(table: Dict[str, Dict[str, Any]], key_name: str) -> Dict[str, Any] | None:
+def _match_ref_data(table: dict[str, dict[str, Any]], key_name: str) -> dict[str, Any] | None:
     key = str(key_name or "").strip()
     if not key:
         return None
@@ -403,10 +403,10 @@ def _match_ref_data(table: Dict[str, Dict[str, Any]], key_name: str) -> Dict[str
     return None
 
 
-def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None) -> Any:
+def preprocess_export_tree(data: Any, resolution_errors: list[str] | None = None) -> Any:
     out = deepcopy(data)
-    ref_cache: Dict[str, Dict[str, Dict[str, Any]]] = {}
-    scenario_child_cache: Dict[str, Dict[str, Any] | None] = {}
+    ref_cache: dict[str, dict[str, dict[str, Any]]] = {}
+    scenario_child_cache: dict[str, dict[str, Any] | None] = {}
     scenario_loading: set[str] = set()
     manifest = parse_manifest()
     by_type = {
@@ -424,7 +424,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
 
         return str(random.randint(10000000, 99999999))
 
-    def first_input_block(block_state: Dict[str, Any], input_name: str) -> Dict[str, Any] | None:
+    def first_input_block(block_state: dict[str, Any], input_name: str) -> dict[str, Any] | None:
         if not isinstance(block_state, dict):
             return None
         inputs = block_state.get("inputs")
@@ -436,7 +436,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
         block = inp.get("block")
         return block if isinstance(block, dict) else None
 
-    def collect_option_params(fields: Dict[str, Any], defs: List[Dict[str, Any]], out_param: Dict[str, Any]):
+    def collect_option_params(fields: dict[str, Any], defs: list[dict[str, Any]], out_param: dict[str, Any]):  # noqa: E501
         for meta in defs or []:
             if not isinstance(meta, dict):
                 continue
@@ -453,8 +453,8 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 collect_option_params(fields, nested, out_param)
 
     def convert_workspace_block_to_bt(
-        block_state: Dict[str, Any], should_force_sequence_wrapper: bool
-    ) -> Dict[str, Any] | None:
+        block_state: dict[str, Any], should_force_sequence_wrapper: bool
+    ) -> dict[str, Any] | None:
         if not isinstance(block_state, dict):
             return None
         btype = str(block_state.get("type", ""))
@@ -478,7 +478,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
             return None
 
         if meta.get("kind") == "behavior":
-            parameter: Dict[str, Any] = {}
+            parameter: dict[str, Any] = {}
             for p in meta.get("parameters") or []:
                 if not isinstance(p, dict):
                     continue
@@ -499,7 +499,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 "id": random_id(),
             }
 
-        node: Dict[str, Any] = {
+        node: dict[str, Any] = {
             "type": str(meta.get("node_type") or "Node"),
             "id": random_id(),
         }
@@ -513,8 +513,8 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 fields.get(field_name), str(p.get("type", "string"))
             )
 
-        def convert_stack(start_block: Dict[str, Any] | None) -> List[Dict[str, Any]]:
-            out_nodes: List[Dict[str, Any]] = []
+        def convert_stack(start_block: dict[str, Any] | None) -> list[dict[str, Any]]:
+            out_nodes: list[dict[str, Any]] = []
             cur = start_block
             while isinstance(cur, dict):
                 conv = convert_workspace_block_to_bt(cur, should_force_sequence_wrapper)
@@ -550,7 +550,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 node["child"] = None
         return node
 
-    def load_scenario_child_bt(scenario_name: str) -> Dict[str, Any] | None:
+    def load_scenario_child_bt(scenario_name: str) -> dict[str, Any] | None:
         name = str(scenario_name or "").strip()
         if not name:
             return None
@@ -570,7 +570,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 scenario_child_cache[name] = None
                 return None
             raw = json.loads(p.read_text(encoding="utf-8"))
-            child_node: Dict[str, Any] | None = None
+            child_node: dict[str, Any] | None = None
             if is_blockly_workspace_data(raw):
                 ws = normalize_workspace_legacy_block_types(raw)
                 tops = ((ws.get("blocks") or {}).get("blocks") or [])
@@ -621,7 +621,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                 elif isinstance(raw.get("child"), dict):
                     child_node = deepcopy(raw.get("child"))
 
-            scenario_child_cache[name] = deepcopy(child_node) if isinstance(child_node, dict) else None
+            scenario_child_cache[name] = deepcopy(child_node) if isinstance(child_node, dict) else None  # noqa: E501
             return deepcopy(child_node) if isinstance(child_node, dict) else None
         except Exception:  # noqa: BLE001
             scenario_child_cache[name] = None
@@ -629,11 +629,11 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
         finally:
             scenario_loading.discard(name)
 
-    def load_ref(ref_name: str) -> Dict[str, Dict[str, Any]]:
+    def load_ref(ref_name: str) -> dict[str, dict[str, Any]]:
         if ref_name in ref_cache:
             return ref_cache[ref_name]
         p = BASE_DIR / "btInfo" / f"{ref_name}.json"
-        table: Dict[str, Dict[str, Any]] = {}
+        table: dict[str, dict[str, Any]] = {}
         if p.exists():
             try:
                 raw = json.loads(p.read_text(encoding="utf-8"))
@@ -702,7 +702,7 @@ def preprocess_export_tree(data: Any, resolution_errors: List[str] | None = None
                             matched = _match_ref_data(load_ref(ref_name), key_name)
                             if not isinstance(matched, dict):
                                 add_resolution_error(
-                                    f"{path}: reference not found in {ref_name}.json for name '{key_name}'"
+                                    f"{path}: reference not found in {ref_name}.json for name '{key_name}'"  # noqa: E501
                                 )
                         if isinstance(matched, dict):
                             # Keep reference-mapped base data, but preserve
@@ -893,7 +893,7 @@ def validate_behavior_tree_references():
     data = body.get("data")
     if data is None:
         return jsonify({"ok": False, "error": "Behavior tree data is required"}), 400
-    errors: List[str] = []
+    errors: list[str] = []
     preprocess_export_tree(data, errors)
     return jsonify({"ok": True, "errors": errors})
 

@@ -2,16 +2,16 @@
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from src.db_lib import DBClient
+from src.db_lib import DBClient  # noqa: E402
 
 
-def _load_db_config() -> Dict[str, Any]:
+def _load_db_config() -> dict[str, Any]:
     cfg_path = ROOT_DIR / "dbinfo.json"
     if not cfg_path.exists():
         raise RuntimeError(f"Missing DB config file: {cfg_path}")
@@ -24,7 +24,7 @@ def _load_db_config() -> Dict[str, Any]:
     return data
 
 
-def _prompt_table_choice(tables: List[str]) -> str:
+def _prompt_table_choice(tables: list[str]) -> str:
     print("\nTables:")
     for idx, name in enumerate(tables, start=1):
         print(f"  {idx}. {name}")
@@ -70,7 +70,7 @@ def main() -> int:
             return 0
 
         # For SHOW TABLES, each row has one key with table name.
-        tables: List[str] = []
+        tables: list[str] = []
         for row in tables_rows:
             if not isinstance(row, dict) or not row:
                 continue

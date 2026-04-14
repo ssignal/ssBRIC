@@ -2,7 +2,7 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 BT_INFO_DIR = BASE_DIR / "btInfo"
@@ -52,7 +52,7 @@ def clean_text(v: Any) -> str:
     return str(v).strip()
 
 
-def split_parented_param_name(name: Any) -> Tuple[str, str, str]:
+def split_parented_param_name(name: Any) -> tuple[str, str, str]:
     raw = str(name or "param")
     if "/" in raw:
         parent, child = raw.split("/", 1)
@@ -79,7 +79,7 @@ def default_value(param_type: str) -> str:
     return ""
 
 
-def range_options(min_v: Any, max_v: Any, param_type: str = "") -> List[List[str]]:
+def range_options(min_v: Any, max_v: Any, param_type: str = "") -> list[list[str]]:
     if min_v is None or max_v is None:
         return []
     if not isinstance(min_v, (int, float)) or not isinstance(max_v, (int, float)):
@@ -118,8 +118,8 @@ def range_options(min_v: Any, max_v: Any, param_type: str = "") -> List[List[str
     return out
 
 
-def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> List[Dict[str, Any]]:
-    nested_meta: List[Dict[str, Any]] = []
+def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> list[dict[str, Any]]:
+    nested_meta: list[dict[str, Any]] = []
     for sub in params or []:
         if not is_enabled(sub.get("enabled"), True):
             continue
@@ -133,7 +133,7 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
         sub_max = sub.get("max")
         sub_field = f"{field_prefix}_{slugify(sub_name_raw).upper()}"
 
-        sub_option_descriptions: Dict[str, str] = {}
+        sub_option_descriptions: dict[str, str] = {}
         if sub_options:
             sub_dd = [
                 [str(sopt.get("value", "")), str(sopt.get("value", ""))]
@@ -162,7 +162,7 @@ def build_nested_param_meta(params: List[Dict[str, Any]], field_prefix: str) -> 
 
         # Only support one-level option parameters.
         # Nested option->parameters under these additional parameters are ignored.
-        sub_option_parameters: Dict[str, List[Dict[str, Any]]] = {}
+        sub_option_parameters: dict[str, list[dict[str, Any]]] = {}
 
         sub_description = clean_text(sub.get("description", ""))
         nested_meta.append(
@@ -192,7 +192,7 @@ def normalize_category(cat: str) -> str:
     return cat.strip()
 
 
-def is_item_enabled(item: Dict[str, Any]) -> bool:
+def is_item_enabled(item: dict[str, Any]) -> bool:
     value = item.get("enabled", True)
     if isinstance(value, bool):
         return value
@@ -215,8 +215,8 @@ def is_enabled(value: Any, default: bool = True) -> bool:
     return bool(value)
 
 
-def order_categories(categories: Dict[str, List[str]]) -> List[Tuple[str, List[str]]]:
-    ordered: List[Tuple[str, List[str]]] = []
+def order_categories(categories: dict[str, list[str]]) -> list[tuple[str, list[str]]]:
+    ordered: list[tuple[str, list[str]]] = []
     used = set()
     priority_aliases = [
         ["BT Logic", "BT_Logic"],
@@ -250,7 +250,7 @@ def display_category_name(cat: str) -> str:
     return mapping.get(cat, cat)
 
 
-def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
+def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
     category = normalize_category(item.get("category", "General"))
     action = item.get("action", "unknown/action")
     action_text = str(action)
@@ -281,7 +281,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
             },
         )
 
-    param_meta: List[Dict[str, Any]] = []
+    param_meta: list[dict[str, Any]] = []
     for param in item.get("parameters", []):
         if not is_enabled(param.get("enabled"), True):
             continue
@@ -313,8 +313,8 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
         )
 
         field_name = f"PARAM_{slugify(name_raw).upper()}"
-        option_param_meta: Dict[str, List[Dict[str, Any]]] = {}
-        option_descriptions: Dict[str, str] = {}
+        option_param_meta: dict[str, list[dict[str, Any]]] = {}
+        option_descriptions: dict[str, str] = {}
         if options:
             dd = [[str(opt.get("value", "")), str(opt.get("value", ""))] for opt in options]
             for opt in options:
@@ -385,7 +385,7 @@ def build_behavior_block(item: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
+def build_bt_block(item: dict[str, Any]) -> dict[str, Any]:
     block_kind = "bt_logic" if bool((item.get("parametersDef") or {}).get("children", {}).get("enabled")) else "bt_function"
     type_name = item.get("type", "Node")
     block_type = f"{block_kind}__{slugify(type_name)}"
@@ -497,7 +497,7 @@ def build_bt_block(item: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def load_inputs() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+def load_inputs() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     a_path = BT_INFO_DIR / "BlockListRobot.json"
     b_path = BT_INFO_DIR / "BTList_bt.json"
     if not b_path.exists():
@@ -515,7 +515,7 @@ def load_inputs() -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     return behavior_list, bt_list
 
 
-def emit_block_file(path: Path, blocks: List[Dict[str, Any]]):
+def emit_block_file(path: Path, blocks: list[dict[str, Any]]):
     arr = [b["json"] for b in blocks]
     tips = {b["block_type"]: b.get("description", "") for b in blocks}
     param_tips = {
@@ -1022,7 +1022,7 @@ window.BRIC.blockRegistrars.push({registrar_name});
     path.write_text(content, encoding="utf-8")
 
 
-def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
+def emit_generator_file(path: Path, blocks: list[dict[str, Any]]):
     registrar_name = "registerGenerators_" + slugify(path.stem)
     option_param_map = {
         b["block_type"]: {
@@ -1133,7 +1133,7 @@ def emit_generator_file(path: Path, blocks: List[Dict[str, Any]]):
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def emit_index(path: Path, modules: List[str], register_name: str):
+def emit_index(path: Path, modules: list[str], register_name: str):
     target = "blockRegistrars" if register_name == "registerBlocks" else "generatorRegistrars"
     content = (
         "window.BRIC = window.BRIC || {};\n"
@@ -1144,7 +1144,7 @@ def emit_index(path: Path, modules: List[str], register_name: str):
     path.write_text(content, encoding="utf-8")
 
 
-def emit_toolbox(path: Path, categories: List[Tuple[str, List[str]]]):
+def emit_toolbox(path: Path, categories: list[tuple[str, list[str]]]):
     contents = []
     for cat, block_types in categories:
         if not block_types:
@@ -1175,7 +1175,7 @@ def emit_toolbox(path: Path, categories: List[Tuple[str, List[str]]]):
     )
 
 
-def emit_theme(path: Path, categories: List[str]):
+def emit_theme(path: Path, categories: list[str]):
     category_styles = {}
     for i, cat in enumerate(categories):
         category_styles[f"{slugify(cat)}_category"] = {
@@ -1221,10 +1221,10 @@ def emit_theme(path: Path, categories: List[str]):
     )
 
 
-def generate_all() -> Dict[str, Any]:
+def generate_all() -> dict[str, Any]:
     behavior_list, bt_list = load_inputs()
 
-    scenario_items: List[Dict[str, Any]] = []
+    scenario_items: list[dict[str, Any]] = []
     if SCENARIO_DIR.exists():
         for sf in sorted(SCENARIO_DIR.glob("*.json")):
             scenario_items.append(
@@ -1246,7 +1246,7 @@ def generate_all() -> Dict[str, Any]:
     for d in (custom_dir, gen_dir, toolbox_dir, theme_dir):
         d.mkdir(parents=True, exist_ok=True)
 
-    behavior_groups: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    behavior_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in behavior_list:
         if not is_item_enabled(item):
             continue
@@ -1265,7 +1265,7 @@ def generate_all() -> Dict[str, Any]:
 
     custom_modules = []
     gen_modules = []
-    toolbox_categories: Dict[str, List[str]] = {}
+    toolbox_categories: dict[str, list[str]] = {}
 
     for cat, blocks in behavior_groups.items():
         mod_name = f"ros2Blocks_{slugify(cat)}.js"

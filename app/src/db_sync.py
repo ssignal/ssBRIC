@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from src.db_lib import DBClient
 
@@ -25,11 +25,11 @@ def _write_json_if_changed(path: Path, data: Any) -> bool:
     return True
 
 
-def _fetch_motion_rows(client: DBClient, table: str) -> List[Dict[str, str]]:
+def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
     rows = client.read(
-        f"SELECT name, description FROM `{table}` WHERE name IS NOT NULL AND name <> '' ORDER BY name"
+        f"SELECT name, description FROM `{table}` WHERE name IS NOT NULL AND name <> '' ORDER BY name"  # noqa: E501
     )
-    out: List[Dict[str, str]] = []
+    out: list[dict[str, str]] = []
     for row in rows:
         name = str(row.get("name", "")).strip()
         if not name:
@@ -45,8 +45,8 @@ def _fetch_motion_rows(client: DBClient, table: str) -> List[Dict[str, str]]:
 
 def _update_blocklist_robot(
     path: Path,
-    expressive_rows: List[Dict[str, str]],
-    pose_rows: List[Dict[str, str]],
+    expressive_rows: list[dict[str, str]],
+    pose_rows: list[dict[str, str]],
 ) -> bool:
     data = _read_json(path, [])
     if not isinstance(data, list):
@@ -78,7 +78,7 @@ def _update_blocklist_robot(
                     nested = opt.get("parameters")
                     if not isinstance(nested, list):
                         continue
-                    target_rows: List[Dict[str, str]] = []
+                    target_rows: list[dict[str, str]] = []
                     if opt_value == "expressive_motion":
                         target_rows = expressive_rows
                     elif opt_value == "pose_motion":
@@ -146,8 +146,8 @@ def _update_blocklist_robot(
 
 def _update_start_motion(
     path: Path,
-    expressive_rows: List[Dict[str, str]],
-    pose_rows: List[Dict[str, str]],
+    expressive_rows: list[dict[str, str]],
+    pose_rows: list[dict[str, str]],
 ) -> bool:
     current = _read_json(path, [])
     if not isinstance(current, list):
@@ -173,7 +173,7 @@ def _update_start_motion(
             )
         ]
 
-    out: List[Dict[str, Any]] = list(retained)
+    out: list[dict[str, Any]] = list(retained)
     if expressive_rows:
         for row in expressive_rows:
             name = str(row.get("value", "")).strip()
@@ -199,8 +199,8 @@ def _update_start_motion(
     return _write_json_if_changed(path, out)
 
 
-def sync_block_info_from_db(base_dir: Path) -> Dict[str, Any]:
-    summary: Dict[str, Any] = {
+def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
+    summary: dict[str, Any] = {
         "ok": True,
         "updated": [],
         "warnings": [],
