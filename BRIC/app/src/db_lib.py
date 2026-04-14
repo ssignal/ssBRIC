@@ -1,10 +1,10 @@
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 
 class DBClient:
     """Small DB helper with minimal CRUD/query support for MySQL backends."""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         self.config = dict(config or {})
         self.conn = None
         self.backend = ""
@@ -73,7 +73,7 @@ class DBClient:
         if mysql_connector_connect_error is not None:
             driver_errors.append(f"mysql-connector-python: {mysql_connector_connect_error}")
 
-        details = "; ".join(driver_errors) if driver_errors else "No driver could establish a connection."
+        details = "; ".join(driver_errors) if driver_errors else "No driver could establish a connection."  # noqa: E501
         raise RuntimeError(
             "DB connection failed with available MySQL driver(s). "
             "Check DB host/port/user/password/database settings. "
@@ -93,7 +93,7 @@ class DBClient:
         cur = conn.cursor()
         return cur
 
-    def fetch_all(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> List[Dict[str, Any]]:
+    def fetch_all(self, sql: str, params: tuple[Any, ...] | None = None) -> list[dict[str, Any]]:
         cur = self._cursor()
         try:
             cur.execute(sql, params or ())
@@ -102,7 +102,7 @@ class DBClient:
                 return []
             if isinstance(rows, list) and rows and not isinstance(rows[0], dict):
                 cols = [d[0] for d in (cur.description or [])]
-                return [dict(zip(cols, r)) for r in rows]
+                return [dict(zip(cols, r, strict=False)) for r in rows]
             if isinstance(rows, list):
                 return [dict(r) for r in rows]
             return []
@@ -112,7 +112,7 @@ class DBClient:
             except Exception:
                 pass
 
-    def execute(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> int:
+    def execute(self, sql: str, params: tuple[Any, ...] | None = None) -> int:
         cur = self._cursor()
         try:
             cur.execute(sql, params or ())
@@ -125,14 +125,14 @@ class DBClient:
                 pass
 
     # CRUD convenience wrappers
-    def create(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> int:
+    def create(self, sql: str, params: tuple[Any, ...] | None = None) -> int:
         return self.execute(sql, params)
 
-    def read(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> List[Dict[str, Any]]:
+    def read(self, sql: str, params: tuple[Any, ...] | None = None) -> list[dict[str, Any]]:
         return self.fetch_all(sql, params)
 
-    def update(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> int:
+    def update(self, sql: str, params: tuple[Any, ...] | None = None) -> int:
         return self.execute(sql, params)
 
-    def delete(self, sql: str, params: Optional[Tuple[Any, ...]] = None) -> int:
+    def delete(self, sql: str, params: tuple[Any, ...] | None = None) -> int:
         return self.execute(sql, params)

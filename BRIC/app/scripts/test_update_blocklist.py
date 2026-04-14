@@ -3,17 +3,17 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from src.db_lib import DBClient
-from src.db_sync import _fetch_motion_rows, _update_blocklist_robot
+from src.db_lib import DBClient  # noqa: E402
+from src.db_sync import _fetch_motion_rows, _update_blocklist_robot  # noqa: E402
 
 
-def _load_db_config(cfg_path: Path) -> Dict[str, Any]:
+def _load_db_config(cfg_path: Path) -> dict[str, Any]:
     if not cfg_path.exists():
         raise RuntimeError(f"Missing DB config file: {cfg_path}")
     try:

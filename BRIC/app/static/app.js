@@ -55,7 +55,7 @@
   };
 
   // Tab management state
-  let tabs = [];
+  const tabs = [];
   let activeTabId = null;
   let _tabIdSeq = 0;
   let lastClickBlockId = null;
@@ -72,7 +72,11 @@
     return `t${++_tabIdSeq}`;
   }
 
-  function makeTab({ label = 'New Scenario', originalName = '', workspaceState = null } = {}) {
+  function makeTab({
+    label = 'New Scenario',
+    originalName = '',
+    workspaceState = null,
+  } = {}) {
     return {
       id: genTabId(),
       label,
@@ -441,7 +445,7 @@
         }
         try {
           block.setFieldValue(String(value ?? ''), fieldName);
-        } catch (err) {
+        } catch (_err) {
           // Ignore values that are no longer valid.
         }
       });
@@ -504,7 +508,7 @@
       if (node.parentNode) {
         try {
           node.parentNode.removeChild(node);
-        } catch (err) {
+        } catch (_err) {
           // Ignore race condition when blur/enter handlers try to remove twice.
         }
       }
@@ -979,7 +983,10 @@
     return out;
   }
 
-  function collectScenarioRefsFromWorkspace(workspaceState, scenarioTypeToName) {
+  function collectScenarioRefsFromWorkspace(
+    workspaceState,
+    scenarioTypeToName,
+  ) {
     const refs = new Set();
     const visitBlock = (blockState) => {
       if (!blockState || typeof blockState !== 'object') {
@@ -1018,7 +1025,10 @@
     return refs;
   }
 
-  async function findScenarioRecursionCycleOnSave(targetScenarioName, workspaceState) {
+  async function findScenarioRecursionCycleOnSave(
+    targetScenarioName,
+    workspaceState,
+  ) {
     const target = String(targetScenarioName || '').trim();
     if (!target || !moduleManifest) {
       return null;
@@ -1049,13 +1059,15 @@
         .filter((name) => name !== target)
         .map(async (name) => {
           try {
-            const resp = await api(`/api/scenarios/${encodeURIComponent(name)}/blockly`);
+            const resp = await api(
+              `/api/scenarios/${encodeURIComponent(name)}/blockly`,
+            );
             const refs = collectScenarioRefsFromWorkspace(
               resp && resp.workspace,
               scenarioTypeToName,
             );
             graph.set(name, new Set([...refs].filter((n) => nameSet.has(n))));
-          } catch (err) {
+          } catch (_err) {
             graph.set(name, new Set());
           }
         }),
@@ -1171,12 +1183,14 @@
           }
         }
       }
-    } catch (err) {
+    } catch (_err) {
       // Fall through to DOM fallback.
     }
 
     const rows = Array.from(document.querySelectorAll('.blocklyTreeRow'));
-    const row = rows.find((el) => String(el.textContent || '').trim() === 'Scenario');
+    const row = rows.find(
+      (el) => String(el.textContent || '').trim() === 'Scenario',
+    );
     if (row && typeof row.click === 'function') {
       row.click();
     }
@@ -1200,7 +1214,9 @@
     }
 
     const typeByScenario = scenarioBlockTypeByName();
-    const ownType = typeByScenario.get(String(editingScenarioName || '').trim());
+    const ownType = typeByScenario.get(
+      String(editingScenarioName || '').trim(),
+    );
     const disabledTypes = new Set();
     scenarioGuardDisabledNames.forEach((scenarioRefName) => {
       const bt = typeByScenario.get(scenarioRefName);
@@ -1244,16 +1260,15 @@
     await Promise.all(
       names.map(async (name) => {
         try {
-          const resp = await api(`/api/scenarios/${encodeURIComponent(name)}/blockly`);
+          const resp = await api(
+            `/api/scenarios/${encodeURIComponent(name)}/blockly`,
+          );
           const refs = collectScenarioRefsFromWorkspace(
             resp && resp.workspace,
             scenarioTypeToName,
           );
-          graph.set(
-            name,
-            new Set([...refs].filter((r) => nameSet.has(r))),
-          );
-        } catch (err) {
+          graph.set(name, new Set([...refs].filter((r) => nameSet.has(r))));
+        } catch (_err) {
           graph.set(name, new Set());
         }
       }),
@@ -1359,7 +1374,7 @@
     const toolbox = getToolboxForEditingScenario(scenarioName);
     try {
       workspace.updateToolbox(toolbox);
-    } catch (err) {
+    } catch (_err) {
       // Ignore toolbox update errors to avoid blocking editor flow.
     }
   }
@@ -1415,7 +1430,9 @@
 
     const assignParamValue = (out, meta, rawValue) => {
       const parentKey = String((meta && meta.parent_key) || '').trim();
-      const childKey = String((meta && (meta.output_name || meta.name)) || '').trim();
+      const childKey = String(
+        (meta && (meta.output_name || meta.name)) || '',
+      ).trim();
       if (!childKey) {
         return;
       }
@@ -1439,8 +1456,9 @@
         const rawValue = fields[fieldName];
         assignParamValue(out, meta, rawValue);
         const selected = String(rawValue ?? '');
-        const nested =
-          ((meta.option_parameters || {})[selected] || []).filter(Boolean);
+        const nested = ((meta.option_parameters || {})[selected] || []).filter(
+          Boolean,
+        );
         if (nested.length) {
           collectOptionParams(fields, nested, out);
         }
@@ -1543,7 +1561,12 @@
             children: [],
           };
         }
-        scenarioNodeCache.set(name, childNode && typeof childNode === 'object' ? cloneJson(childNode) : null);
+        scenarioNodeCache.set(
+          name,
+          childNode && typeof childNode === 'object'
+            ? cloneJson(childNode)
+            : null,
+        );
         return childNode;
       } finally {
         const top = scenarioLoadingStack[scenarioLoadingStack.length - 1];
@@ -1569,7 +1592,10 @@
       const type = String(blockState.type || '');
       const fields = (blockState.fields && { ...blockState.fields }) || {};
 
-      if (type === 'procedures_callnoreturn' || type === 'procedures_callreturn') {
+      if (
+        type === 'procedures_callnoreturn' ||
+        type === 'procedures_callreturn'
+      ) {
         const name = String(
           (blockState.extraState && blockState.extraState.name) ||
             fields.NAME ||
@@ -1604,8 +1630,9 @@
         (meta.parameters || []).forEach((p) => {
           assignParamValue(parameter, p, fields[p.field]);
           const selected = String(fields[p.field] ?? '');
-          const defs =
-            ((p.option_parameters || {})[selected] || []).filter(Boolean);
+          const defs = ((p.option_parameters || {})[selected] || []).filter(
+            Boolean,
+          );
           if (defs.length) {
             collectOptionParams(fields, defs, parameter);
           }
@@ -1645,7 +1672,8 @@
           };
         } else if (children.length === 1) {
           const onlyChild = children[0];
-          const isRootBlock = String(blockState.type || '') === 'bt_function__root';
+          const isRootBlock =
+            String(blockState.type || '') === 'bt_function__root';
           const needsRootWrap =
             isRootBlock &&
             forceSequenceWrapper &&
@@ -1682,7 +1710,9 @@
       return out;
     };
 
-    const rootTop = topBlocks.find((b) => String((b && b.type) || '') === 'bt_function__root');
+    const rootTop = topBlocks.find(
+      (b) => String((b && b.type) || '') === 'bt_function__root',
+    );
     const rootNode = rootTop ? await convertBlock(rootTop) : null;
     if (!rootNode) {
       return null;
@@ -1692,45 +1722,45 @@
     for (const defBlock of topBlocks.filter(
       (b) => String((b && b.type) || '') === 'procedures_defnoreturn',
     )) {
-        const name = String(
-          (defBlock.fields && defBlock.fields.NAME) ||
-            (defBlock.extraState && defBlock.extraState.name) ||
-            '',
-        ).trim();
-        if (!name) {
-          continue;
-        }
-        const functionStackRoot = firstInputBlock(defBlock, 'STACK');
-        const functionRootIsBtLogic = String(
-          (functionStackRoot && functionStackRoot.type) || '',
-        ).startsWith('bt_logic__');
-        const shouldWrapFunctionRoot = !functionRootIsBtLogic;
-        const bodyNodes = await convertStack(
-          functionStackRoot,
-          shouldWrapFunctionRoot,
-        );
-        const singleSequence =
-          bodyNodes.length === 1 &&
-          bodyNodes[0] &&
-          typeof bodyNodes[0] === 'object' &&
-          String(bodyNodes[0].type || '') === 'Sequence'
-            ? bodyNodes[0]
-            : null;
-        let functionChild = null;
-        if (singleSequence) {
-          functionChild = singleSequence;
-        } else if (bodyNodes.length === 1 && !shouldWrapFunctionRoot) {
-          functionChild = bodyNodes[0];
-        } else {
-          functionChild = {
-            type: 'Sequence',
-            id: randomId(),
-            children: bodyNodes,
-          };
-        }
-        result[name] = {
-          child: functionChild,
+      const name = String(
+        (defBlock.fields && defBlock.fields.NAME) ||
+          (defBlock.extraState && defBlock.extraState.name) ||
+          '',
+      ).trim();
+      if (!name) {
+        continue;
+      }
+      const functionStackRoot = firstInputBlock(defBlock, 'STACK');
+      const functionRootIsBtLogic = String(
+        (functionStackRoot && functionStackRoot.type) || '',
+      ).startsWith('bt_logic__');
+      const shouldWrapFunctionRoot = !functionRootIsBtLogic;
+      const bodyNodes = await convertStack(
+        functionStackRoot,
+        shouldWrapFunctionRoot,
+      );
+      const singleSequence =
+        bodyNodes.length === 1 &&
+        bodyNodes[0] &&
+        typeof bodyNodes[0] === 'object' &&
+        String(bodyNodes[0].type || '') === 'Sequence'
+          ? bodyNodes[0]
+          : null;
+      let functionChild = null;
+      if (singleSequence) {
+        functionChild = singleSequence;
+      } else if (bodyNodes.length === 1 && !shouldWrapFunctionRoot) {
+        functionChild = bodyNodes[0];
+      } else {
+        functionChild = {
+          type: 'Sequence',
+          id: randomId(),
+          children: bodyNodes,
         };
+      }
+      result[name] = {
+        child: functionChild,
+      };
     }
 
     Object.entries(scenarioSubtrees).forEach(([id, subtreeNode]) => {
@@ -1900,12 +1930,17 @@
       return;
     }
 
-    const cyclePath = await findScenarioRecursionCycleOnSave(name, workspaceJson);
+    const cyclePath = await findScenarioRecursionCycleOnSave(
+      name,
+      workspaceJson,
+    );
     if (Array.isArray(cyclePath) && cyclePath.length >= 2) {
       toast(`Recursive Scenario call: ${cyclePath.join(' -> ')}`);
       return;
     }
-    const btForValidation = await workspaceToBtJson({ scenarioAsSubtree: true });
+    const btForValidation = await workspaceToBtJson({
+      scenarioAsSubtree: true,
+    });
     const refErrors = await fetchReferenceValidationErrors(btForValidation);
     if (refErrors.length) {
       renderErrors(refErrors);
@@ -1925,6 +1960,7 @@
     await refreshScenarioReferenceGuard();
     applyToolboxForEditingScenario(editingOriginalScenarioName);
     await refreshScenarioList(name);
+    await syncScenarioCategoryBlocksIfNeeded();
     toast(`Saved: ${name}`);
     const activeTab = tabs.find((t) => t.id === activeTabId);
     if (activeTab) {
@@ -2060,22 +2096,6 @@
       }
     }
     toast('Blocks updated from ./btInfo.');
-  }
-
-  async function exportJson() {
-    const btJson = await workspaceToBtJson({ scenarioAsSubtree: true });
-    const viewJson = btJson ? sanitizeBehaviorTreeForView(btJson) : null;
-    const text = viewJson
-      ? JSON.stringify(viewJson, null, 2)
-      : 'No tree generated.';
-    if (refs.jsonOutput) {
-      refs.jsonOutput.textContent = text;
-    }
-    refs.jsonModalText.value = text;
-    refs.treeModal.classList.remove('show');
-    refs.jsonModal.classList.add('show');
-    refs.jsonModalText.focus();
-    refs.jsonModalText.select();
   }
 
   function openJsonModalWithText(text) {
@@ -2264,7 +2284,11 @@
   }
 
   function normalizeForest(jsonValue) {
-    if (jsonValue && typeof jsonValue === 'object' && !Array.isArray(jsonValue)) {
+    if (
+      jsonValue &&
+      typeof jsonValue === 'object' &&
+      !Array.isArray(jsonValue)
+    ) {
       if (jsonValue.Root && typeof jsonValue.Root === 'object') {
         const sections = [{ name: 'Root', root: jsonValue.Root }];
         Object.keys(jsonValue)
@@ -2274,7 +2298,8 @@
             if (!val || typeof val !== 'object') {
               return;
             }
-            const root = val.child && typeof val.child === 'object' ? val.child : val;
+            const root =
+              val.child && typeof val.child === 'object' ? val.child : val;
             if (root && typeof root === 'object') {
               sections.push({ name: key, root });
             }
@@ -2370,7 +2395,7 @@
     let parsed;
     try {
       parsed = JSON.parse(text);
-    } catch (err) {
+    } catch (_err) {
       toast('Invalid JSON for tree view.');
       return false;
     }
@@ -2552,7 +2577,10 @@
     resetInlineEditState();
   });
   refs.scenarioList.addEventListener('scroll', keepInlineRenamePosition);
-  window.addEventListener('resize', keepInlineRenamePosition);
+  window.addEventListener('resize', () => {
+    keepInlineRenamePosition();
+    refreshViewport();
+  });
 
   document
     .getElementById('btn-update-blocks')
@@ -2622,15 +2650,13 @@
     }
   });
 
-  document
-    .getElementById('btn-export')
-    .addEventListener('click', async () => {
-      try {
-        await openGraphicalTree();
-      } catch (err) {
-        toast(err.message || 'Behavior Tree generation failed');
-      }
-    });
+  document.getElementById('btn-export').addEventListener('click', async () => {
+    try {
+      await openGraphicalTree();
+    } catch (err) {
+      toast(err.message || 'Behavior Tree generation failed');
+    }
+  });
 
   const btnExportFile = document.getElementById('btn-export-file');
   if (btnExportFile) {
