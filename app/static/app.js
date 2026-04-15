@@ -54,10 +54,98 @@
     lastY: 0,
   };
 
+  // Profile state
+  let profileOptions = {
+    robot_types: [],
+    operation_profiles: [],
+  };
+  let activeProfile = { robot_type: '', operation_profile: '' };
+
+  async function loadProfileOptions() {
+    try {
+      const res = await api('/api/profile/options');
+      if (res && res.ok) {
+        profileOptions = {
+          robot_types: res.robot_types || [],
+          operation_profiles: res.operation_profiles || [],
+        };
+      }
+    } catch (_err) {
+      // Profile options not available – silently ignore
+    }
+    // Restore from localStorage
+    try {
+      const saved = localStorage.getItem('bric_profile');
+      if (saved) {
+        const p = JSON.parse(saved);
+        activeProfile = {
+          robot_type: p.robot_type || '',
+          operation_profile: p.operation_profile || '',
+        };
+      }
+    } catch (_err) {
+      // Ignore invalid stored value
+    }
+    populateProfileDropdowns();
+  }
+
+  function populateProfileDropdowns() {
+    const rtSel = document.getElementById('profile-robot-type');
+    const opSel = document.getElementById('profile-operation');
+    if (!rtSel || !opSel) return;
+
+    // Robot Type
+    rtSel.innerHTML = '<option value="">All</option>';
+    profileOptions.robot_types.forEach(({ value, display_name }) => {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = display_name || value;
+      rtSel.appendChild(opt);
+    });
+    rtSel.value = activeProfile.robot_type || '';
+
+    // Operation Profile
+    opSel.innerHTML = '<option value="">All</option>';
+    profileOptions.operation_profiles.forEach(({ value, display_name }) => {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = display_name || value;
+      opSel.appendChild(opt);
+    });
+    opSel.value = activeProfile.operation_profile || '';
+  }
+
+  function applyActiveProfile() {
+    try {
+      localStorage.setItem('bric_profile', JSON.stringify(activeProfile));
+    } catch (_err) {
+      // ignore storage errors
+    }
+    if (workspace) {
+      applyToolboxForEditingScenario(editingOriginalScenarioName);
+    }
+  }
+
+  function profileMatchesBlock(blockType) {
+    const bp = (window.BRIC && window.BRIC.blockProfile) || {};
+    const entry = bp[blockType];
+    if (!entry) return true; // common block
+    const { robot_type: bRt, operation_profile: bOp } = entry;
+    if (bRt && activeProfile.robot_type && bRt !== activeProfile.robot_type)
+      return false;
+    if (
+      bOp &&
+      activeProfile.operation_profile &&
+      bOp !== activeProfile.operation_profile
+    )
+      return false;
+    return true;
+  }
+
+  let _tabIdSeq = 0;
   // Tab management state
   const tabs = [];
   let activeTabId = null;
-  let _tabIdSeq = 0;
   let lastClickBlockId = null;
   let lastClickTime = 0;
 
@@ -328,6 +416,25 @@
     refs.toast.textContent = message;
     refs.toast.classList.add('show');
     setTimeout(() => refs.toast.classList.remove('show'), 2400);
+  }
+
+  function toastWithAction(message, actionLabel, actionFn) {
+    refs.toast.innerHTML = '';
+    const span = document.createElement('span');
+    span.textContent = message + ' ';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = actionLabel;
+    btn.style.cssText =
+      'margin-left:8px;padding:2px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:inherit;cursor:pointer;font:inherit';
+    btn.addEventListener('click', () => {
+      refs.toast.classList.remove('show');
+      actionFn();
+    });
+    refs.toast.appendChild(span);
+    refs.toast.appendChild(btn);
+    refs.toast.classList.add('show');
+    setTimeout(() => refs.toast.classList.remove('show'), 6000);
   }
 
   async function api(path, options = {}) {
@@ -1321,23 +1428,37 @@
       return baseToolbox;
     }
     const name = String(scenarioName || '').trim();
-    if (!name || !moduleManifest) {
-      return baseToolbox;
-    }
     const typeByScenario = scenarioBlockTypeByName();
     const hiddenTypes = new Set();
     const disabledTypes = new Set();
-    const ownType = typeByScenario.get(name);
-    if (ownType) {
-      hiddenTypes.add(ownType);
-    }
-    scenarioGuardDisabledNames.forEach((scenarioRefName) => {
-      const bt = typeByScenario.get(scenarioRefName);
-      if (bt) {
-        disabledTypes.add(bt);
+
+    if (name && moduleManifest) {
+      const ownType = typeByScenario.get(name);
+      if (ownType) {
+        hiddenTypes.add(ownType);
       }
-    });
-    if (!hiddenTypes.size && !disabledTypes.size) {
+      scenarioGuardDisabledNames.forEach((scenarioRefName) => {
+        const bt = typeByScenario.get(scenarioRefName);
+        if (bt) {
+          disabledTypes.add(bt);
+        }
+      });
+    }
+
+    // Profile filtering: collect block types that don't match active profile
+    const profileActive =
+      activeProfile.robot_type || activeProfile.operation_profile;
+    const profileHidden = new Set();
+    if (profileActive) {
+      const bp = (window.BRIC && window.BRIC.blockProfile) || {};
+      Object.entries(bp).forEach(([blockType, entry]) => {
+        if (!profileMatchesBlock(blockType)) {
+          profileHidden.add(blockType);
+        }
+      });
+    }
+
+    if (!hiddenTypes.size && !disabledTypes.size && !profileHidden.size) {
       return baseToolbox;
     }
     const cloned = JSON.parse(JSON.stringify(baseToolbox));
@@ -1351,7 +1472,8 @@
           if (!item || item.kind !== 'block') {
             return true;
           }
-          return !hiddenTypes.has(String(item.type || ''));
+          const t = String(item.type || '');
+          return !hiddenTypes.has(t) && !profileHidden.has(t);
         })
         .map((item) => {
           if (!item || item.kind !== 'block') {
@@ -1826,6 +1948,34 @@
       `/api/scenarios/${encodeURIComponent(name)}/blockly`,
     );
     editingOriginalScenarioName = name;
+
+    // Profile mismatch detection: offer to apply saved profile
+    const savedProfile = response.profile;
+    if (
+      savedProfile &&
+      (savedProfile.robot_type || savedProfile.operation_profile)
+    ) {
+      const match =
+        (savedProfile.robot_type || '') === activeProfile.robot_type &&
+        (savedProfile.operation_profile || '') ===
+          activeProfile.operation_profile;
+      if (!match) {
+        // Show a toast with an action link to apply the saved profile
+        const applyFn = () => {
+          activeProfile = {
+            robot_type: savedProfile.robot_type || '',
+            operation_profile: savedProfile.operation_profile || '',
+          };
+          populateProfileDropdowns();
+          applyActiveProfile();
+        };
+        toastWithAction(
+          'Scenario has a different profile. Apply it?',
+          'Apply',
+          applyFn,
+        );
+      }
+    }
     await refreshScenarioReferenceGuard();
     applyToolboxForEditingScenario(editingOriginalScenarioName);
     workspace.clear();
@@ -1954,6 +2104,7 @@
         name,
         original_name: editingOriginalScenarioName,
         data: workspaceJson,
+        profile: activeProfile,
       }),
     });
     editingOriginalScenarioName = name;
@@ -2567,6 +2718,8 @@
       await refreshScenarioList('', false);
     } finally {
       setScenarioListLoading(false);
+      // Always load profile options regardless of block-update success.
+      loadProfileOptions();
     }
   }
 
@@ -2592,6 +2745,27 @@
         toast('Failed to update blocks.');
       }
     });
+
+  // Profile panel event listeners
+  const profileRobotTypeSel = document.getElementById('profile-robot-type');
+  if (profileRobotTypeSel) {
+    profileRobotTypeSel.addEventListener('change', () => {
+      // No robot list to cascade — reserved for future use.
+    });
+  }
+  const profileApplyBtn = document.getElementById('btn-apply-profile');
+  if (profileApplyBtn) {
+    profileApplyBtn.addEventListener('click', () => {
+      const rtSel = document.getElementById('profile-robot-type');
+      const opSel = document.getElementById('profile-operation');
+      activeProfile = {
+        robot_type: (rtSel && rtSel.value) || '',
+        operation_profile: (opSel && opSel.value) || '',
+      };
+      applyActiveProfile();
+      toast('Profile applied.');
+    });
+  }
 
   document.getElementById('btn-create').addEventListener('click', async () => {
     try {

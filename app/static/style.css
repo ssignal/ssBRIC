@@ -87,7 +87,7 @@ main {
 }
 
 #page-main {
-  grid-template-columns: minmax(300px, 480px) minmax(240px, 380px);
+  grid-template-columns: minmax(280px, 360px) minmax(300px, 480px) minmax(200px, 260px);
 }
 
 .glass {
@@ -104,6 +104,32 @@ main {
 .hint {
   color: var(--muted);
   margin: 0 0 12px;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.profile-row label {
+  min-width: 90px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.profile-row select {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgba(2, 12, 25, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 5px 8px;
 }
 
 select,

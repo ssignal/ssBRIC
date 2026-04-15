@@ -93,78 +93,97 @@
           },
           {
             "value": "expressive_motion.double_nod",
+            "display_name": "expressive_motion.nod twice",
             "description": "머리 두번 끄덕끄덕"
           },
           {
             "value": "expressive_motion.fistbump_ready",
+            "display_name": "expressive_motion.Ready to fistbump",
             "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
           },
           {
             "value": "expressive_motion.fistbump_strike",
+            "display_name": "expressive_motion.Go for a fistbump",
             "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
           },
           {
             "value": "expressive_motion.head_left",
+            "display_name": "expressive_motion.Look to the left",
             "description": "머리 왼쪽 이동 후 복귀"
           },
           {
             "value": "expressive_motion.head_left_down",
+            "display_name": "expressive_motion.Look down and to the left",
             "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
           },
           {
             "value": "expressive_motion.head_left_up",
+            "display_name": "expressive_motion.Look up and to the left",
             "description": "머리 왼쪽 위 이동 후 복귀"
           },
           {
             "value": "expressive_motion.head_right",
+            "display_name": "expressive_motion.Look to the right",
             "description": "머리 오른쪽 이동 후 복귀"
           },
           {
             "value": "expressive_motion.head_right_down",
+            "display_name": "expressive_motion.Look down and to the right",
             "description": "머리 오른쪽 아래 이동 후 복귀"
           },
           {
             "value": "expressive_motion.head_right_up",
+            "display_name": "expressive_motion.Look up and to the right",
             "description": "머리 오른쪽 위 이동 후 복귀"
           },
           {
             "value": "expressive_motion.highfive_ready",
+            "display_name": "expressive_motion.Ready to highfive",
             "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
           },
           {
             "value": "expressive_motion.highfive_strike",
+            "display_name": "expressive_motion.Go for a hightfive",
             "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
           },
           {
             "value": "expressive_motion.pose_hand_heart",
+            "display_name": "expressive_motion.Heart hands",
             "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
           },
           {
             "value": "expressive_motion.present_double",
+            "display_name": "expressive_motion.Gesture with open palms",
             "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
           },
           {
             "value": "expressive_motion.wave_two_hand",
+            "display_name": "expressive_motion.Wave with both hands",
             "description": "양손 가슴높이 손인사"
           },
           {
             "value": "expressive_motion.wave_two_hand_sway",
+            "display_name": "expressive_motion.Enthusiastic wave with both hands",
             "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
           },
           {
             "value": "pose_motion.move",
+            "display_name": "pose_motion.Moving",
             "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
           },
           {
             "value": "pose_motion.neutral",
+            "display_name": "pose_motion.Neutral",
             "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
           },
           {
             "value": "pose_motion.recent_joint_neutral",
+            "display_name": "pose_motion.Neutralize last joint",
             "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
           },
           {
             "value": "pose_motion.work_ready",
+            "display_name": "pose_motion.Getting ready to work",
             "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
           }
         ],
@@ -197,62 +216,77 @@
                 "options": [
                   {
                     "value": "double_nod",
+                    "display_name": "nod twice",
                     "description": "머리 두번 끄덕끄덕"
                   },
                   {
                     "value": "fistbump_ready",
+                    "display_name": "Ready to fistbump",
                     "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
                   },
                   {
                     "value": "fistbump_strike",
+                    "display_name": "Go for a fistbump",
                     "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
                   },
                   {
                     "value": "head_left",
+                    "display_name": "Look to the left",
                     "description": "머리 왼쪽 이동 후 복귀"
                   },
                   {
                     "value": "head_left_down",
+                    "display_name": "Look down and to the left",
                     "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
                   },
                   {
                     "value": "head_left_up",
+                    "display_name": "Look up and to the left",
                     "description": "머리 왼쪽 위 이동 후 복귀"
                   },
                   {
                     "value": "head_right",
+                    "display_name": "Look to the right",
                     "description": "머리 오른쪽 이동 후 복귀"
                   },
                   {
                     "value": "head_right_down",
+                    "display_name": "Look down and to the right",
                     "description": "머리 오른쪽 아래 이동 후 복귀"
                   },
                   {
                     "value": "head_right_up",
+                    "display_name": "Look up and to the right",
                     "description": "머리 오른쪽 위 이동 후 복귀"
                   },
                   {
                     "value": "highfive_ready",
+                    "display_name": "Ready to highfive",
                     "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
                   },
                   {
                     "value": "highfive_strike",
+                    "display_name": "Go for a hightfive",
                     "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
                   },
                   {
                     "value": "pose_hand_heart",
+                    "display_name": "Heart hands",
                     "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
                   },
                   {
                     "value": "present_double",
+                    "display_name": "Gesture with open palms",
                     "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
                   },
                   {
                     "value": "wave_two_hand",
+                    "display_name": "Wave with both hands",
                     "description": "양손 가슴높이 손인사"
                   },
                   {
                     "value": "wave_two_hand_sway",
+                    "display_name": "Enthusiastic wave with both hands",
                     "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
                   }
                 ],
@@ -273,18 +307,22 @@
                 "options": [
                   {
                     "value": "move",
+                    "display_name": "Moving",
                     "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
                   },
                   {
                     "value": "neutral",
+                    "display_name": "Neutral",
                     "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
                   },
                   {
                     "value": "recent_joint_neutral",
+                    "display_name": "Neutralize last joint",
                     "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
                   },
                   {
                     "value": "work_ready",
+                    "display_name": "Getting ready to work",
                     "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
                   }
                 ],

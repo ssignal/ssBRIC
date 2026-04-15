@@ -101,63 +101,63 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "double_nod",
+              "nod twice",
               "double_nod"
             ],
             [
-              "fistbump_ready",
+              "Ready to fistbump",
               "fistbump_ready"
             ],
             [
-              "fistbump_strike",
+              "Go for a fistbump",
               "fistbump_strike"
             ],
             [
-              "head_left",
+              "Look to the left",
               "head_left"
             ],
             [
-              "head_left_down",
+              "Look down and to the left",
               "head_left_down"
             ],
             [
-              "head_left_up",
+              "Look up and to the left",
               "head_left_up"
             ],
             [
-              "head_right",
+              "Look to the right",
               "head_right"
             ],
             [
-              "head_right_down",
+              "Look down and to the right",
               "head_right_down"
             ],
             [
-              "head_right_up",
+              "Look up and to the right",
               "head_right_up"
             ],
             [
-              "highfive_ready",
+              "Ready to highfive",
               "highfive_ready"
             ],
             [
-              "highfive_strike",
+              "Go for a hightfive",
               "highfive_strike"
             ],
             [
-              "pose_hand_heart",
+              "Heart hands",
               "pose_hand_heart"
             ],
             [
-              "present_double",
+              "Gesture with open palms",
               "present_double"
             ],
             [
-              "wave_two_hand",
+              "Wave with both hands",
               "wave_two_hand"
             ],
             [
-              "wave_two_hand_sway",
+              "Enthusiastic wave with both hands",
               "wave_two_hand_sway"
             ]
           ],
@@ -192,19 +192,19 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "move",
+              "Moving",
               "move"
             ],
             [
-              "neutral",
+              "Neutral",
               "neutral"
             ],
             [
-              "recent_joint_neutral",
+              "Neutralize last joint",
               "recent_joint_neutral"
             ],
             [
-              "work_ready",
+              "Getting ready to work",
               "work_ready"
             ]
           ],
