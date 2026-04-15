@@ -50,79 +50,79 @@ const BLOCKS = [
             "manipulation.put_down"
           ],
           [
-            "expressive_motion.double_nod",
+            "expressive_motion.nod twice",
             "expressive_motion.double_nod"
           ],
           [
-            "expressive_motion.fistbump_ready",
+            "expressive_motion.Ready to fistbump",
             "expressive_motion.fistbump_ready"
           ],
           [
-            "expressive_motion.fistbump_strike",
+            "expressive_motion.Go for a fistbump",
             "expressive_motion.fistbump_strike"
           ],
           [
-            "expressive_motion.head_left",
+            "expressive_motion.Look to the left",
             "expressive_motion.head_left"
           ],
           [
-            "expressive_motion.head_left_down",
+            "expressive_motion.Look down and to the left",
             "expressive_motion.head_left_down"
           ],
           [
-            "expressive_motion.head_left_up",
+            "expressive_motion.Look up and to the left",
             "expressive_motion.head_left_up"
           ],
           [
-            "expressive_motion.head_right",
+            "expressive_motion.Look to the right",
             "expressive_motion.head_right"
           ],
           [
-            "expressive_motion.head_right_down",
+            "expressive_motion.Look down and to the right",
             "expressive_motion.head_right_down"
           ],
           [
-            "expressive_motion.head_right_up",
+            "expressive_motion.Look up and to the right",
             "expressive_motion.head_right_up"
           ],
           [
-            "expressive_motion.highfive_ready",
+            "expressive_motion.Ready to highfive",
             "expressive_motion.highfive_ready"
           ],
           [
-            "expressive_motion.highfive_strike",
+            "expressive_motion.Go for a hightfive",
             "expressive_motion.highfive_strike"
           ],
           [
-            "expressive_motion.pose_hand_heart",
+            "expressive_motion.Heart hands",
             "expressive_motion.pose_hand_heart"
           ],
           [
-            "expressive_motion.present_double",
+            "expressive_motion.Gesture with open palms",
             "expressive_motion.present_double"
           ],
           [
-            "expressive_motion.wave_two_hand",
+            "expressive_motion.Wave with both hands",
             "expressive_motion.wave_two_hand"
           ],
           [
-            "expressive_motion.wave_two_hand_sway",
+            "expressive_motion.Enthusiastic wave with both hands",
             "expressive_motion.wave_two_hand_sway"
           ],
           [
-            "pose_motion.move",
+            "pose_motion.Moving",
             "pose_motion.move"
           ],
           [
-            "pose_motion.neutral",
+            "pose_motion.Neutral",
             "pose_motion.neutral"
           ],
           [
-            "pose_motion.recent_joint_neutral",
+            "pose_motion.Neutralize last joint",
             "pose_motion.recent_joint_neutral"
           ],
           [
-            "pose_motion.work_ready",
+            "pose_motion.Getting ready to work",
             "pose_motion.work_ready"
           ]
         ]
@@ -409,63 +409,63 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "double_nod",
+              "nod twice",
               "double_nod"
             ],
             [
-              "fistbump_ready",
+              "Ready to fistbump",
               "fistbump_ready"
             ],
             [
-              "fistbump_strike",
+              "Go for a fistbump",
               "fistbump_strike"
             ],
             [
-              "head_left",
+              "Look to the left",
               "head_left"
             ],
             [
-              "head_left_down",
+              "Look down and to the left",
               "head_left_down"
             ],
             [
-              "head_left_up",
+              "Look up and to the left",
               "head_left_up"
             ],
             [
-              "head_right",
+              "Look to the right",
               "head_right"
             ],
             [
-              "head_right_down",
+              "Look down and to the right",
               "head_right_down"
             ],
             [
-              "head_right_up",
+              "Look up and to the right",
               "head_right_up"
             ],
             [
-              "highfive_ready",
+              "Ready to highfive",
               "highfive_ready"
             ],
             [
-              "highfive_strike",
+              "Go for a hightfive",
               "highfive_strike"
             ],
             [
-              "pose_hand_heart",
+              "Heart hands",
               "pose_hand_heart"
             ],
             [
-              "present_double",
+              "Gesture with open palms",
               "present_double"
             ],
             [
-              "wave_two_hand",
+              "Wave with both hands",
               "wave_two_hand"
             ],
             [
-              "wave_two_hand_sway",
+              "Enthusiastic wave with both hands",
               "wave_two_hand_sway"
             ]
           ],
@@ -500,19 +500,19 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "move",
+              "Moving",
               "move"
             ],
             [
-              "neutral",
+              "Neutral",
               "neutral"
             ],
             [
-              "recent_joint_neutral",
+              "Neutralize last joint",
               "recent_joint_neutral"
             ],
             [
-              "work_ready",
+              "Getting ready to work",
               "work_ready"
             ]
           ],
@@ -633,6 +633,8 @@ const OPTION_TOOLTIPS = {
   },
   "behavior__motion__motion_wait_motion_finished": {}
 };
+const BLOCK_PROFILE = {};
+const OPTION_PROFILE_META = {};
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
 function setClickHelp(field, text) {
@@ -1104,4 +1106,7 @@ function registerBlocks_ros2blocks_motion() {
 window.BRIC = window.BRIC || {};
 window.BRIC.blockRegistrars = window.BRIC.blockRegistrars || [];
 window.BRIC.blockRegistrars.push(registerBlocks_ros2blocks_motion);
+// Accumulate profile metadata across all block modules.
+window.BRIC.blockProfile = Object.assign(window.BRIC.blockProfile || {}, BLOCK_PROFILE);
+window.BRIC.optionProfileMeta = Object.assign(window.BRIC.optionProfileMeta || {}, OPTION_PROFILE_META);
 })();

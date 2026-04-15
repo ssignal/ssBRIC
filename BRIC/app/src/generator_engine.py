@@ -136,7 +136,10 @@ def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> 
         sub_option_descriptions: dict[str, str] = {}
         if sub_options:
             sub_dd = [
-                [str(sopt.get("value", "")), str(sopt.get("value", ""))]
+                [
+                    str(sopt.get("display_name") or sopt.get("value", "")),
+                    str(sopt.get("value", "")),
+                ]
                 for sopt in sub_options
             ]
             for sopt in sub_options:
@@ -315,8 +318,15 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
         field_name = f"PARAM_{slugify(name_raw).upper()}"
         option_param_meta: dict[str, list[dict[str, Any]]] = {}
         option_descriptions: dict[str, str] = {}
+        dd: list[list[str]] = []
         if options:
-            dd = [[str(opt.get("value", "")), str(opt.get("value", ""))] for opt in options]
+            dd = [
+                [
+                    str(opt.get("display_name") or opt.get("value", "")),
+                    str(opt.get("value", "")),
+                ]
+                for opt in options
+            ]
             for opt in options:
                 option_descriptions[str(opt.get("value", ""))] = clean_text(
                     opt.get("description", "")
@@ -355,6 +365,8 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
                 "field": field_name,
                 "type": p_type,
                 "description": param_description,
+                "options": dd,
+                "raw_options": options,  # original dicts; used for profile filtering metadata
                 "option_parameters": option_param_meta,
                 "option_descriptions": option_descriptions,
             }
@@ -381,7 +393,9 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
         "json": block_json,
         "parameters": param_meta,
         "has_children": False,
-        "enabled_keys": []
+        "enabled_keys": [],
+        "robot_type": str(item.get("robot_type") or "").strip(),
+        "operation_profile": str(item.get("operation_profile") or "").strip(),
     }
 
 
@@ -538,6 +552,36 @@ def emit_block_file(path: Path, blocks: list[dict[str, Any]]):
         }
         for b in blocks
     }
+    # Block-level profile filter (robot_type / operation_profile per block type).
+    block_profile = {
+        b["block_type"]: {
+            "robot_type": b.get("robot_type", ""),
+            "operation_profile": b.get("operation_profile", ""),
+        }
+        for b in blocks
+        if b.get("robot_type") or b.get("operation_profile")
+    }
+    # Option-level profile filter: for each block/field, list options with profile tags.
+    option_profile_meta: dict[str, dict[str, list[dict[str, str]]]] = {}
+    for b in blocks:
+        btype = b["block_type"]
+        field_map: dict[str, list[dict[str, str]]] = {}
+        for p in b.get("parameters", []):
+            raw = p.get("raw_options") or []
+            if not any(r.get("robot_type") or r.get("operation_profile") for r in raw):
+                continue
+            field_map[p["field"]] = [
+                {
+                    "label": str(r.get("display_name") or r.get("value", "")),
+                    "value": str(r.get("value", "")),
+                    "robot_type": str(r.get("robot_type") or ""),
+                    "operation_profile": str(r.get("operation_profile") or ""),
+                }
+                for r in raw
+                if r.get("value")
+            ]
+        if field_map:
+            option_profile_meta[btype] = field_map
 
     registrar_name = "registerBlocks_" + slugify(path.stem)
     content = f"""(() => {{
@@ -546,6 +590,8 @@ const BLOCK_TOOLTIPS = {js_dump(tips)};
 const PARAM_TOOLTIPS = {js_dump(param_tips)};
 const OPTION_PARAM_MAP = {js_dump(option_param_map)};
 const OPTION_TOOLTIPS = {js_dump(option_tips)};
+const BLOCK_PROFILE = {js_dump(block_profile)};
+const OPTION_PROFILE_META = {js_dump(option_profile_meta)};
 const HELP_ICON = {json.dumps(QUESTION_ICON_DATA_URI)};
 
 function setClickHelp(field, text) {{
@@ -1017,6 +1063,9 @@ function {registrar_name}() {{
 window.BRIC = window.BRIC || {{}};
 window.BRIC.blockRegistrars = window.BRIC.blockRegistrars || [];
 window.BRIC.blockRegistrars.push({registrar_name});
+// Accumulate profile metadata across all block modules.
+window.BRIC.blockProfile = Object.assign(window.BRIC.blockProfile || {{}}, BLOCK_PROFILE);
+window.BRIC.optionProfileMeta = Object.assign(window.BRIC.optionProfileMeta || {{}}, OPTION_PROFILE_META);
 }})();
 """
     path.write_text(content, encoding="utf-8")

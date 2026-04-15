@@ -120,6 +120,8 @@ const OPTION_TOOLTIPS = {
   "behavior__lcd__lcd_play_animation": {},
   "behavior__lcd__lcd_stop_animation": {}
 };
+const BLOCK_PROFILE = {};
+const OPTION_PROFILE_META = {};
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
 function setClickHelp(field, text) {
@@ -591,4 +593,7 @@ function registerBlocks_ros2blocks_lcd() {
 window.BRIC = window.BRIC || {};
 window.BRIC.blockRegistrars = window.BRIC.blockRegistrars || [];
 window.BRIC.blockRegistrars.push(registerBlocks_ros2blocks_lcd);
+// Accumulate profile metadata across all block modules.
+window.BRIC.blockProfile = Object.assign(window.BRIC.blockProfile || {}, BLOCK_PROFILE);
+window.BRIC.optionProfileMeta = Object.assign(window.BRIC.optionProfileMeta || {}, OPTION_PROFILE_META);
 })();

@@ -32,7 +32,7 @@
     }
   },
   {
-    "name": "expressive_motion.double_nod",
+    "name": "expressive_motion.nod twice",
     "data": {
       "task_type": "expressive_motion",
       "name": "double_nod",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "name": "expressive_motion.fistbump_ready",
+    "name": "expressive_motion.Ready to fistbump",
     "data": {
       "task_type": "expressive_motion",
       "name": "fistbump_ready",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "name": "expressive_motion.fistbump_strike",
+    "name": "expressive_motion.Go for a fistbump",
     "data": {
       "task_type": "expressive_motion",
       "name": "fistbump_strike",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_left",
+    "name": "expressive_motion.Look to the left",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_left",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_left_down",
+    "name": "expressive_motion.Look down and to the left",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_left_down",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_left_up",
+    "name": "expressive_motion.Look up and to the left",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_left_up",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_right",
+    "name": "expressive_motion.Look to the right",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_right",
@@ -88,7 +88,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_right_down",
+    "name": "expressive_motion.Look down and to the right",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_right_down",
@@ -96,7 +96,7 @@
     }
   },
   {
-    "name": "expressive_motion.head_right_up",
+    "name": "expressive_motion.Look up and to the right",
     "data": {
       "task_type": "expressive_motion",
       "name": "head_right_up",
@@ -104,7 +104,7 @@
     }
   },
   {
-    "name": "expressive_motion.highfive_ready",
+    "name": "expressive_motion.Ready to highfive",
     "data": {
       "task_type": "expressive_motion",
       "name": "highfive_ready",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "name": "expressive_motion.highfive_strike",
+    "name": "expressive_motion.Go for a hightfive",
     "data": {
       "task_type": "expressive_motion",
       "name": "highfive_strike",
@@ -120,7 +120,7 @@
     }
   },
   {
-    "name": "expressive_motion.pose_hand_heart",
+    "name": "expressive_motion.Heart hands",
     "data": {
       "task_type": "expressive_motion",
       "name": "pose_hand_heart",
@@ -128,7 +128,7 @@
     }
   },
   {
-    "name": "expressive_motion.present_double",
+    "name": "expressive_motion.Gesture with open palms",
     "data": {
       "task_type": "expressive_motion",
       "name": "present_double",
@@ -136,7 +136,7 @@
     }
   },
   {
-    "name": "expressive_motion.wave_two_hand",
+    "name": "expressive_motion.Wave with both hands",
     "data": {
       "task_type": "expressive_motion",
       "name": "wave_two_hand",
@@ -144,7 +144,7 @@
     }
   },
   {
-    "name": "expressive_motion.wave_two_hand_sway",
+    "name": "expressive_motion.Enthusiastic wave with both hands",
     "data": {
       "task_type": "expressive_motion",
       "name": "wave_two_hand_sway",
@@ -152,7 +152,7 @@
     }
   },
   {
-    "name": "pose_motion.move",
+    "name": "pose_motion.Moving",
     "data": {
       "task_type": "pose_motion",
       "name": "move",
@@ -160,7 +160,7 @@
     }
   },
   {
-    "name": "pose_motion.neutral",
+    "name": "pose_motion.Neutral",
     "data": {
       "task_type": "pose_motion",
       "name": "neutral",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "name": "pose_motion.recent_joint_neutral",
+    "name": "pose_motion.Neutralize last joint",
     "data": {
       "task_type": "pose_motion",
       "name": "recent_joint_neutral",
@@ -176,7 +176,7 @@
     }
   },
   {
-    "name": "pose_motion.work_ready",
+    "name": "pose_motion.Getting ready to work",
     "data": {
       "task_type": "pose_motion",
       "name": "work_ready",

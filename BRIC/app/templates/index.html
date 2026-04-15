@@ -17,6 +17,20 @@
   <main>
     <section id="page-main" class="page active">
       <div class="panel glass">
+        <h2>Robot &amp; Operation</h2>
+        <p class="hint">Select robot and operation to filter available blocks.</p>
+        <div class="profile-row">
+          <label for="profile-robot-type">Robot Type</label>
+          <select id="profile-robot-type"><option value="">All</option></select>
+        </div>
+        <div class="profile-row">
+          <label for="profile-operation">Operation</label>
+          <select id="profile-operation"><option value="">All</option></select>
+        </div>
+        <button id="btn-apply-profile" type="button">Apply</button>
+      </div>
+
+      <div class="panel glass">
         <h2>Scenario</h2>
         <p class="hint">Select a saved behavior tree scenario.</p>
         <div class="scenario-list-wrap">

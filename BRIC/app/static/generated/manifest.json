@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T01:48:45.664694Z",
+  "generated_at": "2026-04-15T07:22:29.908318Z",
   "behavior": [
     {
       "block_type": "behavior__motion__bric_start_motion_motion_start_motion",
@@ -58,79 +58,79 @@
                 "manipulation.put_down"
               ],
               [
-                "expressive_motion.double_nod",
+                "expressive_motion.nod twice",
                 "expressive_motion.double_nod"
               ],
               [
-                "expressive_motion.fistbump_ready",
+                "expressive_motion.Ready to fistbump",
                 "expressive_motion.fistbump_ready"
               ],
               [
-                "expressive_motion.fistbump_strike",
+                "expressive_motion.Go for a fistbump",
                 "expressive_motion.fistbump_strike"
               ],
               [
-                "expressive_motion.head_left",
+                "expressive_motion.Look to the left",
                 "expressive_motion.head_left"
               ],
               [
-                "expressive_motion.head_left_down",
+                "expressive_motion.Look down and to the left",
                 "expressive_motion.head_left_down"
               ],
               [
-                "expressive_motion.head_left_up",
+                "expressive_motion.Look up and to the left",
                 "expressive_motion.head_left_up"
               ],
               [
-                "expressive_motion.head_right",
+                "expressive_motion.Look to the right",
                 "expressive_motion.head_right"
               ],
               [
-                "expressive_motion.head_right_down",
+                "expressive_motion.Look down and to the right",
                 "expressive_motion.head_right_down"
               ],
               [
-                "expressive_motion.head_right_up",
+                "expressive_motion.Look up and to the right",
                 "expressive_motion.head_right_up"
               ],
               [
-                "expressive_motion.highfive_ready",
+                "expressive_motion.Ready to highfive",
                 "expressive_motion.highfive_ready"
               ],
               [
-                "expressive_motion.highfive_strike",
+                "expressive_motion.Go for a hightfive",
                 "expressive_motion.highfive_strike"
               ],
               [
-                "expressive_motion.pose_hand_heart",
+                "expressive_motion.Heart hands",
                 "expressive_motion.pose_hand_heart"
               ],
               [
-                "expressive_motion.present_double",
+                "expressive_motion.Gesture with open palms",
                 "expressive_motion.present_double"
               ],
               [
-                "expressive_motion.wave_two_hand",
+                "expressive_motion.Wave with both hands",
                 "expressive_motion.wave_two_hand"
               ],
               [
-                "expressive_motion.wave_two_hand_sway",
+                "expressive_motion.Enthusiastic wave with both hands",
                 "expressive_motion.wave_two_hand_sway"
               ],
               [
-                "pose_motion.move",
+                "pose_motion.Moving",
                 "pose_motion.move"
               ],
               [
-                "pose_motion.neutral",
+                "pose_motion.Neutral",
                 "pose_motion.neutral"
               ],
               [
-                "pose_motion.recent_joint_neutral",
+                "pose_motion.Neutralize last joint",
                 "pose_motion.recent_joint_neutral"
               ],
               [
-                "pose_motion.work_ready",
+                "pose_motion.Getting ready to work",
                 "pose_motion.work_ready"
               ]
             ]
@@ -150,6 +150,277 @@
           "field": "PARAM_NAME",
           "type": "string",
           "description": "Motion name",
+          "options": [
+            [
+              "manipulation.prepare",
+              "manipulation.prepare"
+            ],
+            [
+              "manipulation.pick_up",
+              "manipulation.pick_up"
+            ],
+            [
+              "manipulation.dump",
+              "manipulation.dump"
+            ],
+            [
+              "manipulation.put_down",
+              "manipulation.put_down"
+            ],
+            [
+              "expressive_motion.nod twice",
+              "expressive_motion.double_nod"
+            ],
+            [
+              "expressive_motion.Ready to fistbump",
+              "expressive_motion.fistbump_ready"
+            ],
+            [
+              "expressive_motion.Go for a fistbump",
+              "expressive_motion.fistbump_strike"
+            ],
+            [
+              "expressive_motion.Look to the left",
+              "expressive_motion.head_left"
+            ],
+            [
+              "expressive_motion.Look down and to the left",
+              "expressive_motion.head_left_down"
+            ],
+            [
+              "expressive_motion.Look up and to the left",
+              "expressive_motion.head_left_up"
+            ],
+            [
+              "expressive_motion.Look to the right",
+              "expressive_motion.head_right"
+            ],
+            [
+              "expressive_motion.Look down and to the right",
+              "expressive_motion.head_right_down"
+            ],
+            [
+              "expressive_motion.Look up and to the right",
+              "expressive_motion.head_right_up"
+            ],
+            [
+              "expressive_motion.Ready to highfive",
+              "expressive_motion.highfive_ready"
+            ],
+            [
+              "expressive_motion.Go for a hightfive",
+              "expressive_motion.highfive_strike"
+            ],
+            [
+              "expressive_motion.Heart hands",
+              "expressive_motion.pose_hand_heart"
+            ],
+            [
+              "expressive_motion.Gesture with open palms",
+              "expressive_motion.present_double"
+            ],
+            [
+              "expressive_motion.Wave with both hands",
+              "expressive_motion.wave_two_hand"
+            ],
+            [
+              "expressive_motion.Enthusiastic wave with both hands",
+              "expressive_motion.wave_two_hand_sway"
+            ],
+            [
+              "pose_motion.Moving",
+              "pose_motion.move"
+            ],
+            [
+              "pose_motion.Neutral",
+              "pose_motion.neutral"
+            ],
+            [
+              "pose_motion.Neutralize last joint",
+              "pose_motion.recent_joint_neutral"
+            ],
+            [
+              "pose_motion.Getting ready to work",
+              "pose_motion.work_ready"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "manipulation.prepare",
+              "description": "demo2604_pick_box_ready",
+              "parameters": [
+                {
+                  "name": "object",
+                  "type": "string",
+                  "description": "object (string)",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "box",
+                      "description": "box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "manipulation.pick_up",
+              "description": "demo2604_pick_box",
+              "parameters": [
+                {
+                  "name": "object",
+                  "type": "string",
+                  "description": "object (string)",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "box",
+                      "description": "box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "manipulation.dump",
+              "description": "demo2604_dump_box",
+              "parameters": [
+                {
+                  "name": "object",
+                  "type": "string",
+                  "description": "object (string)",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "box",
+                      "description": "box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "manipulation.put_down",
+              "description": "demo2604_place_box",
+              "parameters": [
+                {
+                  "name": "object",
+                  "type": "string",
+                  "description": "object (string)",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "box",
+                      "description": "box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "expressive_motion.double_nod",
+              "display_name": "expressive_motion.nod twice",
+              "description": "머리 두번 끄덕끄덕"
+            },
+            {
+              "value": "expressive_motion.fistbump_ready",
+              "display_name": "expressive_motion.Ready to fistbump",
+              "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+            },
+            {
+              "value": "expressive_motion.fistbump_strike",
+              "display_name": "expressive_motion.Go for a fistbump",
+              "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+            },
+            {
+              "value": "expressive_motion.head_left",
+              "display_name": "expressive_motion.Look to the left",
+              "description": "머리 왼쪽 이동 후 복귀"
+            },
+            {
+              "value": "expressive_motion.head_left_down",
+              "display_name": "expressive_motion.Look down and to the left",
+              "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+            },
+            {
+              "value": "expressive_motion.head_left_up",
+              "display_name": "expressive_motion.Look up and to the left",
+              "description": "머리 왼쪽 위 이동 후 복귀"
+            },
+            {
+              "value": "expressive_motion.head_right",
+              "display_name": "expressive_motion.Look to the right",
+              "description": "머리 오른쪽 이동 후 복귀"
+            },
+            {
+              "value": "expressive_motion.head_right_down",
+              "display_name": "expressive_motion.Look down and to the right",
+              "description": "머리 오른쪽 아래 이동 후 복귀"
+            },
+            {
+              "value": "expressive_motion.head_right_up",
+              "display_name": "expressive_motion.Look up and to the right",
+              "description": "머리 오른쪽 위 이동 후 복귀"
+            },
+            {
+              "value": "expressive_motion.highfive_ready",
+              "display_name": "expressive_motion.Ready to highfive",
+              "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
+            },
+            {
+              "value": "expressive_motion.highfive_strike",
+              "display_name": "expressive_motion.Go for a hightfive",
+              "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+            },
+            {
+              "value": "expressive_motion.pose_hand_heart",
+              "display_name": "expressive_motion.Heart hands",
+              "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
+            },
+            {
+              "value": "expressive_motion.present_double",
+              "display_name": "expressive_motion.Gesture with open palms",
+              "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+            },
+            {
+              "value": "expressive_motion.wave_two_hand",
+              "display_name": "expressive_motion.Wave with both hands",
+              "description": "양손 가슴높이 손인사"
+            },
+            {
+              "value": "expressive_motion.wave_two_hand_sway",
+              "display_name": "expressive_motion.Enthusiastic wave with both hands",
+              "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+            },
+            {
+              "value": "pose_motion.move",
+              "display_name": "pose_motion.Moving",
+              "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+            },
+            {
+              "value": "pose_motion.neutral",
+              "display_name": "pose_motion.Neutral",
+              "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+            },
+            {
+              "value": "pose_motion.recent_joint_neutral",
+              "display_name": "pose_motion.Neutralize last joint",
+              "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+            },
+            {
+              "value": "pose_motion.work_ready",
+              "display_name": "pose_motion.Getting ready to work",
+              "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+            }
+          ],
           "option_parameters": {
             "manipulation.prepare": [
               {
@@ -264,7 +535,9 @@
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__motion__motion_start_motion",
@@ -361,6 +634,195 @@
           "field": "PARAM_TASK_TYPE",
           "type": "string",
           "description": "Motion task type",
+          "options": [
+            [
+              "expressive_motion",
+              "expressive_motion"
+            ],
+            [
+              "pose_motion",
+              "pose_motion"
+            ],
+            [
+              "manipulation",
+              "manipulation"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "expressive_motion",
+              "description": "expressive_motion motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "double_nod",
+                      "display_name": "nod twice",
+                      "description": "머리 두번 끄덕끄덕"
+                    },
+                    {
+                      "value": "fistbump_ready",
+                      "display_name": "Ready to fistbump",
+                      "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+                    },
+                    {
+                      "value": "fistbump_strike",
+                      "display_name": "Go for a fistbump",
+                      "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                    },
+                    {
+                      "value": "head_left",
+                      "display_name": "Look to the left",
+                      "description": "머리 왼쪽 이동 후 복귀"
+                    },
+                    {
+                      "value": "head_left_down",
+                      "display_name": "Look down and to the left",
+                      "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+                    },
+                    {
+                      "value": "head_left_up",
+                      "display_name": "Look up and to the left",
+                      "description": "머리 왼쪽 위 이동 후 복귀"
+                    },
+                    {
+                      "value": "head_right",
+                      "display_name": "Look to the right",
+                      "description": "머리 오른쪽 이동 후 복귀"
+                    },
+                    {
+                      "value": "head_right_down",
+                      "display_name": "Look down and to the right",
+                      "description": "머리 오른쪽 아래 이동 후 복귀"
+                    },
+                    {
+                      "value": "head_right_up",
+                      "display_name": "Look up and to the right",
+                      "description": "머리 오른쪽 위 이동 후 복귀"
+                    },
+                    {
+                      "value": "highfive_ready",
+                      "display_name": "Ready to highfive",
+                      "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
+                    },
+                    {
+                      "value": "highfive_strike",
+                      "display_name": "Go for a hightfive",
+                      "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                    },
+                    {
+                      "value": "pose_hand_heart",
+                      "display_name": "Heart hands",
+                      "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
+                    },
+                    {
+                      "value": "present_double",
+                      "display_name": "Gesture with open palms",
+                      "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+                    },
+                    {
+                      "value": "wave_two_hand",
+                      "display_name": "Wave with both hands",
+                      "description": "양손 가슴높이 손인사"
+                    },
+                    {
+                      "value": "wave_two_hand_sway",
+                      "display_name": "Enthusiastic wave with both hands",
+                      "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "pose_motion",
+              "description": "pose motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "move",
+                      "display_name": "Moving",
+                      "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+                    },
+                    {
+                      "value": "neutral",
+                      "display_name": "Neutral",
+                      "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+                    },
+                    {
+                      "value": "recent_joint_neutral",
+                      "display_name": "Neutralize last joint",
+                      "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+                    },
+                    {
+                      "value": "work_ready",
+                      "display_name": "Getting ready to work",
+                      "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            },
+            {
+              "value": "manipulation",
+              "description": "manipulation motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "prepare",
+                      "description": "demo2604_pick_box_ready"
+                    },
+                    {
+                      "value": "pick_up",
+                      "description": "demo2604_pick_box"
+                    },
+                    {
+                      "value": "dump",
+                      "description": "demo2604_dump_box"
+                    },
+                    {
+                      "value": "put_down",
+                      "description": "demo2604_place_box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                },
+                {
+                  "name": "object",
+                  "type": "string",
+                  "description": "object (string)",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "box",
+                      "description": "box"
+                    }
+                  ],
+                  "min": null,
+                  "max": null
+                }
+              ]
+            }
+          ],
           "option_parameters": {
             "expressive_motion": [
               {
@@ -372,63 +834,63 @@
                 "description": "Motion name",
                 "options": [
                   [
-                    "double_nod",
+                    "nod twice",
                     "double_nod"
                   ],
                   [
-                    "fistbump_ready",
+                    "Ready to fistbump",
                     "fistbump_ready"
                   ],
                   [
-                    "fistbump_strike",
+                    "Go for a fistbump",
                     "fistbump_strike"
                   ],
                   [
-                    "head_left",
+                    "Look to the left",
                     "head_left"
                   ],
                   [
-                    "head_left_down",
+                    "Look down and to the left",
                     "head_left_down"
                   ],
                   [
-                    "head_left_up",
+                    "Look up and to the left",
                     "head_left_up"
                   ],
                   [
-                    "head_right",
+                    "Look to the right",
                     "head_right"
                   ],
                   [
-                    "head_right_down",
+                    "Look down and to the right",
                     "head_right_down"
                   ],
                   [
-                    "head_right_up",
+                    "Look up and to the right",
                     "head_right_up"
                   ],
                   [
-                    "highfive_ready",
+                    "Ready to highfive",
                     "highfive_ready"
                   ],
                   [
-                    "highfive_strike",
+                    "Go for a hightfive",
                     "highfive_strike"
                   ],
                   [
-                    "pose_hand_heart",
+                    "Heart hands",
                     "pose_hand_heart"
                   ],
                   [
-                    "present_double",
+                    "Gesture with open palms",
                     "present_double"
                   ],
                   [
-                    "wave_two_hand",
+                    "Wave with both hands",
                     "wave_two_hand"
                   ],
                   [
-                    "wave_two_hand_sway",
+                    "Enthusiastic wave with both hands",
                     "wave_two_hand_sway"
                   ]
                 ],
@@ -463,19 +925,19 @@
                 "description": "Motion name",
                 "options": [
                   [
-                    "move",
+                    "Moving",
                     "move"
                   ],
                   [
-                    "neutral",
+                    "Neutral",
                     "neutral"
                   ],
                   [
-                    "recent_joint_neutral",
+                    "Neutralize last joint",
                     "recent_joint_neutral"
                   ],
                   [
-                    "work_ready",
+                    "Getting ready to work",
                     "work_ready"
                   ]
                 ],
@@ -558,6 +1020,26 @@
           "field": "PARAM_REPEAT",
           "type": "string",
           "description": "Motion repetition type",
+          "options": [
+            [
+              "once",
+              "once"
+            ],
+            [
+              "loop",
+              "loop"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "once",
+              "description": "Run once"
+            },
+            {
+              "value": "loop",
+              "description": "Repeat continuously"
+            }
+          ],
           "option_parameters": {},
           "option_descriptions": {
             "once": "Run once",
@@ -566,7 +1048,9 @@
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__motion__motion_stop_motion",
@@ -633,6 +1117,26 @@
           "field": "PARAM_MODE",
           "type": "string",
           "description": "Motion stop type",
+          "options": [
+            [
+              "normal",
+              "normal"
+            ],
+            [
+              "immediately",
+              "immediately"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "normal",
+              "description": "Normal stop"
+            },
+            {
+              "value": "immediately",
+              "description": "Immediate stop"
+            }
+          ],
           "option_parameters": {},
           "option_descriptions": {
             "normal": "Normal stop",
@@ -641,7 +1145,9 @@
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__motion__motion_wait_motion_finished",
@@ -676,7 +1182,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__bric_poi_navigation_move_to_pose",
@@ -747,6 +1255,34 @@
           "field": "PARAM_NAME",
           "type": "string",
           "description": "Node (POI) Name",
+          "options": [
+            [
+              "PickUp",
+              "PickUp"
+            ],
+            [
+              "Dump",
+              "Dump"
+            ],
+            [
+              "PutDown",
+              "PutDown"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "PickUp",
+              "description": "pick up the object"
+            },
+            {
+              "value": "Dump",
+              "description": "dump the object"
+            },
+            {
+              "value": "PutDown",
+              "description": "put down the object"
+            }
+          ],
           "option_parameters": {},
           "option_descriptions": {
             "PickUp": "pick up the object",
@@ -756,7 +1292,9 @@
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__navigation_move_to_pose",
@@ -874,6 +1412,26 @@
           "field": "PARAM_POSE_TYPE",
           "type": "string",
           "description": "map (indoor), earth (outdoor)",
+          "options": [
+            [
+              "map",
+              "map"
+            ],
+            [
+              "earth",
+              "earth"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "map",
+              "description": "Indoor map frame"
+            },
+            {
+              "value": "earth",
+              "description": "Outdoor earth frame"
+            }
+          ],
           "option_parameters": {},
           "option_descriptions": {
             "map": "Indoor map frame",
@@ -887,6 +1445,8 @@
           "field": "PARAM_POSE_X",
           "type": "float",
           "description": "Euler pose x",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -897,6 +1457,8 @@
           "field": "PARAM_POSE_Y",
           "type": "float",
           "description": "Euler pose y",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -907,12 +1469,16 @@
           "field": "PARAM_POSE_Z",
           "type": "float",
           "description": "Euler pose z (degree unit)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__navigation_move_in_direction",
@@ -1098,6 +1664,8 @@
           "field": "PARAM_DISTANCE",
           "type": "float",
           "description": "Distance to move from the current position (meter unit)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1108,6 +1676,8 @@
           "field": "PARAM_VELOCITY",
           "type": "float",
           "description": "Movement velocity (m/s unit)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1118,6 +1688,26 @@
           "field": "PARAM_DIRECTION",
           "type": "string",
           "description": "Direction to move",
+          "options": [
+            [
+              "forward",
+              "forward"
+            ],
+            [
+              "backwards",
+              "backwards"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "forward",
+              "description": "Move forward"
+            },
+            {
+              "value": "backwards",
+              "description": "Move backwards"
+            }
+          ],
           "option_parameters": {},
           "option_descriptions": {
             "forward": "Move forward",
@@ -1126,7 +1716,9 @@
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__navigation_rotate",
@@ -1269,12 +1861,16 @@
           "field": "PARAM_ANGLE",
           "type": "float",
           "description": "Rotation angle (degree unit)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__navigation_wait_move_finished",
@@ -1309,7 +1905,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__navigation__navigation_stop_move",
@@ -1344,7 +1942,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__sound__sound_start_play",
@@ -1436,6 +2036,8 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID to play sound (default: 2000)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1446,6 +2048,8 @@
           "field": "PARAM_PATH",
           "type": "string",
           "description": "Sound file path to play",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1456,12 +2060,16 @@
           "field": "PARAM_REPEAT",
           "type": "bool",
           "description": "Sound playback repetition type",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__sound__sound_start_play_tts",
@@ -1536,6 +2144,8 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID to play sound (default: 2000)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1546,12 +2156,16 @@
           "field": "PARAM_TEXT",
           "type": "string",
           "description": "Text to play TTS",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__sound__sound_wait_play_completed",
@@ -1609,12 +2223,16 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID given for playing sound",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__sound__sound_stop_play",
@@ -1672,12 +2290,16 @@
           "field": "PARAM_ID",
           "type": "integer",
           "description": "Handle ID given for playing sound",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__sound__sound_set_volume",
@@ -1780,12 +2402,16 @@
           "field": "PARAM_VOLUME",
           "type": "integer",
           "description": "Volume value (0 ~ 10)",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__lcd__lcd_play_animation",
@@ -1877,6 +2503,8 @@
           "field": "PARAM_PATH",
           "type": "string",
           "description": "Animation file path to play",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1887,6 +2515,8 @@
           "field": "PARAM_REPEAT",
           "type": "bool",
           "description": "Animation repetition type",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         },
@@ -1897,12 +2527,16 @@
           "field": "PARAM_INSTANT_PLAY",
           "type": "bool",
           "description": "Decide if the animation plays immediately or after the current animation is completed.",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__lcd__lcd_stop_animation",
@@ -1937,7 +2571,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__device__device_set_led",
@@ -1972,7 +2608,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__etc__demo_set_demo_id",
@@ -2030,12 +2668,16 @@
           "field": "PARAM_NAME",
           "type": "string",
           "description": "Demo name to specify the demo",
+          "options": [],
+          "raw_options": [],
           "option_parameters": {},
           "option_descriptions": {}
         }
       ],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_april_demo",
@@ -2070,7 +2712,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_april_demo_funcscenario",
@@ -2105,7 +2749,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_april_demo_simple",
@@ -2140,7 +2786,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_motion_sound",
@@ -2175,7 +2823,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_moveanddumpbox",
@@ -2210,7 +2860,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_moveandpickupbox",
@@ -2245,7 +2897,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_refertest",
@@ -2280,7 +2934,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_scenariotest_recursive",
@@ -2315,7 +2971,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     },
     {
       "block_type": "behavior__scenario__bric_scenario_waitmovefinished",
@@ -2350,7 +3008,9 @@
       },
       "parameters": [],
       "has_children": false,
-      "enabled_keys": []
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
     }
   ],
   "bt_logic": [

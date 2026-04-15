@@ -25,21 +25,151 @@ def _write_json_if_changed(path: Path, data: Any) -> bool:
     return True
 
 
-def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
-    rows = client.read(
-        f"SELECT name, description FROM `{table}` WHERE name IS NOT NULL AND name <> '' ORDER BY name"  # noqa: E501
+def _fetch_with_display_name(
+    client: DBClient,
+    sql_with: str,
+    sql_without: str,
+) -> tuple[list[dict[str, Any]], bool]:
+    """Run sql_with (includes display_name column); fall back to sql_without on error.
+
+    Returns (rows, has_display_name).
+    """
+    try:
+        return client.read(sql_with), True
+    except Exception:
+        try:
+            return client.read(sql_without), False
+        except Exception:
+            return [], False
+
+
+def _fetch_robot_types(client: DBClient) -> list[dict[str, str]]:
+    rows, has_dn = _fetch_with_display_name(
+        client,
+        "SELECT name, display_name FROM `RobotType`"
+        " WHERE name IS NOT NULL AND name <> '' ORDER BY name",
+        "SELECT name FROM `RobotType`"
+        " WHERE name IS NOT NULL AND name <> '' ORDER BY name",
     )
     out: list[dict[str, str]] = []
     for row in rows:
         name = str(row.get("name", "")).strip()
         if not name:
             continue
-        out.append(
-            {
-                "value": name,
-                "description": str(row.get("description", "")).strip(),
-            }
-        )
+        out.append({
+            "value": name,
+            "display_name": (str(row.get("display_name") or "").strip() or name) if has_dn else name,  # noqa: E501
+        })
+    return out
+
+
+def _fetch_robot_list(client: DBClient) -> list[dict[str, str]]:
+    """Fetch RobotList with graceful fallback for varying column names.
+
+    Tries combinations of (display_name | no display_name) x (robot_type | type | neither).
+    The robot-type column may be named 'robot_type' or 'type'.
+    """
+    rows: list[dict[str, Any]] = []
+    has_dn = False
+    rt_col: str | None = None
+
+    for cols, dn, rt in [
+        ("name, display_name, robot_type", True, "robot_type"),
+        ("name, display_name, type", True, "type"),
+        ("name, robot_type", False, "robot_type"),
+        ("name, type", False, "type"),
+        ("name, display_name", True, None),
+        ("name", False, None),
+    ]:
+        try:
+            rows = client.read(
+                f"SELECT {cols} FROM `RobotList`"
+                " WHERE name IS NOT NULL AND name <> '' ORDER BY name"
+            )
+            has_dn = dn
+            rt_col = rt
+            break
+        except Exception:
+            continue
+
+    out: list[dict[str, str]] = []
+    for row in rows:
+        name = str(row.get("name", "")).strip()
+        if not name:
+            continue
+        rt_val = str(row.get(rt_col, "") or "").strip() if rt_col else ""
+        dn_val = (str(row.get("display_name") or "").strip() or name) if has_dn else name
+        out.append({
+            "value": name,
+            "display_name": dn_val,
+            "robot_type": rt_val,
+        })
+    return out
+
+
+def _fetch_operation_profiles(client: DBClient) -> list[dict[str, str]]:
+    rows, has_dn = _fetch_with_display_name(
+        client,
+        "SELECT name, display_name FROM `OperationProfile`"
+        " WHERE name IS NOT NULL AND name <> '' ORDER BY name",
+        "SELECT name FROM `OperationProfile`"
+        " WHERE name IS NOT NULL AND name <> '' ORDER BY name",
+    )
+    out: list[dict[str, str]] = []
+    for row in rows:
+        name = str(row.get("name", "")).strip()
+        if not name:
+            continue
+        out.append({
+            "value": name,
+            "display_name": (str(row.get("display_name") or "").strip() or name) if has_dn else name,  # noqa: E501
+        })
+    return out
+
+
+def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
+    # Try progressively fewer columns; most permissive first.
+    # Tier 1: name + display_name + robot_type + operation_profile + description
+    # Tier 2: name + display_name + description
+    # Tier 3: name + description
+    rows: list[dict[str, Any]] = []
+    has_display_name = False
+    has_profile_cols = False
+    for cols, dn, pc in [
+        ("name, display_name, robot_type, operation_profile, description", True, True),
+        ("name, display_name, description", True, False),
+        ("name, description", False, False),
+    ]:
+        try:
+            rows = client.read(
+                f"SELECT {cols} FROM `{table}`"
+                f" WHERE name IS NOT NULL AND name <> '' ORDER BY name"
+            )
+            has_display_name = dn
+            has_profile_cols = pc
+            break
+        except Exception:
+            continue
+    out: list[dict[str, str]] = []
+    for row in rows:
+        name = str(row.get("name", "")).strip()
+        if not name:
+            continue
+        entry: dict[str, str] = {
+            "value": name,
+            "display_name": (str(row.get("display_name") or "").strip() or name)
+            if has_display_name
+            else name,
+            "description": str(row.get("description", "")).strip(),
+        }
+        if has_profile_cols:
+            rt = str(row.get("robot_type") or "").strip()
+            op = str(row.get("operation_profile") or "").strip()
+            if rt:
+                entry["robot_type"] = rt
+            if op:
+                entry["operation_profile"] = op
+        out.append(entry)
     return out
 
 
@@ -121,18 +251,35 @@ def _update_blocklist_robot(
                     ]
 
                 add_expressive = [
-                    {"value": f"expressive_motion.{name}", "description": desc}
-                    for name, desc in [
-                        (r.get("value", ""), r.get("description", "")) for r in expressive_rows
-                    ]
-                    if name
+                    {
+                        k: v
+                        for k, v in {
+                            "value": f"expressive_motion.{r['value']}",
+                            "display_name": f"expressive_motion.{r.get('display_name', r['value'])}",  # noqa: E501
+                            "description": r.get("description", ""),
+                            "robot_type": r.get("robot_type", ""),
+                            "operation_profile": r.get("operation_profile", ""),
+                        }.items()
+                        if v  # omit empty strings to keep options clean
+                        or k in ("value", "display_name")
+                    }
+                    for r in expressive_rows
+                    if r.get("value")
                 ]
                 add_pose = [
-                    {"value": f"pose_motion.{name}", "description": desc}
-                    for name, desc in [
-                        (r.get("value", ""), r.get("description", "")) for r in pose_rows
-                    ]
-                    if name
+                    {
+                        k: v
+                        for k, v in {
+                            "value": f"pose_motion.{r['value']}",
+                            "display_name": f"pose_motion.{r.get('display_name', r['value'])}",
+                            "description": r.get("description", ""),
+                            "robot_type": r.get("robot_type", ""),
+                            "operation_profile": r.get("operation_profile", ""),
+                        }.items()
+                        if v or k in ("value", "display_name")
+                    }
+                    for r in pose_rows
+                    if r.get("value")
                 ]
                 merged = keep + add_expressive + add_pose
                 if p.get("options") != merged:
@@ -179,9 +326,10 @@ def _update_start_motion(
             name = str(row.get("value", "")).strip()
             if not name:
                 continue
+            display_name = str(row.get("display_name") or "").strip() or name
             out.append(
                 {
-                    "name": f"expressive_motion.{name}",
+                    "name": f"expressive_motion.{display_name}",
                     "data": {"task_type": "expressive_motion", "name": name, "repeat": 0},
                 }
             )
@@ -190,9 +338,10 @@ def _update_start_motion(
             name = str(row.get("value", "")).strip()
             if not name:
                 continue
+            display_name = str(row.get("display_name") or "").strip() or name
             out.append(
                 {
-                    "name": f"pose_motion.{name}",
+                    "name": f"pose_motion.{display_name}",
                     "data": {"task_type": "pose_motion", "name": name, "repeat": 0},
                 }
             )
@@ -236,6 +385,16 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
             pose_rows,
         ):
             summary["updated"].append("btInfo/start_motion.json")
+
+        # Fetch profile table row counts for summary only (data served live from DB).
+        robot_types = _fetch_robot_types(client)
+        robot_list = _fetch_robot_list(client)
+        operation_profiles = _fetch_operation_profiles(client)
+        summary["counts"].update({
+            "RobotType": len(robot_types),
+            "RobotList": len(robot_list),
+            "OperationProfile": len(operation_profiles),
+        })
 
     except Exception as exc:  # noqa: BLE001
         summary["ok"] = False

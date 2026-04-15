@@ -9,6 +9,11 @@ from typing import Any
 from flask import Flask, jsonify, render_template, request, send_from_directory
 
 from src.db_sync import sync_block_info_from_db
+from src.db_lib import DBClient
+from src.db_sync import (
+    _fetch_robot_types,
+    _fetch_operation_profiles,
+)
 from src.generator_engine import generate_all
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -799,6 +804,32 @@ def block_config():
     )
 
 
+@app.get("/api/profile/options")
+def profile_options():
+    """Return robot type / robot / operation profile options, always queried live from DB."""
+    cfg_path = BASE_DIR / "dbinfo.json"
+    try:
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+    except Exception:
+        cfg = {}
+    robot_types: list = []
+    operation_profiles: list = []
+    if isinstance(cfg, dict) and cfg:
+        client = DBClient(cfg)
+        try:
+            robot_types = _fetch_robot_types(client)
+            operation_profiles = _fetch_operation_profiles(client)
+        except Exception:  # noqa: BLE001
+            pass
+        finally:
+            client.close()
+    return jsonify({
+        "ok": True,
+        "robot_types": robot_types,
+        "operation_profiles": operation_profiles,
+    })
+
+
 @app.get("/api/scenarios")
 def list_scenarios():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -817,9 +848,16 @@ def get_scenario(name: str):
 
     if not p.exists():
         return jsonify({"ok": False, "error": "Scenario not found"}), 404
-    return jsonify(
-        {"ok": True, "name": p.stem, "data": json.loads(p.read_text(encoding="utf-8"))}
-    )
+
+    raw = json.loads(p.read_text(encoding="utf-8"))
+    # Support both new {profile, blocks} and old {blocks} formats.
+    if isinstance(raw, dict) and "profile" in raw:
+        workspace_data = raw.get("blocks") or {}
+        profile = raw.get("profile") or {}
+    else:
+        workspace_data = raw
+        profile = {}
+    return jsonify({"ok": True, "name": p.stem, "data": workspace_data, "profile": profile})
 
 
 @app.post("/api/scenarios")
@@ -828,6 +866,7 @@ def save_scenario():
     name = body.get("name", "").strip()
     original_name = str(body.get("original_name", "")).strip()
     data = body.get("data")
+    profile = body.get("profile")  # optional {robot_type, robot, operation_profile}
     if not name:
         return jsonify({"ok": False, "error": "Scenario name is required"}), 400
     if data is None:
@@ -846,8 +885,14 @@ def save_scenario():
     if is_blockly_workspace_data(data):
         data = reorder_workspace_top_blocks(data)
 
+    # Wrap with profile when provided; otherwise save raw workspace data.
+    if profile and isinstance(profile, dict):
+        file_data: Any = {"profile": profile, "blocks": data}
+    else:
+        file_data = data
+
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    p.write_text(json.dumps(file_data, ensure_ascii=False, indent=2), encoding="utf-8")
     try:
         generate_all()
     except Exception as exc:  # noqa: BLE001
@@ -974,13 +1019,18 @@ def scenario_as_blockly(name: str):
         return jsonify({"ok": False, "error": "Scenario not found"}), 404
 
     scenario_json = json.loads(p.read_text(encoding="utf-8"))
+    # Unwrap new {profile, blocks} format if present.
+    saved_profile = None
+    if isinstance(scenario_json, dict) and "profile" in scenario_json:
+        saved_profile = scenario_json.get("profile")
+        scenario_json = scenario_json.get("blocks") or {}
     if is_blockly_workspace_data(scenario_json):
         workspace = normalize_workspace_legacy_block_types(scenario_json)
         workspace = reorder_workspace_top_blocks(workspace)
-        return jsonify({"ok": True, "workspace": workspace, "errors": []})
+        return jsonify({"ok": True, "workspace": workspace, "errors": [], "profile": saved_profile})
 
     workspace, errors = bt_to_blockly(scenario_json, parse_manifest())
-    return jsonify({"ok": True, "workspace": workspace, "errors": errors})
+    return jsonify({"ok": True, "workspace": workspace, "errors": errors, "profile": saved_profile})
 
 
 if __name__ == "__main__":
