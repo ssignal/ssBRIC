@@ -60,6 +60,8 @@
     operation_profiles: [],
   };
   let activeProfile = { robot_type: '', operation_profile: '' };
+  // null = no filter applied yet; array = category names allowed for active robot type
+  let allowedCategories = null;
 
   async function loadProfileOptions() {
     try {
@@ -115,12 +117,25 @@
     opSel.value = activeProfile.operation_profile || '';
   }
 
-  function applyActiveProfile() {
+  async function fetchCategoryFilter(robotType) {
+    try {
+      const qs = robotType ? `?robot_type=${encodeURIComponent(robotType)}` : '';
+      const res = await api(`/api/blocks/categories${qs}`);
+      const cats = (res && res.ok && Array.isArray(res.categories)) ? res.categories : [];
+      // Empty list means no DB data for this robot type → show all (no filter).
+      allowedCategories = cats.length > 0 ? cats : null;
+    } catch (_err) {
+      allowedCategories = null;
+    }
+  }
+
+  async function applyActiveProfile() {
     try {
       localStorage.setItem('bric_profile', JSON.stringify(activeProfile));
     } catch (_err) {
       // ignore storage errors
     }
+    await fetchCategoryFilter(activeProfile.robot_type);
     if (workspace) {
       applyToolboxForEditingScenario(editingOriginalScenarioName);
     }
@@ -1458,34 +1473,82 @@
       });
     }
 
-    if (!hiddenTypes.size && !disabledTypes.size && !profileHidden.size) {
+    if (!hiddenTypes.size && !disabledTypes.size && !profileHidden.size && !allowedCategories) {
       return baseToolbox;
     }
     const cloned = JSON.parse(JSON.stringify(baseToolbox));
     const categories = Array.isArray(cloned.contents) ? cloned.contents : [];
-    categories.forEach((cat) => {
-      if (!cat || cat.kind !== 'category' || !Array.isArray(cat.contents)) {
-        return;
-      }
-      cat.contents = cat.contents
-        .filter((item) => {
-          if (!item || item.kind !== 'block') {
-            return true;
-          }
-          const t = String(item.type || '');
-          return !hiddenTypes.has(t) && !profileHidden.has(t);
-        })
-        .map((item) => {
-          if (!item || item.kind !== 'block') {
+
+    // Category-level filter: hide categories not allowed for the selected robot type.
+    // BT_Logic / BT_Function are structural and always shown.
+    const categoryHidden = allowedCategories
+      ? new Set(
+          categories
+            .filter((cat) => {
+              if (!cat || cat.kind !== 'category') return false;
+              const catName = String(cat.name || '');
+              const DEFAULT_CATEGORIES = new Set([
+                'BT Logic', 'BT_Logic',
+                'BT Function', 'BT_Function',
+                'Scenario',
+                'Functions',
+              ]);
+              if (DEFAULT_CATEGORIES.has(catName)) {
+                return false; // always shown regardless of DB category filter
+              }
+              return !allowedCategories.some(
+                (a) => a.toLowerCase() === catName.toLowerCase()
+              );
+            })
+            .map((cat) => String(cat.name || ''))
+        )
+      : new Set();
+
+    cloned.contents = categories
+      .map((cat) => {
+        if (!cat || cat.kind !== 'category' || !Array.isArray(cat.contents)) {
+          return cat;
+        }
+        cat.contents = cat.contents
+          .filter((item) => {
+            if (!item || item.kind !== 'block') {
+              return true;
+            }
+            const t = String(item.type || '');
+            return !hiddenTypes.has(t) && !profileHidden.has(t);
+          })
+          .map((item) => {
+            if (!item || item.kind !== 'block') {
+              return item;
+            }
+            const t = String(item.type || '');
+            if (disabledTypes.has(t)) {
+              return { ...item, disabled: true };
+            }
             return item;
-          }
-          const t = String(item.type || '');
-          if (disabledTypes.has(t)) {
-            return { ...item, disabled: true };
-          }
-          return item;
-        });
-    });
+          });
+        return cat;
+      })
+      .filter((cat) => {
+        if (!cat || cat.kind !== 'category') return true;
+        const catName = String(cat.name || '');
+        const DEFAULT_CATEGORIES = new Set([
+          'BT Logic', 'BT_Logic',
+          'BT Function', 'BT_Function',
+          'Scenario',
+          'Functions',
+        ]);
+        // Default categories are always shown.
+        if (DEFAULT_CATEGORIES.has(catName)) return true;
+        // Hide if excluded by robot-type category filter.
+        if (categoryHidden.has(catName)) return false;
+        // Hide if all blocks were filtered out (don't show empty categories).
+        if (Array.isArray(cat.contents) && cat.contents.filter((i) => i && i.kind === 'block').length === 0) {
+          return false;
+        }
+        return true;
+      });
+
     return cloned;
   }
 
@@ -2749,20 +2812,25 @@
   // Profile panel event listeners
   const profileRobotTypeSel = document.getElementById('profile-robot-type');
   if (profileRobotTypeSel) {
-    profileRobotTypeSel.addEventListener('change', () => {
-      // No robot list to cascade — reserved for future use.
+    profileRobotTypeSel.addEventListener('change', async () => {
+      const opSel = document.getElementById('profile-operation');
+      activeProfile = {
+        robot_type: profileRobotTypeSel.value || '',
+        operation_profile: (opSel && opSel.value) || '',
+      };
+      await applyActiveProfile();
     });
   }
   const profileApplyBtn = document.getElementById('btn-apply-profile');
   if (profileApplyBtn) {
-    profileApplyBtn.addEventListener('click', () => {
+    profileApplyBtn.addEventListener('click', async () => {
       const rtSel = document.getElementById('profile-robot-type');
       const opSel = document.getElementById('profile-operation');
       activeProfile = {
         robot_type: (rtSel && rtSel.value) || '',
         operation_profile: (opSel && opSel.value) || '',
       };
-      applyActiveProfile();
+      await applyActiveProfile();
       toast('Profile applied.');
     });
   }

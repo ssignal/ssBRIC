@@ -33,6 +33,20 @@ COLOR_PALETTE = [
     "#17becf",
 ]
 
+# Pinned colors for categories that must not collide with the palette cycle.
+CATEGORY_COLOR_OVERRIDES: dict[str, str] = {
+    "BT_Logic":    "#1f77b4",
+    "BT_Function": "#ff7f0e",
+    "Motion":      "#2ca02c",
+    "Navigation":  "#d62728",
+    "Sound":       "#9467bd",
+    "LCD":         "#8c564b",
+    "Device":      "#e377c2",
+    "Etc":         "#7f7f7f",
+    "Scenario":    "#bcbd22",
+    "Touch":       "#e91e63",
+}
+
 
 def slugify(text: str) -> str:
     clean = re.sub(r"[^a-zA-Z0-9]+", "_", text.strip().lower())
@@ -1228,7 +1242,7 @@ def emit_theme(path: Path, categories: list[str]):
     category_styles = {}
     for i, cat in enumerate(categories):
         category_styles[f"{slugify(cat)}_category"] = {
-            "colour": COLOR_PALETTE[i % len(COLOR_PALETTE)]
+            "colour": CATEGORY_COLOR_OVERRIDES.get(cat, COLOR_PALETTE[i % len(COLOR_PALETTE)])
         }
     # Built-in Functions category uses a dedicated style.
     category_styles["functions_category"] = {
@@ -1338,7 +1352,7 @@ def generate_all() -> dict[str, Any]:
     ordered_categories = order_categories(toolbox_categories)
 
     category_colors = {
-        cat: COLOR_PALETTE[i % len(COLOR_PALETTE)]
+        cat: CATEGORY_COLOR_OVERRIDES.get(cat, COLOR_PALETTE[i % len(COLOR_PALETTE)])
         for i, (cat, _) in enumerate(ordered_categories)
     }
 

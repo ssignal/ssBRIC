@@ -1,10 +1,10 @@
 {
   "Root": {
     "type": "Root",
-    "id": "43807350",
+    "id": "26381914",
     "child": {
       "type": "Sequence",
-      "id": "24567181",
+      "id": "22974767",
       "children": [
         {
           "type": "Subtree",
@@ -24,7 +24,7 @@
         },
         {
           "type": "Sequence",
-          "id": "26628246",
+          "id": "99157156",
           "tickrate": 0,
           "children": [
             {
@@ -38,7 +38,7 @@
                   "z": 180.0
                 }
               },
-              "id": "57285033"
+              "id": "60037175"
             },
             {
               "type": "Subtree",
@@ -48,7 +48,7 @@
         },
         {
           "type": "Sequence",
-          "id": "17100807",
+          "id": "46555335",
           "tickrate": 0,
           "children": [
             {
@@ -60,13 +60,13 @@
                 "repeat": 0,
                 "object": "box"
               },
-              "id": "29846975"
+              "id": "41675885"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "67236350"
+              "id": "54597566"
             }
           ]
         },
@@ -80,7 +80,7 @@
   "Movebackward": {
     "child": {
       "type": "Sequence",
-      "id": "41175261",
+      "id": "56294549",
       "children": [
         {
           "type": "Action",
@@ -90,7 +90,7 @@
             "velocity": 0.6,
             "direction": "backwards"
           },
-          "id": "55236077"
+          "id": "44341950"
         },
         {
           "type": "Subtree",
@@ -102,17 +102,17 @@
   "WaitMoveFinished": {
     "child": {
       "type": "Sequence",
-      "id": "30880581",
+      "id": "17483877",
       "children": [
         {
           "type": "Action",
           "action": "navigation/wait_move_finished",
           "parameter": {},
-          "id": "89431041"
+          "id": "34973616"
         },
         {
           "type": "Sleep",
-          "id": "89231319",
+          "id": "38436060",
           "tickrate": 500
         }
       ]
@@ -121,11 +121,11 @@
   "MoveAndPickupBox": {
     "child": {
       "type": "Sequence",
-      "id": "20238260",
+      "id": "40602159",
       "children": [
         {
           "type": "Sequence",
-          "id": "37508538",
+          "id": "71496752",
           "tickrate": 0,
           "children": [
             {
@@ -139,7 +139,7 @@
                   "z": 180.0
                 }
               },
-              "id": "29914839"
+              "id": "11410731"
             },
             {
               "type": "Subtree",
@@ -149,7 +149,7 @@
         },
         {
           "type": "Sequence",
-          "id": "15384575",
+          "id": "97689586",
           "tickrate": 0,
           "children": [
             {
@@ -161,13 +161,13 @@
                 "repeat": 0,
                 "object": "box"
               },
-              "id": "19292451"
+              "id": "75752319"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "32326323"
+              "id": "16014223"
             }
           ]
         }
@@ -177,11 +177,11 @@
   "MoveAndDumpBox": {
     "child": {
       "type": "Sequence",
-      "id": "29856590",
+      "id": "95300794",
       "children": [
         {
           "type": "Sequence",
-          "id": "95016187",
+          "id": "42269920",
           "tickrate": 0,
           "children": [
             {
@@ -195,7 +195,7 @@
                   "z": 180.0
                 }
               },
-              "id": "93953395"
+              "id": "95674163"
             },
             {
               "type": "Subtree",
@@ -205,7 +205,7 @@
         },
         {
           "type": "Sequence",
-          "id": "56645347",
+          "id": "40478372",
           "tickrate": 0,
           "children": [
             {
@@ -217,13 +217,13 @@
                 "repeat": 0,
                 "object": "box"
               },
-              "id": "41397405"
+              "id": "28527843"
             },
             {
               "type": "Action",
               "action": "motion/wait_motion_finished",
               "parameter": {},
-              "id": "27156612"
+              "id": "86246104"
             }
           ]
         }

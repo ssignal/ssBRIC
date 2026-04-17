@@ -13,6 +13,7 @@ from src.db_lib import DBClient
 from src.db_sync import (
     _fetch_robot_types,
     _fetch_operation_profiles,
+    _fetch_behavior_categories,
 )
 from src.generator_engine import generate_all
 
@@ -828,6 +829,31 @@ def profile_options():
         "robot_types": robot_types,
         "operation_profiles": operation_profiles,
     })
+
+
+@app.get("/api/blocks/categories")
+def behavior_categories():
+    """Return BehaviorCategory names filtered by robot_type query param.
+
+    ?robot_type=  (empty) → all categories
+    ?robot_type=X          → categories whose robo_type_list contains X or 'common'
+    """
+    robot_type = request.args.get("robot_type", "").strip()
+    cfg_path = BASE_DIR / "dbinfo.json"
+    try:
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+    except Exception:
+        cfg = {}
+    categories: list[str] = []
+    if isinstance(cfg, dict) and cfg:
+        client = DBClient(cfg)
+        try:
+            categories = _fetch_behavior_categories(client, robot_type)
+        except Exception:  # noqa: BLE001
+            pass
+        finally:
+            client.close()
+    return jsonify({"ok": True, "categories": categories})
 
 
 @app.get("/api/scenarios")

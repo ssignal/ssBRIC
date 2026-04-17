@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-15T07:22:29.908318Z",
+  "generated_at": "2026-04-16T07:37:40.904004Z",
   "behavior": [
     {
       "block_type": "behavior__motion__bric_start_motion_motion_start_motion",
@@ -2680,6 +2680,43 @@
       "operation_profile": ""
     },
     {
+      "block_type": "behavior__touch__touch_touch",
+      "category": "Touch",
+      "kind": "behavior",
+      "label": "touch",
+      "action": "touch/touch",
+      "description": "category test.",
+      "json": {
+        "type": "behavior__touch__touch_touch",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "touch",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#e91e63",
+        "tooltip": "category test.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
       "block_type": "behavior__scenario__bric_scenario_april_demo",
       "category": "Scenario",
       "kind": "behavior",
@@ -4138,6 +4175,7 @@
     "ros2Blocks_lcd.js",
     "ros2Blocks_device.js",
     "ros2Blocks_etc.js",
+    "ros2Blocks_touch.js",
     "ros2Blocks_scenario.js",
     "bt_logic.js",
     "bt_function.js"
@@ -4149,6 +4187,7 @@
     "ros2Blocks_lcd.js",
     "ros2Blocks_device.js",
     "ros2Blocks_etc.js",
+    "ros2Blocks_touch.js",
     "ros2Blocks_scenario.js",
     "bt_logic.js",
     "bt_function.js"

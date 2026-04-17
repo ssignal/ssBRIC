@@ -41,6 +41,9 @@ window.themeForCustomBasic = {
     "etc_category": {
       "colour": "#7f7f7f"
     },
+    "touch_category": {
+      "colour": "#e91e63"
+    },
     "scenario_category": {
       "colour": "#bcbd22"
     },

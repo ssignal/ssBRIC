@@ -40,6 +40,162 @@
         Robot Type  — populated from RobotType table
         Operation   — populated from OperationProfile table
     - "Apply" button sets the active profile and immediately re-filters the Blockly toolbox.
+    - Changing the Robot Type dropdown immediately applies the profile without clicking Apply.
+    - Active profile is persisted in localStorage (key: bric_profile) and restored on reload.
+    - When opening a scenario saved with a different profile, a toast offers to apply it.
+
+  ### API endpoint: GET /api/profile/options
+    - Queries DB live on every call — no file cache.
+    - Returns: { ok, robot_types: [{value, display_name}], operation_profiles: [{value, display_name}] }
+    - If DB is unreachable or tables are absent, returns empty lists (no error).
+
+  ### RobotType table
+    Columns:
+      name           — internal value used in profile matching
+      display_name   — human-readable label (optional; fallback: name)
+
+  ### OperationProfile table
+    Columns:
+      name           — internal value
+      display_name   — human-readable label (optional; fallback: name)
+
+  ### RobotList table
+    Not used in the UI. Only Robot Type and Operation are presented to the user.
+
+  ### Scenario profile storage
+    Saved scenarios wrap blocks in: { "profile": { "robot_type": "...", "operation_profile": "..." }, "blocks": {...} }
+    Old format (blocks only) is detected and loaded without profile (backward-compatible).
+    GET /api/scenarios/<name>/blockly returns the saved profile alongside workspace data.
+
+## Category filtering by Robot Type
+
+  ### Overview
+    The Blockly toolbox categories are filtered based on the selected Robot Type.
+    Only categories allowed for the active robot type are shown in the toolbox.
+    If no robot type is selected (All), all categories are shown.
+    If the DB returns no categories for a robot type, all categories are shown (no filter).
+
+  ### Default categories (always shown regardless of DB filter)
+    The following categories are structural and always visible:
+      BT Logic, BT Function, Scenario, Functions
+
+  ### Empty category rule
+    After block-level and category-level filtering, any category with no remaining
+    blocks is hidden from the toolbox.
+
+  ### API endpoint: GET /api/blocks/categories
+    - Accepts optional query param: ?robot_type=<value>
+    - Returns: { ok, categories: ["motion", "navigation", ...] }
+    - Empty result (no matching rows) → no filter applied, all categories shown.
+    - If DB is unreachable, returns empty list (all categories shown as fallback).
+
+  ### BehaviorCategory table
+    Columns:
+      name             — category name (matches category field in BehaviorCapability, lowercase)
+      display_name     — human-readable label
+      robot_type_list  — JSON array of robot type values, e.g. ["q9", "cloid"]
+                         Use "common" to match all robot types: ["common"]
+                         A category is shown if robot_type_list contains the active
+                         robot type OR contains "common".
+
+  ### Frontend behavior (static/app.js)
+    - allowedCategories state: null = no filter; array = allowed category names for active robot type.
+    - fetchCategoryFilter(robotType) calls /api/blocks/categories and updates allowedCategories.
+    - applyActiveProfile() is async: fetches category filter first, then refreshes toolbox.
+    - Robot Type dropdown change event immediately triggers applyActiveProfile().
+    - Category name matching is case-insensitive.
+
+## Block list
+  - category: motion
+    action: 'motion/start_motion'
+      target: parameters[].task_type.options[].value: 'expressive_motion'
+        DB info for parameters:
+          Table: MotionExpressive
+          Columns
+            value: name
+            display_name: display_name  (fallback: name)
+            description: description
+            robot_type: robot_type      (optional, for profile filtering)
+            operation_profile: operation_profile  (optional)
+      target: parameters[].task_type.options[].value: 'pose_motion'
+        DB info for parameters:
+          Table: MotionPose
+          Columns
+            value: name
+            display_name: display_name  (fallback: name)
+            description: description
+            robot_type: robot_type      (optional)
+            operation_profile: operation_profile  (optional)
+    action: 'BRIC.start_motion:motion/start_motion'
+      target: parameters[].name: 'name'
+        DB info for parameters:
+          Table: MotionExpressive
+          Columns for key
+            value: name
+            display_name: display_name  (fallback: name)
+            description: description
+          format:
+            value: 'expressive_motion.{name}'
+            display_name: 'expressive_motion.{display_name}'
+        DB info for parameters:
+          Table: MotionPose
+          Columns for key
+            value: name
+            display_name: display_name  (fallback: name)
+            description: description
+          format:
+            value: 'pose_motion.{name}'
+            display_name: 'pose_motion.{display_name}'
+      merge/update rule:
+        - Remove only existing `expressive_motion.*` values when `MotionExpressive` has rows.
+        - Remove only existing `pose_motion.*` values when `MotionPose` has rows.
+        - Keep other existing values (e.g., manipulation) unchanged.
+
+## start_motion.json
+  Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
+    { "name": "expressive_motion.{display_name}", "data": { "task_type": "expressive_motion", "name": "{name}", "repeat": 0 } }
+  This keeps the UI label human-friendly while BT generation uses the raw value.
+
+
+## Purpose
+  Load data from DB for block list and Robot & Operation profile selection.
+  Update BlockListRobot.json and start_motion.json when block data changes in the DB.
+  Robot Type and Operation Profile dropdowns are always loaded live from DB at app startup.
+  This sync is triggered by the button 'Update Blocks' (also runs automatically at startup).
+
+## Conditions
+  DB connection parameters are set in dbinfo.json.
+  Create DB library for CRUD with sql query. It should be a different file.
+  Use DB library to load data for block list from the table.
+  Update only the data scopes specified below, 'Block list' part.
+  Do not update unrelated categories/items.
+  Before writing DB values, remove only the existing values that belong to the same DB-managed scope.
+  Keep all non-targeted existing values as-is.
+  If target table has no rows or no applicable data, keep current values for that target scope.
+
+## display_name column
+  Each DB table may have an optional `display_name` column.
+  - If the column exists: use it as the human-readable label for UI dropdowns.
+  - If the column is absent or the value is empty: fall back to `name` as the display label.
+  - The `value` field in generated options always stores the raw DB `name` (used for BT generation).
+  - Blockly dropdowns are built as [[display_name, value], ...] pairs so the UI shows
+    display_name while Export/BT-generation uses value.
+
+## robot_type / operation_profile columns (block-level filtering)
+  Block option rows in DB may have optional `robot_type` and `operation_profile` columns.
+  - If present and non-empty: the option is only shown when the active profile matches.
+  - If absent or empty: the option is a "common" option shown regardless of profile.
+  - These columns are written into the block option metadata in BlockListRobot.json
+    and propagated into the generated JS (BLOCK_PROFILE, OPTION_PROFILE_META).
+
+## Robot & Operation profile
+
+  ### UI panel: "Robot & Operation"
+    - First panel on the main page (before Scenario and Blocks panels).
+    - Two dropdowns:
+        Robot Type  — populated from RobotType table
+        Operation   — populated from OperationProfile table
+    - "Apply" button sets the active profile and immediately re-filters the Blockly toolbox.
     - Active profile is persisted in localStorage (key: bric_profile) and restored on reload.
     - When opening a scenario saved with a different profile, a toast offers to apply it.
 

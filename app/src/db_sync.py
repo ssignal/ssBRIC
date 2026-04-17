@@ -107,6 +107,37 @@ def _fetch_robot_list(client: DBClient) -> list[dict[str, str]]:
     return out
 
 
+def _fetch_behavior_categories(client: DBClient, robot_type: str = "") -> list[str]:
+    """Return category names from BehaviorCategory filtered by robot_type.
+
+    robot_type_list is a JSON array column; the value 'common' matches every
+    robot type.  When robot_type is empty all categories are returned.
+    """
+    try:
+        rows = client.read(
+            "SELECT name, robot_type_list FROM `BehaviorCategory`"
+            " WHERE name IS NOT NULL AND name <> '' ORDER BY name"
+        )
+    except Exception:
+        return []
+    out: list[str] = []
+    for row in rows:
+        name = str(row.get("name", "")).strip()
+        if not name:
+            continue
+        if not robot_type:
+            out.append(name)
+            continue
+        raw = row.get("robot_type_list") or "[]"
+        try:
+            types: list[str] = json.loads(raw) if isinstance(raw, str) else list(raw)
+        except Exception:
+            types = []
+        if "common" in types or robot_type in types:
+            out.append(name)
+    return out
+
+
 def _fetch_operation_profiles(client: DBClient) -> list[dict[str, str]]:
     rows, has_dn = _fetch_with_display_name(
         client,

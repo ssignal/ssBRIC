@@ -811,5 +811,12 @@
         "max": null
       }
     ]
+  },
+  {
+    "category": "Touch",
+    "action": "touch/touch",
+    "description": "category test.",
+    "enabled": true,
+    "parameters": []
   }
 ]

@@ -195,6 +195,17 @@ window.toolboxCustomBasic = {
     },
     {
       "kind": "category",
+      "name": "Touch",
+      "categorystyle": "touch_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__touch__touch_touch"
+        }
+      ]
+    },
+    {
+      "kind": "category",
       "name": "Scenario",
       "categorystyle": "scenario_category",
       "contents": [
