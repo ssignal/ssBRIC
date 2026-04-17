@@ -1,201 +1,74 @@
 [
   {
-    "category": "Motion",
-    "action": "BRIC.start_motion:motion/start_motion",
-    "description": "Motion 시작 명령",
+    "category": "Device",
+    "action": "device/set_led",
+    "description": "몸체의 LED의 light 제어 명령",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Etc",
+    "action": "demo/set_demo_id",
+    "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
     "enabled": true,
     "parameters": [
       {
         "name": "name",
         "type": "string",
-        "description": "Motion name",
+        "description": "Demo name to specify the demo",
         "enabled": true,
-        "options": [
-          {
-            "value": "manipulation.prepare",
-            "description": "demo2604_pick_box_ready",
-            "parameters": [
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              }
-            ]
-          },
-          {
-            "value": "manipulation.pick_up",
-            "description": "demo2604_pick_box",
-            "parameters": [
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              }
-            ]
-          },
-          {
-            "value": "manipulation.dump",
-            "description": "demo2604_dump_box",
-            "parameters": [
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              }
-            ]
-          },
-          {
-            "value": "manipulation.put_down",
-            "description": "demo2604_place_box",
-            "parameters": [
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              }
-            ]
-          },
-          {
-            "value": "expressive_motion.double_nod",
-            "display_name": "expressive_motion.nod twice",
-            "description": "머리 두번 끄덕끄덕"
-          },
-          {
-            "value": "expressive_motion.fistbump_ready",
-            "display_name": "expressive_motion.Ready to fistbump",
-            "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
-          },
-          {
-            "value": "expressive_motion.fistbump_strike",
-            "display_name": "expressive_motion.Go for a fistbump",
-            "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-          },
-          {
-            "value": "expressive_motion.head_left",
-            "display_name": "expressive_motion.Look to the left",
-            "description": "머리 왼쪽 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_left_down",
-            "display_name": "expressive_motion.Look down and to the left",
-            "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
-          },
-          {
-            "value": "expressive_motion.head_left_up",
-            "display_name": "expressive_motion.Look up and to the left",
-            "description": "머리 왼쪽 위 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_right",
-            "display_name": "expressive_motion.Look to the right",
-            "description": "머리 오른쪽 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_right_down",
-            "display_name": "expressive_motion.Look down and to the right",
-            "description": "머리 오른쪽 아래 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.head_right_up",
-            "display_name": "expressive_motion.Look up and to the right",
-            "description": "머리 오른쪽 위 이동 후 복귀"
-          },
-          {
-            "value": "expressive_motion.highfive_ready",
-            "display_name": "expressive_motion.Ready to highfive",
-            "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
-          },
-          {
-            "value": "expressive_motion.highfive_strike",
-            "display_name": "expressive_motion.Go for a hightfive",
-            "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-          },
-          {
-            "value": "expressive_motion.pose_hand_heart",
-            "display_name": "expressive_motion.Heart hands",
-            "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
-          },
-          {
-            "value": "expressive_motion.present_double",
-            "display_name": "expressive_motion.Gesture with open palms",
-            "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
-          },
-          {
-            "value": "expressive_motion.wave_two_hand",
-            "display_name": "expressive_motion.Wave with both hands",
-            "description": "양손 가슴높이 손인사"
-          },
-          {
-            "value": "expressive_motion.wave_two_hand_sway",
-            "display_name": "expressive_motion.Enthusiastic wave with both hands",
-            "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
-          },
-          {
-            "value": "pose_motion.move",
-            "display_name": "pose_motion.Moving",
-            "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
-          },
-          {
-            "value": "pose_motion.neutral",
-            "display_name": "pose_motion.Neutral",
-            "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
-          },
-          {
-            "value": "pose_motion.recent_joint_neutral",
-            "display_name": "pose_motion.Neutralize last joint",
-            "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
-          },
-          {
-            "value": "pose_motion.work_ready",
-            "display_name": "pose_motion.Getting ready to work",
-            "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-          }
-        ],
+        "options": [],
         "min": null,
         "max": null
       }
     ]
   },
   {
+    "category": "LCD",
+    "action": "lcd/play_animation",
+    "description": "Head LCD에 animation 변경 명령 (eye 포함)",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "path",
+        "type": "string",
+        "description": "Animation file path to play",
+        "enabled": true,
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "repeat",
+        "type": "bool",
+        "description": "Animation repetition type",
+        "enabled": true,
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "instant_play",
+        "type": "bool",
+        "description": "Decide if the animation plays immediately or after the current animation is completed.",
+        "enabled": true,
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "LCD",
+    "action": "lcd/stop_animation",
+    "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+    "enabled": true,
+    "parameters": []
+  },
+  {
     "category": "Motion",
     "action": "motion/start_motion",
-    "description": "Motion 시작 명령",
+    "description": "Start a specified motion under the task type.",
     "enabled": true,
     "parameters": [
       {
@@ -330,52 +203,6 @@
                 "max": null
               }
             ]
-          },
-          {
-            "value": "manipulation",
-            "description": "manipulation motion",
-            "parameters": [
-              {
-                "name": "name",
-                "type": "string",
-                "description": "Motion name",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "prepare",
-                    "description": "demo2604_pick_box_ready"
-                  },
-                  {
-                    "value": "pick_up",
-                    "description": "demo2604_pick_box"
-                  },
-                  {
-                    "value": "dump",
-                    "description": "demo2604_dump_box"
-                  },
-                  {
-                    "value": "put_down",
-                    "description": "demo2604_place_box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              },
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
-              }
-            ]
           }
         ],
         "min": null,
@@ -398,27 +225,13 @@
         ],
         "min": null,
         "max": null
-      },
-      {
-        "name": "action",
-        "type": "string",
-        "description": "Motion part",
-        "enabled": false,
-        "options": [
-          {
-            "value": "all",
-            "description": "Apply to all parts"
-          }
-        ],
-        "min": null,
-        "max": null
       }
     ]
   },
   {
     "category": "Motion",
     "action": "motion/stop_motion",
-    "description": "Motion 강제 종료 명령",
+    "description": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
     "enabled": true,
     "parameters": [
       {
@@ -444,45 +257,73 @@
   {
     "category": "Motion",
     "action": "motion/wait_motion_finished",
-    "description": "Motion 완료 여부 확인",
+    "description": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
     "enabled": true,
     "parameters": []
   },
   {
     "category": "Navigation",
-    "action": "BRIC.POI:navigation/move_to_pose",
-    "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "action": "navigation/get_angle_to_0",
+    "description": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/get_current_pose",
+    "description": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
+    "enabled": true,
+    "parameters": []
+  },
+  {
+    "category": "Navigation",
+    "action": "navigation/move_in_direction",
+    "description": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
     "enabled": true,
     "parameters": [
       {
-        "name": "name",
-        "type": "string",
-        "description": "Node (POI) Name",
+        "name": "distance",
+        "type": "float",
+        "description": "Distance to move from the current position (meter unit)",
         "enabled": true,
-        "reference": "POI",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "velocity",
+        "type": "float",
+        "description": "Movement velocity (m/s unit)",
+        "enabled": true,
+        "options": [],
+        "min": 0,
+        "max": 1
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "description": "Direction to move",
+        "enabled": true,
         "options": [
           {
-            "value": "PickUp",
-            "description": "pick up the object"
+            "value": "forward",
+            "description": "Move forward"
           },
           {
-            "value": "Dump",
-            "description": "dump the object"
-          },
-          {
-            "value": "PutDown",
-            "description": "put down the object"
+            "value": "backwards",
+            "description": "Move backwards"
           }
         ],
         "min": null,
         "max": null
       }
-    ]
+    ],
+    "robot_type": "cloid"
   },
   {
     "category": "Navigation",
     "action": "navigation/move_to_pose",
-    "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "description": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
     "enabled": true,
     "parameters": [
       {
@@ -543,52 +384,8 @@
   },
   {
     "category": "Navigation",
-    "action": "navigation/move_in_direction",
-    "description": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
-    "enabled": true,
-    "parameters": [
-      {
-        "name": "distance",
-        "type": "float",
-        "description": "Distance to move from the current position (meter unit)",
-        "enabled": true,
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "velocity",
-        "type": "float",
-        "description": "Movement velocity (m/s unit)",
-        "enabled": true,
-        "options": [],
-        "min": 0,
-        "max": 1
-      },
-      {
-        "name": "direction",
-        "type": "string",
-        "description": "Direction to move",
-        "enabled": true,
-        "options": [
-          {
-            "value": "forward",
-            "description": "Move forward"
-          },
-          {
-            "value": "backwards",
-            "description": "Move backwards"
-          }
-        ],
-        "min": null,
-        "max": null
-      }
-    ]
-  },
-  {
-    "category": "Navigation",
     "action": "navigation/rotate",
-    "description": "제자리 회전 명령",
+    "description": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
     "enabled": true,
     "parameters": [
       {
@@ -604,31 +401,41 @@
   },
   {
     "category": "Navigation",
-    "action": "navigation/wait_move_finished",
-    "description": "주행/회전 완료 여부 확인",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "Navigation",
     "action": "navigation/stop_move",
-    "description": "주행/회전 강제 종료",
+    "description": "주행 동작을 강제 종료",
     "enabled": true,
     "parameters": []
   },
   {
     "category": "Navigation",
-    "action": "navigation/get_current_pose",
-    "description": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
-    "enabled": false,
+    "action": "navigation/wait_move_finished",
+    "description": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+    "enabled": true,
     "parameters": []
   },
   {
     "category": "Navigation",
-    "action": "navigation/get_angle_to_0",
-    "description": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
-    "enabled": false,
+    "action": "navigation/wait_move_finished_and_sleep",
+    "description": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
+    "enabled": true,
     "parameters": []
+  },
+  {
+    "category": "Sound",
+    "action": "sound/set_volume",
+    "description": "Sound volume 조절 명령",
+    "enabled": true,
+    "parameters": [
+      {
+        "name": "volume",
+        "type": "integer",
+        "description": "Volume value (0 ~ 10)",
+        "enabled": true,
+        "options": [],
+        "min": 0,
+        "max": 10
+      }
+    ]
   },
   {
     "category": "Sound",
@@ -695,24 +502,6 @@
   },
   {
     "category": "Sound",
-    "action": "sound/wait_play_completed",
-    "description": "Sound/TTS play 완료 여부 확인",
-    "enabled": true,
-    "parameters": [
-      {
-        "name": "id",
-        "type": "integer",
-        "description": "Handle ID given for playing sound",
-        "default": 2000,
-        "enabled": true,
-        "options": [],
-        "min": null,
-        "max": null
-      }
-    ]
-  },
-  {
-    "category": "Sound",
     "action": "sound/stop_play",
     "description": "Sound/TTS play 강제 종료",
     "enabled": true,
@@ -731,80 +520,15 @@
   },
   {
     "category": "Sound",
-    "action": "sound/set_volume",
-    "description": "Sound volume 조절 명령",
+    "action": "sound/wait_play_completed",
+    "description": "Sound/TTS play 완료 여부 확인",
     "enabled": true,
     "parameters": [
       {
-        "name": "volume",
+        "name": "id",
         "type": "integer",
-        "description": "Volume value (0 ~ 10)",
-        "enabled": true,
-        "options": [],
-        "min": 0,
-        "max": 10
-      }
-    ]
-  },
-  {
-    "category": "LCD",
-    "action": "lcd/play_animation",
-    "description": "Head LCD에 animation 변경 명령 (eye 포함)",
-    "enabled": true,
-    "parameters": [
-      {
-        "name": "path",
-        "type": "string",
-        "description": "Animation file path to play",
-        "enabled": true,
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "repeat",
-        "type": "bool",
-        "description": "Animation repetition type",
-        "enabled": true,
-        "options": [],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "instant_play",
-        "type": "bool",
-        "description": "Decide if the animation plays immediately or after the current animation is completed.",
-        "enabled": true,
-        "options": [],
-        "min": null,
-        "max": null
-      }
-    ]
-  },
-  {
-    "category": "LCD",
-    "action": "lcd/stop_animation",
-    "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "Device",
-    "action": "device/set_led",
-    "description": "몸체의 LED의 light 제어 명령",
-    "enabled": true,
-    "parameters": []
-  },
-  {
-    "category": "Etc",
-    "action": "demo/set_demo_id",
-    "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
-    "enabled": true,
-    "parameters": [
-      {
-        "name": "name",
-        "type": "string",
-        "description": "Demo name to specify the demo",
+        "description": "Handle ID given for playing sound",
+        "default": 2000,
         "enabled": true,
         "options": [],
         "min": null,
@@ -817,6 +541,7 @@
     "action": "touch/touch",
     "description": "category test.",
     "enabled": true,
-    "parameters": []
+    "parameters": [],
+    "robot_type": "q9"
   }
 ]

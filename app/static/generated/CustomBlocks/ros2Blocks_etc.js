@@ -490,7 +490,7 @@ function registerBlocks_ros2blocks_etc() {
       const baseInit = def.init;
       def.init = function wrappedInit() {
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {};

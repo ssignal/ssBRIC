@@ -63,7 +63,7 @@ def safe_value(v: Any) -> str:
 def clean_text(v: Any) -> str:
     if v is None:
         return ""
-    return str(v).strip()
+    return str(v).replace("\r\n", "\n").replace("\r", "\n").strip()
 
 
 def split_parented_param_name(name: Any) -> tuple[str, str, str]:
@@ -157,9 +157,12 @@ def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> 
                 for sopt in sub_options
             ]
             for sopt in sub_options:
-                sub_option_descriptions[str(sopt.get("value", ""))] = clean_text(
-                    sopt.get("description", "")
-                )
+                desc = clean_text(sopt.get("description", ""))
+                val = str(sopt.get("value", ""))
+                display = str(sopt.get("display_name") or val)
+                sub_option_descriptions[val] = desc
+                if display != val:
+                    sub_option_descriptions[display] = desc
             sub_default = sub_dd[0][1] if sub_dd else ""
         else:
             sub_ranged = range_options(sub_min, sub_max, sub_type)
@@ -342,9 +345,12 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
                 for opt in options
             ]
             for opt in options:
-                option_descriptions[str(opt.get("value", ""))] = clean_text(
-                    opt.get("description", "")
-                )
+                desc = clean_text(opt.get("description", ""))
+                val = str(opt.get("value", ""))
+                display = str(opt.get("display_name") or val)
+                option_descriptions[val] = desc
+                if display != val:
+                    option_descriptions[display] = desc
             args0.append({"type": "field_dropdown", "name": field_name, "options": dd})
             default = dd[0][1] if dd else ""
             for opt in options:
@@ -1038,7 +1044,7 @@ function {registrar_name}() {{
       const baseInit = def.init;
       def.init = function wrappedInit() {{
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {{}};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {{}};

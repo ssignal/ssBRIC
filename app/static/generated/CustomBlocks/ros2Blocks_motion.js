@@ -1,140 +1,6 @@
 (() => {
 const BLOCKS = [
   {
-    "type": "behavior__motion__bric_start_motion_motion_start_motion",
-    "message0": "%1 %2 %3 %4 %5",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "start_motion",
-        "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_NAME"
-      },
-      {
-        "type": "field_label",
-        "text": "name"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "PARAM_NAME",
-        "options": [
-          [
-            "manipulation.prepare",
-            "manipulation.prepare"
-          ],
-          [
-            "manipulation.pick_up",
-            "manipulation.pick_up"
-          ],
-          [
-            "manipulation.dump",
-            "manipulation.dump"
-          ],
-          [
-            "manipulation.put_down",
-            "manipulation.put_down"
-          ],
-          [
-            "expressive_motion.nod twice",
-            "expressive_motion.double_nod"
-          ],
-          [
-            "expressive_motion.Ready to fistbump",
-            "expressive_motion.fistbump_ready"
-          ],
-          [
-            "expressive_motion.Go for a fistbump",
-            "expressive_motion.fistbump_strike"
-          ],
-          [
-            "expressive_motion.Look to the left",
-            "expressive_motion.head_left"
-          ],
-          [
-            "expressive_motion.Look down and to the left",
-            "expressive_motion.head_left_down"
-          ],
-          [
-            "expressive_motion.Look up and to the left",
-            "expressive_motion.head_left_up"
-          ],
-          [
-            "expressive_motion.Look to the right",
-            "expressive_motion.head_right"
-          ],
-          [
-            "expressive_motion.Look down and to the right",
-            "expressive_motion.head_right_down"
-          ],
-          [
-            "expressive_motion.Look up and to the right",
-            "expressive_motion.head_right_up"
-          ],
-          [
-            "expressive_motion.Ready to highfive",
-            "expressive_motion.highfive_ready"
-          ],
-          [
-            "expressive_motion.Go for a hightfive",
-            "expressive_motion.highfive_strike"
-          ],
-          [
-            "expressive_motion.Heart hands",
-            "expressive_motion.pose_hand_heart"
-          ],
-          [
-            "expressive_motion.Gesture with open palms",
-            "expressive_motion.present_double"
-          ],
-          [
-            "expressive_motion.Wave with both hands",
-            "expressive_motion.wave_two_hand"
-          ],
-          [
-            "expressive_motion.Enthusiastic wave with both hands",
-            "expressive_motion.wave_two_hand_sway"
-          ],
-          [
-            "pose_motion.Moving",
-            "pose_motion.move"
-          ],
-          [
-            "pose_motion.Neutral",
-            "pose_motion.neutral"
-          ],
-          [
-            "pose_motion.Neutralize last joint",
-            "pose_motion.recent_joint_neutral"
-          ],
-          [
-            "pose_motion.Getting ready to work",
-            "pose_motion.work_ready"
-          ]
-        ]
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#2ca02c",
-    "tooltip": "Motion 시작 명령",
-    "helpUrl": ""
-  },
-  {
     "type": "behavior__motion__motion_start_motion",
     "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
     "args0": [
@@ -174,10 +40,6 @@ const BLOCKS = [
           [
             "pose_motion",
             "pose_motion"
-          ],
-          [
-            "manipulation",
-            "manipulation"
           ]
         ]
       },
@@ -211,7 +73,7 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#2ca02c",
-    "tooltip": "Motion 시작 명령",
+    "tooltip": "Start a specified motion under the task type.",
     "helpUrl": ""
   },
   {
@@ -261,7 +123,7 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#2ca02c",
-    "tooltip": "Motion 강제 종료 명령",
+    "tooltip": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
     "helpUrl": ""
   },
   {
@@ -285,20 +147,16 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#2ca02c",
-    "tooltip": "Motion 완료 여부 확인",
+    "tooltip": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
     "helpUrl": ""
   }
 ];
 const BLOCK_TOOLTIPS = {
-  "behavior__motion__bric_start_motion_motion_start_motion": "Motion 시작 명령",
-  "behavior__motion__motion_start_motion": "Motion 시작 명령",
-  "behavior__motion__motion_stop_motion": "Motion 강제 종료 명령",
-  "behavior__motion__motion_wait_motion_finished": "Motion 완료 여부 확인"
+  "behavior__motion__motion_start_motion": "Start a specified motion under the task type.",
+  "behavior__motion__motion_stop_motion": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
+  "behavior__motion__motion_wait_motion_finished": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed."
 };
 const PARAM_TOOLTIPS = {
-  "behavior__motion__bric_start_motion_motion_start_motion": {
-    "PARAM_NAME": "Motion name"
-  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": "Motion task type",
     "PARAM_REPEAT": "Motion repetition type"
@@ -309,94 +167,6 @@ const PARAM_TOOLTIPS = {
   "behavior__motion__motion_wait_motion_finished": {}
 };
 const OPTION_PARAM_MAP = {
-  "behavior__motion__bric_start_motion_motion_start_motion": {
-    "PARAM_NAME": {
-      "manipulation.prepare": [
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_NAME_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
-          }
-        }
-      ],
-      "manipulation.pick_up": [
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_NAME_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
-          }
-        }
-      ],
-      "manipulation.dump": [
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_NAME_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
-          }
-        }
-      ],
-      "manipulation.put_down": [
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_NAME_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
-          }
-        }
-      ]
-    }
-  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
       "expressive_motion": [
@@ -473,20 +243,35 @@ const OPTION_PARAM_MAP = {
           "option_parameters": {},
           "option_descriptions": {
             "double_nod": "머리 두번 끄덕끄덕",
+            "nod twice": "머리 두번 끄덕끄덕",
             "fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+            "Ready to fistbump": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
             "fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "Go for a fistbump": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
             "head_left": "머리 왼쪽 이동 후 복귀",
+            "Look to the left": "머리 왼쪽 이동 후 복귀",
             "head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+            "Look down and to the left": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
             "head_left_up": "머리 왼쪽 위 이동 후 복귀",
+            "Look up and to the left": "머리 왼쪽 위 이동 후 복귀",
             "head_right": "머리 오른쪽 이동 후 복귀",
+            "Look to the right": "머리 오른쪽 이동 후 복귀",
             "head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+            "Look down and to the right": "머리 오른쪽 아래 이동 후 복귀",
             "head_right_up": "머리 오른쪽 위 이동 후 복귀",
+            "Look up and to the right": "머리 오른쪽 위 이동 후 복귀",
             "highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+            "Ready to highfive": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
             "highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "Go for a hightfive": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
             "pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+            "Heart hands": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
             "present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+            "Gesture with open palms": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
             "wave_two_hand": "양손 가슴높이 손인사",
-            "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+            "Wave with both hands": "양손 가슴높이 손인사",
+            "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+            "Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
           }
         }
       ],
@@ -520,64 +305,13 @@ const OPTION_PARAM_MAP = {
           "option_parameters": {},
           "option_descriptions": {
             "move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+            "Moving": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
             "neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+            "Neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
             "recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
-            "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-          }
-        }
-      ],
-      "manipulation": [
-        {
-          "name": "name",
-          "output_name": "name",
-          "parent_key": "",
-          "field": "OPT_TASK_TYPE_NAME",
-          "type": "string",
-          "description": "Motion name",
-          "options": [
-            [
-              "prepare",
-              "prepare"
-            ],
-            [
-              "pick_up",
-              "pick_up"
-            ],
-            [
-              "dump",
-              "dump"
-            ],
-            [
-              "put_down",
-              "put_down"
-            ]
-          ],
-          "default": "prepare",
-          "option_parameters": {},
-          "option_descriptions": {
-            "prepare": "demo2604_pick_box_ready",
-            "pick_up": "demo2604_pick_box",
-            "dump": "demo2604_dump_box",
-            "put_down": "demo2604_place_box"
-          }
-        },
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_TASK_TYPE_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
+            "Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+            "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+            "Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
           }
         }
       ]
@@ -587,38 +321,10 @@ const OPTION_PARAM_MAP = {
   "behavior__motion__motion_wait_motion_finished": {}
 };
 const OPTION_TOOLTIPS = {
-  "behavior__motion__bric_start_motion_motion_start_motion": {
-    "PARAM_NAME": {
-      "manipulation.prepare": "demo2604_pick_box_ready",
-      "manipulation.pick_up": "demo2604_pick_box",
-      "manipulation.dump": "demo2604_dump_box",
-      "manipulation.put_down": "demo2604_place_box",
-      "expressive_motion.double_nod": "머리 두번 끄덕끄덕",
-      "expressive_motion.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
-      "expressive_motion.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-      "expressive_motion.head_left": "머리 왼쪽 이동 후 복귀",
-      "expressive_motion.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
-      "expressive_motion.head_left_up": "머리 왼쪽 위 이동 후 복귀",
-      "expressive_motion.head_right": "머리 오른쪽 이동 후 복귀",
-      "expressive_motion.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
-      "expressive_motion.head_right_up": "머리 오른쪽 위 이동 후 복귀",
-      "expressive_motion.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
-      "expressive_motion.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-      "expressive_motion.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
-      "expressive_motion.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
-      "expressive_motion.wave_two_hand": "양손 가슴높이 손인사",
-      "expressive_motion.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
-      "pose_motion.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
-      "pose_motion.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
-      "pose_motion.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
-      "pose_motion.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-    }
-  },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
       "expressive_motion": "expressive_motion motion",
-      "pose_motion": "pose motion",
-      "manipulation": "manipulation motion"
+      "pose_motion": "pose motion"
     },
     "PARAM_REPEAT": {
       "once": "Run once",
@@ -1067,7 +773,7 @@ function registerBlocks_ros2blocks_motion() {
       const baseInit = def.init;
       def.init = function wrappedInit() {
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {};

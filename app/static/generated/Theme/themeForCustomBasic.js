@@ -26,20 +26,20 @@ window.themeForCustomBasic = {
     "motion_category": {
       "colour": "#2ca02c"
     },
-    "navigation_category": {
-      "colour": "#d62728"
-    },
-    "sound_category": {
-      "colour": "#9467bd"
-    },
-    "lcd_category": {
-      "colour": "#8c564b"
-    },
     "device_category": {
       "colour": "#e377c2"
     },
     "etc_category": {
       "colour": "#7f7f7f"
+    },
+    "lcd_category": {
+      "colour": "#8c564b"
+    },
+    "navigation_category": {
+      "colour": "#d62728"
+    },
+    "sound_category": {
+      "colour": "#9467bd"
     },
     "touch_category": {
       "colour": "#e91e63"

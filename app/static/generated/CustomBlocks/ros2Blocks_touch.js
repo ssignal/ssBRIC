@@ -37,7 +37,12 @@ const OPTION_PARAM_MAP = {
 const OPTION_TOOLTIPS = {
   "behavior__touch__touch_touch": {}
 };
-const BLOCK_PROFILE = {};
+const BLOCK_PROFILE = {
+  "behavior__touch__touch_touch": {
+    "robot_type": "q9",
+    "operation_profile": ""
+  }
+};
 const OPTION_PROFILE_META = {};
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
@@ -471,7 +476,7 @@ function registerBlocks_ros2blocks_touch() {
       const baseInit = def.init;
       def.init = function wrappedInit() {
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {};

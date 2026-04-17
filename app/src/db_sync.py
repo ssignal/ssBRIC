@@ -158,6 +158,83 @@ def _fetch_operation_profiles(client: DBClient) -> list[dict[str, str]]:
     return out
 
 
+_CATEGORY_DISPLAY: dict[str, str] = {
+    "lcd": "LCD",
+}
+
+
+def _category_display_name(cat: str) -> str:
+    """Return the display-form category name used in BlockListRobot.json."""
+    key = cat.strip().lower()
+    return _CATEGORY_DISPLAY.get(key, cat.strip().title())
+
+
+def _fetch_behavior_capability_rows(client: DBClient) -> list[dict[str, Any]]:
+    """Fetch all rows from BehaviorCapability and convert to BlockListRobot item dicts."""
+    try:
+        rows = client.read(
+            "SELECT name, category, robot_type, description, parameter"
+            " FROM `BehaviorCapability`"
+            " WHERE name IS NOT NULL AND name <> ''"
+            " ORDER BY category, name"
+        )
+    except Exception:
+        return []
+
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        action = str(row.get("name", "")).strip()
+        if not action:
+            continue
+        category = _category_display_name(str(row.get("category") or ""))
+        description = str(row.get("description") or "").strip().replace("\r\n", "\n").replace("\r", "\n")
+        robot_type = str(row.get("robot_type") or "").strip()
+
+        raw_param = row.get("parameter")
+        try:
+            parameters: list[Any] = json.loads(raw_param) if raw_param else []
+        except Exception:
+            parameters = []
+
+        item: dict[str, Any] = {
+            "category": category,
+            "action": action,
+            "description": description,
+            "enabled": True,
+            "parameters": parameters,
+        }
+        if robot_type and robot_type.lower() != "common":
+            item["robot_type"] = robot_type
+
+        out.append(item)
+    return out
+
+
+def _update_blocklist_from_capability(
+    path: Path, capability_rows: list[dict[str, Any]]
+) -> bool:
+    """Fully replace BlockListRobot.json with rows from BehaviorCapability.
+
+    Items whose action starts with 'BRIC.' are manually crafted — kept from
+    the existing file unchanged.  All other items are replaced by DB data.
+    If capability_rows is empty the file is left unchanged.
+    """
+    if not capability_rows:
+        return False
+
+    existing: list[Any] = _read_json(path, [])
+    if not isinstance(existing, list):
+        existing = []
+
+    bric_items = [
+        item for item in existing
+        if isinstance(item, dict) and str(item.get("action", "")).startswith("BRIC.")
+    ]
+
+    merged = bric_items + capability_rows
+    return _write_json_if_changed(path, merged)
+
+
 def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
     # Try progressively fewer columns; most permissive first.
     # Tier 1: name + display_name + robot_type + operation_profile + description
@@ -226,10 +303,67 @@ def _update_blocklist_robot(
             continue
 
         if action == "motion/start_motion":
-            for p in params:
-                if not isinstance(p, dict) or str(p.get("name", "")) != "task_type":
-                    continue
-                options = p.get("options")
+            # Build the name-options for each task type from DB rows.
+            def _name_param(rows: list[dict[str, str]]) -> dict[str, Any]:
+                return {
+                    "name": "name",
+                    "type": "string",
+                    "description": "Motion name",
+                    "enabled": True,
+                    "options": rows,
+                    "min": None,
+                    "max": None,
+                }
+
+            # Find or build the task_type parameter.
+            task_type_param = next(
+                (p for p in params if isinstance(p, dict) and p.get("name") == "task_type"),
+                None,
+            )
+
+            if task_type_param is None:
+                # Build the full parameter structure from scratch.
+                task_type_options: list[dict[str, Any]] = []
+                if expressive_rows:
+                    task_type_options.append({
+                        "value": "expressive_motion",
+                        "description": "expressive_motion motion",
+                        "parameters": [_name_param(expressive_rows)],
+                    })
+                if pose_rows:
+                    task_type_options.append({
+                        "value": "pose_motion",
+                        "description": "pose motion",
+                        "parameters": [_name_param(pose_rows)],
+                    })
+                if task_type_options:
+                    item["parameters"] = [
+                        {
+                            "name": "task_type",
+                            "type": "string",
+                            "description": "Motion task type",
+                            "enabled": True,
+                            "options": task_type_options,
+                            "min": None,
+                            "max": None,
+                        },
+                        {
+                            "name": "repeat",
+                            "type": "string",
+                            "description": "Motion repetition type",
+                            "enabled": True,
+                            "options": [
+                                {"value": "once", "description": "Run once"},
+                                {"value": "loop", "description": "Repeat continuously"},
+                            ],
+                            "min": None,
+                            "max": None,
+                        },
+                    ]
+                    changed = True
+            else:
+                # Update existing task_type options in-place.
+                options = task_type_param.get("options")
                 if not isinstance(options, list):
                     continue
                 for opt in options:
@@ -396,6 +530,13 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
 
     client = DBClient(cfg)
     try:
+        capability_rows = _fetch_behavior_capability_rows(client)
+        summary["counts"]["BehaviorCapability"] = len(capability_rows)
+
+        blocklist_path = base_dir / "btInfo" / "BlockListRobot.json"
+        if _update_blocklist_from_capability(blocklist_path, capability_rows):
+            summary["updated"].append("btInfo/BlockListRobot.json (capability)")
+
         expressive_rows = _fetch_motion_rows(client, "MotionExpressive")
         pose_rows = _fetch_motion_rows(client, "MotionPose")
         summary["counts"] = {

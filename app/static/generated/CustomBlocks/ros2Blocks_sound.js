@@ -1,6 +1,92 @@
 (() => {
 const BLOCKS = [
   {
+    "type": "behavior__sound__sound_set_volume",
+    "message0": "%1 %2 %3 %4 %5",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "set_volume",
+        "name": "TITLE"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_VOLUME"
+      },
+      {
+        "type": "field_label",
+        "text": "volume"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_VOLUME",
+        "options": [
+          [
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1"
+          ],
+          [
+            "2",
+            "2"
+          ],
+          [
+            "3",
+            "3"
+          ],
+          [
+            "4",
+            "4"
+          ],
+          [
+            "5",
+            "5"
+          ],
+          [
+            "6",
+            "6"
+          ],
+          [
+            "7",
+            "7"
+          ],
+          [
+            "8",
+            "8"
+          ],
+          [
+            "9",
+            "9"
+          ],
+          [
+            "10",
+            "10"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#9467bd",
+    "tooltip": "Sound volume 조절 명령",
+    "helpUrl": ""
+  },
+  {
     "type": "behavior__sound__sound_start_play",
     "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
     "args0": [
@@ -134,47 +220,6 @@ const BLOCKS = [
     "helpUrl": ""
   },
   {
-    "type": "behavior__sound__sound_wait_play_completed",
-    "message0": "%1 %2 %3 %4 %5",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "wait_play_completed",
-        "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_ID"
-      },
-      {
-        "type": "field_label",
-        "text": "id"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_ID",
-        "text": "2000"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#9467bd",
-    "tooltip": "Sound/TTS play 완료 여부 확인",
-    "helpUrl": ""
-  },
-  {
     "type": "behavior__sound__sound_stop_play",
     "message0": "%1 %2 %3 %4 %5",
     "args0": [
@@ -216,7 +261,7 @@ const BLOCKS = [
     "helpUrl": ""
   },
   {
-    "type": "behavior__sound__sound_set_volume",
+    "type": "behavior__sound__sound_wait_play_completed",
     "message0": "%1 %2 %3 %4 %5",
     "args0": [
       {
@@ -229,7 +274,7 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "set_volume",
+        "text": "wait_play_completed",
         "name": "TITLE"
       },
       {
@@ -238,78 +283,36 @@ const BLOCKS = [
         "width": 16,
         "height": 16,
         "alt": "?",
-        "name": "HELP_VOLUME"
+        "name": "HELP_ID"
       },
       {
         "type": "field_label",
-        "text": "volume"
+        "text": "id"
       },
       {
-        "type": "field_dropdown",
-        "name": "PARAM_VOLUME",
-        "options": [
-          [
-            "0",
-            "0"
-          ],
-          [
-            "1",
-            "1"
-          ],
-          [
-            "2",
-            "2"
-          ],
-          [
-            "3",
-            "3"
-          ],
-          [
-            "4",
-            "4"
-          ],
-          [
-            "5",
-            "5"
-          ],
-          [
-            "6",
-            "6"
-          ],
-          [
-            "7",
-            "7"
-          ],
-          [
-            "8",
-            "8"
-          ],
-          [
-            "9",
-            "9"
-          ],
-          [
-            "10",
-            "10"
-          ]
-        ]
+        "type": "field_input",
+        "name": "PARAM_ID",
+        "text": "2000"
       }
     ],
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#9467bd",
-    "tooltip": "Sound volume 조절 명령",
+    "tooltip": "Sound/TTS play 완료 여부 확인",
     "helpUrl": ""
   }
 ];
 const BLOCK_TOOLTIPS = {
+  "behavior__sound__sound_set_volume": "Sound volume 조절 명령",
   "behavior__sound__sound_start_play": "일반 sound play 명령",
   "behavior__sound__sound_start_play_tts": "TTS play 명령",
-  "behavior__sound__sound_wait_play_completed": "Sound/TTS play 완료 여부 확인",
   "behavior__sound__sound_stop_play": "Sound/TTS play 강제 종료",
-  "behavior__sound__sound_set_volume": "Sound volume 조절 명령"
+  "behavior__sound__sound_wait_play_completed": "Sound/TTS play 완료 여부 확인"
 };
 const PARAM_TOOLTIPS = {
+  "behavior__sound__sound_set_volume": {
+    "PARAM_VOLUME": "Volume value (0 ~ 10)"
+  },
   "behavior__sound__sound_start_play": {
     "PARAM_ID": "Handle ID to play sound (default: 2000)",
     "PARAM_PATH": "Sound file path to play",
@@ -319,29 +322,26 @@ const PARAM_TOOLTIPS = {
     "PARAM_ID": "Handle ID to play sound (default: 2000)",
     "PARAM_TEXT": "Text to play TTS"
   },
-  "behavior__sound__sound_wait_play_completed": {
-    "PARAM_ID": "Handle ID given for playing sound"
-  },
   "behavior__sound__sound_stop_play": {
     "PARAM_ID": "Handle ID given for playing sound"
   },
-  "behavior__sound__sound_set_volume": {
-    "PARAM_VOLUME": "Volume value (0 ~ 10)"
+  "behavior__sound__sound_wait_play_completed": {
+    "PARAM_ID": "Handle ID given for playing sound"
   }
 };
 const OPTION_PARAM_MAP = {
+  "behavior__sound__sound_set_volume": {},
   "behavior__sound__sound_start_play": {},
   "behavior__sound__sound_start_play_tts": {},
-  "behavior__sound__sound_wait_play_completed": {},
   "behavior__sound__sound_stop_play": {},
-  "behavior__sound__sound_set_volume": {}
+  "behavior__sound__sound_wait_play_completed": {}
 };
 const OPTION_TOOLTIPS = {
+  "behavior__sound__sound_set_volume": {},
   "behavior__sound__sound_start_play": {},
   "behavior__sound__sound_start_play_tts": {},
-  "behavior__sound__sound_wait_play_completed": {},
   "behavior__sound__sound_stop_play": {},
-  "behavior__sound__sound_set_volume": {}
+  "behavior__sound__sound_wait_play_completed": {}
 };
 const BLOCK_PROFILE = {};
 const OPTION_PROFILE_META = {};
@@ -777,7 +777,7 @@ function registerBlocks_ros2blocks_sound() {
       const baseInit = def.init;
       def.init = function wrappedInit() {
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {};

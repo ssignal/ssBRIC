@@ -1,8 +1,8 @@
 (() => {
 const BLOCKS = [
   {
-    "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
-    "message0": "%1 %2 %3 %4 %5",
+    "type": "behavior__navigation__navigation_get_angle_to_0",
+    "message0": "%1 %2",
     "args0": [
       {
         "type": "field_image",
@@ -14,49 +14,19 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "move_to_pose",
+        "text": "get_angle_to_0",
         "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_NAME"
-      },
-      {
-        "type": "field_label",
-        "text": "name"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "PARAM_NAME",
-        "options": [
-          [
-            "PickUp",
-            "PickUp"
-          ],
-          [
-            "Dump",
-            "Dump"
-          ],
-          [
-            "PutDown",
-            "PutDown"
-          ]
-        ]
       }
     ],
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#d62728",
-    "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "tooltip": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
     "helpUrl": ""
   },
   {
-    "type": "behavior__navigation__navigation_move_to_pose",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+    "type": "behavior__navigation__navigation_get_current_pose",
+    "message0": "%1 %2",
     "args0": [
       {
         "type": "field_image",
@@ -68,91 +38,14 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "move_to_pose",
+        "text": "get_current_pose",
         "name": "TITLE"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_POSE_TYPE"
-      },
-      {
-        "type": "field_label",
-        "text": "pose_type"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "PARAM_POSE_TYPE",
-        "options": [
-          [
-            "map",
-            "map"
-          ],
-          [
-            "earth",
-            "earth"
-          ]
-        ]
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_POSE_X"
-      },
-      {
-        "type": "field_label",
-        "text": "x"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_POSE_X",
-        "text": "0.0"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_POSE_Y"
-      },
-      {
-        "type": "field_label",
-        "text": "y"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_POSE_Y",
-        "text": "0.0"
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_POSE_Z"
-      },
-      {
-        "type": "field_label",
-        "text": "z"
-      },
-      {
-        "type": "field_input",
-        "name": "PARAM_POSE_Z",
-        "text": "0.0"
       }
     ],
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#d62728",
-    "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+    "tooltip": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
     "helpUrl": ""
   },
   {
@@ -321,7 +214,108 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#d62728",
-    "tooltip": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
+    "tooltip": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
+    "helpUrl": ""
+  },
+  {
+    "type": "behavior__navigation__navigation_move_to_pose",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "move_to_pose",
+        "name": "TITLE"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POSE_TYPE"
+      },
+      {
+        "type": "field_label",
+        "text": "pose_type"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_POSE_TYPE",
+        "options": [
+          [
+            "map",
+            "map"
+          ],
+          [
+            "earth",
+            "earth"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POSE_X"
+      },
+      {
+        "type": "field_label",
+        "text": "x"
+      },
+      {
+        "type": "field_input",
+        "name": "PARAM_POSE_X",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POSE_Y"
+      },
+      {
+        "type": "field_label",
+        "text": "y"
+      },
+      {
+        "type": "field_input",
+        "name": "PARAM_POSE_Y",
+        "text": "0.0"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POSE_Z"
+      },
+      {
+        "type": "field_label",
+        "text": "z"
+      },
+      {
+        "type": "field_input",
+        "name": "PARAM_POSE_Z",
+        "text": "0.0"
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#d62728",
+    "tooltip": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
     "helpUrl": ""
   },
   {
@@ -447,31 +441,7 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#d62728",
-    "tooltip": "제자리 회전 명령",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__navigation__navigation_wait_move_finished",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "wait_move_finished",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#d62728",
-    "tooltip": "주행/회전 완료 여부 확인",
+    "tooltip": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
     "helpUrl": ""
   },
   {
@@ -495,21 +465,75 @@ const BLOCKS = [
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#d62728",
-    "tooltip": "주행/회전 강제 종료",
+    "tooltip": "주행 동작을 강제 종료",
+    "helpUrl": ""
+  },
+  {
+    "type": "behavior__navigation__navigation_wait_move_finished",
+    "message0": "%1 %2",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "wait_move_finished",
+        "name": "TITLE"
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#d62728",
+    "tooltip": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+    "helpUrl": ""
+  },
+  {
+    "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+    "message0": "%1 %2",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "wait_move_finished_and_sleep",
+        "name": "TITLE"
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#d62728",
+    "tooltip": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
     "helpUrl": ""
   }
 ];
 const BLOCK_TOOLTIPS = {
-  "behavior__navigation__bric_poi_navigation_move_to_pose": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
-  "behavior__navigation__navigation_move_to_pose": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
-  "behavior__navigation__navigation_move_in_direction": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
-  "behavior__navigation__navigation_rotate": "제자리 회전 명령",
-  "behavior__navigation__navigation_wait_move_finished": "주행/회전 완료 여부 확인",
-  "behavior__navigation__navigation_stop_move": "주행/회전 강제 종료"
+  "behavior__navigation__navigation_get_angle_to_0": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
+  "behavior__navigation__navigation_get_current_pose": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
+  "behavior__navigation__navigation_move_in_direction": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
+  "behavior__navigation__navigation_move_to_pose": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
+  "behavior__navigation__navigation_rotate": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
+  "behavior__navigation__navigation_stop_move": "주행 동작을 강제 종료",
+  "behavior__navigation__navigation_wait_move_finished": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+  "behavior__navigation__navigation_wait_move_finished_and_sleep": "navigation/wait_move_finished가 정상 종료되면 500ms 대기"
 };
 const PARAM_TOOLTIPS = {
-  "behavior__navigation__bric_poi_navigation_move_to_pose": {
-    "PARAM_NAME": "Node (POI) Name"
+  "behavior__navigation__navigation_get_angle_to_0": {},
+  "behavior__navigation__navigation_get_current_pose": {},
+  "behavior__navigation__navigation_move_in_direction": {
+    "PARAM_DISTANCE": "Distance to move from the current position (meter unit)",
+    "PARAM_VELOCITY": "Movement velocity (m/s unit)",
+    "PARAM_DIRECTION": "Direction to move"
   },
   "behavior__navigation__navigation_move_to_pose": {
     "PARAM_POSE_TYPE": "map (indoor), earth (outdoor)",
@@ -517,31 +541,30 @@ const PARAM_TOOLTIPS = {
     "PARAM_POSE_Y": "Euler pose y",
     "PARAM_POSE_Z": "Euler pose z (degree unit)"
   },
-  "behavior__navigation__navigation_move_in_direction": {
-    "PARAM_DISTANCE": "Distance to move from the current position (meter unit)",
-    "PARAM_VELOCITY": "Movement velocity (m/s unit)",
-    "PARAM_DIRECTION": "Direction to move"
-  },
   "behavior__navigation__navigation_rotate": {
     "PARAM_ANGLE": "Rotation angle (degree unit)"
   },
+  "behavior__navigation__navigation_stop_move": {},
   "behavior__navigation__navigation_wait_move_finished": {},
-  "behavior__navigation__navigation_stop_move": {}
+  "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
 const OPTION_PARAM_MAP = {
-  "behavior__navigation__bric_poi_navigation_move_to_pose": {},
-  "behavior__navigation__navigation_move_to_pose": {},
+  "behavior__navigation__navigation_get_angle_to_0": {},
+  "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
+  "behavior__navigation__navigation_move_to_pose": {},
   "behavior__navigation__navigation_rotate": {},
+  "behavior__navigation__navigation_stop_move": {},
   "behavior__navigation__navigation_wait_move_finished": {},
-  "behavior__navigation__navigation_stop_move": {}
+  "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
 const OPTION_TOOLTIPS = {
-  "behavior__navigation__bric_poi_navigation_move_to_pose": {
-    "PARAM_NAME": {
-      "PickUp": "pick up the object",
-      "Dump": "dump the object",
-      "PutDown": "put down the object"
+  "behavior__navigation__navigation_get_angle_to_0": {},
+  "behavior__navigation__navigation_get_current_pose": {},
+  "behavior__navigation__navigation_move_in_direction": {
+    "PARAM_DIRECTION": {
+      "forward": "Move forward",
+      "backwards": "Move backwards"
     }
   },
   "behavior__navigation__navigation_move_to_pose": {
@@ -550,17 +573,17 @@ const OPTION_TOOLTIPS = {
       "earth": "Outdoor earth frame"
     }
   },
-  "behavior__navigation__navigation_move_in_direction": {
-    "PARAM_DIRECTION": {
-      "forward": "Move forward",
-      "backwards": "Move backwards"
-    }
-  },
   "behavior__navigation__navigation_rotate": {},
+  "behavior__navigation__navigation_stop_move": {},
   "behavior__navigation__navigation_wait_move_finished": {},
-  "behavior__navigation__navigation_stop_move": {}
+  "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
-const BLOCK_PROFILE = {};
+const BLOCK_PROFILE = {
+  "behavior__navigation__navigation_move_in_direction": {
+    "robot_type": "cloid",
+    "operation_profile": ""
+  }
+};
 const OPTION_PROFILE_META = {};
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
@@ -994,7 +1017,7 @@ function registerBlocks_ros2blocks_navigation() {
       const baseInit = def.init;
       def.init = function wrappedInit() {
         baseInit.call(this);
-        this.setTooltip(tip || '');
+        this.setTooltip('');
         setClickHelp(this.getField('HELP'), tip || '');
         const perField = PARAM_TOOLTIPS[blockType] || {};
         const perOptionField = OPTION_TOOLTIPS[blockType] || {};

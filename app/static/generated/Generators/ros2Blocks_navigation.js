@@ -1,12 +1,14 @@
 (() => {
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
 const OPTION_PARAM_MAP = {
-  "behavior__navigation__bric_poi_navigation_move_to_pose": {},
-  "behavior__navigation__navigation_move_to_pose": {},
+  "behavior__navigation__navigation_get_angle_to_0": {},
+  "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
+  "behavior__navigation__navigation_move_to_pose": {},
   "behavior__navigation__navigation_rotate": {},
+  "behavior__navigation__navigation_stop_move": {},
   "behavior__navigation__navigation_wait_move_finished": {},
-  "behavior__navigation__navigation_stop_move": {}
+  "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
@@ -15,10 +17,9 @@ function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCas
 function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }
 function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
-javascriptGenerator.forBlock['behavior__navigation__bric_poi_navigation_move_to_pose'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__navigation__navigation_get_angle_to_0'] = function(block, generator) {
   const parameter = {};
-  assignParamValue(parameter, {"name": "name", "output_name": "name", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_NAME'));
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__bric_poi_navigation_move_to_pose'] || {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_get_angle_to_0'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
@@ -26,7 +27,44 @@ javascriptGenerator.forBlock['behavior__navigation__bric_poi_navigation_move_to_
   });
   const node = {
     type: 'Action',
-    action: 'BRIC.POI:navigation/move_to_pose',
+    action: 'navigation/get_angle_to_0',
+    parameter,
+    id: randomId(),
+  };
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['behavior__navigation__navigation_get_current_pose'] = function(block, generator) {
+  const parameter = {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_get_current_pose'] || {};
+  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
+    const selected = block.getFieldValue(parentField) || '';
+    const defs = byOption[selected] || [];
+    collectOptionParams(block, defs, parameter);
+  });
+  const node = {
+    type: 'Action',
+    action: 'navigation/get_current_pose',
+    parameter,
+    id: randomId(),
+  };
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['behavior__navigation__navigation_move_in_direction'] = function(block, generator) {
+  const parameter = {};
+  assignParamValue(parameter, {"name": "distance", "output_name": "distance", "parent_key": "", "type": "float"}, block.getFieldValue('PARAM_DISTANCE'));
+  assignParamValue(parameter, {"name": "velocity", "output_name": "velocity", "parent_key": "", "type": "float"}, block.getFieldValue('PARAM_VELOCITY'));
+  assignParamValue(parameter, {"name": "direction", "output_name": "direction", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_DIRECTION'));
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_move_in_direction'] || {};
+  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
+    const selected = block.getFieldValue(parentField) || '';
+    const defs = byOption[selected] || [];
+    collectOptionParams(block, defs, parameter);
+  });
+  const node = {
+    type: 'Action',
+    action: 'navigation/move_in_direction',
     parameter,
     id: randomId(),
   };
@@ -54,26 +92,6 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_move_to_pose'] = 
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['behavior__navigation__navigation_move_in_direction'] = function(block, generator) {
-  const parameter = {};
-  assignParamValue(parameter, {"name": "distance", "output_name": "distance", "parent_key": "", "type": "float"}, block.getFieldValue('PARAM_DISTANCE'));
-  assignParamValue(parameter, {"name": "velocity", "output_name": "velocity", "parent_key": "", "type": "float"}, block.getFieldValue('PARAM_VELOCITY'));
-  assignParamValue(parameter, {"name": "direction", "output_name": "direction", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_DIRECTION'));
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_move_in_direction'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'navigation/move_in_direction',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
 javascriptGenerator.forBlock['behavior__navigation__navigation_rotate'] = function(block, generator) {
   const parameter = {};
   assignParamValue(parameter, {"name": "angle", "output_name": "angle", "parent_key": "", "type": "float"}, block.getFieldValue('PARAM_ANGLE'));
@@ -86,6 +104,23 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_rotate'] = functi
   const node = {
     type: 'Action',
     action: 'navigation/rotate',
+    parameter,
+    id: randomId(),
+  };
+  return JSON.stringify(node) + '\n';
+};
+
+javascriptGenerator.forBlock['behavior__navigation__navigation_stop_move'] = function(block, generator) {
+  const parameter = {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_stop_move'] || {};
+  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
+    const selected = block.getFieldValue(parentField) || '';
+    const defs = byOption[selected] || [];
+    collectOptionParams(block, defs, parameter);
+  });
+  const node = {
+    type: 'Action',
+    action: 'navigation/stop_move',
     parameter,
     id: randomId(),
   };
@@ -109,9 +144,9 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_wait_move_finishe
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['behavior__navigation__navigation_stop_move'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__navigation__navigation_wait_move_finished_and_sleep'] = function(block, generator) {
   const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_stop_move'] || {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__navigation__navigation_wait_move_finished_and_sleep'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
@@ -119,7 +154,7 @@ javascriptGenerator.forBlock['behavior__navigation__navigation_stop_move'] = fun
   });
   const node = {
     type: 'Action',
-    action: 'navigation/stop_move',
+    action: 'navigation/wait_move_finished_and_sleep',
     parameter,
     id: randomId(),
   };

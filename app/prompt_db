@@ -3,7 +3,7 @@
 
 ## Purpose
   Load data from DB for block list and Robot & Operation profile selection.
-  Update BlockListRobot.json and start_motion.json when block data changes in the DB.
+  Update BlockListRobot.json when block data changes in the DB.
   Robot Type and Operation Profile dropdowns are always loaded live from DB at app startup.
   This sync is triggered by the button 'Update Blocks' (also runs automatically at startup).
 
@@ -106,167 +106,82 @@
     - Category name matching is case-insensitive.
 
 ## Block list
-  - category: motion
-    action: 'motion/start_motion'
-      target: parameters[].task_type.options[].value: 'expressive_motion'
-        DB info for parameters:
-          Table: MotionExpressive
-          Columns
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-            robot_type: robot_type      (optional, for profile filtering)
-            operation_profile: operation_profile  (optional)
-      target: parameters[].task_type.options[].value: 'pose_motion'
-        DB info for parameters:
-          Table: MotionPose
-          Columns
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-            robot_type: robot_type      (optional)
-            operation_profile: operation_profile  (optional)
-    action: 'BRIC.start_motion:motion/start_motion'
-      target: parameters[].name: 'name'
-        DB info for parameters:
-          Table: MotionExpressive
-          Columns for key
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-          format:
-            value: 'expressive_motion.{name}'
-            display_name: 'expressive_motion.{display_name}'
-        DB info for parameters:
-          Table: MotionPose
-          Columns for key
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-          format:
-            value: 'pose_motion.{name}'
-            display_name: 'pose_motion.{display_name}'
-      merge/update rule:
-        - Remove only existing `expressive_motion.*` values when `MotionExpressive` has rows.
-        - Remove only existing `pose_motion.*` values when `MotionPose` has rows.
-        - Keep other existing values (e.g., manipulation) unchanged.
 
-## start_motion.json
-  Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
-    { "name": "expressive_motion.{display_name}", "data": { "task_type": "expressive_motion", "name": "{name}", "repeat": 0 } }
-  This keeps the UI label human-friendly while BT generation uses the raw value.
-
-
-## Purpose
-  Load data from DB for block list and Robot & Operation profile selection.
-  Update BlockListRobot.json and start_motion.json when block data changes in the DB.
-  Robot Type and Operation Profile dropdowns are always loaded live from DB at app startup.
-  This sync is triggered by the button 'Update Blocks' (also runs automatically at startup).
-
-## Conditions
-  DB connection parameters are set in dbinfo.json.
-  Create DB library for CRUD with sql query. It should be a different file.
-  Use DB library to load data for block list from the table.
-  Update only the data scopes specified below, 'Block list' part.
-  Do not update unrelated categories/items.
-  Before writing DB values, remove only the existing values that belong to the same DB-managed scope.
-  Keep all non-targeted existing values as-is.
-  If target table has no rows or no applicable data, keep current values for that target scope.
-
-## display_name column
-  Each DB table may have an optional `display_name` column.
-  - If the column exists: use it as the human-readable label for UI dropdowns.
-  - If the column is absent or the value is empty: fall back to `name` as the display label.
-  - The `value` field in generated options always stores the raw DB `name` (used for BT generation).
-  - Blockly dropdowns are built as [[display_name, value], ...] pairs so the UI shows
-    display_name while Export/BT-generation uses value.
-
-## robot_type / operation_profile columns (block-level filtering)
-  Block option rows in DB may have optional `robot_type` and `operation_profile` columns.
-  - If present and non-empty: the option is only shown when the active profile matches.
-  - If absent or empty: the option is a "common" option shown regardless of profile.
-  - These columns are written into the block option metadata in BlockListRobot.json
-    and propagated into the generated JS (BLOCK_PROFILE, OPTION_PROFILE_META).
-
-## Robot & Operation profile
-
-  ### UI panel: "Robot & Operation"
-    - First panel on the main page (before Scenario and Blocks panels).
-    - Two dropdowns:
-        Robot Type  — populated from RobotType table
-        Operation   — populated from OperationProfile table
-    - "Apply" button sets the active profile and immediately re-filters the Blockly toolbox.
-    - Active profile is persisted in localStorage (key: bric_profile) and restored on reload.
-    - When opening a scenario saved with a different profile, a toast offers to apply it.
-
-  ### API endpoint: GET /api/profile/options
-    - Queries DB live on every call — no file cache.
-    - Returns: { ok, robot_types: [{value, display_name}], operation_profiles: [{value, display_name}] }
-    - If DB is unreachable or tables are absent, returns empty lists (no error).
-
-  ### RobotType table
+  ### Normal Blocks
+    Table: BehaviorCapability
     Columns:
-      name           — internal value used in profile matching
-      display_name   — human-readable label (optional; fallback: name)
+      category:    category name (matches BehaviorCategory.name, lowercase)
+      name:        action name (matches blockly function name, e.g. 'motion/start_motion')
+      parameters:  JSON array of parameter definitions
+      description: description text (may contain \r\n; normalized to \n on read)
+      robot_type:  robot_type
 
-  ### OperationProfile table
-    Columns:
-      name           — internal value
-      display_name   — human-readable label (optional; fallback: name)
+  ### Description normalization
+    DB description values may contain Windows-style line endings (\r\n).
+    These are normalized to \n in two places:
+    - _fetch_behavior_capability_rows() in db_sync.py: before writing to BlockListRobot.json
+    - clean_text() in generator_engine.py: before embedding in generated JS
+    This ensures the help popup (which uses `white-space: pre-wrap`) displays correctly.
 
-  ### RobotList table
-    Not used in the UI. Only Robot Type and Operation are presented to the user.
+  ### Parameter Extension
+    - category: motion
+      action: 'motion/start_motion'
+        target: parameters[].task_type.options[].value: 'expressive_motion'
+          DB info for parameters:
+            Table: MotionExpressive
+            Columns
+              value: name
+              display_name: display_name  (fallback: name)
+              description: description
+              robot_type: robot_type      (optional, for profile filtering)
+              operation_profile: operation_profile  (optional)
+        target: parameters[].task_type.options[].value: 'pose_motion'
+          DB info for parameters:
+            Table: MotionPose
+            Columns
+              value: name
+              display_name: display_name  (fallback: name)
+              description: description
+              robot_type: robot_type      (optional)
+              operation_profile: operation_profile  (optional)
 
-  ### Scenario profile storage
-    Saved scenarios wrap blocks in: { "profile": { "robot_type": "...", "operation_profile": "..." }, "blocks": {...} }
-    Old format (blocks only) is detected and loaded without profile (backward-compatible).
-    GET /api/scenarios/<name>/blockly returns the saved profile alongside workspace data.
+## Help popup for option descriptions
 
-## Block list
-  - category: motion
-    action: 'motion/start_motion'
-      target: parameters[].task_type.options[].value: 'expressive_motion'
-        DB info for parameters:
-          Table: MotionExpressive
-          Columns
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-            robot_type: robot_type      (optional, for profile filtering)
-            operation_profile: operation_profile  (optional)
-      target: parameters[].task_type.options[].value: 'pose_motion'
-        DB info for parameters:
-          Table: MotionPose
-          Columns
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-            robot_type: robot_type      (optional)
-            operation_profile: operation_profile  (optional)
-    action: 'BRIC.start_motion:motion/start_motion'
-      target: parameters[].name: 'name'
-        DB info for parameters:
-          Table: MotionExpressive
-          Columns for key
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-          format:
-            value: 'expressive_motion.{name}'
-            display_name: 'expressive_motion.{display_name}'
-        DB info for parameters:
-          Table: MotionPose
-          Columns for key
-            value: name
-            display_name: display_name  (fallback: name)
-            description: description
-          format:
-            value: 'pose_motion.{name}'
-            display_name: 'pose_motion.{display_name}'
-      merge/update rule:
-        - Remove only existing `expressive_motion.*` values when `MotionExpressive` has rows.
-        - Remove only existing `pose_motion.*` values when `MotionPose` has rows.
-        - Keep other existing values (e.g., manipulation) unchanged.
+  ### Overview
+    Each block parameter dropdown can show a help popup when the user hovers over
+    an option item in the open dropdown. The description is sourced from the
+    `description` field of each option entry in BlockListRobot.json parameters.
+
+  ### option_descriptions indexing (generator_engine.py)
+    The generated JS constant OPTION_PARAM_MAP stores option_descriptions for each
+    parameter. These are used by the setHoverOptionHelp() function at runtime.
+
+    option_descriptions is indexed by BOTH the raw `value` AND the `display_name`
+    of each option:
+      { "double_nod": "머리 두번...", "nod twice": "머리 두번..." }
+
+    Reason: Blockly dropdown menu items may not carry a `data-value` attribute,
+    so the runtime valueFromMenuItem() function may fall back to reading textContent,
+    which returns the display name rather than the raw value. Indexing by both
+    ensures the lookup succeeds regardless of which form Blockly provides.
+
+    This applies to:
+    - Top-level parameter options (build_behavior_block in generator_engine.py)
+    - Nested option-parameter options (build_nested_param_meta in generator_engine.py)
+
+  ### Block-level tooltip (setTooltip)
+    Blockly's native tooltip (set via this.setTooltip()) must be cleared to empty string.
+    Block descriptions are shown ONLY through the HELP icon click popup (setClickHelp).
+    Reason: if setTooltip(tip) is set, Blockly shows the native tooltip on hover over any
+    block body — including blocks on other rows — causing the wrong block's description to
+    appear behind or alongside the custom popup for a different block.
+    Rule: always call this.setTooltip('') in the wrappedInit function in generator_engine.py.
+
+  ### Hover trigger
+    - Hovering the closed dropdown field: shows description of the currently selected option.
+    - Hovering items inside the open dropdown: shows description of the item under cursor.
+    - The active field is tracked via window.BRIC.activeOptionHelpField so the correct
+      option_descriptions map is used when multiple dropdowns exist on the same block.
 
 ## start_motion.json
   Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:

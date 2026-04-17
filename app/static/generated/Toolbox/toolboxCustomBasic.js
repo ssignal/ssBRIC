@@ -82,10 +82,6 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
-          "type": "behavior__motion__bric_start_motion_motion_start_motion"
-        },
-        {
-          "kind": "block",
           "type": "behavior__motion__motion_start_motion"
         },
         {
@@ -95,79 +91,6 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "behavior__motion__motion_wait_motion_finished"
-        }
-      ]
-    },
-    {
-      "kind": "category",
-      "name": "Navigation",
-      "categorystyle": "navigation_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__navigation__bric_poi_navigation_move_to_pose"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_move_to_pose"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_move_in_direction"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_rotate"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_wait_move_finished"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_stop_move"
-        }
-      ]
-    },
-    {
-      "kind": "category",
-      "name": "Sound",
-      "categorystyle": "sound_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__sound__sound_start_play"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__sound__sound_start_play_tts"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__sound__sound_wait_play_completed"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__sound__sound_stop_play"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__sound__sound_set_volume"
-        }
-      ]
-    },
-    {
-      "kind": "category",
-      "name": "LCD",
-      "categorystyle": "lcd_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__lcd__lcd_play_animation"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__lcd__lcd_stop_animation"
         }
       ]
     },
@@ -190,6 +113,87 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "behavior__etc__demo_set_demo_id"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "LCD",
+      "categorystyle": "lcd_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__lcd__lcd_play_animation"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__lcd__lcd_stop_animation"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Navigation",
+      "categorystyle": "navigation_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_get_angle_to_0"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_get_current_pose"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_move_in_direction"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_move_to_pose"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_rotate"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_stop_move"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_wait_move_finished"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_wait_move_finished_and_sleep"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Sound",
+      "categorystyle": "sound_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_set_volume"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_start_play"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_start_play_tts"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_stop_play"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__sound__sound_wait_play_completed"
         }
       ]
     },

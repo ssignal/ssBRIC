@@ -1,15 +1,52 @@
 {
-  "generated_at": "2026-04-16T07:37:40.904004Z",
+  "generated_at": "2026-04-17T02:46:46.819297Z",
   "behavior": [
     {
-      "block_type": "behavior__motion__bric_start_motion_motion_start_motion",
-      "category": "Motion",
+      "block_type": "behavior__device__device_set_led",
+      "category": "Device",
       "kind": "behavior",
-      "label": "start_motion",
-      "action": "BRIC.start_motion:motion/start_motion",
-      "description": "Motion 시작 명령",
+      "label": "set_led",
+      "action": "device/set_led",
+      "description": "몸체의 LED의 light 제어 명령",
       "json": {
-        "type": "behavior__motion__bric_start_motion_motion_start_motion",
+        "type": "behavior__device__device_set_led",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "set_led",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#e377c2",
+        "tooltip": "몸체의 LED의 light 제어 명령",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__etc__demo_set_demo_id",
+      "category": "Etc",
+      "kind": "behavior",
+      "label": "set_demo_id",
+      "action": "demo/set_demo_id",
+      "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+      "json": {
+        "type": "behavior__etc__demo_set_demo_id",
         "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
@@ -22,7 +59,7 @@
           },
           {
             "type": "field_label",
-            "text": "start_motion",
+            "text": "set_demo_id",
             "name": "TITLE"
           },
           {
@@ -38,108 +75,15 @@
             "text": "name"
           },
           {
-            "type": "field_dropdown",
+            "type": "field_input",
             "name": "PARAM_NAME",
-            "options": [
-              [
-                "manipulation.prepare",
-                "manipulation.prepare"
-              ],
-              [
-                "manipulation.pick_up",
-                "manipulation.pick_up"
-              ],
-              [
-                "manipulation.dump",
-                "manipulation.dump"
-              ],
-              [
-                "manipulation.put_down",
-                "manipulation.put_down"
-              ],
-              [
-                "expressive_motion.nod twice",
-                "expressive_motion.double_nod"
-              ],
-              [
-                "expressive_motion.Ready to fistbump",
-                "expressive_motion.fistbump_ready"
-              ],
-              [
-                "expressive_motion.Go for a fistbump",
-                "expressive_motion.fistbump_strike"
-              ],
-              [
-                "expressive_motion.Look to the left",
-                "expressive_motion.head_left"
-              ],
-              [
-                "expressive_motion.Look down and to the left",
-                "expressive_motion.head_left_down"
-              ],
-              [
-                "expressive_motion.Look up and to the left",
-                "expressive_motion.head_left_up"
-              ],
-              [
-                "expressive_motion.Look to the right",
-                "expressive_motion.head_right"
-              ],
-              [
-                "expressive_motion.Look down and to the right",
-                "expressive_motion.head_right_down"
-              ],
-              [
-                "expressive_motion.Look up and to the right",
-                "expressive_motion.head_right_up"
-              ],
-              [
-                "expressive_motion.Ready to highfive",
-                "expressive_motion.highfive_ready"
-              ],
-              [
-                "expressive_motion.Go for a hightfive",
-                "expressive_motion.highfive_strike"
-              ],
-              [
-                "expressive_motion.Heart hands",
-                "expressive_motion.pose_hand_heart"
-              ],
-              [
-                "expressive_motion.Gesture with open palms",
-                "expressive_motion.present_double"
-              ],
-              [
-                "expressive_motion.Wave with both hands",
-                "expressive_motion.wave_two_hand"
-              ],
-              [
-                "expressive_motion.Enthusiastic wave with both hands",
-                "expressive_motion.wave_two_hand_sway"
-              ],
-              [
-                "pose_motion.Moving",
-                "pose_motion.move"
-              ],
-              [
-                "pose_motion.Neutral",
-                "pose_motion.neutral"
-              ],
-              [
-                "pose_motion.Neutralize last joint",
-                "pose_motion.recent_joint_neutral"
-              ],
-              [
-                "pose_motion.Getting ready to work",
-                "pose_motion.work_ready"
-              ]
-            ]
+            "text": ""
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
-        "colour": "#2ca02c",
-        "tooltip": "Motion 시작 명령",
+        "colour": "#7f7f7f",
+        "tooltip": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
         "helpUrl": ""
       },
       "parameters": [
@@ -149,391 +93,175 @@
           "parent_key": "",
           "field": "PARAM_NAME",
           "type": "string",
-          "description": "Motion name",
-          "options": [
-            [
-              "manipulation.prepare",
-              "manipulation.prepare"
-            ],
-            [
-              "manipulation.pick_up",
-              "manipulation.pick_up"
-            ],
-            [
-              "manipulation.dump",
-              "manipulation.dump"
-            ],
-            [
-              "manipulation.put_down",
-              "manipulation.put_down"
-            ],
-            [
-              "expressive_motion.nod twice",
-              "expressive_motion.double_nod"
-            ],
-            [
-              "expressive_motion.Ready to fistbump",
-              "expressive_motion.fistbump_ready"
-            ],
-            [
-              "expressive_motion.Go for a fistbump",
-              "expressive_motion.fistbump_strike"
-            ],
-            [
-              "expressive_motion.Look to the left",
-              "expressive_motion.head_left"
-            ],
-            [
-              "expressive_motion.Look down and to the left",
-              "expressive_motion.head_left_down"
-            ],
-            [
-              "expressive_motion.Look up and to the left",
-              "expressive_motion.head_left_up"
-            ],
-            [
-              "expressive_motion.Look to the right",
-              "expressive_motion.head_right"
-            ],
-            [
-              "expressive_motion.Look down and to the right",
-              "expressive_motion.head_right_down"
-            ],
-            [
-              "expressive_motion.Look up and to the right",
-              "expressive_motion.head_right_up"
-            ],
-            [
-              "expressive_motion.Ready to highfive",
-              "expressive_motion.highfive_ready"
-            ],
-            [
-              "expressive_motion.Go for a hightfive",
-              "expressive_motion.highfive_strike"
-            ],
-            [
-              "expressive_motion.Heart hands",
-              "expressive_motion.pose_hand_heart"
-            ],
-            [
-              "expressive_motion.Gesture with open palms",
-              "expressive_motion.present_double"
-            ],
-            [
-              "expressive_motion.Wave with both hands",
-              "expressive_motion.wave_two_hand"
-            ],
-            [
-              "expressive_motion.Enthusiastic wave with both hands",
-              "expressive_motion.wave_two_hand_sway"
-            ],
-            [
-              "pose_motion.Moving",
-              "pose_motion.move"
-            ],
-            [
-              "pose_motion.Neutral",
-              "pose_motion.neutral"
-            ],
-            [
-              "pose_motion.Neutralize last joint",
-              "pose_motion.recent_joint_neutral"
-            ],
-            [
-              "pose_motion.Getting ready to work",
-              "pose_motion.work_ready"
-            ]
-          ],
-          "raw_options": [
-            {
-              "value": "manipulation.prepare",
-              "description": "demo2604_pick_box_ready",
-              "parameters": [
-                {
-                  "name": "object",
-                  "type": "string",
-                  "description": "object (string)",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "box",
-                      "description": "box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                }
-              ]
-            },
-            {
-              "value": "manipulation.pick_up",
-              "description": "demo2604_pick_box",
-              "parameters": [
-                {
-                  "name": "object",
-                  "type": "string",
-                  "description": "object (string)",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "box",
-                      "description": "box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                }
-              ]
-            },
-            {
-              "value": "manipulation.dump",
-              "description": "demo2604_dump_box",
-              "parameters": [
-                {
-                  "name": "object",
-                  "type": "string",
-                  "description": "object (string)",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "box",
-                      "description": "box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                }
-              ]
-            },
-            {
-              "value": "manipulation.put_down",
-              "description": "demo2604_place_box",
-              "parameters": [
-                {
-                  "name": "object",
-                  "type": "string",
-                  "description": "object (string)",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "box",
-                      "description": "box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                }
-              ]
-            },
-            {
-              "value": "expressive_motion.double_nod",
-              "display_name": "expressive_motion.nod twice",
-              "description": "머리 두번 끄덕끄덕"
-            },
-            {
-              "value": "expressive_motion.fistbump_ready",
-              "display_name": "expressive_motion.Ready to fistbump",
-              "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
-            },
-            {
-              "value": "expressive_motion.fistbump_strike",
-              "display_name": "expressive_motion.Go for a fistbump",
-              "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-            },
-            {
-              "value": "expressive_motion.head_left",
-              "display_name": "expressive_motion.Look to the left",
-              "description": "머리 왼쪽 이동 후 복귀"
-            },
-            {
-              "value": "expressive_motion.head_left_down",
-              "display_name": "expressive_motion.Look down and to the left",
-              "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
-            },
-            {
-              "value": "expressive_motion.head_left_up",
-              "display_name": "expressive_motion.Look up and to the left",
-              "description": "머리 왼쪽 위 이동 후 복귀"
-            },
-            {
-              "value": "expressive_motion.head_right",
-              "display_name": "expressive_motion.Look to the right",
-              "description": "머리 오른쪽 이동 후 복귀"
-            },
-            {
-              "value": "expressive_motion.head_right_down",
-              "display_name": "expressive_motion.Look down and to the right",
-              "description": "머리 오른쪽 아래 이동 후 복귀"
-            },
-            {
-              "value": "expressive_motion.head_right_up",
-              "display_name": "expressive_motion.Look up and to the right",
-              "description": "머리 오른쪽 위 이동 후 복귀"
-            },
-            {
-              "value": "expressive_motion.highfive_ready",
-              "display_name": "expressive_motion.Ready to highfive",
-              "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
-            },
-            {
-              "value": "expressive_motion.highfive_strike",
-              "display_name": "expressive_motion.Go for a hightfive",
-              "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
-            },
-            {
-              "value": "expressive_motion.pose_hand_heart",
-              "display_name": "expressive_motion.Heart hands",
-              "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
-            },
-            {
-              "value": "expressive_motion.present_double",
-              "display_name": "expressive_motion.Gesture with open palms",
-              "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
-            },
-            {
-              "value": "expressive_motion.wave_two_hand",
-              "display_name": "expressive_motion.Wave with both hands",
-              "description": "양손 가슴높이 손인사"
-            },
-            {
-              "value": "expressive_motion.wave_two_hand_sway",
-              "display_name": "expressive_motion.Enthusiastic wave with both hands",
-              "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
-            },
-            {
-              "value": "pose_motion.move",
-              "display_name": "pose_motion.Moving",
-              "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
-            },
-            {
-              "value": "pose_motion.neutral",
-              "display_name": "pose_motion.Neutral",
-              "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
-            },
-            {
-              "value": "pose_motion.recent_joint_neutral",
-              "display_name": "pose_motion.Neutralize last joint",
-              "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
-            },
-            {
-              "value": "pose_motion.work_ready",
-              "display_name": "pose_motion.Getting ready to work",
-              "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-            }
-          ],
-          "option_parameters": {
-            "manipulation.prepare": [
-              {
-                "name": "object",
-                "output_name": "object",
-                "parent_key": "",
-                "field": "OPT_NAME_OBJECT",
-                "type": "string",
-                "description": "object (string)",
-                "options": [
-                  [
-                    "box",
-                    "box"
-                  ]
-                ],
-                "default": "box",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "box": "box"
-                }
-              }
-            ],
-            "manipulation.pick_up": [
-              {
-                "name": "object",
-                "output_name": "object",
-                "parent_key": "",
-                "field": "OPT_NAME_OBJECT",
-                "type": "string",
-                "description": "object (string)",
-                "options": [
-                  [
-                    "box",
-                    "box"
-                  ]
-                ],
-                "default": "box",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "box": "box"
-                }
-              }
-            ],
-            "manipulation.dump": [
-              {
-                "name": "object",
-                "output_name": "object",
-                "parent_key": "",
-                "field": "OPT_NAME_OBJECT",
-                "type": "string",
-                "description": "object (string)",
-                "options": [
-                  [
-                    "box",
-                    "box"
-                  ]
-                ],
-                "default": "box",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "box": "box"
-                }
-              }
-            ],
-            "manipulation.put_down": [
-              {
-                "name": "object",
-                "output_name": "object",
-                "parent_key": "",
-                "field": "OPT_NAME_OBJECT",
-                "type": "string",
-                "description": "object (string)",
-                "options": [
-                  [
-                    "box",
-                    "box"
-                  ]
-                ],
-                "default": "box",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "box": "box"
-                }
-              }
-            ]
-          },
-          "option_descriptions": {
-            "manipulation.prepare": "demo2604_pick_box_ready",
-            "manipulation.pick_up": "demo2604_pick_box",
-            "manipulation.dump": "demo2604_dump_box",
-            "manipulation.put_down": "demo2604_place_box",
-            "expressive_motion.double_nod": "머리 두번 끄덕끄덕",
-            "expressive_motion.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
-            "expressive_motion.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-            "expressive_motion.head_left": "머리 왼쪽 이동 후 복귀",
-            "expressive_motion.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
-            "expressive_motion.head_left_up": "머리 왼쪽 위 이동 후 복귀",
-            "expressive_motion.head_right": "머리 오른쪽 이동 후 복귀",
-            "expressive_motion.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
-            "expressive_motion.head_right_up": "머리 오른쪽 위 이동 후 복귀",
-            "expressive_motion.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
-            "expressive_motion.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
-            "expressive_motion.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
-            "expressive_motion.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
-            "expressive_motion.wave_two_hand": "양손 가슴높이 손인사",
-            "expressive_motion.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
-            "pose_motion.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
-            "pose_motion.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
-            "pose_motion.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
-            "pose_motion.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-          }
+          "description": "Demo name to specify the demo",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__lcd__lcd_play_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "play_animation",
+      "action": "lcd/play_animation",
+      "description": "Head LCD에 animation 변경 명령 (eye 포함)",
+      "json": {
+        "type": "behavior__lcd__lcd_play_animation",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "play_animation",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PATH"
+          },
+          {
+            "type": "field_label",
+            "text": "path"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PATH",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_INSTANT_PLAY"
+          },
+          {
+            "type": "field_label",
+            "text": "instant_play"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_INSTANT_PLAY",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "Head LCD에 animation 변경 명령 (eye 포함)",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "path",
+          "output_name": "path",
+          "parent_key": "",
+          "field": "PARAM_PATH",
+          "type": "string",
+          "description": "Animation file path to play",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "PARAM_REPEAT",
+          "type": "bool",
+          "description": "Animation repetition type",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "instant_play",
+          "output_name": "instant_play",
+          "parent_key": "",
+          "field": "PARAM_INSTANT_PLAY",
+          "type": "bool",
+          "description": "Decide if the animation plays immediately or after the current animation is completed.",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__lcd__lcd_stop_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "stop_animation",
+      "action": "lcd/stop_animation",
+      "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+      "json": {
+        "type": "behavior__lcd__lcd_stop_animation",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "stop_animation",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+        "helpUrl": ""
+      },
+      "parameters": [],
       "has_children": false,
       "enabled_keys": [],
       "robot_type": "",
@@ -545,7 +273,7 @@
       "kind": "behavior",
       "label": "start_motion",
       "action": "motion/start_motion",
-      "description": "Motion 시작 명령",
+      "description": "Start a specified motion under the task type.",
       "json": {
         "type": "behavior__motion__motion_start_motion",
         "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
@@ -586,10 +314,6 @@
               [
                 "pose_motion",
                 "pose_motion"
-              ],
-              [
-                "manipulation",
-                "manipulation"
               ]
             ]
           },
@@ -623,7 +347,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#2ca02c",
-        "tooltip": "Motion 시작 명령",
+        "tooltip": "Start a specified motion under the task type.",
         "helpUrl": ""
       },
       "parameters": [
@@ -642,10 +366,6 @@
             [
               "pose_motion",
               "pose_motion"
-            ],
-            [
-              "manipulation",
-              "manipulation"
             ]
           ],
           "raw_options": [
@@ -775,52 +495,6 @@
                   "max": null
                 }
               ]
-            },
-            {
-              "value": "manipulation",
-              "description": "manipulation motion",
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": "string",
-                  "description": "Motion name",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "prepare",
-                      "description": "demo2604_pick_box_ready"
-                    },
-                    {
-                      "value": "pick_up",
-                      "description": "demo2604_pick_box"
-                    },
-                    {
-                      "value": "dump",
-                      "description": "demo2604_dump_box"
-                    },
-                    {
-                      "value": "put_down",
-                      "description": "demo2604_place_box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                },
-                {
-                  "name": "object",
-                  "type": "string",
-                  "description": "object (string)",
-                  "enabled": true,
-                  "options": [
-                    {
-                      "value": "box",
-                      "description": "box"
-                    }
-                  ],
-                  "min": null,
-                  "max": null
-                }
-              ]
             }
           ],
           "option_parameters": {
@@ -898,20 +572,35 @@
                 "option_parameters": {},
                 "option_descriptions": {
                   "double_nod": "머리 두번 끄덕끄덕",
+                  "nod twice": "머리 두번 끄덕끄덕",
                   "fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                  "Ready to fistbump": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
                   "fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "Go for a fistbump": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
                   "head_left": "머리 왼쪽 이동 후 복귀",
+                  "Look to the left": "머리 왼쪽 이동 후 복귀",
                   "head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+                  "Look down and to the left": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
                   "head_left_up": "머리 왼쪽 위 이동 후 복귀",
+                  "Look up and to the left": "머리 왼쪽 위 이동 후 복귀",
                   "head_right": "머리 오른쪽 이동 후 복귀",
+                  "Look to the right": "머리 오른쪽 이동 후 복귀",
                   "head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+                  "Look down and to the right": "머리 오른쪽 아래 이동 후 복귀",
                   "head_right_up": "머리 오른쪽 위 이동 후 복귀",
+                  "Look up and to the right": "머리 오른쪽 위 이동 후 복귀",
                   "highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                  "Ready to highfive": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
                   "highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "Go for a hightfive": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
                   "pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                  "Heart hands": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
                   "present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                  "Gesture with open palms": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
                   "wave_two_hand": "양손 가슴높이 손인사",
-                  "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+                  "Wave with both hands": "양손 가슴높이 손인사",
+                  "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+                  "Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
                 }
               }
             ],
@@ -945,72 +634,20 @@
                 "option_parameters": {},
                 "option_descriptions": {
                   "move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+                  "Moving": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
                   "neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+                  "Neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
                   "recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
-                  "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
-                }
-              }
-            ],
-            "manipulation": [
-              {
-                "name": "name",
-                "output_name": "name",
-                "parent_key": "",
-                "field": "OPT_TASK_TYPE_NAME",
-                "type": "string",
-                "description": "Motion name",
-                "options": [
-                  [
-                    "prepare",
-                    "prepare"
-                  ],
-                  [
-                    "pick_up",
-                    "pick_up"
-                  ],
-                  [
-                    "dump",
-                    "dump"
-                  ],
-                  [
-                    "put_down",
-                    "put_down"
-                  ]
-                ],
-                "default": "prepare",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "prepare": "demo2604_pick_box_ready",
-                  "pick_up": "demo2604_pick_box",
-                  "dump": "demo2604_dump_box",
-                  "put_down": "demo2604_place_box"
-                }
-              },
-              {
-                "name": "object",
-                "output_name": "object",
-                "parent_key": "",
-                "field": "OPT_TASK_TYPE_OBJECT",
-                "type": "string",
-                "description": "object (string)",
-                "options": [
-                  [
-                    "box",
-                    "box"
-                  ]
-                ],
-                "default": "box",
-                "option_parameters": {},
-                "option_descriptions": {
-                  "box": "box"
+                  "Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+                  "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+                  "Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
                 }
               }
             ]
           },
           "option_descriptions": {
             "expressive_motion": "expressive_motion motion",
-            "pose_motion": "pose motion",
-            "manipulation": "manipulation motion"
+            "pose_motion": "pose motion"
           }
         },
         {
@@ -1058,7 +695,7 @@
       "kind": "behavior",
       "label": "stop_motion",
       "action": "motion/stop_motion",
-      "description": "Motion 강제 종료 명령",
+      "description": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
       "json": {
         "type": "behavior__motion__motion_stop_motion",
         "message0": "%1 %2 %3 %4 %5",
@@ -1106,7 +743,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#2ca02c",
-        "tooltip": "Motion 강제 종료 명령",
+        "tooltip": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
         "helpUrl": ""
       },
       "parameters": [
@@ -1155,7 +792,7 @@
       "kind": "behavior",
       "label": "wait_motion_finished",
       "action": "motion/wait_motion_finished",
-      "description": "Motion 완료 여부 확인",
+      "description": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
       "json": {
         "type": "behavior__motion__motion_wait_motion_finished",
         "message0": "%1 %2",
@@ -1177,7 +814,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#2ca02c",
-        "tooltip": "Motion 완료 여부 확인",
+        "tooltip": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
         "helpUrl": ""
       },
       "parameters": [],
@@ -1187,15 +824,15 @@
       "operation_profile": ""
     },
     {
-      "block_type": "behavior__navigation__bric_poi_navigation_move_to_pose",
+      "block_type": "behavior__navigation__navigation_get_angle_to_0",
       "category": "Navigation",
       "kind": "behavior",
-      "label": "move_to_pose",
-      "action": "BRIC.POI:navigation/move_to_pose",
-      "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+      "label": "get_angle_to_0",
+      "action": "navigation/get_angle_to_0",
+      "description": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
       "json": {
-        "type": "behavior__navigation__bric_poi_navigation_move_to_pose",
-        "message0": "%1 %2 %3 %4 %5",
+        "type": "behavior__navigation__navigation_get_angle_to_0",
+        "message0": "%1 %2",
         "args0": [
           {
             "type": "field_image",
@@ -1207,105 +844,32 @@
           },
           {
             "type": "field_label",
-            "text": "move_to_pose",
+            "text": "get_angle_to_0",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_NAME"
-          },
-          {
-            "type": "field_label",
-            "text": "name"
-          },
-          {
-            "type": "field_dropdown",
-            "name": "PARAM_NAME",
-            "options": [
-              [
-                "PickUp",
-                "PickUp"
-              ],
-              [
-                "Dump",
-                "Dump"
-              ],
-              [
-                "PutDown",
-                "PutDown"
-              ]
-            ]
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#d62728",
-        "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+        "tooltip": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
         "helpUrl": ""
       },
-      "parameters": [
-        {
-          "name": "name",
-          "output_name": "name",
-          "parent_key": "",
-          "field": "PARAM_NAME",
-          "type": "string",
-          "description": "Node (POI) Name",
-          "options": [
-            [
-              "PickUp",
-              "PickUp"
-            ],
-            [
-              "Dump",
-              "Dump"
-            ],
-            [
-              "PutDown",
-              "PutDown"
-            ]
-          ],
-          "raw_options": [
-            {
-              "value": "PickUp",
-              "description": "pick up the object"
-            },
-            {
-              "value": "Dump",
-              "description": "dump the object"
-            },
-            {
-              "value": "PutDown",
-              "description": "put down the object"
-            }
-          ],
-          "option_parameters": {},
-          "option_descriptions": {
-            "PickUp": "pick up the object",
-            "Dump": "dump the object",
-            "PutDown": "put down the object"
-          }
-        }
-      ],
+      "parameters": [],
       "has_children": false,
       "enabled_keys": [],
       "robot_type": "",
       "operation_profile": ""
     },
     {
-      "block_type": "behavior__navigation__navigation_move_to_pose",
+      "block_type": "behavior__navigation__navigation_get_current_pose",
       "category": "Navigation",
       "kind": "behavior",
-      "label": "move_to_pose",
-      "action": "navigation/move_to_pose",
-      "description": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+      "label": "get_current_pose",
+      "action": "navigation/get_current_pose",
+      "description": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
       "json": {
-        "type": "behavior__navigation__navigation_move_to_pose",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "type": "behavior__navigation__navigation_get_current_pose",
+        "message0": "%1 %2",
         "args0": [
           {
             "type": "field_image",
@@ -1317,164 +881,17 @@
           },
           {
             "type": "field_label",
-            "text": "move_to_pose",
+            "text": "get_current_pose",
             "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_POSE_TYPE"
-          },
-          {
-            "type": "field_label",
-            "text": "pose_type"
-          },
-          {
-            "type": "field_dropdown",
-            "name": "PARAM_POSE_TYPE",
-            "options": [
-              [
-                "map",
-                "map"
-              ],
-              [
-                "earth",
-                "earth"
-              ]
-            ]
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_POSE_X"
-          },
-          {
-            "type": "field_label",
-            "text": "x"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_POSE_X",
-            "text": "0.0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_POSE_Y"
-          },
-          {
-            "type": "field_label",
-            "text": "y"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_POSE_Y",
-            "text": "0.0"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_POSE_Z"
-          },
-          {
-            "type": "field_label",
-            "text": "z"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_POSE_Z",
-            "text": "0.0"
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#d62728",
-        "tooltip": "특정 좌표로 주행 명령. euler pose(x, y, z)로 좌표 입력 받음. 내부적으로 quaternion pose(x, y, z, w)로 변환하여 사용됨.",
+        "tooltip": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
         "helpUrl": ""
       },
-      "parameters": [
-        {
-          "name": "pose_type",
-          "output_name": "pose_type",
-          "parent_key": "",
-          "field": "PARAM_POSE_TYPE",
-          "type": "string",
-          "description": "map (indoor), earth (outdoor)",
-          "options": [
-            [
-              "map",
-              "map"
-            ],
-            [
-              "earth",
-              "earth"
-            ]
-          ],
-          "raw_options": [
-            {
-              "value": "map",
-              "description": "Indoor map frame"
-            },
-            {
-              "value": "earth",
-              "description": "Outdoor earth frame"
-            }
-          ],
-          "option_parameters": {},
-          "option_descriptions": {
-            "map": "Indoor map frame",
-            "earth": "Outdoor earth frame"
-          }
-        },
-        {
-          "name": "pose/x",
-          "output_name": "x",
-          "parent_key": "pose",
-          "field": "PARAM_POSE_X",
-          "type": "float",
-          "description": "Euler pose x",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        },
-        {
-          "name": "pose/y",
-          "output_name": "y",
-          "parent_key": "pose",
-          "field": "PARAM_POSE_Y",
-          "type": "float",
-          "description": "Euler pose y",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        },
-        {
-          "name": "pose/z",
-          "output_name": "z",
-          "parent_key": "pose",
-          "field": "PARAM_POSE_Z",
-          "type": "float",
-          "description": "Euler pose z (degree unit)",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        }
-      ],
+      "parameters": [],
       "has_children": false,
       "enabled_keys": [],
       "robot_type": "",
@@ -1486,7 +903,7 @@
       "kind": "behavior",
       "label": "move_in_direction",
       "action": "navigation/move_in_direction",
-      "description": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
+      "description": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
       "json": {
         "type": "behavior__navigation__navigation_move_in_direction",
         "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
@@ -1653,7 +1070,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#d62728",
-        "tooltip": "특정 거리로 이동 명령. 역방향은 distance를 음수로, direction을 \"backwards\"로 지정. velocity는 0~1 사이의 값으로만 허용.",
+        "tooltip": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
         "helpUrl": ""
       },
       "parameters": [
@@ -1717,6 +1134,190 @@
       ],
       "has_children": false,
       "enabled_keys": [],
+      "robot_type": "cloid",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_move_to_pose",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "move_to_pose",
+      "action": "navigation/move_to_pose",
+      "description": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
+      "json": {
+        "type": "behavior__navigation__navigation_move_to_pose",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "move_to_pose",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "pose_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_POSE_TYPE",
+            "options": [
+              [
+                "map",
+                "map"
+              ],
+              [
+                "earth",
+                "earth"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_X"
+          },
+          {
+            "type": "field_label",
+            "text": "x"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_X",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_Y"
+          },
+          {
+            "type": "field_label",
+            "text": "y"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_Y",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_Z"
+          },
+          {
+            "type": "field_label",
+            "text": "z"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_Z",
+            "text": "0.0"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "pose_type",
+          "output_name": "pose_type",
+          "parent_key": "",
+          "field": "PARAM_POSE_TYPE",
+          "type": "string",
+          "description": "map (indoor), earth (outdoor)",
+          "options": [
+            [
+              "map",
+              "map"
+            ],
+            [
+              "earth",
+              "earth"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "map",
+              "description": "Indoor map frame"
+            },
+            {
+              "value": "earth",
+              "description": "Outdoor earth frame"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "map": "Indoor map frame",
+            "earth": "Outdoor earth frame"
+          }
+        },
+        {
+          "name": "pose/x",
+          "output_name": "x",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_X",
+          "type": "float",
+          "description": "Euler pose x",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "pose/y",
+          "output_name": "y",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_Y",
+          "type": "float",
+          "description": "Euler pose y",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "pose/z",
+          "output_name": "z",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_Z",
+          "type": "float",
+          "description": "Euler pose z (degree unit)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
       "robot_type": "",
       "operation_profile": ""
     },
@@ -1726,7 +1327,7 @@
       "kind": "behavior",
       "label": "rotate",
       "action": "navigation/rotate",
-      "description": "제자리 회전 명령",
+      "description": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
       "json": {
         "type": "behavior__navigation__navigation_rotate",
         "message0": "%1 %2 %3 %4 %5",
@@ -1850,7 +1451,7 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#d62728",
-        "tooltip": "제자리 회전 명령",
+        "tooltip": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
         "helpUrl": ""
       },
       "parameters": [
@@ -1873,49 +1474,12 @@
       "operation_profile": ""
     },
     {
-      "block_type": "behavior__navigation__navigation_wait_move_finished",
-      "category": "Navigation",
-      "kind": "behavior",
-      "label": "wait_move_finished",
-      "action": "navigation/wait_move_finished",
-      "description": "주행/회전 완료 여부 확인",
-      "json": {
-        "type": "behavior__navigation__navigation_wait_move_finished",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "wait_move_finished",
-            "name": "TITLE"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#d62728",
-        "tooltip": "주행/회전 완료 여부 확인",
-        "helpUrl": ""
-      },
-      "parameters": [],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
       "block_type": "behavior__navigation__navigation_stop_move",
       "category": "Navigation",
       "kind": "behavior",
       "label": "stop_move",
       "action": "navigation/stop_move",
-      "description": "주행/회전 강제 종료",
+      "description": "주행 동작을 강제 종료",
       "json": {
         "type": "behavior__navigation__navigation_stop_move",
         "message0": "%1 %2",
@@ -1937,10 +1501,196 @@
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#d62728",
-        "tooltip": "주행/회전 강제 종료",
+        "tooltip": "주행 동작을 강제 종료",
         "helpUrl": ""
       },
       "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_wait_move_finished",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "wait_move_finished",
+      "action": "navigation/wait_move_finished",
+      "description": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+      "json": {
+        "type": "behavior__navigation__navigation_wait_move_finished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_move_finished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "wait_move_finished_and_sleep",
+      "action": "navigation/wait_move_finished_and_sleep",
+      "description": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
+      "json": {
+        "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_move_finished_and_sleep",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_set_volume",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "set_volume",
+      "action": "sound/set_volume",
+      "description": "Sound volume 조절 명령",
+      "json": {
+        "type": "behavior__sound__sound_set_volume",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "set_volume",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_VOLUME"
+          },
+          {
+            "type": "field_label",
+            "text": "volume"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_VOLUME",
+            "options": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "1"
+              ],
+              [
+                "2",
+                "2"
+              ],
+              [
+                "3",
+                "3"
+              ],
+              [
+                "4",
+                "4"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "6"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "10",
+                "10"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "Sound volume 조절 명령",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "volume",
+          "output_name": "volume",
+          "parent_key": "",
+          "field": "PARAM_VOLUME",
+          "type": "integer",
+          "description": "Volume value (0 ~ 10)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
       "has_children": false,
       "enabled_keys": [],
       "robot_type": "",
@@ -2168,73 +1918,6 @@
       "operation_profile": ""
     },
     {
-      "block_type": "behavior__sound__sound_wait_play_completed",
-      "category": "Sound",
-      "kind": "behavior",
-      "label": "wait_play_completed",
-      "action": "sound/wait_play_completed",
-      "description": "Sound/TTS play 완료 여부 확인",
-      "json": {
-        "type": "behavior__sound__sound_wait_play_completed",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "wait_play_completed",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_ID"
-          },
-          {
-            "type": "field_label",
-            "text": "id"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_ID",
-            "text": "2000"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#9467bd",
-        "tooltip": "Sound/TTS play 완료 여부 확인",
-        "helpUrl": ""
-      },
-      "parameters": [
-        {
-          "name": "id",
-          "output_name": "id",
-          "parent_key": "",
-          "field": "PARAM_ID",
-          "type": "integer",
-          "description": "Handle ID given for playing sound",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        }
-      ],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
       "block_type": "behavior__sound__sound_stop_play",
       "category": "Sound",
       "kind": "behavior",
@@ -2302,14 +1985,14 @@
       "operation_profile": ""
     },
     {
-      "block_type": "behavior__sound__sound_set_volume",
+      "block_type": "behavior__sound__sound_wait_play_completed",
       "category": "Sound",
       "kind": "behavior",
-      "label": "set_volume",
-      "action": "sound/set_volume",
-      "description": "Sound volume 조절 명령",
+      "label": "wait_play_completed",
+      "action": "sound/wait_play_completed",
+      "description": "Sound/TTS play 완료 여부 확인",
       "json": {
-        "type": "behavior__sound__sound_set_volume",
+        "type": "behavior__sound__sound_wait_play_completed",
         "message0": "%1 %2 %3 %4 %5",
         "args0": [
           {
@@ -2322,7 +2005,7 @@
           },
           {
             "type": "field_label",
-            "text": "set_volume",
+            "text": "wait_play_completed",
             "name": "TITLE"
           },
           {
@@ -2331,343 +2014,32 @@
             "width": 16,
             "height": 16,
             "alt": "?",
-            "name": "HELP_VOLUME"
+            "name": "HELP_ID"
           },
           {
             "type": "field_label",
-            "text": "volume"
+            "text": "id"
           },
           {
-            "type": "field_dropdown",
-            "name": "PARAM_VOLUME",
-            "options": [
-              [
-                "0",
-                "0"
-              ],
-              [
-                "1",
-                "1"
-              ],
-              [
-                "2",
-                "2"
-              ],
-              [
-                "3",
-                "3"
-              ],
-              [
-                "4",
-                "4"
-              ],
-              [
-                "5",
-                "5"
-              ],
-              [
-                "6",
-                "6"
-              ],
-              [
-                "7",
-                "7"
-              ],
-              [
-                "8",
-                "8"
-              ],
-              [
-                "9",
-                "9"
-              ],
-              [
-                "10",
-                "10"
-              ]
-            ]
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
           }
         ],
         "previousStatement": "BTNode",
         "nextStatement": "BTNode",
         "colour": "#9467bd",
-        "tooltip": "Sound volume 조절 명령",
+        "tooltip": "Sound/TTS play 완료 여부 확인",
         "helpUrl": ""
       },
       "parameters": [
         {
-          "name": "volume",
-          "output_name": "volume",
+          "name": "id",
+          "output_name": "id",
           "parent_key": "",
-          "field": "PARAM_VOLUME",
+          "field": "PARAM_ID",
           "type": "integer",
-          "description": "Volume value (0 ~ 10)",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        }
-      ],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
-      "block_type": "behavior__lcd__lcd_play_animation",
-      "category": "LCD",
-      "kind": "behavior",
-      "label": "play_animation",
-      "action": "lcd/play_animation",
-      "description": "Head LCD에 animation 변경 명령 (eye 포함)",
-      "json": {
-        "type": "behavior__lcd__lcd_play_animation",
-        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "play_animation",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_PATH"
-          },
-          {
-            "type": "field_label",
-            "text": "path"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_PATH",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_REPEAT"
-          },
-          {
-            "type": "field_label",
-            "text": "repeat"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_REPEAT",
-            "text": ""
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_INSTANT_PLAY"
-          },
-          {
-            "type": "field_label",
-            "text": "instant_play"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_INSTANT_PLAY",
-            "text": ""
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#8c564b",
-        "tooltip": "Head LCD에 animation 변경 명령 (eye 포함)",
-        "helpUrl": ""
-      },
-      "parameters": [
-        {
-          "name": "path",
-          "output_name": "path",
-          "parent_key": "",
-          "field": "PARAM_PATH",
-          "type": "string",
-          "description": "Animation file path to play",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        },
-        {
-          "name": "repeat",
-          "output_name": "repeat",
-          "parent_key": "",
-          "field": "PARAM_REPEAT",
-          "type": "bool",
-          "description": "Animation repetition type",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        },
-        {
-          "name": "instant_play",
-          "output_name": "instant_play",
-          "parent_key": "",
-          "field": "PARAM_INSTANT_PLAY",
-          "type": "bool",
-          "description": "Decide if the animation plays immediately or after the current animation is completed.",
-          "options": [],
-          "raw_options": [],
-          "option_parameters": {},
-          "option_descriptions": {}
-        }
-      ],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
-      "block_type": "behavior__lcd__lcd_stop_animation",
-      "category": "LCD",
-      "kind": "behavior",
-      "label": "stop_animation",
-      "action": "lcd/stop_animation",
-      "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
-      "json": {
-        "type": "behavior__lcd__lcd_stop_animation",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "stop_animation",
-            "name": "TITLE"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#8c564b",
-        "tooltip": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
-        "helpUrl": ""
-      },
-      "parameters": [],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
-      "block_type": "behavior__device__device_set_led",
-      "category": "Device",
-      "kind": "behavior",
-      "label": "set_led",
-      "action": "device/set_led",
-      "description": "몸체의 LED의 light 제어 명령",
-      "json": {
-        "type": "behavior__device__device_set_led",
-        "message0": "%1 %2",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "set_led",
-            "name": "TITLE"
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#e377c2",
-        "tooltip": "몸체의 LED의 light 제어 명령",
-        "helpUrl": ""
-      },
-      "parameters": [],
-      "has_children": false,
-      "enabled_keys": [],
-      "robot_type": "",
-      "operation_profile": ""
-    },
-    {
-      "block_type": "behavior__etc__demo_set_demo_id",
-      "category": "Etc",
-      "kind": "behavior",
-      "label": "set_demo_id",
-      "action": "demo/set_demo_id",
-      "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
-      "json": {
-        "type": "behavior__etc__demo_set_demo_id",
-        "message0": "%1 %2 %3 %4 %5",
-        "args0": [
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP"
-          },
-          {
-            "type": "field_label",
-            "text": "set_demo_id",
-            "name": "TITLE"
-          },
-          {
-            "type": "field_image",
-            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-            "width": 16,
-            "height": 16,
-            "alt": "?",
-            "name": "HELP_NAME"
-          },
-          {
-            "type": "field_label",
-            "text": "name"
-          },
-          {
-            "type": "field_input",
-            "name": "PARAM_NAME",
-            "text": ""
-          }
-        ],
-        "previousStatement": "BTNode",
-        "nextStatement": "BTNode",
-        "colour": "#7f7f7f",
-        "tooltip": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
-        "helpUrl": ""
-      },
-      "parameters": [
-        {
-          "name": "name",
-          "output_name": "name",
-          "parent_key": "",
-          "field": "PARAM_NAME",
-          "type": "string",
-          "description": "Demo name to specify the demo",
+          "description": "Handle ID given for playing sound",
           "options": [],
           "raw_options": [],
           "option_parameters": {},
@@ -2713,7 +2085,7 @@
       "parameters": [],
       "has_children": false,
       "enabled_keys": [],
-      "robot_type": "",
+      "robot_type": "q9",
       "operation_profile": ""
     },
     {
@@ -4169,24 +3541,24 @@
     }
   ],
   "custom_modules": [
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
+    "ros2Blocks_lcd.js",
     "ros2Blocks_motion.js",
     "ros2Blocks_navigation.js",
     "ros2Blocks_sound.js",
-    "ros2Blocks_lcd.js",
-    "ros2Blocks_device.js",
-    "ros2Blocks_etc.js",
     "ros2Blocks_touch.js",
     "ros2Blocks_scenario.js",
     "bt_logic.js",
     "bt_function.js"
   ],
   "generator_modules": [
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
+    "ros2Blocks_lcd.js",
     "ros2Blocks_motion.js",
     "ros2Blocks_navigation.js",
     "ros2Blocks_sound.js",
-    "ros2Blocks_lcd.js",
-    "ros2Blocks_device.js",
-    "ros2Blocks_etc.js",
     "ros2Blocks_touch.js",
     "ros2Blocks_scenario.js",
     "bt_logic.js",
