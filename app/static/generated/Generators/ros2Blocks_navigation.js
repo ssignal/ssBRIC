@@ -1,6 +1,7 @@
 (() => {
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
 const OPTION_PARAM_MAP = {
+  "behavior__navigation__bric_move_to_pose": {},
   "behavior__navigation__navigation_get_angle_to_0": {},
   "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
@@ -10,12 +11,56 @@ const OPTION_PARAM_MAP = {
   "behavior__navigation__navigation_wait_move_finished": {},
   "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
+const POI_COORDS = {
+  "LG sciencepark W02::2::Rack": {
+    "x": 2.0,
+    "y": 2.0,
+    "z": 2.0
+  },
+  "LG sciencepark W02::2::Shelf": {
+    "x": 1.0,
+    "y": 1.0,
+    "z": 1.0
+  },
+  "LG sciencepark W10::2::Rack": {
+    "x": 2.0,
+    "y": 2.0,
+    "z": 2.0
+  },
+  "LG sciencepark W10::2::Shelf": {
+    "x": 1.0,
+    "y": 1.0,
+    "z": 1.0
+  }
+};
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
 function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }
 function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCase(); if (t === 'int' || t === 'integer') return Number.parseInt(raw || '0', 10); if (t === 'float' || t === 'double' || t === 'number') return Number.parseFloat(raw || '0'); return raw || ''; }
 function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }
 function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
+
+javascriptGenerator.forBlock['behavior__navigation__bric_move_to_pose'] = function(block, generator) {
+  const area = block.getFieldValue('PARAM_AREA') || '';
+  const floor = block.getFieldValue('PARAM_FLOOR') || '';
+  const poi = block.getFieldValue('PARAM_POI') || '';
+  const coordKey = area + '::' + floor + '::' + poi;
+  const coords = POI_COORDS[coordKey] || {};
+  const node = {
+    type: 'Action',
+    action: 'navigation/move_to_pose',
+    parameter: {
+      pose_type: 'map',
+      pose: {
+        x: coords.x !== undefined ? coords.x : 0,
+        y: coords.y !== undefined ? coords.y : 0,
+        z: coords.z !== undefined ? coords.z : 0,
+      },
+    },
+    id: randomId(),
+  };
+  return JSON.stringify(node) + '\n';
+};
 
 javascriptGenerator.forBlock['behavior__navigation__navigation_get_angle_to_0'] = function(block, generator) {
   const parameter = {};

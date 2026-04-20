@@ -235,6 +235,46 @@ def _update_blocklist_from_capability(
     return _write_json_if_changed(path, merged)
 
 
+# Template for the BRIC.start_motion wrapper block.
+# Options are populated at sync time by _update_blocklist_robot.
+_BRIC_START_MOTION_TEMPLATE: dict[str, Any] = {
+    "action": "BRIC.start_motion:motion/start_motion",
+    "category": "Motion",
+    "description": "Motion 시작 명령",
+    "enabled": True,
+    "parameters": [
+        {
+            "name": "name",
+            "type": "string",
+            "description": "Motion task name",
+            "enabled": True,
+            "options": [],
+            "min": None,
+            "max": None,
+        }
+    ],
+}
+
+
+def _ensure_bric_start_motion_block(path: Path) -> bool:
+    """Insert the BRIC.start_motion wrapper block into BlockListRobot.json if absent."""
+    data = _read_json(path, [])
+    if not isinstance(data, list):
+        data = []
+
+    already = any(
+        isinstance(item, dict)
+        and str(item.get("action", "")) == "BRIC.start_motion:motion/start_motion"
+        for item in data
+    )
+    if already:
+        return False
+
+    import copy
+    data = [copy.deepcopy(_BRIC_START_MOTION_TEMPLATE)] + data
+    return _write_json_if_changed(path, data)
+
+
 def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
     # Try progressively fewer columns; most permissive first.
     # Tier 1: name + display_name + robot_type + operation_profile + description
@@ -491,10 +531,9 @@ def _update_start_motion(
             name = str(row.get("value", "")).strip()
             if not name:
                 continue
-            display_name = str(row.get("display_name") or "").strip() or name
             out.append(
                 {
-                    "name": f"expressive_motion.{display_name}",
+                    "name": f"expressive_motion.{name}",
                     "data": {"task_type": "expressive_motion", "name": name, "repeat": 0},
                 }
             )
@@ -503,13 +542,428 @@ def _update_start_motion(
             name = str(row.get("value", "")).strip()
             if not name:
                 continue
-            display_name = str(row.get("display_name") or "").strip() or name
             out.append(
                 {
-                    "name": f"pose_motion.{display_name}",
+                    "name": f"pose_motion.{name}",
                     "data": {"task_type": "pose_motion", "name": name, "repeat": 0},
                 }
             )
+    return _write_json_if_changed(path, out)
+
+
+def _fetch_poi_rows(client: DBClient) -> list[dict[str, Any]]:
+    """Read POI table, including area and floor columns when available.
+
+    Returns one entry per unique (area, floor, name) combination.
+    """
+    rows: list[dict[str, Any]] = []
+    has_display_name = has_robot_type = has_op_profile = has_coords = False
+    has_area = has_floor = False
+
+    attempts: list[tuple[str, dict[str, bool]]] = [
+        (
+            "name, display_name, robot_type, operation_profile, area, floor,"
+            " position_x, position_y, position_z, description",
+            dict(dn=True, rt=True, op=True, area=True, floor=True, coords=True),
+        ),
+        (
+            "name, display_name, robot_type, area, floor,"
+            " position_x, position_y, position_z, description",
+            dict(dn=True, rt=True, op=False, area=True, floor=True, coords=True),
+        ),
+        (
+            "name, display_name, area, floor,"
+            " position_x, position_y, position_z, description",
+            dict(dn=True, rt=False, op=False, area=True, floor=True, coords=True),
+        ),
+        (
+            "name, display_name, area, floor, description",
+            dict(dn=True, rt=False, op=False, area=True, floor=True, coords=False),
+        ),
+        (
+            "name, display_name, position_x, position_y, position_z, description",
+            dict(dn=True, rt=False, op=False, area=False, floor=False, coords=True),
+        ),
+        (
+            "name, display_name, description",
+            dict(dn=True, rt=False, op=False, area=False, floor=False, coords=False),
+        ),
+        (
+            "name, description",
+            dict(dn=False, rt=False, op=False, area=False, floor=False, coords=False),
+        ),
+    ]
+    flags: dict[str, bool] = {}
+    for cols, flags in attempts:
+        try:
+            rows = client.read(
+                f"SELECT {cols} FROM `POI`"
+                f" WHERE name IS NOT NULL AND name <> ''"
+                f" ORDER BY area, floor, name"
+            )
+            has_display_name = flags["dn"]
+            has_robot_type = flags["rt"]
+            has_op_profile = flags["op"]
+            has_area = flags["area"]
+            has_floor = flags["floor"]
+            has_coords = flags["coords"]
+            break
+        except Exception:
+            continue
+
+    out: list[dict[str, Any]] = []
+    seen_composite: set[tuple[str, str, str]] = set()
+    for row in rows:
+        name = str(row.get("name", "")).strip()
+        if not name:
+            continue
+        area_val = str(row.get("area") or "").strip() if has_area else ""
+        floor_val = str(row.get("floor") or "").strip() if has_floor else ""
+        composite = (name, area_val, floor_val)
+        if composite in seen_composite:
+            continue
+        seen_composite.add(composite)
+
+        display_name = (
+            str(row.get("display_name") or "").strip() or name
+        ) if has_display_name else name
+
+        entry: dict[str, Any] = {
+            "value": name,
+            "display_name": display_name,
+            "description": str(row.get("description") or "").strip(),
+        }
+        if has_area and area_val:
+            entry["area"] = area_val
+        if has_floor and floor_val:
+            entry["floor"] = floor_val
+        if has_robot_type:
+            rt_val = str(row.get("robot_type") or "").strip()
+            if rt_val:
+                entry["robot_type"] = rt_val
+        if has_op_profile:
+            op_val = str(row.get("operation_profile") or "").strip()
+            if op_val:
+                entry["operation_profile"] = op_val
+        if has_coords:
+            entry["position_x"] = row.get("position_x")
+            entry["position_y"] = row.get("position_y")
+            entry["position_z"] = row.get("position_z")
+        out.append(entry)
+    return out
+
+
+# ─── BRIC:move_to_pose additional block ──────────────────────────────────────
+
+# Placeholder keeps options non-empty so the generator emits a dropdown field
+# instead of a text-input. Replaced by _update_move_to_pose_block_options.
+_AREA_PLACEHOLDER = {"value": "_", "display_name": "---"}
+
+_BRIC_MOVE_TO_POSE_TEMPLATE: dict[str, Any] = {
+    "action": "BRIC:move_to_pose",
+    "category": "Navigation",
+    "description": "Select area / floor / session / POI",
+    "enabled": True,
+    "parameters": [
+        {
+            "name": "area",
+            "type": "string",
+            "description": "Area",
+            "enabled": True,
+            "options": [_AREA_PLACEHOLDER],
+            "min": None,
+            "max": None,
+        },
+        {
+            "name": "floor",
+            "type": "string",
+            "description": "Floor",
+            "enabled": True,
+            "options": [_AREA_PLACEHOLDER],
+            "min": None,
+            "max": None,
+        },
+        {
+            "name": "session",
+            "type": "string",
+            "description": "Session",
+            "enabled": True,
+            "options": [_AREA_PLACEHOLDER],
+            "min": None,
+            "max": None,
+        },
+        {
+            "name": "poi",
+            "type": "string",
+            "description": "Point of Interest",
+            "enabled": True,
+            "options": [_AREA_PLACEHOLDER],
+            "min": None,
+            "max": None,
+        },
+    ],
+}
+
+
+def _fetch_area_information_rows(client: DBClient) -> list[dict[str, Any]]:
+    """Read AreaInformation table.
+
+    Returns a list of dicts with:
+      area        — full area string (e.g. "LG sciencepark W10")
+      information — parsed dict of {floor: [session, ...]}
+    """
+    out: list[dict[str, Any]] = []
+    try:
+        rows = client.read(
+            "SELECT area, information FROM `AreaInformation`"
+            " WHERE area IS NOT NULL AND area <> '' ORDER BY area"
+        )
+    except Exception:
+        return out
+
+    for row in rows:
+        area = str(row.get("area") or "").strip()
+        if not area:
+            continue
+        raw = row.get("information") or "{}"
+        try:
+            info = json.loads(raw) if isinstance(raw, str) else raw
+            if not isinstance(info, dict):
+                info = {}
+        except Exception:
+            info = {}
+        out.append({"area": area, "information": info})
+    return out
+
+
+def _ensure_bric_move_to_pose_block(path: Path) -> bool:
+    """Insert the BRIC:move_to_pose block into BlockListRobot.json if absent."""
+    import copy
+
+    data = _read_json(path, [])
+    if not isinstance(data, list):
+        data = []
+
+    already = any(
+        isinstance(item, dict) and str(item.get("action", "")) == "BRIC:move_to_pose"
+        for item in data
+    )
+    if already:
+        return False
+
+    # Insert before other BRIC blocks so it appears first in the category
+    insert_at = next(
+        (i for i, item in enumerate(data)
+         if isinstance(item, dict) and str(item.get("action", "")).startswith("BRIC")),
+        0,
+    )
+    data.insert(insert_at, copy.deepcopy(_BRIC_MOVE_TO_POSE_TEMPLATE))
+    return _write_json_if_changed(path, data)
+
+
+def _update_move_to_pose_block_options(
+    path: Path,
+    area_info_rows: list[dict[str, Any]],
+    poi_rows: list[dict[str, Any]],
+) -> bool:
+    """Rebuild BRIC:move_to_pose block options from AreaInformation + POI rows.
+
+    area    — one per AreaInformation row (full string from DB)
+    floor   — unique (area, floor) pairs; each carries area metadata
+    session — unique (area, floor, session) triples; each carries area+floor metadata
+    poi     — POI rows with valid coordinates only; each carries area+floor metadata
+              and position_x/y/z for export-time lookup
+    """
+    if not area_info_rows:
+        return False
+
+    data = _read_json(path, [])
+    if not isinstance(data, list):
+        return False
+
+    # area options
+    area_opts = [
+        {"value": r["area"], "display_name": r["area"]}
+        for r in area_info_rows
+    ]
+    if not area_opts:
+        return False
+
+    # floor options
+    seen_floor: set[tuple[str, str]] = set()
+    floor_opts: list[dict[str, Any]] = []
+    for r in area_info_rows:
+        for floor_key in r["information"].keys():
+            pair = (r["area"], floor_key)
+            if pair not in seen_floor:
+                seen_floor.add(pair)
+                floor_opts.append({"value": floor_key, "display_name": floor_key, "area": r["area"]})
+    if not floor_opts:
+        floor_opts = [_AREA_PLACEHOLDER]
+
+    # session options
+    seen_sess: set[tuple[str, str, str]] = set()
+    session_opts: list[dict[str, Any]] = []
+    for r in area_info_rows:
+        for floor_key, sessions in r["information"].items():
+            for sess in (sessions if isinstance(sessions, list) else []):
+                sess_str = str(sess).strip()
+                if not sess_str:
+                    continue
+                triple = (r["area"], floor_key, sess_str)
+                if triple not in seen_sess:
+                    seen_sess.add(triple)
+                    session_opts.append({
+                        "value": sess_str,
+                        "display_name": sess_str,
+                        "area": r["area"],
+                        "floor": floor_key,
+                    })
+    if not session_opts:
+        session_opts = [_AREA_PLACEHOLDER]
+
+    # poi options — only include rows that have full x/y/z coordinates
+    poi_opts: list[dict[str, Any]] = []
+    for r in poi_rows:
+        if r.get("position_x") is None or r.get("position_y") is None or r.get("position_z") is None:
+            continue
+        entry: dict[str, Any] = {
+            "value": r["value"],
+            "display_name": _poi_display_name(r, poi_rows),
+            "area": r.get("area", ""),
+            "floor": r.get("floor", ""),
+            "position_x": r["position_x"],
+            "position_y": r["position_y"],
+            "position_z": r["position_z"],
+        }
+        if r.get("description"):
+            entry["description"] = r["description"]
+        poi_opts.append(entry)
+    if not poi_opts:
+        poi_opts = [_AREA_PLACEHOLDER]
+
+    changed = False
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        if str(item.get("action", "")).strip() != "BRIC:move_to_pose":
+            continue
+        for p in item.get("parameters") or []:
+            if not isinstance(p, dict):
+                continue
+            pname = str(p.get("name", ""))
+            new_opts = {"area": area_opts, "floor": floor_opts, "session": session_opts, "poi": poi_opts}.get(pname)
+            if new_opts is not None and p.get("options") != new_opts:
+                p["options"] = new_opts
+                changed = True
+
+    if not changed:
+        return False
+    return _write_json_if_changed(path, data)
+
+
+def _remove_old_bric_blocks(path: Path) -> bool:
+    """Remove deprecated BRIC:area and BRIC.POI blocks from BlockListRobot.json."""
+    data = _read_json(path, [])
+    if not isinstance(data, list):
+        return False
+    old_actions = {"BRIC:area", "BRIC.POI:navigation/move_to_pose"}
+    filtered = [
+        item for item in data
+        if not (isinstance(item, dict) and str(item.get("action", "")) in old_actions)
+    ]
+    if len(filtered) == len(data):
+        return False
+    return _write_json_if_changed(path, filtered)
+
+
+def _poi_display_name(row: dict[str, Any], all_rows: list[dict[str, Any]]) -> str:
+    """Return a disambiguated display label for a POI option.
+
+    When the same `name` appears across multiple areas, prefix the area so the
+    user can tell them apart.  When the name is unique, return `display_name`.
+    """
+    name = str(row.get("value", "") or "")
+    base = str(row.get("display_name") or name)
+    duplicates = sum(1 for r in all_rows if str(r.get("value", "") or "") == name)
+    if duplicates > 1:
+        area = str(row.get("area") or "").strip()
+        if area:
+            return f"{area} › {base}"
+    return base
+
+
+def _write_bric_move_to_pose_ref(path: Path, poi_rows: list[dict[str, Any]]) -> bool:
+    """Write bric_move_to_pose.json — BT export reference for BRIC:move_to_pose block.
+
+    Each entry maps a composite key "{area}::{floor}::{poi_name}" to the pose data
+    used by navigation/move_to_pose. Only includes POIs with full coordinates.
+    """
+    entries: list[dict[str, Any]] = []
+    for r in poi_rows:
+        if r.get("position_x") is None or r.get("position_y") is None or r.get("position_z") is None:
+            continue
+        name = str(r.get("value", "")).strip()
+        area = str(r.get("area", "")).strip()
+        floor = str(r.get("floor", "")).strip()
+        if not (name and area):
+            continue
+        key = f"{area}::{floor}::{name}"
+        entries.append({
+            "name": key,
+            "data": {
+                "pose_type": "map",
+                "pose": {
+                    "x": float(r["position_x"]),
+                    "y": float(r["position_y"]),
+                    "z": float(r["position_z"]),
+                },
+            },
+        })
+    return _write_json_if_changed(path, entries)
+
+
+def _update_poi_json(path: Path, poi_rows: list[dict[str, Any]]) -> bool:
+    """Update POI.json reference file from DB rows.
+
+    Keeps existing manually-crafted entries not present in DB.
+    Replaces/adds entries for each DB row using its name as key.
+    Data format: { "pose_type": "map", "pose": { "x": ..., "y": ..., "z": ... } }
+    """
+    if not poi_rows:
+        return False
+
+    current = _read_json(path, [])
+    if not isinstance(current, list):
+        current = []
+
+    db_names = {str(r["value"]) for r in poi_rows if r.get("value")}
+    retained = [
+        row for row in current
+        if isinstance(row, dict) and str(row.get("name", "")) not in db_names
+    ]
+
+    new_entries: list[dict[str, Any]] = []
+    for row in poi_rows:
+        name = str(row.get("value", "")).strip()
+        if not name:
+            continue
+        x = row.get("position_x")
+        y = row.get("position_y")
+        z = row.get("position_z")
+        pose: dict[str, Any] = {}
+        if x is not None:
+            pose["x"] = float(x)
+        if y is not None:
+            pose["y"] = float(y)
+        if z is not None:
+            pose["z"] = float(z)
+        data_val: dict[str, Any] = {"pose_type": "map"}
+        if pose:
+            data_val["pose"] = pose
+        new_entries.append({"name": name, "data": data_val})
+
+    out = retained + new_entries
     return _write_json_if_changed(path, out)
 
 
@@ -537,6 +991,9 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
         if _update_blocklist_from_capability(blocklist_path, capability_rows):
             summary["updated"].append("btInfo/BlockListRobot.json (capability)")
 
+        if _ensure_bric_start_motion_block(blocklist_path):
+            summary["updated"].append("btInfo/BlockListRobot.json (bric wrapper)")
+
         expressive_rows = _fetch_motion_rows(client, "MotionExpressive")
         pose_rows = _fetch_motion_rows(client, "MotionPose")
         summary["counts"] = {
@@ -557,6 +1014,29 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
             pose_rows,
         ):
             summary["updated"].append("btInfo/start_motion.json")
+
+        # BRIC:move_to_pose additional block (area + floor + session + POI)
+        area_info_rows = _fetch_area_information_rows(client)
+        summary["counts"]["AreaInformation"] = len(area_info_rows)
+
+        poi_rows = _fetch_poi_rows(client)
+        summary["counts"]["POI"] = len(poi_rows)
+
+        # Insert the new block first, populate options, then remove old deprecated blocks
+        if _ensure_bric_move_to_pose_block(blocklist_path):
+            summary["updated"].append("btInfo/BlockListRobot.json (bric move_to_pose)")
+
+        if _update_move_to_pose_block_options(blocklist_path, area_info_rows, poi_rows):
+            summary["updated"].append("btInfo/BlockListRobot.json (move_to_pose options)")
+
+        if _remove_old_bric_blocks(blocklist_path):
+            summary["updated"].append("btInfo/BlockListRobot.json (removed deprecated BRIC blocks)")
+
+        if _update_poi_json(base_dir / "btInfo" / "POI.json", poi_rows):
+            summary["updated"].append("btInfo/POI.json")
+
+        if _write_bric_move_to_pose_ref(base_dir / "btInfo" / "bric_move_to_pose.json", poi_rows):
+            summary["updated"].append("btInfo/bric_move_to_pose.json")
 
         # Fetch profile table row counts for summary only (data served live from DB).
         robot_types = _fetch_robot_types(client)

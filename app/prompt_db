@@ -133,8 +133,8 @@
               value: name
               display_name: display_name  (fallback: name)
               description: description
-              robot_type: robot_type      (optional, for profile filtering)
-              operation_profile: operation_profile  (optional)
+              robot_type: robot_type      (default: "", for robot type filtering)
+              operation_profile: operation_profile  (default:"", for profile filtering)
         target: parameters[].task_type.options[].value: 'pose_motion'
           DB info for parameters:
             Table: MotionPose
@@ -142,8 +142,144 @@
               value: name
               display_name: display_name  (fallback: name)
               description: description
-              robot_type: robot_type      (optional)
-              operation_profile: operation_profile  (optional)
+              robot_type: robot_type      (default: "", for robot type filtering)
+              operation_profile: operation_profile  (default:"", for profile filtering)
+
+  ### Wrapper Block
+    Create a block parsing BlockListRobot.json
+    The parameters in Wrapper Block will be replaced with reference_file during 'Export BT' Step.
+    So, create reference file for the parameter to repace.
+    - start_motion
+        target block: 'motion/start_motion'
+        reference values
+          A: parameters['task_type'].options[].value
+          B: parameters['task_type'].options[].parameters[].options[].display_name
+          C: parameters['task_type'].options[].parameters[].options[].description
+          D: parameters['task_type'].options[].parameters[].options[].value
+          E: parameters['task_type'].options[].parameters[].options[].robot_type
+          F: parameters['task_type'].options[].parameters[].options[].operation_profile
+        blockInfo:
+          action: 'BRIC.start_motion:motion/start_motion'
+          category: "motion"
+          name: "motion/start_motion"
+          description: "Motion 시작 명령",
+          enabled: 'true'
+          parameters[]:
+            name: 'name'
+            type: 'string'
+            description: 'Motion task name'
+            options[]:
+              value: '{A}.{D}'
+              display_name: '{A}.{B}'
+              description: '{C}'
+            robot_type: '{E}'' (default: "", for robot type filtering)
+            operation_profile: '{F}' (default:"", for profile filtering)
+        reference_file: start_motion.json
+          Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
+            { "name": "{A}.{D}", "data": { "task_type": "{A}", "name": "{D}", "repeat": 0 } }
+  ### Additional Block 
+    This block is created by BRIC not in the list of BehaviorCapability in DB.
+    Options for each parameter are in the DB.
+    Show the string defined 'display name' part, and send it 
+    - move_to_pose
+      blockInfo:
+        action: 'BRIC:move_to_pose'
+        category: "Navigation"
+        description: "Select area / floor / session / POI"
+        enabled: true
+        parameters[]: 4 cascading dropdowns
+          - area:
+            options[]: unique area values from AreaInformation.area column
+                       FULL string from DB is used as both value and display_name (e.g. "LG sciencepark W02")
+          - floor: JSON keys from AreaInformation.information column (e.g. "1", "2", "M", "B1")
+            options[]: unique floor according to the selected area.
+                       each option carries 'area' metadata for cascading
+          - session: JSON array values for each floor in AreaInformation.information
+              e.g. information = {"1": ["default", "elevator_AB"], ...}
+            options[]: unique session according to the selected area and floor.
+                       each option carries 'area' and 'floor' metadata for cascading
+          - poi: unique POI values from POI table filtered by the selected area and floor.
+            options[]: only POIs with all three coordinates (position_x/y/z) included
+                       value = POI.name; display_name = disambiguated label (area › name when duplicate)
+                       each option carries 'area', 'floor', 'position_x/y/z' metadata
+                       descriptions: POI.description from DB
+      Block UI rules (generator_engine.py):
+        - Block title label: action_label = X after stripping "BRIC:" prefix → "move_to_pose"
+          Rule: for any "BRIC:X" or "BRIC.Y:Z" action, action_label is the last path segment after ":"
+        - Param labels: shown for all params (output_name != action_label);
+          suppressed only when output_name == action_label (e.g. legacy BRIC:area case)
+        - Dropdown option deduplication: static dropdown definitions require unique values
+          (Blockly FieldDropdown rejects duplicate values — causes field creation failure and
+           breaks setHoverOptionHelp setup). In generator_engine.py, dd list is deduplicated
+           by value before appending to args0. The full option_descriptions map (keyed by both
+           value and display_name) is still built from ALL options for help popup lookup.
+        - Help popup for POI options: indexed by value ("Rack") AND display_name
+          ("LG sciencepark W02 › Hanging Rack") so lookup succeeds regardless of whether
+          Blockly provides data-value or falls back to textContent.
+      Implementation (db_sync.py):
+        _fetch_area_information_rows(client):
+          SELECT area, information FROM AreaInformation
+          → parses information JSON → returns [{area, information: {floor: [sessions]}}]
+        _fetch_poi_rows(client):
+          SELECT name, display_name, area, floor, position_x, position_y, position_z, description FROM POI
+        _BRIC_MOVE_TO_POSE_TEMPLATE: seeded with placeholder options to force dropdown generation
+        _ensure_bric_move_to_pose_block(path): inserts block before other BRIC blocks if absent
+        _update_move_to_pose_block_options(path, area_info_rows, poi_rows):
+          Builds and writes area/floor/session/poi options into the block entry in BlockListRobot.json.
+          area opts:    [{value: area, display_name: area}] — FULL string from DB column
+          floor opts:   unique (area, floor) pairs; each carries 'area' metadata
+          session opts: unique (area, floor, session) triples; each carries 'area' and 'floor' metadata
+          poi opts:     only rows with all 3 coords; carry area, floor, position_x/y/z, description
+        _write_bric_move_to_pose_ref(path, poi_rows):
+          Writes btInfo/bric_move_to_pose.json — maps composite key to pose data.
+          Only POIs with all three coordinates are included.
+          Key format: "{area}::{floor}::{poi_name}"  (3-part composite for uniqueness)
+          Format: [{"name": "{area}::{floor}::{poi_name}",
+                    "data": {"pose_type": "map", "pose": {"x": ..., "y": ..., "z": ...}}}]
+        _remove_old_bric_blocks(path):
+          Removes any deprecated BRIC:area and BRIC.POI:navigation/move_to_pose entries
+        Sync call order in sync_block_info_from_db:
+          1. _ensure_bric_move_to_pose_block   → insert block if absent
+          2. _update_move_to_pose_block_options → populate options
+          3. _remove_old_bric_blocks            → remove deprecated entries
+          4. _write_bric_move_to_pose_ref       → write bric_move_to_pose.json
+      Cascading JS (generator_engine.py emit_block_file):
+        Detects 'BRIC:move_to_pose' block and emits an IIFE inside registerBlocks_<module>().
+        Builds:
+          sessTree = {area: {floor: [[display, value], ...]}} from session raw_options
+          poiTree  = {area: {floor: [[display, value], ...]}} from poi raw_options
+        4-field cascade:
+          areaField.setValidator → rebuilds floor, session, poi dropdowns for new area
+          floorField.setValidator → rebuilds session, poi dropdowns for new floor
+          Init: sets menuGenerator_ for floor, session, poi using default area value
+      Export (two paths, both must produce the same result):
+        JS path (generator_engine.py emit_generator_file):
+          Builds POI_COORDS = {"area::floor::poi_name": {x, y, z}} from poi raw_options.
+          Custom forBlock for 'BRIC:move_to_pose':
+            reads PARAM_AREA, PARAM_FLOOR, PARAM_POI field values
+            looks up coordKey = "{area}::{floor}::{poi}" in POI_COORDS
+            emits navigation/move_to_pose BT node with pose coords
+        Python path (app.py preprocess_export_tree → walk()):
+          Detects action == "BRIC:move_to_pose" (before BRIC_ACTION_RE check).
+          Reads area, floor, poi from node["parameter"] dict.
+          Builds composite key: "{area}::{floor}::{poi}"
+          Calls load_ref("bric_move_to_pose") to get {key → data} dict.
+          Replaces node["action"] with "navigation/move_to_pose"
+          Replaces node["parameter"] with matched pose data from bric_move_to_pose.json.
+          Error added to resolution_errors if key not found.
+      BT export format:
+        {
+          "type": "Action",
+          "action": "navigation/move_to_pose",
+          "parameter": {
+            "pose_type": "map",
+            "pose": {
+              "x": {position_x},
+              "y": {position_y},
+              "z": {position_z}
+            }
+          }
+        }
 
 ## Help popup for option descriptions
 
@@ -183,7 +319,19 @@
     - The active field is tracked via window.BRIC.activeOptionHelpField so the correct
       option_descriptions map is used when multiple dropdowns exist on the same block.
 
-## start_motion.json
-  Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
-    { "name": "expressive_motion.{display_name}", "data": { "task_type": "expressive_motion", "name": "{name}", "repeat": 0 } }
-  This keeps the UI label human-friendly while BT generation uses the raw value.
+## Reference files (btInfo/)
+
+  ### start_motion.json
+    Written by _update_start_motion_json() in db_sync.py.
+    Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
+      { "name": "expressive_motion.{display_name}", "data": { "task_type": "expressive_motion", "name": "{name}", "repeat": 0 } }
+    This keeps the UI label human-friendly while BT generation uses the raw value.
+    Loaded by load_ref("start_motion") in app.py walk() for BRIC.start_motion:motion/start_motion export.
+
+  ### bric_move_to_pose.json
+    Written by _write_bric_move_to_pose_ref() in db_sync.py.
+    Each entry maps a composite key "{area}::{floor}::{poi_name}" to pose data:
+      { "name": "{area}::{floor}::{poi_name}", "data": { "pose_type": "map", "pose": { "x": ..., "y": ..., "z": ... } } }
+    Only POIs with all three coordinates (position_x, position_y, position_z) are included.
+    Loaded by load_ref("bric_move_to_pose") in app.py walk() for BRIC:move_to_pose export.
+    Composite key used for lookup: "{area}::{floor}::{poi}" where values come from block fields.

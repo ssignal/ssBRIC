@@ -1,6 +1,254 @@
 (() => {
 const BLOCKS = [
   {
+    "type": "behavior__navigation__bric_move_to_pose",
+    "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+    "args0": [
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP"
+      },
+      {
+        "type": "field_label",
+        "text": "move_to_pose",
+        "name": "TITLE"
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_AREA"
+      },
+      {
+        "type": "field_label",
+        "text": "area"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_AREA",
+        "options": [
+          [
+            "LG Digital Park P1",
+            "LG Digital Park P1"
+          ],
+          [
+            "LG sciencepark W02",
+            "LG sciencepark W02"
+          ],
+          [
+            "LG sciencepark W10",
+            "LG sciencepark W10"
+          ],
+          [
+            "LG Seocho R&D",
+            "LG Seocho R&D"
+          ],
+          [
+            "LG Seocho R&D Podium",
+            "LG Seocho R&D Podium"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_FLOOR"
+      },
+      {
+        "type": "field_label",
+        "text": "floor"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_FLOOR",
+        "options": [
+          [
+            "1",
+            "1"
+          ],
+          [
+            "2",
+            "2"
+          ],
+          [
+            "3",
+            "3"
+          ],
+          [
+            "B1",
+            "B1"
+          ],
+          [
+            "B2",
+            "B2"
+          ],
+          [
+            "4",
+            "4"
+          ],
+          [
+            "5",
+            "5"
+          ],
+          [
+            "6",
+            "6"
+          ],
+          [
+            "7",
+            "7"
+          ],
+          [
+            "8",
+            "8"
+          ],
+          [
+            "9",
+            "9"
+          ],
+          [
+            "M",
+            "M"
+          ],
+          [
+            "10",
+            "10"
+          ],
+          [
+            "11",
+            "11"
+          ],
+          [
+            "12",
+            "12"
+          ],
+          [
+            "13",
+            "13"
+          ],
+          [
+            "14",
+            "14"
+          ],
+          [
+            "15",
+            "15"
+          ],
+          [
+            "16",
+            "16"
+          ],
+          [
+            "17",
+            "17"
+          ],
+          [
+            "18",
+            "18"
+          ],
+          [
+            "19",
+            "19"
+          ],
+          [
+            "20",
+            "20"
+          ],
+          [
+            "21",
+            "21"
+          ],
+          [
+            "22",
+            "22"
+          ],
+          [
+            "23",
+            "23"
+          ],
+          [
+            "24",
+            "24"
+          ],
+          [
+            "25",
+            "25"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_SESSION"
+      },
+      {
+        "type": "field_label",
+        "text": "session"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_SESSION",
+        "options": [
+          [
+            "default",
+            "default"
+          ],
+          [
+            "elevator_AB",
+            "elevator_AB"
+          ],
+          [
+            "eleavor_CD",
+            "eleavor_CD"
+          ]
+        ]
+      },
+      {
+        "type": "field_image",
+        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+        "width": 16,
+        "height": 16,
+        "alt": "?",
+        "name": "HELP_POI"
+      },
+      {
+        "type": "field_label",
+        "text": "poi"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "PARAM_POI",
+        "options": [
+          [
+            "LG sciencepark W02 › Hanging Rack",
+            "Rack"
+          ],
+          [
+            "LG sciencepark W02 › Self",
+            "Shelf"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": "BTNode",
+    "nextStatement": "BTNode",
+    "colour": "#d62728",
+    "tooltip": "Select area / floor / session / POI",
+    "helpUrl": ""
+  },
+  {
     "type": "behavior__navigation__navigation_get_angle_to_0",
     "message0": "%1 %2",
     "args0": [
@@ -518,6 +766,7 @@ const BLOCKS = [
   }
 ];
 const BLOCK_TOOLTIPS = {
+  "behavior__navigation__bric_move_to_pose": "Select area / floor / session / POI",
   "behavior__navigation__navigation_get_angle_to_0": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
   "behavior__navigation__navigation_get_current_pose": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
   "behavior__navigation__navigation_move_in_direction": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
@@ -528,6 +777,12 @@ const BLOCK_TOOLTIPS = {
   "behavior__navigation__navigation_wait_move_finished_and_sleep": "navigation/wait_move_finished가 정상 종료되면 500ms 대기"
 };
 const PARAM_TOOLTIPS = {
+  "behavior__navigation__bric_move_to_pose": {
+    "PARAM_AREA": "Area",
+    "PARAM_FLOOR": "Floor",
+    "PARAM_SESSION": "Session",
+    "PARAM_POI": "Point of Interest"
+  },
   "behavior__navigation__navigation_get_angle_to_0": {},
   "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {
@@ -549,6 +804,7 @@ const PARAM_TOOLTIPS = {
   "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
 const OPTION_PARAM_MAP = {
+  "behavior__navigation__bric_move_to_pose": {},
   "behavior__navigation__navigation_get_angle_to_0": {},
   "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {},
@@ -559,6 +815,58 @@ const OPTION_PARAM_MAP = {
   "behavior__navigation__navigation_wait_move_finished_and_sleep": {}
 };
 const OPTION_TOOLTIPS = {
+  "behavior__navigation__bric_move_to_pose": {
+    "PARAM_AREA": {
+      "LG Digital Park P1": "",
+      "LG sciencepark W02": "",
+      "LG sciencepark W10": "",
+      "LG Seocho R&D": "",
+      "LG Seocho R&D Podium": ""
+    },
+    "PARAM_FLOOR": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "B1": "",
+      "B2": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "M": "",
+      "10": "",
+      "11": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "18": "",
+      "19": "",
+      "20": "",
+      "21": "",
+      "22": "",
+      "23": "",
+      "24": "",
+      "25": ""
+    },
+    "PARAM_SESSION": {
+      "default": "",
+      "elevator_AB": "",
+      "eleavor_CD": ""
+    },
+    "PARAM_POI": {
+      "Rack": "LG Sciencepart W10 2F in front of hanging rack",
+      "LG sciencepark W02 › Hanging Rack": "LG Sciencepart W02 2F in front of hanging rack",
+      "Shelf": "LG Sciencepart W10 2F In front of shelf",
+      "LG sciencepark W02 › Self": "LG Sciencepart W02 2F In front of shelf",
+      "LG sciencepark W10 › Hanging Rack": "LG Sciencepart W10 2F in front of hanging rack",
+      "LG sciencepark W10 › Self": "LG Sciencepart W10 2F In front of shelf"
+    }
+  },
   "behavior__navigation__navigation_get_angle_to_0": {},
   "behavior__navigation__navigation_get_current_pose": {},
   "behavior__navigation__navigation_move_in_direction": {
@@ -1051,6 +1359,72 @@ function registerBlocks_ros2blocks_navigation() {
       };
     }
   });
+  // Cascading dropdowns for BRIC:move_to_pose block
+  (function() {
+    const sessTree = {"LG Digital Park P1": {"1": [["default", "default"]], "2": [["default", "default"]], "3": [["default", "default"]], "B1": [["default", "default"]], "B2": [["default", "default"]]}, "LG sciencepark W02": {"1": [["default", "default"]], "2": [["default", "default"]], "3": [["default", "default"]], "4": [["default", "default"]], "5": [["default", "default"]], "6": [["default", "default"]], "7": [["default", "default"]], "8": [["default", "default"]], "9": [["default", "default"]], "M": [["default", "default"]], "B1": [["default", "default"]], "B2": [["default", "default"]]}, "LG sciencepark W10": {"1": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "2": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "3": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "4": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "5": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "6": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "7": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "8": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "9": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "M": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "B1": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]], "B2": [["default", "default"], ["elevator_AB", "elevator_AB"], ["eleavor_CD", "eleavor_CD"]]}, "LG Seocho R&D": {"1": [["default", "default"]], "2": [["default", "default"]], "3": [["default", "default"]], "4": [["default", "default"]], "5": [["default", "default"]], "6": [["default", "default"]], "7": [["default", "default"]], "8": [["default", "default"]], "9": [["default", "default"]], "M": [["default", "default"]], "10": [["default", "default"]], "11": [["default", "default"]], "12": [["default", "default"]], "13": [["default", "default"]], "14": [["default", "default"]], "15": [["default", "default"]], "16": [["default", "default"]], "17": [["default", "default"]], "18": [["default", "default"]], "19": [["default", "default"]], "20": [["default", "default"]], "21": [["default", "default"]], "22": [["default", "default"]], "23": [["default", "default"]], "24": [["default", "default"]], "25": [["default", "default"]], "B1": [["default", "default"]], "B2": [["default", "default"]]}, "LG Seocho R&D Podium": {"1": [["default", "default"]], "2": [["default", "default"]], "3": [["default", "default"]], "4": [["default", "default"]], "5": [["default", "default"]], "B1": [["default", "default"]], "B2": [["default", "default"]]}};
+    const poiTree = {"LG sciencepark W02": {"2": [["LG sciencepark W02 › Hanging Rack", "Rack"], ["LG sciencepark W02 › Self", "Shelf"]]}, "LG sciencepark W10": {"2": [["LG sciencepark W10 › Hanging Rack", "Rack"], ["LG sciencepark W10 › Self", "Shelf"]]}};
+    const bricMtpType = 'behavior__navigation__bric_move_to_pose';
+    const def = Blockly.Blocks[bricMtpType];
+    if (!def) return;
+    const prevInit = def.init;
+    def.init = function() {
+      prevInit.call(this);
+      const block = this;
+      const areaField = block.getField('PARAM_AREA');
+      const floorField = block.getField('PARAM_FLOOR');
+      const sessionField = block.getField('PARAM_SESSION');
+      const poiField = block.getField('PARAM_POI');
+      if (!areaField || !floorField || !sessionField || !poiField) return;
+
+      function setDropdownOpts(field, newOpts) {
+        if (!field || !newOpts || !newOpts.length) return;
+        if (typeof field.setOptions === 'function') {
+          field.setOptions(newOpts);
+        } else {
+          field.menuGenerator_ = newOpts;
+          try { field.setValue(newOpts[0][1]); } catch(e) {}
+        }
+      }
+      function floorOpts(area) {
+        const floors = Object.keys(sessTree[area] || {}).sort();
+        return floors.length ? floors.map(f => [f, f]) : [['—', '_']];
+      }
+      function sessionOpts(area, floor) {
+        const sessions = (sessTree[area] || {})[floor] || [];
+        return sessions.length ? sessions : [['—', '_']];
+      }
+      function poiOpts(area, floor) {
+        const pois = (poiTree[area] || {})[floor] || [];
+        return pois.length ? pois : [['—', '_']];
+      }
+
+      areaField.setValidator(function(newArea) {
+        const fOpts = floorOpts(newArea);
+        setDropdownOpts(floorField, fOpts);
+        const firstFloor = fOpts[0][1];
+        setDropdownOpts(sessionField, sessionOpts(newArea, firstFloor));
+        setDropdownOpts(poiField, poiOpts(newArea, firstFloor));
+        return newArea;
+      });
+      floorField.setValidator(function(newFloor) {
+        const area = block.getFieldValue('PARAM_AREA') || '';
+        setDropdownOpts(sessionField, sessionOpts(area, newFloor));
+        setDropdownOpts(poiField, poiOpts(area, newFloor));
+        return newFloor;
+      });
+
+      // Initialise dependent dropdowns for the current (default) area value.
+      const initArea = block.getFieldValue('PARAM_AREA') || '';
+      const hasData = sessTree[initArea] || poiTree[initArea];
+      if (initArea && hasData) {
+        const fOpts = floorOpts(initArea);
+        floorField.menuGenerator_ = fOpts;
+        const initFloor = block.getFieldValue('PARAM_FLOOR') || fOpts[0][1];
+        sessionField.menuGenerator_ = sessionOpts(initArea, initFloor);
+        poiField.menuGenerator_ = poiOpts(initArea, initFloor);
+      }
+    };
+  })();
 }
 
 window.BRIC = window.BRIC || {};

@@ -1,20 +1,23 @@
 {
   "Root": {
     "type": "Root",
-    "id": "42437731",
+    "id": "54489909",
     "child": {
       "type": "Sequence",
-      "id": "53370017",
+      "id": "67129009",
       "children": [
         {
           "type": "Action",
-          "action": "motion/start_motion",
+          "action": "navigation/move_to_pose",
           "parameter": {
-            "task_type": "expressive_motion",
-            "name": "fistbump_strike",
-            "repeat": "once"
+            "pose_type": "map",
+            "pose": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
           },
-          "id": "49753305"
+          "id": "31733779"
         }
       ]
     }

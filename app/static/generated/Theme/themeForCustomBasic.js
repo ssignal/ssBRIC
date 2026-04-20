@@ -26,6 +26,9 @@ window.themeForCustomBasic = {
     "motion_category": {
       "colour": "#2ca02c"
     },
+    "navigation_category": {
+      "colour": "#d62728"
+    },
     "device_category": {
       "colour": "#e377c2"
     },
@@ -35,14 +38,8 @@ window.themeForCustomBasic = {
     "lcd_category": {
       "colour": "#8c564b"
     },
-    "navigation_category": {
-      "colour": "#d62728"
-    },
     "sound_category": {
       "colour": "#9467bd"
-    },
-    "touch_category": {
-      "colour": "#e91e63"
     },
     "scenario_category": {
       "colour": "#bcbd22"

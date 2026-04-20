@@ -11,6 +11,7 @@ const OPTION_PARAM_MAP = {
   "behavior__scenario__bric_scenario_scenariotest_recursive": {},
   "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
+const POI_COORDS = {};
 
 function randomId() { return Math.floor(10000000 + Math.random() * 90000000).toString(); }
 function parseChildNodes(raw) { return (raw || '').split('\n').map((v) => v.trim()).filter(Boolean).map((v) => { try { return JSON.parse(v); } catch (err) { return null; } }).filter((v) => v && typeof v === 'object'); }

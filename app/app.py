@@ -688,6 +688,26 @@ def preprocess_export_tree(data: Any, resolution_errors: list[str] | None = None
                 add_resolution_error(
                     f"{path}: scenario reference not found or invalid: {scenario_name}"
                 )
+            if action.strip() == "BRIC:move_to_pose":
+                param = node.get("parameter")
+                if isinstance(param, dict):
+                    area = str(param.get("area", "")).strip()
+                    floor = str(param.get("floor", "")).strip()
+                    poi = str(param.get("poi", "")).strip()
+                    key = f"{area}::{floor}::{poi}"
+                    ref = load_ref("bric_move_to_pose")
+                    matched = ref.get(key)
+                    if isinstance(matched, dict):
+                        node["action"] = "navigation/move_to_pose"
+                        node["parameter"] = deepcopy(matched)
+                    else:
+                        add_resolution_error(
+                            f"{path}: POI not found for '{key}' in bric_move_to_pose.json"
+                        )
+                else:
+                    add_resolution_error(
+                        f"{path}: missing parameter for BRIC:move_to_pose"
+                    )
             m = BRIC_ACTION_RE.match(action.strip())
             if m:
                 ref_name = m.group(1)

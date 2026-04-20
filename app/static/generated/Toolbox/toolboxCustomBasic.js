@@ -82,6 +82,10 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
+          "type": "behavior__motion__bric_start_motion_motion_start_motion"
+        },
+        {
+          "kind": "block",
           "type": "behavior__motion__motion_start_motion"
         },
         {
@@ -91,6 +95,49 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "behavior__motion__motion_wait_motion_finished"
+        }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Navigation",
+      "categorystyle": "navigation_category",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "behavior__navigation__bric_move_to_pose"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_get_angle_to_0"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_get_current_pose"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_move_in_direction"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_move_to_pose"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_rotate"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_stop_move"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_wait_move_finished"
+        },
+        {
+          "kind": "block",
+          "type": "behavior__navigation__navigation_wait_move_finished_and_sleep"
         }
       ]
     },
@@ -133,45 +180,6 @@ window.toolboxCustomBasic = {
     },
     {
       "kind": "category",
-      "name": "Navigation",
-      "categorystyle": "navigation_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_get_angle_to_0"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_get_current_pose"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_move_in_direction"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_move_to_pose"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_rotate"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_stop_move"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_wait_move_finished"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__navigation__navigation_wait_move_finished_and_sleep"
-        }
-      ]
-    },
-    {
-      "kind": "category",
       "name": "Sound",
       "categorystyle": "sound_category",
       "contents": [
@@ -194,17 +202,6 @@ window.toolboxCustomBasic = {
         {
           "kind": "block",
           "type": "behavior__sound__sound_wait_play_completed"
-        }
-      ]
-    },
-    {
-      "kind": "category",
-      "name": "Touch",
-      "categorystyle": "touch_category",
-      "contents": [
-        {
-          "kind": "block",
-          "type": "behavior__touch__touch_touch"
         }
       ]
     },

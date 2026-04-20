@@ -208,8 +208,11 @@ def js_dump(obj: Any) -> str:
 
 
 def normalize_category(cat: str) -> str:
-    cat = cat or "General"
-    return cat.strip()
+    cat = (cat or "General").strip()
+    # Normalize casing: "motion" → "Motion", "BT Logic" stays as-is
+    if cat and cat[0].islower():
+        cat = cat[0].upper() + cat[1:]
+    return cat
 
 
 def is_item_enabled(item: dict[str, Any]) -> bool:
@@ -276,6 +279,10 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
     action_text = str(action)
     if action_text.startswith("BRIC.SCENARIO:"):
         action_label = action_text.split(":", 1)[1].strip()
+    elif action_text.startswith("BRIC") and ":" in action_text:
+        # "BRIC:area" → "area", "BRIC.POI:navigation/move_to_pose" → "move_to_pose"
+        after_colon = action_text.split(":", 1)[1].strip()
+        action_label = after_colon.split("/")[-1] if "/" in after_colon else after_colon
     else:
         action_label = action_text.split("/")[-1] if "/" in action_text else action_text
     block_type = f"behavior__{slugify(category)}__{slugify(action)}"
@@ -325,29 +332,32 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
                     "name": f"HELP_{slugify(name_raw).upper()}"
                 }
             )
-        args0.append(
-            {
-                "type": "field_label",
-                "text": output_name
-            }
-        )
+        # Skip the param label only when it duplicates the block's own action_label
+        # (e.g. BRIC:area title="area" with first param also named "area").
+        if output_name != action_label:
+            args0.append(
+                {
+                    "type": "field_label",
+                    "text": output_name
+                }
+            )
 
         field_name = f"PARAM_{slugify(name_raw).upper()}"
         option_param_meta: dict[str, list[dict[str, Any]]] = {}
         option_descriptions: dict[str, str] = {}
         dd: list[list[str]] = []
         if options:
-            dd = [
-                [
-                    str(opt.get("display_name") or opt.get("value", "")),
-                    str(opt.get("value", "")),
-                ]
-                for opt in options
-            ]
+            # Deduplicate by value — Blockly's FieldDropdown requires unique values.
+            # (e.g. POI options may repeat the same value across different areas;
+            # the cascading JS rebuilds options at runtime with the correct subset.)
+            _seen_vals: set[str] = set()
             for opt in options:
-                desc = clean_text(opt.get("description", ""))
                 val = str(opt.get("value", ""))
                 display = str(opt.get("display_name") or val)
+                if val not in _seen_vals:
+                    _seen_vals.add(val)
+                    dd.append([display, val])
+                desc = clean_text(opt.get("description", ""))
                 option_descriptions[val] = desc
                 if display != val:
                     option_descriptions[display] = desc
@@ -602,6 +612,100 @@ def emit_block_file(path: Path, blocks: list[dict[str, Any]]):
             ]
         if field_map:
             option_profile_meta[btype] = field_map
+
+    # Build cascading dropdown setup for BRIC:move_to_pose block (if present in this file).
+    bric_mtp_block = next(
+        (b for b in blocks if str(b.get("action", "")).strip() == "BRIC:move_to_pose"), None
+    )
+    bric_area_cascade_js = ""
+    if bric_mtp_block:
+        bric_mtp_type = bric_mtp_block["block_type"]
+        # SESS_TREE: {area: {floor: [[dn, v], ...]}} — drives area→floor→session cascade
+        sess_tree: dict[str, dict[str, list[list[str]]]] = {}
+        # POI_TREE: {area: {floor: [[dn, v], ...]}} — drives area+floor→poi cascade
+        poi_tree: dict[str, dict[str, list[list[str]]]] = {}
+        for p in bric_mtp_block.get("parameters", []):
+            pname = p.get("name")
+            for opt in p.get("raw_options", []):
+                a = str(opt.get("area", "") or "").strip()
+                f = str(opt.get("floor", "") or "").strip()
+                v = str(opt.get("value", "") or "").strip()
+                dn = str(opt.get("display_name", "") or v).strip()
+                if not (a and f and v):
+                    continue
+                if pname == "session":
+                    sess_tree.setdefault(a, {}).setdefault(f, []).append([dn, v])
+                elif pname == "poi":
+                    poi_tree.setdefault(a, {}).setdefault(f, []).append([dn, v])
+        sess_tree_js = json.dumps(sess_tree, ensure_ascii=False)
+        poi_tree_js = json.dumps(poi_tree, ensure_ascii=False)
+        bric_area_cascade_js = f"""
+  // Cascading dropdowns for BRIC:move_to_pose block
+  (function() {{
+    const sessTree = {sess_tree_js};
+    const poiTree = {poi_tree_js};
+    const bricMtpType = '{bric_mtp_type}';
+    const def = Blockly.Blocks[bricMtpType];
+    if (!def) return;
+    const prevInit = def.init;
+    def.init = function() {{
+      prevInit.call(this);
+      const block = this;
+      const areaField = block.getField('PARAM_AREA');
+      const floorField = block.getField('PARAM_FLOOR');
+      const sessionField = block.getField('PARAM_SESSION');
+      const poiField = block.getField('PARAM_POI');
+      if (!areaField || !floorField || !sessionField || !poiField) return;
+
+      function setDropdownOpts(field, newOpts) {{
+        if (!field || !newOpts || !newOpts.length) return;
+        if (typeof field.setOptions === 'function') {{
+          field.setOptions(newOpts);
+        }} else {{
+          field.menuGenerator_ = newOpts;
+          try {{ field.setValue(newOpts[0][1]); }} catch(e) {{}}
+        }}
+      }}
+      function floorOpts(area) {{
+        const floors = Object.keys(sessTree[area] || {{}}).sort();
+        return floors.length ? floors.map(f => [f, f]) : [['—', '_']];
+      }}
+      function sessionOpts(area, floor) {{
+        const sessions = (sessTree[area] || {{}})[floor] || [];
+        return sessions.length ? sessions : [['—', '_']];
+      }}
+      function poiOpts(area, floor) {{
+        const pois = (poiTree[area] || {{}})[floor] || [];
+        return pois.length ? pois : [['—', '_']];
+      }}
+
+      areaField.setValidator(function(newArea) {{
+        const fOpts = floorOpts(newArea);
+        setDropdownOpts(floorField, fOpts);
+        const firstFloor = fOpts[0][1];
+        setDropdownOpts(sessionField, sessionOpts(newArea, firstFloor));
+        setDropdownOpts(poiField, poiOpts(newArea, firstFloor));
+        return newArea;
+      }});
+      floorField.setValidator(function(newFloor) {{
+        const area = block.getFieldValue('PARAM_AREA') || '';
+        setDropdownOpts(sessionField, sessionOpts(area, newFloor));
+        setDropdownOpts(poiField, poiOpts(area, newFloor));
+        return newFloor;
+      }});
+
+      // Initialise dependent dropdowns for the current (default) area value.
+      const initArea = block.getFieldValue('PARAM_AREA') || '';
+      const hasData = sessTree[initArea] || poiTree[initArea];
+      if (initArea && hasData) {{
+        const fOpts = floorOpts(initArea);
+        floorField.menuGenerator_ = fOpts;
+        const initFloor = block.getFieldValue('PARAM_FLOOR') || fOpts[0][1];
+        sessionField.menuGenerator_ = sessionOpts(initArea, initFloor);
+        poiField.menuGenerator_ = poiOpts(initArea, initFloor);
+      }}
+    }};
+  }})();"""
 
     registrar_name = "registerBlocks_" + slugify(path.stem)
     content = f"""(() => {{
@@ -1077,7 +1181,7 @@ function {registrar_name}() {{
         }});
       }};
     }}
-  }});
+  }});{bric_area_cascade_js}
 }}
 
 window.BRIC = window.BRIC || {{}};
@@ -1101,10 +1205,36 @@ def emit_generator_file(path: Path, blocks: list[dict[str, Any]]):
         }
         for b in blocks
     }
+
+    # Build POI_COORDS for BRIC:move_to_pose export: {area::floor::poi_name: {x, y, z}}
+    poi_coords: dict[str, dict[str, float]] = {}
+    for b in blocks:
+        if str(b.get("action", "")) == "BRIC:move_to_pose":
+            for p in b.get("parameters", []):
+                if p.get("name") == "poi":
+                    for opt in p.get("raw_options", []):
+                        v = str(opt.get("value", "") or "").strip()
+                        a = str(opt.get("area", "") or "").strip()
+                        f = str(opt.get("floor", "") or "").strip()
+                        if not (v and a and f):
+                            continue
+                        key = f"{a}::{f}::{v}"
+                        coords: dict[str, float] = {}
+                        if opt.get("position_x") is not None:
+                            coords["x"] = float(opt["position_x"])
+                        if opt.get("position_y") is not None:
+                            coords["y"] = float(opt["position_y"])
+                        if opt.get("position_z") is not None:
+                            coords["z"] = float(opt["position_z"])
+                        if coords:
+                            poi_coords[key] = coords
+            break
+
     lines = [
         "(() => {",
         "const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;",
         f"const OPTION_PARAM_MAP = {js_dump(option_param_map)};",
+        f"const POI_COORDS = {js_dump(poi_coords)};",
         "",
     ]
     lines.append(
@@ -1128,7 +1258,29 @@ def emit_generator_file(path: Path, blocks: list[dict[str, Any]]):
         btype = block["block_type"]
         lines.append(f"javascriptGenerator.forBlock['{btype}'] = function(block, generator) {{")
 
-        if block["kind"] == "behavior":
+        if block["kind"] == "behavior" and str(block.get("action", "")) == "BRIC:move_to_pose":
+            # Custom export: look up POI coordinates and emit navigation/move_to_pose BT node
+            lines.append("  const area = block.getFieldValue('PARAM_AREA') || '';")
+            lines.append("  const floor = block.getFieldValue('PARAM_FLOOR') || '';")
+            lines.append("  const poi = block.getFieldValue('PARAM_POI') || '';")
+            lines.append("  const coordKey = area + '::' + floor + '::' + poi;")
+            lines.append("  const coords = POI_COORDS[coordKey] || {};")
+            lines.append("  const node = {")
+            lines.append("    type: 'Action',")
+            lines.append("    action: 'navigation/move_to_pose',")
+            lines.append("    parameter: {")
+            lines.append("      pose_type: 'map',")
+            lines.append("      pose: {")
+            lines.append("        x: coords.x !== undefined ? coords.x : 0,")
+            lines.append("        y: coords.y !== undefined ? coords.y : 0,")
+            lines.append("        z: coords.z !== undefined ? coords.z : 0,")
+            lines.append("      },")
+            lines.append("    },")
+            lines.append("    id: randomId(),")
+            lines.append("  };")
+            lines.append("  return JSON.stringify(node) + '\\n';")
+
+        elif block["kind"] == "behavior":
             lines.append("  const parameter = {};")
             for p in block.get("parameters", []):
                 fname = p["field"]
