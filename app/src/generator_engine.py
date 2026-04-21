@@ -148,6 +148,8 @@ def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> 
         sub_field = f"{field_prefix}_{slugify(sub_name_raw).upper()}"
 
         sub_option_descriptions: dict[str, str] = {}
+        sub_option_robot_types: dict[str, str] = {}
+        sub_option_op_profiles: dict[str, str] = {}
         if sub_options:
             sub_dd = [
                 [
@@ -163,6 +165,12 @@ def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> 
                 sub_option_descriptions[val] = desc
                 if display != val:
                     sub_option_descriptions[display] = desc
+                rt = str(sopt.get("robot_type") or "").strip()
+                if rt:
+                    sub_option_robot_types[val] = rt
+                op = str(sopt.get("operation_profile") or "").strip()
+                if op:
+                    sub_option_op_profiles[val] = op
             sub_default = sub_dd[0][1] if sub_dd else ""
         else:
             sub_ranged = range_options(sub_min, sub_max, sub_type)
@@ -185,20 +193,23 @@ def build_nested_param_meta(params: list[dict[str, Any]], field_prefix: str) -> 
         sub_option_parameters: dict[str, list[dict[str, Any]]] = {}
 
         sub_description = clean_text(sub.get("description", ""))
-        nested_meta.append(
-            {
-                "name": sub_name,
-                "output_name": sub_output_name,
-                "parent_key": sub_parent_key,
-                "field": sub_field,
-                "type": sub_type,
-                "description": sub_description,
-                "options": sub_dd,
-                "default": sub_default,
-                "option_parameters": sub_option_parameters,
-                "option_descriptions": sub_option_descriptions,
-            }
-        )
+        entry: dict[str, Any] = {
+            "name": sub_name,
+            "output_name": sub_output_name,
+            "parent_key": sub_parent_key,
+            "field": sub_field,
+            "type": sub_type,
+            "description": sub_description,
+            "options": sub_dd,
+            "default": sub_default,
+            "option_parameters": sub_option_parameters,
+            "option_descriptions": sub_option_descriptions,
+        }
+        if sub_option_robot_types:
+            entry["option_robot_types"] = sub_option_robot_types
+        if sub_option_op_profiles:
+            entry["option_operation_profiles"] = sub_option_op_profiles
+        nested_meta.append(entry)
 
     return nested_meta
 
@@ -413,7 +424,7 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
         "helpUrl": ""
     }
 
-    return {
+    out: dict[str, Any] = {
         "block_type": block_type,
         "category": category,
         "kind": "behavior",
@@ -427,6 +438,10 @@ def build_behavior_block(item: dict[str, Any]) -> dict[str, Any]:
         "robot_type": str(item.get("robot_type") or "").strip(),
         "operation_profile": str(item.get("operation_profile") or "").strip(),
     }
+    behavior_script = str(item.get("behavior_script") or "").strip()
+    if behavior_script:
+        out["behavior_script"] = behavior_script
+    return out
 
 
 def build_bt_block(item: dict[str, Any]) -> dict[str, Any]:
@@ -1089,8 +1104,29 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {{
     input.appendField(String(meta.name || 'param'));
 
     const prior = priorValues[meta.field];
-    if (Array.isArray(meta.options) && meta.options.length) {{
-      input.appendField(new Blockly.FieldDropdown(meta.options), meta.field);
+    let filteredOptions = meta.options;
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {{
+      const profile = (window.BRIC && typeof window.BRIC.getActiveProfile === 'function')
+        ? window.BRIC.getActiveProfile() : {{}};
+      const activeRt = profile.robot_type || '';
+      const activeOp = profile.operation_profile || '';
+      if (activeRt && meta.option_robot_types) {{
+        const rt_map = meta.option_robot_types;
+        // Keep options where robot_type is empty/common OR matches activeRt.
+        // Always apply filter — empty result means no options for this robot type.
+        filteredOptions = filteredOptions.filter(([, val]) => {{ const rt = rt_map[val] || ''; return !rt || rt === activeRt; }});
+      }}
+      if (activeOp && meta.option_operation_profiles) {{
+        const op_map = meta.option_operation_profiles;
+        filteredOptions = filteredOptions.filter(([, val]) => {{ const op = op_map[val] || ''; return !op || op === activeOp; }});
+      }}
+      // Use a placeholder when all options were filtered out so the dropdown stays valid.
+      if (!filteredOptions.length) {{
+        filteredOptions = [['---', '_']];
+      }}
+    }}
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {{
+      input.appendField(new Blockly.FieldDropdown(filteredOptions), meta.field);
       const nextValue = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
       if (nextValue) {{
         try {{
@@ -1300,6 +1336,12 @@ def emit_generator_file(path: Path, blocks: list[dict[str, Any]]):
             lines.append("    const defs = byOption[selected] || [];")
             lines.append("    collectOptionParams(block, defs, parameter);")
             lines.append("  });")
+
+            # Per spec: for motion/start_motion, drop 'repeat' when falsy (0 or empty).
+            if str(block.get("action", "")) == "motion/start_motion":
+                lines.append("  if (!parameter.repeat && parameter.repeat !== undefined) {")
+                lines.append("    delete parameter.repeat;")
+                lines.append("  }")
 
             lines.append("  const node = {")
             lines.append("    type: 'Action',")

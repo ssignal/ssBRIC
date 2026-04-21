@@ -823,7 +823,7 @@
     );
     const cache = `?v=${Date.now()}`;
 
-    window.BRIC = { blockRegistrars: [], generatorRegistrars: [] };
+    window.BRIC = { blockRegistrars: [], generatorRegistrars: [], getActiveProfile: () => activeProfile };
     await loadScript(`/static/generated/Toolbox/toolboxCustomBasic.js${cache}`);
     await loadScript(`/static/generated/Theme/themeForCustomBasic.js${cache}`);
 

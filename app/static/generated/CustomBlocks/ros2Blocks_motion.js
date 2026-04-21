@@ -108,6 +108,34 @@ const BLOCKS = [
           [
             "pose_motion.Getting ready to work",
             "pose_motion.work_ready"
+          ],
+          [
+            "manipulation.Unload plate from the hanger",
+            "manipulation.manu_robotis_pick_hanged_plate_003"
+          ],
+          [
+            "manipulation.Load plate to hanger",
+            "manipulation.manu_robotis_pick_hanged_plate_004"
+          ],
+          [
+            "manipulation.Ready to unload plate from the hanger",
+            "manipulation.manu_robotis_pick_ready"
+          ],
+          [
+            "manipulation.Dump the box held by flat gripper",
+            "manipulation.TN_Logi.flat.box.dump"
+          ],
+          [
+            "manipulation.Pick up the detected box with flat gripper",
+            "manipulation.TN_Logi.flat.box.pick"
+          ],
+          [
+            "manipulation.Place the box held by flat gripper",
+            "manipulation.TN_Logi.flat.box.place"
+          ],
+          [
+            "manipulation.Ready to pick box with flat gripper",
+            "manipulation.TN_Logi.flat.box.ready2pick"
           ]
         ]
       }
@@ -120,7 +148,7 @@ const BLOCKS = [
   },
   {
     "type": "behavior__motion__motion_start_motion",
-    "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+    "message0": "%1 %2 %3 %4 %5",
     "args0": [
       {
         "type": "field_image",
@@ -162,32 +190,6 @@ const BLOCKS = [
           [
             "manipulation",
             "manipulation"
-          ]
-        ]
-      },
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP_REPEAT"
-      },
-      {
-        "type": "field_label",
-        "text": "repeat"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "PARAM_REPEAT",
-        "options": [
-          [
-            "once",
-            "once"
-          ],
-          [
-            "loop",
-            "loop"
           ]
         ]
       }
@@ -284,8 +286,7 @@ const PARAM_TOOLTIPS = {
     "PARAM_NAME": "Motion task name"
   },
   "behavior__motion__motion_start_motion": {
-    "PARAM_TASK_TYPE": "Motion task type",
-    "PARAM_REPEAT": "Motion repetition type"
+    "PARAM_TASK_TYPE": "Motion task type"
   },
   "behavior__motion__motion_stop_motion": {
     "PARAM_MODE": "Motion stop type"
@@ -399,7 +400,36 @@ const OPTION_PARAM_MAP = {
             "Wave with both hands": "양손 가슴높이 손인사",
             "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
             "Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+          },
+          "option_robot_types": {
+            "double_nod": "cloid",
+            "fistbump_ready": "cloid",
+            "fistbump_strike": "cloid",
+            "head_left": "cloid",
+            "head_left_down": "cloid",
+            "head_left_up": "cloid",
+            "head_right": "cloid",
+            "head_right_down": "cloid",
+            "head_right_up": "cloid",
+            "highfive_ready": "cloid",
+            "highfive_strike": "cloid",
+            "pose_hand_heart": "cloid",
+            "present_double": "cloid",
+            "wave_two_hand": "cloid",
+            "wave_two_hand_sway": "cloid"
           }
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_REPEAT",
+          "type": "number",
+          "description": "Number of repetitions (0 for infinite)",
+          "options": [],
+          "default": "0",
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "pose_motion": [
@@ -439,7 +469,25 @@ const OPTION_PARAM_MAP = {
             "Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
             "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
             "Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+          },
+          "option_robot_types": {
+            "move": "cloid",
+            "neutral": "cloid",
+            "recent_joint_neutral": "cloid",
+            "work_ready": "cloid"
           }
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_REPEAT",
+          "type": "number",
+          "description": "Number of repetitions (0 for infinite)",
+          "options": [],
+          "default": "0",
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "manipulation": [
@@ -452,48 +500,69 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "prepare",
-              "prepare"
+              "Unload plate from the hanger",
+              "manu_robotis_pick_hanged_plate_003"
             ],
             [
-              "pick_up",
-              "pick_up"
+              "Load plate to hanger",
+              "manu_robotis_pick_hanged_plate_004"
             ],
             [
-              "dump",
-              "dump"
+              "Ready to unload plate from the hanger",
+              "manu_robotis_pick_ready"
             ],
             [
-              "put_down",
-              "put_down"
+              "Dump the box held by flat gripper",
+              "TN_Logi.flat.box.dump"
+            ],
+            [
+              "Pick up the detected box with flat gripper",
+              "TN_Logi.flat.box.pick"
+            ],
+            [
+              "Place the box held by flat gripper",
+              "TN_Logi.flat.box.place"
+            ],
+            [
+              "Ready to pick box with flat gripper",
+              "TN_Logi.flat.box.ready2pick"
             ]
           ],
-          "default": "prepare",
+          "default": "manu_robotis_pick_hanged_plate_003",
           "option_parameters": {},
           "option_descriptions": {
-            "prepare": "demo2604_pick_box_ready",
-            "pick_up": "demo2604_pick_box",
-            "dump": "demo2604_dump_box",
-            "put_down": "demo2604_place_box"
-          }
-        },
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_TASK_TYPE_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
+            "manu_robotis_pick_hanged_plate_003": "None",
+            "Unload plate from the hanger": "None",
+            "manu_robotis_pick_hanged_plate_004": "None",
+            "Load plate to hanger": "None",
+            "manu_robotis_pick_ready": "None",
+            "Ready to unload plate from the hanger": "None",
+            "TN_Logi.flat.box.dump": "Dump the box held by flat gripper for Tennessee logistics",
+            "Dump the box held by flat gripper": "Dump the box held by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.pick": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "Pick up the detected box with flat gripper": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.place": "Place the box held by flat gripper for Tennessee logistics",
+            "Place the box held by flat gripper": "Place the box held by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.ready2pick": "Ready to pick box by flat gripper for Tennessee logistics",
+            "Ready to pick box with flat gripper": "Ready to pick box by flat gripper for Tennessee logistics"
+          },
+          "option_robot_types": {
+            "manu_robotis_pick_hanged_plate_003": "cloid",
+            "manu_robotis_pick_hanged_plate_004": "cloid",
+            "manu_robotis_pick_ready": "cloid",
+            "TN_Logi.flat.box.dump": "cloid",
+            "TN_Logi.flat.box.pick": "cloid",
+            "TN_Logi.flat.box.place": "cloid",
+            "TN_Logi.flat.box.ready2pick": "cloid"
+          },
+          "option_operation_profiles": {
+            "manu_robotis_pick_hanged_plate_003": "TN_Logi",
+            "manu_robotis_pick_hanged_plate_004": "TN_Logi",
+            "manu_robotis_pick_ready": "TN_Logi",
+            "TN_Logi.flat.box.dump": "TN_Logi",
+            "TN_Logi.flat.box.pick": "TN_Logi",
+            "TN_Logi.flat.box.place": "TN_Logi",
+            "TN_Logi.flat.box.ready2pick": "TN_Logi"
           }
         }
       ]
@@ -542,18 +611,28 @@ const OPTION_TOOLTIPS = {
       "pose_motion.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
       "pose_motion.Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
       "pose_motion.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
-      "pose_motion.Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+      "pose_motion.Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+      "manipulation.manu_robotis_pick_hanged_plate_003": "None",
+      "manipulation.Unload plate from the hanger": "None",
+      "manipulation.manu_robotis_pick_hanged_plate_004": "None",
+      "manipulation.Load plate to hanger": "None",
+      "manipulation.manu_robotis_pick_ready": "None",
+      "manipulation.Ready to unload plate from the hanger": "None",
+      "manipulation.TN_Logi.flat.box.dump": "Dump the box held by flat gripper for Tennessee logistics",
+      "manipulation.Dump the box held by flat gripper": "Dump the box held by flat gripper for Tennessee logistics",
+      "manipulation.TN_Logi.flat.box.pick": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+      "manipulation.Pick up the detected box with flat gripper": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+      "manipulation.TN_Logi.flat.box.place": "Place the box held by flat gripper for Tennessee logistics",
+      "manipulation.Place the box held by flat gripper": "Place the box held by flat gripper for Tennessee logistics",
+      "manipulation.TN_Logi.flat.box.ready2pick": "Ready to pick box by flat gripper for Tennessee logistics",
+      "manipulation.Ready to pick box with flat gripper": "Ready to pick box by flat gripper for Tennessee logistics"
     }
   },
   "behavior__motion__motion_start_motion": {
     "PARAM_TASK_TYPE": {
-      "expressive_motion": "expressive_motion motion",
-      "pose_motion": "pose motion",
-      "manipulation": "manipulation motion"
-    },
-    "PARAM_REPEAT": {
-      "once": "Run once",
-      "loop": "Repeat continuously"
+      "expressive_motion": "Expressive motion",
+      "pose_motion": "Pose motion",
+      "manipulation": "Manipulation motion"
     }
   },
   "behavior__motion__motion_stop_motion": {
@@ -565,7 +644,168 @@ const OPTION_TOOLTIPS = {
   "behavior__motion__motion_wait_motion_finished": {}
 };
 const BLOCK_PROFILE = {};
-const OPTION_PROFILE_META = {};
+const OPTION_PROFILE_META = {
+  "behavior__motion__bric_start_motion_motion_start_motion": {
+    "PARAM_NAME": [
+      {
+        "label": "expressive_motion.nod twice",
+        "value": "expressive_motion.double_nod",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Ready to fistbump",
+        "value": "expressive_motion.fistbump_ready",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Go for a fistbump",
+        "value": "expressive_motion.fistbump_strike",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look to the left",
+        "value": "expressive_motion.head_left",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look down and to the left",
+        "value": "expressive_motion.head_left_down",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look up and to the left",
+        "value": "expressive_motion.head_left_up",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look to the right",
+        "value": "expressive_motion.head_right",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look down and to the right",
+        "value": "expressive_motion.head_right_down",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Look up and to the right",
+        "value": "expressive_motion.head_right_up",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Ready to highfive",
+        "value": "expressive_motion.highfive_ready",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Go for a hightfive",
+        "value": "expressive_motion.highfive_strike",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Heart hands",
+        "value": "expressive_motion.pose_hand_heart",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Gesture with open palms",
+        "value": "expressive_motion.present_double",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Wave with both hands",
+        "value": "expressive_motion.wave_two_hand",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "expressive_motion.Enthusiastic wave with both hands",
+        "value": "expressive_motion.wave_two_hand_sway",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "pose_motion.Moving",
+        "value": "pose_motion.move",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "pose_motion.Neutral",
+        "value": "pose_motion.neutral",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "pose_motion.Neutralize last joint",
+        "value": "pose_motion.recent_joint_neutral",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "pose_motion.Getting ready to work",
+        "value": "pose_motion.work_ready",
+        "robot_type": "cloid",
+        "operation_profile": ""
+      },
+      {
+        "label": "manipulation.Unload plate from the hanger",
+        "value": "manipulation.manu_robotis_pick_hanged_plate_003",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Load plate to hanger",
+        "value": "manipulation.manu_robotis_pick_hanged_plate_004",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Ready to unload plate from the hanger",
+        "value": "manipulation.manu_robotis_pick_ready",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Dump the box held by flat gripper",
+        "value": "manipulation.TN_Logi.flat.box.dump",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Pick up the detected box with flat gripper",
+        "value": "manipulation.TN_Logi.flat.box.pick",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Place the box held by flat gripper",
+        "value": "manipulation.TN_Logi.flat.box.place",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      },
+      {
+        "label": "manipulation.Ready to pick box with flat gripper",
+        "value": "manipulation.TN_Logi.flat.box.ready2pick",
+        "robot_type": "cloid",
+        "operation_profile": "TN_Logi"
+      }
+    ]
+  }
+};
 const HELP_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>";
 
 function setClickHelp(field, text) {
@@ -939,8 +1179,29 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {
     input.appendField(String(meta.name || 'param'));
 
     const prior = priorValues[meta.field];
-    if (Array.isArray(meta.options) && meta.options.length) {
-      input.appendField(new Blockly.FieldDropdown(meta.options), meta.field);
+    let filteredOptions = meta.options;
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      const profile = (window.BRIC && typeof window.BRIC.getActiveProfile === 'function')
+        ? window.BRIC.getActiveProfile() : {};
+      const activeRt = profile.robot_type || '';
+      const activeOp = profile.operation_profile || '';
+      if (activeRt && meta.option_robot_types) {
+        const rt_map = meta.option_robot_types;
+        // Keep options where robot_type is empty/common OR matches activeRt.
+        // Always apply filter — empty result means no options for this robot type.
+        filteredOptions = filteredOptions.filter(([, val]) => { const rt = rt_map[val] || ''; return !rt || rt === activeRt; });
+      }
+      if (activeOp && meta.option_operation_profiles) {
+        const op_map = meta.option_operation_profiles;
+        filteredOptions = filteredOptions.filter(([, val]) => { const op = op_map[val] || ''; return !op || op === activeOp; });
+      }
+      // Use a placeholder when all options were filtered out so the dropdown stays valid.
+      if (!filteredOptions.length) {
+        filteredOptions = [['---', '_']];
+      }
+    }
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      input.appendField(new Blockly.FieldDropdown(filteredOptions), meta.field);
       const nextValue = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
       if (nextValue) {
         try {

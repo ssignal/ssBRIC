@@ -173,13 +173,22 @@ def _fetch_behavior_capability_rows(client: DBClient) -> list[dict[str, Any]]:
     """Fetch all rows from BehaviorCapability and convert to BlockListRobot item dicts."""
     try:
         rows = client.read(
-            "SELECT name, category, robot_type, description, parameter"
+            "SELECT name, category, robot_type, description, parameter, behavior_script"
             " FROM `BehaviorCapability`"
             " WHERE name IS NOT NULL AND name <> ''"
             " ORDER BY category, name"
         )
     except Exception:
-        return []
+        # Fall back without behavior_script if column doesn't exist yet.
+        try:
+            rows = client.read(
+                "SELECT name, category, robot_type, description, parameter"
+                " FROM `BehaviorCapability`"
+                " WHERE name IS NOT NULL AND name <> ''"
+                " ORDER BY category, name"
+            )
+        except Exception:
+            return []
 
     out: list[dict[str, Any]] = []
     for row in rows:
@@ -205,6 +214,10 @@ def _fetch_behavior_capability_rows(client: DBClient) -> list[dict[str, Any]]:
         }
         if robot_type and robot_type.lower() != "common":
             item["robot_type"] = robot_type
+
+        behavior_script = str(row.get("behavior_script") or "").strip()
+        if behavior_script:
+            item["behavior_script"] = behavior_script
 
         out.append(item)
     return out
@@ -278,15 +291,18 @@ def _ensure_bric_start_motion_block(path: Path) -> bool:
 def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
     # Try progressively fewer columns; most permissive first.
     # Tier 1: name + display_name + robot_type + operation_profile + description
-    # Tier 2: name + display_name + description
-    # Tier 3: name + description
+    # Tier 2: name + display_name + robot_type + description   (no operation_profile)
+    # Tier 3: name + display_name + description
+    # Tier 4: name + description
     rows: list[dict[str, Any]] = []
     has_display_name = False
-    has_profile_cols = False
-    for cols, dn, pc in [
-        ("name, display_name, robot_type, operation_profile, description", True, True),
-        ("name, display_name, description", True, False),
-        ("name, description", False, False),
+    has_robot_type = False
+    has_op_profile = False
+    for cols, dn, rt, op in [
+        ("name, display_name, robot_type, operation_profile, description", True, True, True),
+        ("name, display_name, robot_type, description", True, True, False),
+        ("name, display_name, description", True, False, False),
+        ("name, description", False, False, False),
     ]:
         try:
             rows = client.read(
@@ -294,7 +310,8 @@ def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
                 f" WHERE name IS NOT NULL AND name <> '' ORDER BY name"
             )
             has_display_name = dn
-            has_profile_cols = pc
+            has_robot_type = rt
+            has_op_profile = op
             break
         except Exception:
             continue
@@ -310,13 +327,94 @@ def _fetch_motion_rows(client: DBClient, table: str) -> list[dict[str, str]]:
             else name,
             "description": str(row.get("description", "")).strip(),
         }
-        if has_profile_cols:
-            rt = str(row.get("robot_type") or "").strip()
-            op = str(row.get("operation_profile") or "").strip()
-            if rt:
-                entry["robot_type"] = rt
-            if op:
-                entry["operation_profile"] = op
+        if has_robot_type:
+            rt_val = str(row.get("robot_type") or "").strip()
+            if rt_val:
+                entry["robot_type"] = rt_val
+        if has_op_profile:
+            op_val = str(row.get("operation_profile") or "").strip()
+            if op_val:
+                entry["operation_profile"] = op_val
+        out.append(entry)
+    return out
+
+
+def _fetch_manipulation_rows(client: DBClient) -> list[dict[str, str]]:
+    """Fetch MotionManipulation rows.
+
+    Column mapping differs from MotionExpressive/MotionPose:
+      file_name    → value  (the raw key used in BT export)
+      display_name → display_name (human-readable label; fallback: action_name, then file_name)
+      action_name  → fallback display_name when display_name is empty
+    """
+    rows: list[dict[str, Any]] = []
+    has_display_name = False
+    has_robot_type = False
+    has_op_profile = False
+    has_meta_cols = False
+    # MotionManipulation has a column named `operation _profile` (space in name).
+    # Use backtick quoting + alias so it appears as 'operation_profile' in results.
+    OP_COL = "`operation _profile` AS operation_profile"
+    for cols, dn, rt, op, mc in [
+        (
+            f"file_name, display_name, action_name, robot_type, {OP_COL},"
+            " object_name, gripper_type, description",
+            True, True, True, True,
+        ),
+        (
+            "file_name, display_name, action_name, robot_type, object_name, gripper_type, description",
+            True, True, False, True,
+        ),
+        (
+            "file_name, display_name, action_name, object_name, gripper_type, description",
+            True, False, False, True,
+        ),
+        (f"file_name, display_name, action_name, robot_type, {OP_COL}, description", True, True, True, False),
+        ("file_name, display_name, action_name, robot_type, description", True, True, False, False),
+        ("file_name, display_name, action_name, description", True, False, False, False),
+        ("file_name, description", False, False, False, False),
+    ]:
+        try:
+            rows = client.read(
+                f"SELECT {cols} FROM `MotionManipulation`"
+                " WHERE file_name IS NOT NULL AND file_name <> '' ORDER BY file_name"
+            )
+            has_display_name = dn
+            has_robot_type = rt
+            has_op_profile = op
+            has_meta_cols = mc
+            break
+        except Exception:
+            continue
+    out: list[dict[str, str]] = []
+    for row in rows:
+        file_name = str(row.get("file_name", "")).strip()
+        if not file_name:
+            continue
+        entry: dict[str, str] = {
+            "value": file_name,
+            "display_name": (
+                str(row.get("display_name") or "").strip()
+                or str(row.get("action_name") or "").strip()
+                or file_name
+            ) if has_display_name else file_name,
+            "description": str(row.get("description", "")).strip(),
+        }
+        if has_robot_type:
+            rt_val = str(row.get("robot_type") or "").strip()
+            if rt_val:
+                entry["robot_type"] = rt_val
+        if has_op_profile:
+            op_val = str(row.get("operation_profile") or "").strip()
+            if op_val:
+                entry["operation_profile"] = op_val
+        if has_meta_cols:
+            obj = str(row.get("object_name") or "").strip()
+            grp = str(row.get("gripper_type") or "").strip()
+            if obj:
+                entry["object_name"] = obj
+            if grp:
+                entry["gripper_type"] = grp
         out.append(entry)
     return out
 
@@ -325,7 +423,9 @@ def _update_blocklist_robot(
     path: Path,
     expressive_rows: list[dict[str, str]],
     pose_rows: list[dict[str, str]],
+    manipulation_rows: list[dict[str, str]] | None = None,
 ) -> bool:
+    manipulation_rows = manipulation_rows or []
     data = _read_json(path, [])
     if not isinstance(data, list):
         return False
@@ -343,90 +443,60 @@ def _update_blocklist_robot(
             continue
 
         if action == "motion/start_motion":
-            # Build the name-options for each task type from DB rows.
+            # Always fully rebuild per prompt_db spec:
+            #   expressive_motion / pose_motion → [name_dropdown, repeat_number]
+            #   manipulation                    → [name_dropdown]  (no repeat)
+            _repeat_param: dict[str, Any] = {
+                "name": "repeat",
+                "type": "number",
+                "description": "Number of repetitions (0 for infinite)",
+                "enabled": True,
+                "default": 0,
+            }
+
             def _name_param(rows: list[dict[str, str]]) -> dict[str, Any]:
+                # All metadata columns (robot_type, operation_profile, description,
+                # object_name, gripper_type) are included so they can be used for
+                # robot-type filtering and BT export.
                 return {
                     "name": "name",
                     "type": "string",
                     "description": "Motion name",
                     "enabled": True,
                     "options": rows,
-                    "min": None,
-                    "max": None,
                 }
 
-            # Find or build the task_type parameter.
-            task_type_param = next(
-                (p for p in params if isinstance(p, dict) and p.get("name") == "task_type"),
-                None,
-            )
-
-            if task_type_param is None:
-                # Build the full parameter structure from scratch.
-                task_type_options: list[dict[str, Any]] = []
-                if expressive_rows:
-                    task_type_options.append({
-                        "value": "expressive_motion",
-                        "description": "expressive_motion motion",
-                        "parameters": [_name_param(expressive_rows)],
-                    })
-                if pose_rows:
-                    task_type_options.append({
-                        "value": "pose_motion",
-                        "description": "pose motion",
-                        "parameters": [_name_param(pose_rows)],
-                    })
-                if task_type_options:
-                    item["parameters"] = [
-                        {
-                            "name": "task_type",
-                            "type": "string",
-                            "description": "Motion task type",
-                            "enabled": True,
-                            "options": task_type_options,
-                            "min": None,
-                            "max": None,
-                        },
-                        {
-                            "name": "repeat",
-                            "type": "string",
-                            "description": "Motion repetition type",
-                            "enabled": True,
-                            "options": [
-                                {"value": "once", "description": "Run once"},
-                                {"value": "loop", "description": "Repeat continuously"},
-                            ],
-                            "min": None,
-                            "max": None,
-                        },
-                    ]
-                    changed = True
-            else:
-                # Update existing task_type options in-place.
-                options = task_type_param.get("options")
-                if not isinstance(options, list):
-                    continue
-                for opt in options:
-                    if not isinstance(opt, dict):
-                        continue
-                    opt_value = str(opt.get("value", ""))
-                    nested = opt.get("parameters")
-                    if not isinstance(nested, list):
-                        continue
-                    target_rows: list[dict[str, str]] = []
-                    if opt_value == "expressive_motion":
-                        target_rows = expressive_rows
-                    elif opt_value == "pose_motion":
-                        target_rows = pose_rows
-                    if not target_rows:
-                        continue
-                    for nested_param in nested:
-                        if not isinstance(nested_param, dict):
-                            continue
-                        if str(nested_param.get("name", "")) == "name":
-                            if nested_param.get("options") != target_rows:
-                                nested_param["options"] = target_rows
-                                changed = True
+            task_type_options: list[dict[str, Any]] = []
+            if expressive_rows:
+                task_type_options.append({
+                    "value": "expressive_motion",
+                    "description": "Expressive motion",
+                    "parameters": [_name_param(expressive_rows), _repeat_param],
+                })
+            if pose_rows:
+                task_type_options.append({
+                    "value": "pose_motion",
+                    "description": "Pose motion",
+                    "parameters": [_name_param(pose_rows), _repeat_param],
+                })
+            if manipulation_rows:
+                task_type_options.append({
+                    "value": "manipulation",
+                    "description": "Manipulation motion",
+                    "parameters": [_name_param(manipulation_rows)],
+                })
+            new_params: list[dict[str, Any]] = [
+                {
+                    "name": "task_type",
+                    "type": "string",
+                    "description": "Motion task type",
+                    "enabled": True,
+                    "options": task_type_options,
+                }
+            ]
+            if item.get("parameters") != new_params:
+                item["parameters"] = new_params
+                changed = True
 
         if action == "BRIC.start_motion:motion/start_motion":
             for p in params:
@@ -452,6 +522,15 @@ def _update_blocklist_robot(
                         if not (
                             isinstance(o, dict)
                             and str(o.get("value", "")).startswith("pose_motion.")
+                        )
+                    ]
+                if manipulation_rows:
+                    keep = [
+                        o
+                        for o in keep
+                        if not (
+                            isinstance(o, dict)
+                            and str(o.get("value", "")).startswith("manipulation.")
                         )
                     ]
 
@@ -486,7 +565,22 @@ def _update_blocklist_robot(
                     for r in pose_rows
                     if r.get("value")
                 ]
-                merged = keep + add_expressive + add_pose
+                add_manipulation = [
+                    {
+                        k: v
+                        for k, v in {
+                            "value": f"manipulation.{r['value']}",
+                            "display_name": f"manipulation.{r.get('display_name', r['value'])}",
+                            "description": r.get("description", ""),
+                            "robot_type": r.get("robot_type", ""),
+                            "operation_profile": r.get("operation_profile", ""),
+                        }.items()
+                        if v or k in ("value", "display_name")
+                    }
+                    for r in manipulation_rows
+                    if r.get("value")
+                ]
+                merged = keep + add_expressive + add_pose + add_manipulation
                 if p.get("options") != merged:
                     p["options"] = merged
                     changed = True
@@ -495,12 +589,13 @@ def _update_blocklist_robot(
         return False
     return _write_json_if_changed(path, data)
 
-
 def _update_start_motion(
     path: Path,
     expressive_rows: list[dict[str, str]],
     pose_rows: list[dict[str, str]],
+    manipulation_rows: list[dict[str, str]] | None = None,
 ) -> bool:
+    manipulation_rows = manipulation_rows or []
     current = _read_json(path, [])
     if not isinstance(current, list):
         current = []
@@ -524,6 +619,15 @@ def _update_start_motion(
                 and str(row.get("name", "")).startswith("pose_motion.")
             )
         ]
+    if manipulation_rows:
+        retained = [
+            row
+            for row in retained
+            if not (
+                isinstance(row, dict)
+                and str(row.get("name", "")).startswith("manipulation.")
+            )
+        ]
 
     out: list[dict[str, Any]] = list(retained)
     if expressive_rows:
@@ -534,7 +638,7 @@ def _update_start_motion(
             out.append(
                 {
                     "name": f"expressive_motion.{name}",
-                    "data": {"task_type": "expressive_motion", "name": name, "repeat": 0},
+                    "data": {"task_type": "expressive_motion", "name": name},
                 }
             )
     if pose_rows:
@@ -545,9 +649,18 @@ def _update_start_motion(
             out.append(
                 {
                     "name": f"pose_motion.{name}",
-                    "data": {"task_type": "pose_motion", "name": name, "repeat": 0},
+                    "data": {"task_type": "pose_motion", "name": name},
                 }
             )
+    if manipulation_rows:
+        for row in manipulation_rows:
+            name = str(row.get("value", "")).strip()
+            if not name:
+                continue
+            out.append({
+                "name": f"manipulation.{name}",
+                "data": {"task_type": "manipulation", "name": name},
+            })
     return _write_json_if_changed(path, out)
 
 
@@ -986,6 +1099,9 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
     try:
         capability_rows = _fetch_behavior_capability_rows(client)
         summary["counts"]["BehaviorCapability"] = len(capability_rows)
+        summary["counts"]["SubtreeBlocks"] = sum(
+            1 for r in capability_rows if r.get("behavior_script")
+        )
 
         blocklist_path = base_dir / "btInfo" / "BlockListRobot.json"
         if _update_blocklist_from_capability(blocklist_path, capability_rows):
@@ -996,15 +1112,18 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
 
         expressive_rows = _fetch_motion_rows(client, "MotionExpressive")
         pose_rows = _fetch_motion_rows(client, "MotionPose")
+        manipulation_rows = _fetch_manipulation_rows(client)
         summary["counts"] = {
             "MotionExpressive": len(expressive_rows),
             "MotionPose": len(pose_rows),
+            "MotionManipulation": len(manipulation_rows),
         }
 
         if _update_blocklist_robot(
             base_dir / "btInfo" / "BlockListRobot.json",
             expressive_rows,
             pose_rows,
+            manipulation_rows,
         ):
             summary["updated"].append("btInfo/BlockListRobot.json")
 
@@ -1012,6 +1131,7 @@ def sync_block_info_from_db(base_dir: Path) -> dict[str, Any]:
             base_dir / "btInfo" / "start_motion.json",
             expressive_rows,
             pose_rows,
+            manipulation_rows,
         ):
             summary["updated"].append("btInfo/start_motion.json")
 

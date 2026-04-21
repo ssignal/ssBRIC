@@ -25,12 +25,30 @@
   - Blockly dropdowns are built as [[display_name, value], ...] pairs so the UI shows
     display_name while Export/BT-generation uses value.
 
-## robot_type / operation_profile columns (block-level filtering)
+## robot_type / operation_profile columns (block-level and option-level filtering)
   Block option rows in DB may have optional `robot_type` and `operation_profile` columns.
   - If present and non-empty: the option is only shown when the active profile matches.
   - If absent or empty: the option is a "common" option shown regardless of profile.
   - These columns are written into the block option metadata in BlockListRobot.json
-    and propagated into the generated JS (BLOCK_PROFILE, OPTION_PROFILE_META).
+    and propagated into the generated JS (BLOCK_PROFILE for block-level,
+    option_robot_types / option_operation_profiles inside OPTION_PARAM_MAP for option-level).
+
+  ### Block-level filtering (profileMatchesBlock in app.js)
+    Used for top-level blocks. Each block's robot_type/operation_profile comes from
+    BehaviorCapability.robot_type and is stored in BLOCK_PROFILE in generated JS.
+    Blocks that don't match the active profile are hidden from the toolbox.
+
+  ### Option-level filtering (appendOptionDefs in generated JS)
+    Used for nested dropdown options inside dynamic parameter blocks (e.g. motion/start_motion).
+    Each option in the `name` dropdown carries robot_type and operation_profile metadata.
+    At render time, appendOptionDefs filters options using:
+      window.BRIC.getActiveProfile() → { robot_type, operation_profile }
+    Options whose robot_type doesn't match activeRt are excluded (unless robot_type is empty).
+    Options whose operation_profile doesn't match activeOp are excluded (unless empty).
+    If ALL options are filtered out, a placeholder [['---', '_']] is shown so the dropdown
+    stays valid (Blockly requires at least one entry).
+    activeProfile is exposed as window.BRIC.getActiveProfile() (closure in app.js)
+    so generated block files always get the live current value.
 
 ## Robot & Operation profile
 
@@ -115,6 +133,16 @@
       parameters:  JSON array of parameter definitions
       description: description text (may contain \r\n; normalized to \n on read)
       robot_type:  robot_type
+      operation_profile: operation_profile
+      behavior_script: behavior_script (optional; if present, This block is Scenario Blocks)
+
+  ### Subtree Blocks
+    Subset of BehaviorCapability where behavior_script is non-empty.
+    These blocks are only shown in the Scenario category and have special handling in the generator.
+    - Show the block as a normal block according to the it's 'name' and 'parameters' fields.
+    - During Export Step
+      Create a subtree with the content of the 'behavior_script' field, which is a full BT script in JSON format.
+      Replace the node with the information for the created subtree.
 
   ### Description normalization
     DB description values may contain Windows-style line endings (\r\n).
@@ -126,24 +154,59 @@
   ### Parameter Extension
     - category: motion
       action: 'motion/start_motion'
-        target: parameters[].task_type.options[].value: 'expressive_motion'
-          DB info for parameters:
-            Table: MotionExpressive
-            Columns
-              value: name
-              display_name: display_name  (fallback: name)
-              description: description
-              robot_type: robot_type      (default: "", for robot type filtering)
-              operation_profile: operation_profile  (default:"", for profile filtering)
-        target: parameters[].task_type.options[].value: 'pose_motion'
-          DB info for parameters:
-            Table: MotionPose
-            Columns
-              value: name
-              display_name: display_name  (fallback: name)
-              description: description
-              robot_type: robot_type      (default: "", for robot type filtering)
-              operation_profile: operation_profile  (default:"", for profile filtering)
+        parameters for the block
+          - label: 'task_type'
+            type: 'string'
+            description: 'Motion task type'
+            options[]:
+          - label: 'name'
+            Use the name for the task_type using below info from DB.
+            'name' in each task_type is used for BT generation, and 'display_name' is used for UI dropdown options for the label 'name'.
+            - expressive_motion
+              target: parameters[].task_type.options[].value: 'expressive_motion'
+                DB info for parameters:
+                  Table: MotionExpressive
+                  Columns: 'columns' and 'key' info should be included in btInfo.
+                    name: name
+                    display_name: display_name  (fallback: name)
+                    description: description
+                    robot_type: robot_type      (default: "", for robot_type filtering)
+                    operation_profile: operation_profile  (default:"", for operation_profile filtering)
+            - pose_motion
+              target: parameters[].task_type.options[].value: 'pose_motion'
+                DB info for parameters:
+                  Table: MotionPose
+                  Columns: 'columns' and 'key' info should be included in btInfo.
+                    name: name
+                    display_name: display_name  (fallback: name)
+                    description: description
+                    robot_type: robot_type      (default: "", for robot_type filtering)
+                    operation_profile: operation_profile  (default:"", for operation_profile filtering)
+            - manipulation
+              target: parameters[].task_type.options[].value: 'manipulation'
+                DB info for parameters:
+                  Table: MotionManipulation
+                  Columns: 'columns' and 'key' info should be included in btInfo.
+                    name: file_name 
+                    display_name: display_name (fallback: action_name, then file_name)
+                    description: description
+                    robot_type: robot_type      (default: "", for robot_type filtering)
+                    operation_profile: operation_profile  (default:"", for operation_profile filtering)
+                    object_name: object_name (additional metadata for BT generation)
+                    gripper_type: gripper_type (additional metadata for BT generation)
+          - label: 'repeat' (This parameter is only for the 'expressive_motion' and 'pose_motion' task_types.)
+            type: 'number'
+            description: 'Number of repetitions (0 for infinite)'
+        parameters for Export
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": {task_type},
+                "name": {name}
+                "repeat": {repeat, only if the value is not empty}
+              },
+            }
 
   ### Wrapper Block
     Create a block parsing BlockListRobot.json
@@ -175,8 +238,8 @@
             robot_type: '{E}'' (default: "", for robot type filtering)
             operation_profile: '{F}' (default:"", for profile filtering)
         reference_file: start_motion.json
-          Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
-            { "name": "{A}.{D}", "data": { "task_type": "{A}", "name": "{D}", "repeat": 0 } }
+          All entries contain only task_type and name. No other keys added.
+            { "name": "{A}.{D}", "data": { "task_type": "{A}", "name": "{D}" } }
   ### Additional Block 
     This block is created by BRIC not in the list of BehaviorCapability in DB.
     Options for each parameter are in the DB.
@@ -322,11 +385,18 @@
 ## Reference files (btInfo/)
 
   ### start_motion.json
-    Written by _update_start_motion_json() in db_sync.py.
-    Each entry uses display_name for the human-readable `name` key and raw DB name in `data`:
-      { "name": "expressive_motion.{display_name}", "data": { "task_type": "expressive_motion", "name": "{name}", "repeat": 0 } }
-    This keeps the UI label human-friendly while BT generation uses the raw value.
+    Written by _update_start_motion() in db_sync.py.
+    Keyed as "{task_type}.{name}" — used by BRIC.start_motion wrapper block export.
     Loaded by load_ref("start_motion") in app.py walk() for BRIC.start_motion:motion/start_motion export.
+
+    All entries contain only task_type and name. No other keys (no repeat, no object_name/gripper_type).
+    The 'repeat' field is added by the motion/start_motion block export at runtime only if non-zero:
+      { "name": "expressive_motion.{value}", "data": { "task_type": "expressive_motion", "name": "{value}" } }
+      { "name": "pose_motion.{value}",       "data": { "task_type": "pose_motion",       "name": "{value}" } }
+      { "name": "manipulation.{file_name}",  "data": { "task_type": "manipulation",      "name": "{file_name}" } }
+
+    Export rule (motion/start_motion JS forBlock and Python path):
+      'repeat' is included in the BT parameter only if the user-entered value is non-zero/non-empty.
 
   ### bric_move_to_pose.json
     Written by _write_bric_move_to_pose_ref() in db_sync.py.

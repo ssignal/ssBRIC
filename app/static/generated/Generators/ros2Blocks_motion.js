@@ -107,7 +107,36 @@ const OPTION_PARAM_MAP = {
             "Wave with both hands": "양손 가슴높이 손인사",
             "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
             "Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+          },
+          "option_robot_types": {
+            "double_nod": "cloid",
+            "fistbump_ready": "cloid",
+            "fistbump_strike": "cloid",
+            "head_left": "cloid",
+            "head_left_down": "cloid",
+            "head_left_up": "cloid",
+            "head_right": "cloid",
+            "head_right_down": "cloid",
+            "head_right_up": "cloid",
+            "highfive_ready": "cloid",
+            "highfive_strike": "cloid",
+            "pose_hand_heart": "cloid",
+            "present_double": "cloid",
+            "wave_two_hand": "cloid",
+            "wave_two_hand_sway": "cloid"
           }
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_REPEAT",
+          "type": "number",
+          "description": "Number of repetitions (0 for infinite)",
+          "options": [],
+          "default": "0",
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "pose_motion": [
@@ -147,7 +176,25 @@ const OPTION_PARAM_MAP = {
             "Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
             "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
             "Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+          },
+          "option_robot_types": {
+            "move": "cloid",
+            "neutral": "cloid",
+            "recent_joint_neutral": "cloid",
+            "work_ready": "cloid"
           }
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "OPT_TASK_TYPE_REPEAT",
+          "type": "number",
+          "description": "Number of repetitions (0 for infinite)",
+          "options": [],
+          "default": "0",
+          "option_parameters": {},
+          "option_descriptions": {}
         }
       ],
       "manipulation": [
@@ -160,48 +207,69 @@ const OPTION_PARAM_MAP = {
           "description": "Motion name",
           "options": [
             [
-              "prepare",
-              "prepare"
+              "Unload plate from the hanger",
+              "manu_robotis_pick_hanged_plate_003"
             ],
             [
-              "pick_up",
-              "pick_up"
+              "Load plate to hanger",
+              "manu_robotis_pick_hanged_plate_004"
             ],
             [
-              "dump",
-              "dump"
+              "Ready to unload plate from the hanger",
+              "manu_robotis_pick_ready"
             ],
             [
-              "put_down",
-              "put_down"
+              "Dump the box held by flat gripper",
+              "TN_Logi.flat.box.dump"
+            ],
+            [
+              "Pick up the detected box with flat gripper",
+              "TN_Logi.flat.box.pick"
+            ],
+            [
+              "Place the box held by flat gripper",
+              "TN_Logi.flat.box.place"
+            ],
+            [
+              "Ready to pick box with flat gripper",
+              "TN_Logi.flat.box.ready2pick"
             ]
           ],
-          "default": "prepare",
+          "default": "manu_robotis_pick_hanged_plate_003",
           "option_parameters": {},
           "option_descriptions": {
-            "prepare": "demo2604_pick_box_ready",
-            "pick_up": "demo2604_pick_box",
-            "dump": "demo2604_dump_box",
-            "put_down": "demo2604_place_box"
-          }
-        },
-        {
-          "name": "object",
-          "output_name": "object",
-          "parent_key": "",
-          "field": "OPT_TASK_TYPE_OBJECT",
-          "type": "string",
-          "description": "object (string)",
-          "options": [
-            [
-              "box",
-              "box"
-            ]
-          ],
-          "default": "box",
-          "option_parameters": {},
-          "option_descriptions": {
-            "box": "box"
+            "manu_robotis_pick_hanged_plate_003": "None",
+            "Unload plate from the hanger": "None",
+            "manu_robotis_pick_hanged_plate_004": "None",
+            "Load plate to hanger": "None",
+            "manu_robotis_pick_ready": "None",
+            "Ready to unload plate from the hanger": "None",
+            "TN_Logi.flat.box.dump": "Dump the box held by flat gripper for Tennessee logistics",
+            "Dump the box held by flat gripper": "Dump the box held by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.pick": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "Pick up the detected box with flat gripper": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.place": "Place the box held by flat gripper for Tennessee logistics",
+            "Place the box held by flat gripper": "Place the box held by flat gripper for Tennessee logistics",
+            "TN_Logi.flat.box.ready2pick": "Ready to pick box by flat gripper for Tennessee logistics",
+            "Ready to pick box with flat gripper": "Ready to pick box by flat gripper for Tennessee logistics"
+          },
+          "option_robot_types": {
+            "manu_robotis_pick_hanged_plate_003": "cloid",
+            "manu_robotis_pick_hanged_plate_004": "cloid",
+            "manu_robotis_pick_ready": "cloid",
+            "TN_Logi.flat.box.dump": "cloid",
+            "TN_Logi.flat.box.pick": "cloid",
+            "TN_Logi.flat.box.place": "cloid",
+            "TN_Logi.flat.box.ready2pick": "cloid"
+          },
+          "option_operation_profiles": {
+            "manu_robotis_pick_hanged_plate_003": "TN_Logi",
+            "manu_robotis_pick_hanged_plate_004": "TN_Logi",
+            "manu_robotis_pick_ready": "TN_Logi",
+            "TN_Logi.flat.box.dump": "TN_Logi",
+            "TN_Logi.flat.box.pick": "TN_Logi",
+            "TN_Logi.flat.box.place": "TN_Logi",
+            "TN_Logi.flat.box.ready2pick": "TN_Logi"
           }
         }
       ]
@@ -239,13 +307,15 @@ javascriptGenerator.forBlock['behavior__motion__bric_start_motion_motion_start_m
 javascriptGenerator.forBlock['behavior__motion__motion_start_motion'] = function(block, generator) {
   const parameter = {};
   assignParamValue(parameter, {"name": "task_type", "output_name": "task_type", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_TASK_TYPE'));
-  assignParamValue(parameter, {"name": "repeat", "output_name": "repeat", "parent_key": "", "type": "string"}, block.getFieldValue('PARAM_REPEAT'));
   const optionMetaByField = OPTION_PARAM_MAP['behavior__motion__motion_start_motion'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
     collectOptionParams(block, defs, parameter);
   });
+  if (!parameter.repeat && parameter.repeat !== undefined) {
+    delete parameter.repeat;
+  }
   const node = {
     type: 'Action',
     action: 'motion/start_motion',

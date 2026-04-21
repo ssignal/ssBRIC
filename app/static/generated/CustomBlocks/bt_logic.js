@@ -1094,8 +1094,29 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {
     input.appendField(String(meta.name || 'param'));
 
     const prior = priorValues[meta.field];
-    if (Array.isArray(meta.options) && meta.options.length) {
-      input.appendField(new Blockly.FieldDropdown(meta.options), meta.field);
+    let filteredOptions = meta.options;
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      const profile = (window.BRIC && typeof window.BRIC.getActiveProfile === 'function')
+        ? window.BRIC.getActiveProfile() : {};
+      const activeRt = profile.robot_type || '';
+      const activeOp = profile.operation_profile || '';
+      if (activeRt && meta.option_robot_types) {
+        const rt_map = meta.option_robot_types;
+        // Keep options where robot_type is empty/common OR matches activeRt.
+        // Always apply filter — empty result means no options for this robot type.
+        filteredOptions = filteredOptions.filter(([, val]) => { const rt = rt_map[val] || ''; return !rt || rt === activeRt; });
+      }
+      if (activeOp && meta.option_operation_profiles) {
+        const op_map = meta.option_operation_profiles;
+        filteredOptions = filteredOptions.filter(([, val]) => { const op = op_map[val] || ''; return !op || op === activeOp; });
+      }
+      // Use a placeholder when all options were filtered out so the dropdown stays valid.
+      if (!filteredOptions.length) {
+        filteredOptions = [['---', '_']];
+      }
+    }
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      input.appendField(new Blockly.FieldDropdown(filteredOptions), meta.field);
       const nextValue = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
       if (nextValue) {
         try {

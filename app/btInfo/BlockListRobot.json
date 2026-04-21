@@ -916,7 +916,7 @@
             "floor": "2",
             "position_x": 2.0,
             "position_y": 2.0,
-            "position_z": 2.0,
+            "position_z": 0.0,
             "description": "LG Sciencepart W02 2F in front of hanging rack"
           },
           {
@@ -936,7 +936,7 @@
             "floor": "2",
             "position_x": 2.0,
             "position_y": 2.0,
-            "position_z": 2.0,
+            "position_z": 0.0,
             "description": "LG Sciencepart W10 2F in front of hanging rack"
           },
           {
@@ -970,97 +970,165 @@
           {
             "value": "expressive_motion.double_nod",
             "display_name": "expressive_motion.nod twice",
-            "description": "머리 두번 끄덕끄덕"
+            "description": "머리 두번 끄덕끄덕",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.fistbump_ready",
             "display_name": "expressive_motion.Ready to fistbump",
-            "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+            "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.fistbump_strike",
             "display_name": "expressive_motion.Go for a fistbump",
-            "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+            "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_left",
             "display_name": "expressive_motion.Look to the left",
-            "description": "머리 왼쪽 이동 후 복귀"
+            "description": "머리 왼쪽 이동 후 복귀",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_left_down",
             "display_name": "expressive_motion.Look down and to the left",
-            "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+            "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_left_up",
             "display_name": "expressive_motion.Look up and to the left",
-            "description": "머리 왼쪽 위 이동 후 복귀"
+            "description": "머리 왼쪽 위 이동 후 복귀",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_right",
             "display_name": "expressive_motion.Look to the right",
-            "description": "머리 오른쪽 이동 후 복귀"
+            "description": "머리 오른쪽 이동 후 복귀",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_right_down",
             "display_name": "expressive_motion.Look down and to the right",
-            "description": "머리 오른쪽 아래 이동 후 복귀"
+            "description": "머리 오른쪽 아래 이동 후 복귀",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.head_right_up",
             "display_name": "expressive_motion.Look up and to the right",
-            "description": "머리 오른쪽 위 이동 후 복귀"
+            "description": "머리 오른쪽 위 이동 후 복귀",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.highfive_ready",
             "display_name": "expressive_motion.Ready to highfive",
-            "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
+            "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.highfive_strike",
             "display_name": "expressive_motion.Go for a hightfive",
-            "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+            "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.pose_hand_heart",
             "display_name": "expressive_motion.Heart hands",
-            "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
+            "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.present_double",
             "display_name": "expressive_motion.Gesture with open palms",
-            "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+            "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.wave_two_hand",
             "display_name": "expressive_motion.Wave with both hands",
-            "description": "양손 가슴높이 손인사"
+            "description": "양손 가슴높이 손인사",
+            "robot_type": "cloid"
           },
           {
             "value": "expressive_motion.wave_two_hand_sway",
             "display_name": "expressive_motion.Enthusiastic wave with both hands",
-            "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+            "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+            "robot_type": "cloid"
           },
           {
             "value": "pose_motion.move",
             "display_name": "pose_motion.Moving",
-            "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+            "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+            "robot_type": "cloid"
           },
           {
             "value": "pose_motion.neutral",
             "display_name": "pose_motion.Neutral",
-            "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+            "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+            "robot_type": "cloid"
           },
           {
             "value": "pose_motion.recent_joint_neutral",
             "display_name": "pose_motion.Neutralize last joint",
-            "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+            "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+            "robot_type": "cloid"
           },
           {
             "value": "pose_motion.work_ready",
             "display_name": "pose_motion.Getting ready to work",
-            "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+            "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+            "robot_type": "cloid"
+          },
+          {
+            "value": "manipulation.manu_robotis_pick_hanged_plate_003",
+            "display_name": "manipulation.Unload plate from the hanger",
+            "description": "None",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.manu_robotis_pick_hanged_plate_004",
+            "display_name": "manipulation.Load plate to hanger",
+            "description": "None",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.manu_robotis_pick_ready",
+            "display_name": "manipulation.Ready to unload plate from the hanger",
+            "description": "None",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.TN_Logi.flat.box.dump",
+            "display_name": "manipulation.Dump the box held by flat gripper",
+            "description": "Dump the box held by flat gripper for Tennessee logistics",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.TN_Logi.flat.box.pick",
+            "display_name": "manipulation.Pick up the detected box with flat gripper",
+            "description": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.TN_Logi.flat.box.place",
+            "display_name": "manipulation.Place the box held by flat gripper",
+            "description": "Place the box held by flat gripper for Tennessee logistics",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
+          },
+          {
+            "value": "manipulation.TN_Logi.flat.box.ready2pick",
+            "display_name": "manipulation.Ready to pick box with flat gripper",
+            "description": "Ready to pick box by flat gripper for Tennessee logistics",
+            "robot_type": "cloid",
+            "operation_profile": "TN_Logi"
           }
         ],
         "min": null,
@@ -1148,7 +1216,7 @@
         "options": [
           {
             "value": "expressive_motion",
-            "description": "expressive_motion motion",
+            "description": "Expressive motion",
             "parameters": [
               {
                 "name": "name",
@@ -1159,87 +1227,107 @@
                   {
                     "value": "double_nod",
                     "display_name": "nod twice",
-                    "description": "머리 두번 끄덕끄덕"
+                    "description": "머리 두번 끄덕끄덕",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "fistbump_ready",
                     "display_name": "Ready to fistbump",
-                    "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림"
+                    "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "fistbump_strike",
                     "display_name": "Go for a fistbump",
-                    "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                    "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_left",
                     "display_name": "Look to the left",
-                    "description": "머리 왼쪽 이동 후 복귀"
+                    "description": "머리 왼쪽 이동 후 복귀",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_left_down",
                     "display_name": "Look down and to the left",
-                    "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)"
+                    "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_left_up",
                     "display_name": "Look up and to the left",
-                    "description": "머리 왼쪽 위 이동 후 복귀"
+                    "description": "머리 왼쪽 위 이동 후 복귀",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_right",
                     "display_name": "Look to the right",
-                    "description": "머리 오른쪽 이동 후 복귀"
+                    "description": "머리 오른쪽 이동 후 복귀",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_right_down",
                     "display_name": "Look down and to the right",
-                    "description": "머리 오른쪽 아래 이동 후 복귀"
+                    "description": "머리 오른쪽 아래 이동 후 복귀",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "head_right_up",
                     "display_name": "Look up and to the right",
-                    "description": "머리 오른쪽 위 이동 후 복귀"
+                    "description": "머리 오른쪽 위 이동 후 복귀",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "highfive_ready",
                     "display_name": "Ready to highfive",
-                    "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림"
+                    "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "highfive_strike",
                     "display_name": "Go for a hightfive",
-                    "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)"
+                    "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "pose_hand_heart",
                     "display_name": "Heart hands",
-                    "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!"
+                    "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "present_double",
                     "display_name": "Gesture with open palms",
-                    "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션"
+                    "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "wave_two_hand",
                     "display_name": "Wave with both hands",
-                    "description": "양손 가슴높이 손인사"
+                    "description": "양손 가슴높이 손인사",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "wave_two_hand_sway",
                     "display_name": "Enthusiastic wave with both hands",
-                    "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+                    "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+                    "robot_type": "cloid"
                   }
-                ],
-                "min": null,
-                "max": null
+                ]
+              },
+              {
+                "name": "repeat",
+                "type": "number",
+                "description": "Number of repetitions (0 for infinite)",
+                "enabled": true,
+                "default": 0
               }
             ]
           },
           {
             "value": "pose_motion",
-            "description": "pose motion",
+            "description": "Pose motion",
             "parameters": [
               {
                 "name": "name",
@@ -1250,32 +1338,41 @@
                   {
                     "value": "move",
                     "display_name": "Moving",
-                    "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)"
+                    "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "neutral",
                     "display_name": "Neutral",
-                    "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)"
+                    "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "recent_joint_neutral",
                     "display_name": "Neutralize last joint",
-                    "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )"
+                    "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+                    "robot_type": "cloid"
                   },
                   {
                     "value": "work_ready",
                     "display_name": "Getting ready to work",
-                    "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+                    "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+                    "robot_type": "cloid"
                   }
-                ],
-                "min": null,
-                "max": null
+                ]
+              },
+              {
+                "name": "repeat",
+                "type": "number",
+                "description": "Number of repetitions (0 for infinite)",
+                "enabled": true,
+                "default": 0
               }
             ]
           },
           {
             "value": "manipulation",
-            "description": "manipulation motion",
+            "description": "Manipulation motion",
             "parameters": [
               {
                 "name": "name",
@@ -1284,76 +1381,73 @@
                 "enabled": true,
                 "options": [
                   {
-                    "value": "prepare",
-                    "description": "demo2604_pick_box_ready"
+                    "value": "manu_robotis_pick_hanged_plate_003",
+                    "display_name": "Unload plate from the hanger",
+                    "description": "None",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "plate",
+                    "gripper_type": "five_fingers"
                   },
                   {
-                    "value": "pick_up",
-                    "description": "demo2604_pick_box"
+                    "value": "manu_robotis_pick_hanged_plate_004",
+                    "display_name": "Load plate to hanger",
+                    "description": "None",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "plate",
+                    "gripper_type": "five_fingers"
                   },
                   {
-                    "value": "dump",
-                    "description": "demo2604_dump_box"
+                    "value": "manu_robotis_pick_ready",
+                    "display_name": "Ready to unload plate from the hanger",
+                    "description": "None",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "plate",
+                    "gripper_type": "five_fingers"
                   },
                   {
-                    "value": "put_down",
-                    "description": "demo2604_place_box"
+                    "value": "TN_Logi.flat.box.dump",
+                    "display_name": "Dump the box held by flat gripper",
+                    "description": "Dump the box held by flat gripper for Tennessee logistics",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "box",
+                    "gripper_type": "flat"
+                  },
+                  {
+                    "value": "TN_Logi.flat.box.pick",
+                    "display_name": "Pick up the detected box with flat gripper",
+                    "description": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "box",
+                    "gripper_type": "flat"
+                  },
+                  {
+                    "value": "TN_Logi.flat.box.place",
+                    "display_name": "Place the box held by flat gripper",
+                    "description": "Place the box held by flat gripper for Tennessee logistics",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "box",
+                    "gripper_type": "flat"
+                  },
+                  {
+                    "value": "TN_Logi.flat.box.ready2pick",
+                    "display_name": "Ready to pick box with flat gripper",
+                    "description": "Ready to pick box by flat gripper for Tennessee logistics",
+                    "robot_type": "cloid",
+                    "operation_profile": "TN_Logi",
+                    "object_name": "box",
+                    "gripper_type": "flat"
                   }
-                ],
-                "min": null,
-                "max": null
-              },
-              {
-                "name": "object",
-                "type": "string",
-                "description": "object (string)",
-                "enabled": true,
-                "options": [
-                  {
-                    "value": "box",
-                    "description": "box"
-                  }
-                ],
-                "min": null,
-                "max": null
+                ]
               }
             ]
           }
-        ],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "repeat",
-        "type": "string",
-        "description": "Motion repetition type",
-        "enabled": true,
-        "options": [
-          {
-            "value": "once",
-            "description": "Run once"
-          },
-          {
-            "value": "loop",
-            "description": "Repeat continuously"
-          }
-        ],
-        "min": null,
-        "max": null
-      },
-      {
-        "name": "action",
-        "type": "string",
-        "description": "Motion part",
-        "enabled": false,
-        "options": [
-          {
-            "value": "all",
-            "description": "Apply to all parts"
-          }
-        ],
-        "min": null,
-        "max": null
+        ]
       }
     ]
   },
@@ -1547,7 +1641,8 @@
     "action": "navigation/wait_move_finished_and_sleep",
     "description": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
     "enabled": true,
-    "parameters": []
+    "parameters": [],
+    "behavior_script": "{\"type\": \"Sequence\", \"children\": [{\"type\": \"Action\", \"action\": \"navigation/wait_move_finished\"}, {\"type\": \"Sleep\", \"tickrate\": 500}], \"description\": \"Wait until the move is finished and sleep for a while\"}"
   },
   {
     "category": "Sound",

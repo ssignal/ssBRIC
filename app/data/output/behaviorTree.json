@@ -1,25 +1,187 @@
 {
   "Root": {
     "type": "Root",
-    "id": "54489909",
+    "id": "46232237",
     "child": {
       "type": "Sequence",
-      "id": "67129009",
+      "id": "18334377",
       "children": [
         {
-          "type": "Action",
-          "action": "navigation/move_to_pose",
-          "parameter": {
-            "pose_type": "map",
-            "pose": {
-              "x": 1.0,
-              "y": 1.0,
-              "z": 1.0
+          "type": "Sequence",
+          "id": "22890768",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "pose": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+                }
+              },
+              "id": "23824007"
+            },
+            {
+              "type": "Subtree",
+              "id": "WaitMoveFinished"
             }
-          },
-          "id": "31733779"
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "56459154",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "manipulation",
+                "name": "TN_Logi.flat.box.pick"
+              },
+              "id": "66061538"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "80215335"
+            }
+          ]
+        },
+        {
+          "type": "Subtree",
+          "id": "Movebackward"
+        },
+        {
+          "type": "Subtree",
+          "id": "TurnAround"
+        },
+        {
+          "type": "Sequence",
+          "id": "10356230",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "navigation/move_to_pose",
+              "parameter": {
+                "pose_type": "map",
+                "pose": {
+                  "x": 2.0,
+                  "y": 2.0,
+                  "z": 0.0
+                }
+              },
+              "id": "10691037"
+            },
+            {
+              "type": "Subtree",
+              "id": "wait_move_finished_and_sleep"
+            }
+          ]
+        },
+        {
+          "type": "Sequence",
+          "id": "39273259",
+          "tickrate": 0,
+          "children": [
+            {
+              "type": "Action",
+              "action": "motion/start_motion",
+              "parameter": {
+                "task_type": "manipulation",
+                "name": "TN_Logi.flat.box.dump"
+              },
+              "id": "61623490"
+            },
+            {
+              "type": "Action",
+              "action": "motion/wait_motion_finished",
+              "parameter": {},
+              "id": "92036814"
+            }
+          ]
+        },
+        {
+          "type": "Subtree",
+          "id": "Movebackward"
         }
       ]
     }
+  },
+  "Movebackward": {
+    "child": {
+      "type": "Sequence",
+      "id": "50785118",
+      "children": [
+        {
+          "type": "Action",
+          "action": "navigation/move_in_direction",
+          "parameter": {
+            "distance": 0.0,
+            "velocity": 0.1,
+            "direction": "backwards"
+          },
+          "id": "46314086"
+        }
+      ]
+    }
+  },
+  "WaitMoveFinished": {
+    "child": {
+      "type": "Sequence",
+      "id": "82128625",
+      "children": [
+        {
+          "type": "Action",
+          "action": "navigation/wait_move_finished",
+          "parameter": {},
+          "id": "87037670"
+        },
+        {
+          "type": "Sleep",
+          "id": "33110111",
+          "tickrate": 500
+        }
+      ]
+    }
+  },
+  "TurnAround": {
+    "child": {
+      "type": "Sequence",
+      "id": "68066156",
+      "children": [
+        {
+          "type": "Action",
+          "action": "navigation/rotate",
+          "parameter": {
+            "angle": -180.0
+          },
+          "id": "31931155"
+        },
+        {
+          "type": "Subtree",
+          "id": "WaitMoveFinished"
+        }
+      ]
+    }
+  },
+  "wait_move_finished_and_sleep": {
+    "type": "Sequence",
+    "children": [
+      {
+        "type": "Action",
+        "action": "navigation/wait_move_finished"
+      },
+      {
+        "type": "Sleep",
+        "tickrate": 500
+      }
+    ],
+    "description": "Wait until the move is finished and sleep for a while"
   }
 }

@@ -1,7 +1,7 @@
 (() => {
 const BLOCKS = [
   {
-    "type": "behavior__scenario__bric_scenario_april_demo",
+    "type": "behavior__scenario__bric_scenario_hangingrack_0429",
     "message0": "%1 %2",
     "args0": [
       {
@@ -14,18 +14,18 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "April_demo",
+        "text": "HangingRack_0429",
         "name": "TITLE"
       }
     ],
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#bcbd22",
-    "tooltip": "Run scenario: April_demo",
+    "tooltip": "Run scenario: HangingRack_0429",
     "helpUrl": ""
   },
   {
-    "type": "behavior__scenario__bric_scenario_april_demo_funcscenario",
+    "type": "behavior__scenario__bric_scenario_turnaround",
     "message0": "%1 %2",
     "args0": [
       {
@@ -38,158 +38,14 @@ const BLOCKS = [
       },
       {
         "type": "field_label",
-        "text": "April_demo_FuncScenario",
+        "text": "TurnAround",
         "name": "TITLE"
       }
     ],
     "previousStatement": "BTNode",
     "nextStatement": "BTNode",
     "colour": "#bcbd22",
-    "tooltip": "Run scenario: April_demo_FuncScenario",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_april_demo_simple",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "April_demo_simple",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: April_demo_simple",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_motion_sound",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "Motion_Sound",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: Motion_Sound",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_moveanddumpbox",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "MoveAndDumpBox",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: MoveAndDumpBox",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_moveandpickupbox",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "MoveAndPickupBox",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: MoveAndPickupBox",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_refertest",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "ReferTest",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: ReferTest",
-    "helpUrl": ""
-  },
-  {
-    "type": "behavior__scenario__bric_scenario_scenariotest_recursive",
-    "message0": "%1 %2",
-    "args0": [
-      {
-        "type": "field_image",
-        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
-        "width": 16,
-        "height": 16,
-        "alt": "?",
-        "name": "HELP"
-      },
-      {
-        "type": "field_label",
-        "text": "ScenarioTest_recursive",
-        "name": "TITLE"
-      }
-    ],
-    "previousStatement": "BTNode",
-    "nextStatement": "BTNode",
-    "colour": "#bcbd22",
-    "tooltip": "Run scenario: ScenarioTest_recursive",
+    "tooltip": "Run scenario: TurnAround",
     "helpUrl": ""
   },
   {
@@ -218,47 +74,23 @@ const BLOCKS = [
   }
 ];
 const BLOCK_TOOLTIPS = {
-  "behavior__scenario__bric_scenario_april_demo": "Run scenario: April_demo",
-  "behavior__scenario__bric_scenario_april_demo_funcscenario": "Run scenario: April_demo_FuncScenario",
-  "behavior__scenario__bric_scenario_april_demo_simple": "Run scenario: April_demo_simple",
-  "behavior__scenario__bric_scenario_motion_sound": "Run scenario: Motion_Sound",
-  "behavior__scenario__bric_scenario_moveanddumpbox": "Run scenario: MoveAndDumpBox",
-  "behavior__scenario__bric_scenario_moveandpickupbox": "Run scenario: MoveAndPickupBox",
-  "behavior__scenario__bric_scenario_refertest": "Run scenario: ReferTest",
-  "behavior__scenario__bric_scenario_scenariotest_recursive": "Run scenario: ScenarioTest_recursive",
+  "behavior__scenario__bric_scenario_hangingrack_0429": "Run scenario: HangingRack_0429",
+  "behavior__scenario__bric_scenario_turnaround": "Run scenario: TurnAround",
   "behavior__scenario__bric_scenario_waitmovefinished": "Run scenario: WaitMoveFinished"
 };
 const PARAM_TOOLTIPS = {
-  "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
-  "behavior__scenario__bric_scenario_april_demo_simple": {},
-  "behavior__scenario__bric_scenario_motion_sound": {},
-  "behavior__scenario__bric_scenario_moveanddumpbox": {},
-  "behavior__scenario__bric_scenario_moveandpickupbox": {},
-  "behavior__scenario__bric_scenario_refertest": {},
-  "behavior__scenario__bric_scenario_scenariotest_recursive": {},
+  "behavior__scenario__bric_scenario_hangingrack_0429": {},
+  "behavior__scenario__bric_scenario_turnaround": {},
   "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const OPTION_PARAM_MAP = {
-  "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
-  "behavior__scenario__bric_scenario_april_demo_simple": {},
-  "behavior__scenario__bric_scenario_motion_sound": {},
-  "behavior__scenario__bric_scenario_moveanddumpbox": {},
-  "behavior__scenario__bric_scenario_moveandpickupbox": {},
-  "behavior__scenario__bric_scenario_refertest": {},
-  "behavior__scenario__bric_scenario_scenariotest_recursive": {},
+  "behavior__scenario__bric_scenario_hangingrack_0429": {},
+  "behavior__scenario__bric_scenario_turnaround": {},
   "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const OPTION_TOOLTIPS = {
-  "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
-  "behavior__scenario__bric_scenario_april_demo_simple": {},
-  "behavior__scenario__bric_scenario_motion_sound": {},
-  "behavior__scenario__bric_scenario_moveanddumpbox": {},
-  "behavior__scenario__bric_scenario_moveandpickupbox": {},
-  "behavior__scenario__bric_scenario_refertest": {},
-  "behavior__scenario__bric_scenario_scenariotest_recursive": {},
+  "behavior__scenario__bric_scenario_hangingrack_0429": {},
+  "behavior__scenario__bric_scenario_turnaround": {},
   "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const BLOCK_PROFILE = {};
@@ -636,8 +468,29 @@ function appendOptionDefs(block, defs, priorValues, tokenRef, triggerFields) {
     input.appendField(String(meta.name || 'param'));
 
     const prior = priorValues[meta.field];
-    if (Array.isArray(meta.options) && meta.options.length) {
-      input.appendField(new Blockly.FieldDropdown(meta.options), meta.field);
+    let filteredOptions = meta.options;
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      const profile = (window.BRIC && typeof window.BRIC.getActiveProfile === 'function')
+        ? window.BRIC.getActiveProfile() : {};
+      const activeRt = profile.robot_type || '';
+      const activeOp = profile.operation_profile || '';
+      if (activeRt && meta.option_robot_types) {
+        const rt_map = meta.option_robot_types;
+        // Keep options where robot_type is empty/common OR matches activeRt.
+        // Always apply filter — empty result means no options for this robot type.
+        filteredOptions = filteredOptions.filter(([, val]) => { const rt = rt_map[val] || ''; return !rt || rt === activeRt; });
+      }
+      if (activeOp && meta.option_operation_profiles) {
+        const op_map = meta.option_operation_profiles;
+        filteredOptions = filteredOptions.filter(([, val]) => { const op = op_map[val] || ''; return !op || op === activeOp; });
+      }
+      // Use a placeholder when all options were filtered out so the dropdown stays valid.
+      if (!filteredOptions.length) {
+        filteredOptions = [['---', '_']];
+      }
+    }
+    if (Array.isArray(filteredOptions) && filteredOptions.length) {
+      input.appendField(new Blockly.FieldDropdown(filteredOptions), meta.field);
       const nextValue = prior != null ? String(prior) : (meta.default == null ? '' : String(meta.default));
       if (nextValue) {
         try {

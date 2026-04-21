@@ -424,6 +424,17 @@ def preprocess_export_tree(data: Any, resolution_errors: list[str] | None = None
         )
         if isinstance(item, dict) and item.get("block_type")
     }
+    # Subtree block lookup: action → (subtree_name, behavior_script JSON string)
+    subtree_info: dict[str, tuple[str, str]] = {}
+    for item in (manifest.get("behavior") or []):
+        if not isinstance(item, dict) or not item.get("behavior_script"):
+            continue
+        action_key = str(item.get("action", "")).strip()
+        if not action_key:
+            continue
+        label = str(item.get("label", "")).strip()
+        subtree_name = label or action_key.split("/")[-1]
+        subtree_info[action_key] = (subtree_name, str(item["behavior_script"]))
 
     def random_id() -> str:
         import random
@@ -677,6 +688,26 @@ def preprocess_export_tree(data: Any, resolution_errors: list[str] | None = None
 
         action = node.get("action")
         if isinstance(action, str):
+            # Subtree block: emit a Subtree reference and register the content at top level
+            action_key = action.strip()
+            if action_key in subtree_info:
+                subtree_name, script_str = subtree_info[action_key]
+                try:
+                    subtree_data = json.loads(script_str)
+                except Exception:
+                    add_resolution_error(
+                        f"{path}: subtree block '{action_key}' has invalid behavior_script JSON"
+                    )
+                    subtree_data = None
+                if isinstance(subtree_data, dict):
+                    # Register subtree content at top level (once per unique name)
+                    if subtree_name not in out:
+                        out[subtree_name] = subtree_data
+                    # Replace this node with a Subtree reference
+                    node.clear()
+                    node["type"] = "Subtree"
+                    node["id"] = subtree_name
+                return
             if action.strip().startswith("BRIC.SCENARIO:"):
                 scenario_name = action.strip().split(":", 1)[1].strip()
                 expanded = load_scenario_child_bt(scenario_name)

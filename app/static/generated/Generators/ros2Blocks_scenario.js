@@ -1,14 +1,8 @@
 (() => {
 const javascriptGenerator = (window.javascript && window.javascript.javascriptGenerator) || window.javascriptGenerator;
 const OPTION_PARAM_MAP = {
-  "behavior__scenario__bric_scenario_april_demo": {},
-  "behavior__scenario__bric_scenario_april_demo_funcscenario": {},
-  "behavior__scenario__bric_scenario_april_demo_simple": {},
-  "behavior__scenario__bric_scenario_motion_sound": {},
-  "behavior__scenario__bric_scenario_moveanddumpbox": {},
-  "behavior__scenario__bric_scenario_moveandpickupbox": {},
-  "behavior__scenario__bric_scenario_refertest": {},
-  "behavior__scenario__bric_scenario_scenariotest_recursive": {},
+  "behavior__scenario__bric_scenario_hangingrack_0429": {},
+  "behavior__scenario__bric_scenario_turnaround": {},
   "behavior__scenario__bric_scenario_waitmovefinished": {}
 };
 const POI_COORDS = {};
@@ -19,9 +13,9 @@ function parseTyped(raw, typeName) { const t = String(typeName || '').toLowerCas
 function assignParamValue(out, meta, raw) { const child = meta.output_name || meta.name; const parent = meta.parent_key || ''; const value = parseTyped(raw, meta.type); if (parent) { const prev = out[parent]; if (prev && typeof prev === 'object' && !Array.isArray(prev)) { out[parent] = { ...prev, [child]: value }; } else { out[parent] = { [child]: value }; } } else { out[child] = value; } }
 function collectOptionParams(block, defs, out) { (defs || []).forEach((meta) => { assignParamValue(out, meta, block.getFieldValue(meta.field)); const selected = block.getFieldValue(meta.field) || ''; const nested = ((meta.option_parameters || {})[selected]) || []; if (nested.length) collectOptionParams(block, nested, out); }); }
 
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__scenario__bric_scenario_hangingrack_0429'] = function(block, generator) {
   const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_april_demo'] || {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_hangingrack_0429'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
@@ -29,16 +23,16 @@ javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo'] = f
   });
   const node = {
     type: 'Action',
-    action: 'BRIC.SCENARIO:April_demo',
+    action: 'BRIC.SCENARIO:HangingRack_0429',
     parameter,
     id: randomId(),
   };
   return JSON.stringify(node) + '\n';
 };
 
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo_funcscenario'] = function(block, generator) {
+javascriptGenerator.forBlock['behavior__scenario__bric_scenario_turnaround'] = function(block, generator) {
   const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_april_demo_funcscenario'] || {};
+  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_turnaround'] || {};
   Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
     const selected = block.getFieldValue(parentField) || '';
     const defs = byOption[selected] || [];
@@ -46,109 +40,7 @@ javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo_funcs
   });
   const node = {
     type: 'Action',
-    action: 'BRIC.SCENARIO:April_demo_FuncScenario',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_april_demo_simple'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_april_demo_simple'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:April_demo_simple',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_motion_sound'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_motion_sound'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:Motion_Sound',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_moveanddumpbox'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_moveanddumpbox'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:MoveAndDumpBox',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_moveandpickupbox'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_moveandpickupbox'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:MoveAndPickupBox',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_refertest'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_refertest'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:ReferTest',
-    parameter,
-    id: randomId(),
-  };
-  return JSON.stringify(node) + '\n';
-};
-
-javascriptGenerator.forBlock['behavior__scenario__bric_scenario_scenariotest_recursive'] = function(block, generator) {
-  const parameter = {};
-  const optionMetaByField = OPTION_PARAM_MAP['behavior__scenario__bric_scenario_scenariotest_recursive'] || {};
-  Object.entries(optionMetaByField).forEach(([parentField, byOption]) => {
-    const selected = block.getFieldValue(parentField) || '';
-    const defs = byOption[selected] || [];
-    collectOptionParams(block, defs, parameter);
-  });
-  const node = {
-    type: 'Action',
-    action: 'BRIC.SCENARIO:ScenarioTest_recursive',
+    action: 'BRIC.SCENARIO:TurnAround',
     parameter,
     id: randomId(),
   };

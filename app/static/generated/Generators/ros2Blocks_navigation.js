@@ -15,7 +15,7 @@ const POI_COORDS = {
   "LG sciencepark W02::2::Rack": {
     "x": 2.0,
     "y": 2.0,
-    "z": 2.0
+    "z": 0.0
   },
   "LG sciencepark W02::2::Shelf": {
     "x": 1.0,
@@ -25,7 +25,7 @@ const POI_COORDS = {
   "LG sciencepark W10::2::Rack": {
     "x": 2.0,
     "y": 2.0,
-    "z": 2.0
+    "z": 0.0
   },
   "LG sciencepark W10::2::Shelf": {
     "x": 1.0,

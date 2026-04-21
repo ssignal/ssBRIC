@@ -212,35 +212,11 @@ window.toolboxCustomBasic = {
       "contents": [
         {
           "kind": "block",
-          "type": "behavior__scenario__bric_scenario_april_demo"
+          "type": "behavior__scenario__bric_scenario_hangingrack_0429"
         },
         {
           "kind": "block",
-          "type": "behavior__scenario__bric_scenario_april_demo_funcscenario"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_april_demo_simple"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_motion_sound"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_moveanddumpbox"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_moveandpickupbox"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_refertest"
-        },
-        {
-          "kind": "block",
-          "type": "behavior__scenario__bric_scenario_scenariotest_recursive"
+          "type": "behavior__scenario__bric_scenario_turnaround"
         },
         {
           "kind": "block",
