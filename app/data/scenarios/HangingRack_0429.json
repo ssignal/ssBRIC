@@ -10,8 +10,8 @@
         {
           "type": "procedures_defnoreturn",
           "id": "-Ng+gx^Y/#TPJFX-f/D*",
-          "x": 550,
-          "y": 670,
+          "x": 870,
+          "y": 210,
           "icons": {
             "comment": {
               "text": "Describe this function...",
@@ -32,6 +32,12 @@
                   "PARAM_DISTANCE": "0.0",
                   "PARAM_VELOCITY": "0.10",
                   "PARAM_DIRECTION": "backwards"
+                },
+                "next": {
+                  "block": {
+                    "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+                    "id": "9?Lg9:o-Vyp%n.3M3YZL"
+                  }
                 }
               }
             }
