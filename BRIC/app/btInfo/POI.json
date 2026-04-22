@@ -1,0 +1,79 @@
+[
+  {
+    "name": "PickUp",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 1.64,
+        "y": 1.345,
+        "z": 180.0
+      }
+    }
+  },
+  {
+    "name": "Dump",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 2.64,
+        "y": 2.345,
+        "z": 180.0
+      }
+    }
+  },
+  {
+    "name": "PutDown",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "y": 3.345,
+        "x": 3.64,
+        "z": 180.0
+      }
+    }
+  },
+  {
+    "name": "Rack",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    }
+  },
+  {
+    "name": "Shelf",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  },
+  {
+    "name": "Rack",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    }
+  },
+  {
+    "name": "Shelf",
+    "data": {
+      "pose_type": "map",
+      "pose": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  }
+]

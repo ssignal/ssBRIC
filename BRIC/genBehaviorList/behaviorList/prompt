@@ -1,0 +1,28 @@
+# objective
+## Create a Json formated file including information to create Google Bric Block.
+## Create available list including information.
+
+# input
+## ./BT_summary.txt.
+  Targets of Behaviors and it's description.
+  category: defined in "[ ]".
+  action: defined under the 'type'.
+## ./ros2command 
+  ROS2 commands including parameters.
+## /mnt/data/ssignalWork/ROBO/CLOiD/rodam-app/app/src/ros
+  Source code to create a final ROS2 commands.
+  Parameter information could be found in this source code.
+
+# output
+## BehaviroList/BTList.json
+
+# Required items.
+  - category: string
+  - action: string
+  - parameter object array.
+    name: string
+    type: string
+    description: string
+    options: available values
+    min: number
+    max: number

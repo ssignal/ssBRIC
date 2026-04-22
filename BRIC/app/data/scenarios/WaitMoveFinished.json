@@ -1,0 +1,36 @@
+{
+  "profile": {
+    "robot_type": "cloid",
+    "operation_profile": "TN_Logi"
+  },
+  "blocks": {
+    "blocks": {
+      "languageVersion": 0,
+      "blocks": [
+        {
+          "type": "bt_function__root",
+          "id": ")9jw.Itu[ls4Ff~)_VQ|",
+          "x": 40,
+          "y": 40,
+          "inputs": {
+            "CHILD": {
+              "block": {
+                "type": "behavior__navigation__navigation_wait_move_finished",
+                "id": ":RPu7f*|2aCGM%M${[P^",
+                "next": {
+                  "block": {
+                    "type": "bt_function__sleep",
+                    "id": "i%VdWja9VXGFcq~H4,=n",
+                    "fields": {
+                      "PARAM_TICKRATE": "500"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

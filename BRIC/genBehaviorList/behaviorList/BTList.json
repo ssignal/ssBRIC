@@ -1,0 +1,235 @@
+[
+  {
+    "category": "Motion",
+    "action": "motion/start_motion",
+    "description": "Q9 motion ID를 지정해 motion을 시작한다.",
+    "parameters": [
+      {
+        "name": "motion_id",
+        "type": "string",
+        "description": "ID from /api/action/motion/list. The app resolves task_type and motion/legacy/preset target from this ID.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "blocking_type",
+        "type": "string",
+        "description": "Scheduler blocking mode while the motion is running.",
+        "options": [
+          {
+            "value": "NONE",
+            "description": "Resolve on completion."
+          },
+          {
+            "value": "SOFT",
+            "description": "Soft blocking until completion."
+          },
+          {
+            "value": "HARD",
+            "description": "Hard blocking until completion."
+          },
+          {
+            "value": "LOOP",
+            "description": "Re-execute the motion until released."
+          },
+          {
+            "value": "WAIT",
+            "description": "Keep waiting after completion until release."
+          }
+        ],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "duration_ms",
+        "type": "integer",
+        "description": "Optional extra timeout. If set, stop_motion is triggered after this many milliseconds.",
+        "options": [],
+        "min": 0,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Motion",
+    "action": "motion/stop_motion",
+    "description": "현재 실행 중인 motion을 강제로 종료한다.",
+    "parameters": []
+  },
+  {
+    "category": "Motion",
+    "action": "motion/wait_motion_finished",
+    "description": "현재 실행 중인 motion의 완료를 기다린다.",
+    "parameters": []
+  },
+  {
+    "category": "자율 주행",
+    "action": "navigation/move_to_pose",
+    "description": "지정한 좌표와 자세로 이동을 요청한다.",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float",
+        "description": "Target pose x position in the map frame.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "y",
+        "type": "float",
+        "description": "Target pose y position in the map frame.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "theta",
+        "type": "float",
+        "description": "Target heading in radians.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "behavior_tree",
+        "type": "string",
+        "description": "Optional behavior tree filename. When omitted, the default navigation tree is used.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "frame_id",
+        "type": "string",
+        "description": "ROS frame for the target pose.",
+        "options": [
+          {
+            "value": "map",
+            "description": "Default frame used by NAVPose."
+          }
+        ],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "자율 주행",
+    "action": "navigation/moving_to_pose",
+    "description": "지정한 좌표에 도착했는지 확인한다.",
+    "parameters": [
+      {
+        "name": "x",
+        "type": "float",
+        "description": "Reference target x position in the map frame.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "y",
+        "type": "float",
+        "description": "Reference target y position in the map frame.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "theta",
+        "type": "float",
+        "description": "Reference target heading in radians.",
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "자율 주행",
+    "action": "navigation/stop_move",
+    "description": "현재 진행 중인 navigation goal을 취소한다.",
+    "parameters": []
+  },
+  {
+    "category": "자율 주행",
+    "action": "navigation/rotate",
+    "description": "제자리에서 목표 각도만큼 회전한다.",
+    "parameters": [
+      {
+        "name": "yaw",
+        "type": "float",
+        "description": "Target yaw in radians.",
+        "options": [],
+        "min": null,
+        "max": null
+      },
+      {
+        "name": "time_allowance_sec",
+        "type": "integer",
+        "description": "Optional time allowance for the spin action.",
+        "options": [],
+        "min": 0,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Sound control",
+    "action": "sound/start_play",
+    "description": "등록된 sound/music 항목을 재생한다.",
+    "parameters": [
+      {
+        "name": "sound_id",
+        "type": "string",
+        "description": "ID from /api/action/sound/list. For music entries, the app publishes the mapped URL.",
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Sound control",
+    "action": "sound/start_play_tts",
+    "description": "입력한 텍스트를 TTS로 재생한다.",
+    "parameters": [
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Text to speak.",
+        "options": [],
+        "min": null,
+        "max": null
+      }
+    ]
+  },
+  {
+    "category": "Sound control",
+    "action": "sound/stop_play",
+    "description": "현재 재생 중인 sound를 강제로 종료한다.",
+    "parameters": []
+  },
+  {
+    "category": "Sound control",
+    "action": "sound/wait_play_completed",
+    "description": "현재 sound 재생이 끝날 때까지 기다린다.",
+    "parameters": []
+  },
+  {
+    "category": "Sound control",
+    "action": "sound/set_volume",
+    "description": "sound 볼륨을 설정한다.",
+    "parameters": [
+      {
+        "name": "volume",
+        "type": "integer",
+        "description": "Playback volume level.",
+        "options": [],
+        "min": 1,
+        "max": 10
+      }
+    ]
+  }
+]

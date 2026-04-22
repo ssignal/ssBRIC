@@ -1,0 +1,191 @@
+{
+  "profile": {
+    "robot_type": "cloid",
+    "operation_profile": "TN_Logi"
+  },
+  "blocks": {
+    "blocks": {
+      "languageVersion": 0,
+      "blocks": [
+        {
+          "type": "procedures_defnoreturn",
+          "id": "-Ng+gx^Y/#TPJFX-f/D*",
+          "x": 870,
+          "y": 210,
+          "icons": {
+            "comment": {
+              "text": "Describe this function...",
+              "pinned": false,
+              "height": 80,
+              "width": 160
+            }
+          },
+          "fields": {
+            "NAME": "Movebackward"
+          },
+          "inputs": {
+            "STACK": {
+              "block": {
+                "type": "behavior__navigation__navigation_move_in_direction",
+                "id": "gpCj9~jh/=J|k;(hE;yW",
+                "fields": {
+                  "PARAM_DISTANCE": "0.0",
+                  "PARAM_VELOCITY": "0.10",
+                  "PARAM_DIRECTION": "backwards"
+                },
+                "next": {
+                  "block": {
+                    "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+                    "id": "9?Lg9:o-Vyp%n.3M3YZL"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "bt_function__root",
+          "id": "54d8quIdz%B=^Ctp5SqJ",
+          "x": 40,
+          "y": 40,
+          "inputs": {
+            "CHILD": {
+              "block": {
+                "type": "bt_logic__sequence",
+                "id": "P]MU$6+LSWZxh?b4e^]#",
+                "fields": {
+                  "PARAM_TICKRATE": "0"
+                },
+                "inputs": {
+                  "CHILDREN": {
+                    "block": {
+                      "type": "behavior__navigation__bric_move_to_pose",
+                      "id": "r/kU96L:HyZLK4Z$V67v",
+                      "fields": {
+                        "PARAM_AREA": "LG sciencepark W10",
+                        "PARAM_FLOOR": "2",
+                        "PARAM_SESSION": "default",
+                        "PARAM_POI": "Shelf"
+                      },
+                      "next": {
+                        "block": {
+                          "type": "behavior__scenario__bric_scenario_waitmovefinished",
+                          "id": "H,`,,ORpA~UTI4w/J3]w"
+                        }
+                      }
+                    }
+                  }
+                },
+                "next": {
+                  "block": {
+                    "type": "bt_logic__sequence",
+                    "id": "eV?Ngefc:1QO$9|5`4RM",
+                    "fields": {
+                      "PARAM_TICKRATE": "0"
+                    },
+                    "inputs": {
+                      "CHILDREN": {
+                        "block": {
+                          "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                          "id": "S~^W_GhL5wz(O_;aetW3",
+                          "fields": {
+                            "PARAM_NAME": "manipulation.TN_Logi.flat.box.pick"
+                          },
+                          "next": {
+                            "block": {
+                              "type": "behavior__motion__motion_wait_motion_finished",
+                              "id": "D`MEBKPEW0mlD?%HvMKa"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "next": {
+                      "block": {
+                        "type": "procedures_callnoreturn",
+                        "id": "^_8[Zjv~CY^}vB/|:NjF",
+                        "extraState": {
+                          "name": "Movebackward"
+                        },
+                        "next": {
+                          "block": {
+                            "type": "behavior__scenario__bric_scenario_turnaround",
+                            "id": "kSy@B]S~r`oVh@iE)O]P",
+                            "next": {
+                              "block": {
+                                "type": "bt_logic__sequence",
+                                "id": "ZvpS^1.^Vbp;S;jIwI)4",
+                                "fields": {
+                                  "PARAM_TICKRATE": "0"
+                                },
+                                "inputs": {
+                                  "CHILDREN": {
+                                    "block": {
+                                      "type": "behavior__navigation__bric_move_to_pose",
+                                      "id": "8TPs2!GEH%aafPJp~X$$",
+                                      "fields": {
+                                        "PARAM_AREA": "LG sciencepark W10",
+                                        "PARAM_FLOOR": "2",
+                                        "PARAM_SESSION": "default",
+                                        "PARAM_POI": "Rack"
+                                      },
+                                      "next": {
+                                        "block": {
+                                          "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+                                          "id": "I@5`wK(.zwSk/Xyc/VI3"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "next": {
+                                  "block": {
+                                    "type": "bt_logic__sequence",
+                                    "id": "5RY2A$FCD%;C/W]e/y]M",
+                                    "fields": {
+                                      "PARAM_TICKRATE": "0"
+                                    },
+                                    "inputs": {
+                                      "CHILDREN": {
+                                        "block": {
+                                          "type": "behavior__motion__bric_start_motion_motion_start_motion",
+                                          "id": "N^X@p=ZtM$6lJ=u8`kM-",
+                                          "fields": {
+                                            "PARAM_NAME": "manipulation.TN_Logi.flat.box.dump"
+                                          },
+                                          "next": {
+                                            "block": {
+                                              "type": "behavior__motion__motion_wait_motion_finished",
+                                              "id": "nv=j%56Z)VMa2{6CQm:o"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "next": {
+                                      "block": {
+                                        "type": "procedures_callnoreturn",
+                                        "id": "SQ|U*tKufdo3cmbJMz#!",
+                                        "extraState": {
+                                          "name": "Movebackward"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

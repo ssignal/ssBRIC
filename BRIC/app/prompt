@@ -1,0 +1,254 @@
+###################################################
+# Objective
+ Create a web app in python including Google Blockly Editing.
+ The output of the Blockly Editer is the Behavior Tree in json formated.
+
+###################################################
+# Conditions
+## Category
+  There is no default category supported by Google Blockly.
+  They will be added by 'Generator'
+## Folder tree
+  CustomBlocks: './static/generated/CustomBlocks'. Block Definition.
+  Generators: './static/generated/Generators/'. Code generators
+  Toolbox: './static/generated/Toolbox/'. There is a file 'toolboxCustomBasic.js' Json formated Toolbox info.
+  Theme: './static/generated/Theme/'. There is a file 'themeForCustomBasic.js' Json formated Theme file for Blocks.
+
+###################################################
+# Pages
+## Main Page -------------------------------
+  - Background: use image file in `./static/assets`.
+### Scenario
+  - Scnerio List: Show the saved Scnerio list (Behavior Tree)
+  - Show spinner overlay on scenario list while loading list data.
+    - Spinner is shown from when Main Scenario window appears.
+    - Spinner is hidden only after all scenario list items are loaded and rendered.
+  - Delete Button: Remove selected Scenario.
+  - Copy Button: Duplicate selected Scenario.
+    - Clicking `Copy` creates a duplicated item with the same name.
+    - The duplicated item starts in inline edit mode on the scenario list.
+    - User inputs new name and presses `Enter` to complete copy.
+    - If user cancels or ends edit without name change, remove the duplicated item.
+  - Rename Button: Rename selected Scenario.
+    - In normal mode, scenario list items are selectable only.
+    - After clicking `Rename`, selected item changes to edit mode.
+    - User edits the selected name inline in the scenario list.
+    - Pressing `Enter` confirms rename.
+  - Create Button: to Create a new Scnerio with the Blockly Editor.
+  - Edit Button: to edit a selected Scnerio with the Blockly Editor.
+### Block
+  - Update Button
+    Load and Update the Block List from fixed location file. ./btInfo.
+## Edit Page -------------------------------
+  - Show the Google Blockly Edit page.
+  - If there are blocks or category, show it left side as a normal Blockly app.
+  - If there is a selected scenario on the Main Page, show it on the screen.
+    The Behavior Tree should be convert to Brockly Json format refer to the json file in btInfo folder.
+    Convert only items that has been vound in btInfo.
+  - Behavior Tree JSON should not be shown in the right side area.
+  - In scenario name input field, pressing `Enter` should save scenario.
+    It should behave same as clicking `Save Scenario` button.
+  - `Export` button saves current Behavior Tree JSON to `./data/output/behaviorTree.json`.
+  - While editing, keep the original scenario name.
+    - If user saves with a new name that does not exist, create a new file.
+    - If user saves with a name that already exists and it is not the original editing item, block save and show warning message.
+    - Overwriting another existing scenario file is not allowed.
+## Behavior Tree JSON Window -------------------------------
+  - In Edit page, button name is `Behavior Tree` (not `Generate BT JSON`).
+  - Clicking `Behavior Tree` opens Graphical Tree window first.
+  - Behavior Tree JSON window is opened by `JSON` button in Graphical Tree window.
+  - Behavior Tree JSON window has `View Tree` button to go back to Graphical Tree window.
+  - When clicking `Generate BT JSON`, open Behavior Tree JSON popup window at center of window.
+  - Popup height should be over 70% of window height.
+  - Popup card uses main app theme style.
+  - JSON text area uses light background color for readability.
+  - JSON text should be selectable and copyable to system clipboard.
+  - `Confirm` button closes the popup window.
+## Graphical Tree Window -------------------------------
+  - Window title is `Graphical Tree`.
+  - Popup height should be over 70% of window height.
+  - Popup width should be over 70% of window width.
+  - Show BT tree as graphical nodes and lines.
+  - Each tree item color uses the block color of corresponding block.
+  - Tree link lines should be horizontal/vertical with rounded corners (not straight diagonal lines).
+  - Provide `Zoom In` and `Zoom Out` buttons.
+  - Support mouse wheel zoom and drag(pan) interaction.
+  - Buttons are centered at bottom.
+  - `JSON` button opens Behavior Tree JSON window.
+  - `Confirm` button closes Graphical Tree window.
+## Top Menu -------------------------------
+  Top area shows title text `BRIC Scenario Studio`.
+  Clicking `BRIC Scenario Studio` goes back to Main page.
+## Notification -------------------------------
+  Notification toast message should be shown in the center of the window.
+  For scenario Add/Save, Delete, Rename, and Copy actions, include the scenario name in the message.
+  Example messages:
+   - Saved: {scenario_name}.json
+   - Deleted: {scenario_name}.json
+   - Renamed: {old_scenario_name} -> {new_scenario_name}
+   - Copied: {source_scenario_name} -> {new_scenario_name}
+
+###################################################
+# Generate Blocks.
+     Create a Blockly blocks description in json format refer to the target json file.
+     Create a nodejs file for Block Register for each json files in the Json Output Path.
+     Create a nodejs file that includes functions for Code Generator for each blocks.
+     Add the Block into the toolbox.
+## conditions -------------------------------
+### Block register
+   - Load json file that describe block info.
+   - Register it using Blockly.Blocks
+   - For InputFileA blocks, use only the last part of `action` after `/` as the block name label.
+   - For InputFileB
+     If the 'children' enabled is true, This block is treated as a block in 'BT_Logic' cateogry.
+     Others are in 'BT_Function'.
+### Code Generator
+   - Create a function for each blocks and register it using "javascriptGenerator.forBlock"
+   - The function returns the json string including the items.
+     1. type: 'type' of the item, default is 'Action'
+     2. action: 'action' of the item if exist.
+     3. parameter: items in 'parameters'
+       For InputFileA (`BlockListRobot.json`), each parameter item includes `enabled`.
+       Only parameters with `enabled: true` are shown/used in block UI and generation.
+     4. id: the 8 digits unique random string.
+     6. other parameters in 'parametersDef' of the item.
+       Only items with the 'enabled: true' is used.
+       This items added to as a key like 'type' and 'action', not in 'parameter'.
+### Toolbox
+  Add the new catagery for the new blocks.
+  The category name is the 'category' of each item.
+  Add built-in `Functions` category for Blockly function blocks.
+  Category order is fixed:
+   - BT Logic
+   - BT Function
+   - 자율주행
+   - Motion
+   - Sound control
+  Do not include Root block in BT Function toolbox category.
+### Block / Category Color
+  Each block uses the color of its category.
+  Root block is a special block and does not follow category color.
+  Root block color is fixed to '#8c564b'.
+  Blocks in category should use the same color as each category.
+## File Path -------------------------------
+### input
+  InputFileA: ./btInfo/BlockListRobot.json
+  InputFileB: ./btInfo/BTList_bt.json
+### output
+  Toolbox: ./static/generated/Toolbox/toolboxCustomBasic.js
+#### Behaviros
+  Input file: InputFileA
+  Block Register: ./static/generated/CustomBlocks/ros2Blocks_{YYY}.js
+  Code generator: ./static/generated/Generators/ros2Blocks_{YYY}.js
+  YYY: category of each item in BehaviroList
+#### BT Logic
+  Input file: InputFileB
+  Block Register: ./static/generated/CustomBlocks/bt_logic.js
+  Code generator: ./static/generated/Generators/bt_logic.js
+#### BT Function
+  Input file: InputFileB
+  Block Register: ./static/generated/CustomBlocks/bt_function.js
+  Code generator: ./static/generated/Generators/bt_function.js
+## Special Case -------------------------------
+### Generated JS scope isolation
+  Generated files in `./static/generated/CustomBlocks` and `./static/generated/Generators` are loaded sequentially in the browser.
+  Do not use shared top-level variable names across files (e.g. `const BLOCKS`) in global scope.
+  Each generated file must isolate its scope (e.g. wrap file content in IIFE) to avoid redeclaration errors.
+  If redeclaration happens, only the first-loaded category may work and other category items will not be shown.
+### options
+  If a item has options, use dropdown menu.
+  If a item has no options, use input box.
+  If an option has `description`, show it when dropdown menu is opened and mouse is over that option item.
+  If an option includes `parameters`, show those additional parameters in the block.
+  Additional parameters by option are supported only for 1 depth.
+  Nested option-parameters under those additional parameters are ignored.
+  Dynamic option-parameters (`OPT_*`) must be persisted in scenario Blockly JSON on save.
+  On scenario load, dynamic option-parameters must be rebuilt first and then saved `OPT_*` values must be restored.
+  Dynamic parameter values must not be reset to defaults during load.
+### parent keys
+  Parameter name can include parent-key prefix with format `YYYY/XXXX`.
+  In block UI, show only `XXXX` as parameter label.
+  In generated Behavior Tree JSON, store it as nested object:
+    - `"YYYY": { "XXXX": value }`
+  This parent-key mapping rule applies to both normal parameters and option-added parameters.
+### Function block to Behavior Tree
+  Scenario file is saved in Blockly workspace JSON format.
+  Clicking `Behavior Tree` converts current Blockly workspace to Behavior Tree JSON.
+  Function call block (`procedures_callnoreturn`) is converted to:
+    `{ "type": "Subtree", "id": "XXXXXXXX" }`
+  `id` is the function name (`fields.NAME` / function name state).
+  Behavior Tree top-level object uses parent keys:
+    - `Root`
+    - function ids (function names)
+  Each function key value format:
+    `"XXXXXXXX": { "child": { ... } }`
+  If function body is already a single `Sequence`, do not wrap it with another `Sequence`.
+  In Graphical Tree, render `Root` and each function id as separate trees.
+  For `Root` and Function block output, use `Sequence` as default BT_Logic wrapper when there is no `BT Logic` block in workspace.
+  This rule is only for Behavior Tree generation used by Graphical/JSON view and Export.
+### Reference Action Block
+  If action has `BRIC.XXXX:` prefix, treat it as a reference action block.
+  In Behavior Tree JSON view and Graphical Tree view, do not display the prefix part.
+  Show/display action only with the part after `:`.
+  Reference block exception:
+    - If reference file or matched reference entry is missing, show error message.
+    - Error check points: editing start, before `Save Scenario`, before `Behavior Tree`, and before `Export`.
+    - If this error exists, block save and conversion/export actions.
+  On `Export`, preprocess this action:
+    - Reference file is `./btInfo/XXXX.json`.
+    - Find matching entry by `parameter.name`.
+    - Build node `parameter` from matched `data`, and keep additional parameters from block (e.g., option-parameters like `objects`) if they are not in matched `data`.
+    - Replace node `action` with the action text after `:`.
+### Scenario Category
+  Add `Scenario` category blocks from saved scenario files in `./data/scenarios/*.json`.
+  Action format is `BRIC.SCENARIO:XXXX` where `XXXX` is scenario file name (without `.json`).
+  In block UI, show block name as `XXXX` only (hide prefix `BRIC.SCENARIO:`).
+  While editing scenario `S`, hide its own scenario block in `Scenario` category.
+  Recursive-call check for Scenario references is performed when editing starts.
+  On `Save Scenario`, check recursive Scenario references again with current workspace data; if recursive, block save and show warning message.
+  In `Scenario` category, disable items that would create recursive reference with current editing scenario.
+  For `Behavior Tree` (Graphical/JSON view), treat Scenario block as Subtree:
+    - Node: `{ "type": "Subtree", "id": "XXXX" }`
+    - Add subtree entry: `"XXXX": { "child": { ... } }`
+  For `Export`, keep Scenario block as Subtree output in the same format above.
+### Default BT Logic wrapper
+  If subtree root has no `BT Logic` block, wrap by default `Sequence`.
+  This default `Sequence` rule applies to Root, Function subtree, and Scenario subtree.
+### Sound id
+  Default value of `id` in `Sound` category is `2000`.
+  For blocks in `Sound` category whose action name includes `start_play`, increase `id` for each new block.
+  If all such `start_play` blocks are removed, reset the next `id` value to the default `2000`.
+### min max
+  If a item has only one of min or max, use input box and use it as default value.
+  If a item has min, use dropdown menu.
+  If parameter type is float and both min and max exist, create dropdown options with 20 steps (inclusive).
+  Example: min=0, max=1 -> 0.00, 0.05, 0.10, ... , 1.00
+### Float expression format
+  For `Export` Behavior Tree JSON, float-type values must be written in float literal style.
+  Example: use `2.0` (not `2`) for float-type fields.
+  This rule is for Export output file and Export JSON view.
+### description
+#### Description for a block
+  Add a question icon on the left side of a block only if 'description' exists and is not empty.
+  If there is no 'description' or it is empty, hide the question icon.
+  Clicking the question icon shows the 'description' in a popup UI.
+  Do not use browser alert window for help message.
+#### Description for parameters
+  Add a question icon before each parameter.
+  Clicking parameter question icon shows its description in the same popup UI.
+#### Question icon
+   Circle icon include '?' in the center of the circle.
+   Background color is blue, the '?' color is white.
+   The circle has a thin white outline.
+#### Help popup UI
+  Help popup is a custom UI box, not browser default tooltip.
+  Popup has a text box and a pointer tail (upside-down triangle).
+  Frame color follows the source block color.
+  Text box uses light yellow background.
+  There should be no visible line between the text box and pointer tail.
+  `Function` category help popup can keep its own frame thickness.
+## Default value -------------------------------
+   If there is no min or max value for a default value, set the value below according to it's type.
+### float: 0.0
+### int: 0
+### string: empty string.

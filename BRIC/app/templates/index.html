@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BRIC Scenario Studio</title>
+  <link rel="stylesheet" href="/static/style.css?v={{ css_version }}">
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <header class="top-menu">
+    <button id="brand-home" class="brand-btn" type="button">BRIC Scenario Studio</button>
+  </header>
+
+  <main>
+    <section id="page-main" class="page active">
+      <div class="panel glass">
+        <h2>Robot &amp; Operation</h2>
+        <p class="hint">Select robot and operation to filter available blocks.</p>
+        <div class="profile-row">
+          <label for="profile-robot-type">Robot Type</label>
+          <select id="profile-robot-type"><option value="">All</option></select>
+        </div>
+        <div class="profile-row">
+          <label for="profile-operation">Operation</label>
+          <select id="profile-operation"><option value="">All</option></select>
+        </div>
+        <button id="btn-apply-profile" type="button">Apply</button>
+      </div>
+
+      <div class="panel glass">
+        <h2>Scenario</h2>
+        <p class="hint">Select a saved behavior tree scenario.</p>
+        <div class="scenario-list-wrap">
+          <select id="scenario-list" size="14"></select>
+          <div id="scenario-list-loading" class="scenario-list-loading" aria-hidden="true">
+            <div class="spinner" aria-label="Loading scenarios"></div>
+          </div>
+        </div>
+        <div class="row-actions">
+          <button id="btn-create" type="button">Create</button>
+          <button id="btn-edit" type="button">Edit</button>
+          <button id="btn-copy" type="button">Copy</button>
+          <button id="btn-rename" type="button">Rename</button>
+          <button id="btn-delete" type="button" class="danger">Delete</button>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <h2>Blocks</h2>
+        <p class="hint">Reload block metadata from <code>./btInfo</code> and regenerate Toolbox/Generators.</p>
+        <button id="btn-update-blocks" type="button">Update Blocks</button>
+        <pre id="update-result"></pre>
+      </div>
+    </section>
+
+    <section id="page-edit" class="page">
+      <div class="editor-toolbar glass">
+        <div id="tab-bar" class="tab-bar"></div>
+        <div class="editor-actions">
+          <button id="btn-save" type="button">Save Scenario</button>
+          <button id="btn-export-file" type="button">Export</button>
+          <button id="btn-export" type="button">Behavior Tree</button>
+        </div>
+      </div>
+
+      <div class="editor-grid">
+        <div class="workspace-shell glass">
+          <div id="blocklyDiv"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="json-modal" class="json-modal">
+    <div class="json-modal-card glass">
+      <h3>Behavior Tree JSON</h3>
+      <textarea id="json-modal-text" readonly spellcheck="false"></textarea>
+      <div class="json-modal-actions">
+        <button id="btn-json-tree" type="button">View Tree</button>
+        <button id="btn-json-confirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tree-modal" class="json-modal">
+    <div class="json-modal-card tree-modal-card glass">
+      <h3>Graphical Tree</h3>
+      <div id="tree-canvas-wrap">
+        <svg id="tree-canvas" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="json-modal-actions">
+        <button id="btn-tree-zoom-in" type="button">Zoom In</button>
+        <button id="btn-tree-zoom-out" type="button">Zoom Out</button>
+        <button id="btn-tree-json" type="button">JSON</button>
+        <button id="btn-tree-confirm" type="button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="save-dialog" class="json-modal">
+    <div class="json-modal-card save-dialog-card glass">
+      <h3>Save Scenario</h3>
+      <div class="save-dialog-body">
+        <label for="scenario-name">Scenario Name</label>
+        <input id="scenario-name" type="text" placeholder="scenario_001">
+      </div>
+      <div class="json-modal-actions">
+        <button id="btn-save-confirm" type="button">Confirm</button>
+        <button id="btn-save-cancel" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js?v={{ js_version }}"></script>
+</body>
+</html>

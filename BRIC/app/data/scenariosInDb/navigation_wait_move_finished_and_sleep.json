@@ -1,0 +1,14 @@
+{
+  "type": "Sequence",
+  "children": [
+    {
+      "type": "Action",
+      "action": "navigation/wait_move_finished"
+    },
+    {
+      "type": "Sleep",
+      "tickrate": 500
+    }
+  ],
+  "description": "Wait until the move is finished and sleep for a while"
+}

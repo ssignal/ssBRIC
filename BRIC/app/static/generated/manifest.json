@@ -1,0 +1,5404 @@
+{
+  "generated_at": "2026-04-21T05:11:26.205044Z",
+  "behavior": [
+    {
+      "block_type": "behavior__navigation__bric_move_to_pose",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "move_to_pose",
+      "action": "BRIC:move_to_pose",
+      "description": "Select area / floor / session / POI",
+      "json": {
+        "type": "behavior__navigation__bric_move_to_pose",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "move_to_pose",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_AREA"
+          },
+          {
+            "type": "field_label",
+            "text": "area"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_AREA",
+            "options": [
+              [
+                "LG Digital Park P1",
+                "LG Digital Park P1"
+              ],
+              [
+                "LG sciencepark W02",
+                "LG sciencepark W02"
+              ],
+              [
+                "LG sciencepark W10",
+                "LG sciencepark W10"
+              ],
+              [
+                "LG Seocho R&D",
+                "LG Seocho R&D"
+              ],
+              [
+                "LG Seocho R&D Podium",
+                "LG Seocho R&D Podium"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_FLOOR"
+          },
+          {
+            "type": "field_label",
+            "text": "floor"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_FLOOR",
+            "options": [
+              [
+                "1",
+                "1"
+              ],
+              [
+                "2",
+                "2"
+              ],
+              [
+                "3",
+                "3"
+              ],
+              [
+                "B1",
+                "B1"
+              ],
+              [
+                "B2",
+                "B2"
+              ],
+              [
+                "4",
+                "4"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "6"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "M",
+                "M"
+              ],
+              [
+                "10",
+                "10"
+              ],
+              [
+                "11",
+                "11"
+              ],
+              [
+                "12",
+                "12"
+              ],
+              [
+                "13",
+                "13"
+              ],
+              [
+                "14",
+                "14"
+              ],
+              [
+                "15",
+                "15"
+              ],
+              [
+                "16",
+                "16"
+              ],
+              [
+                "17",
+                "17"
+              ],
+              [
+                "18",
+                "18"
+              ],
+              [
+                "19",
+                "19"
+              ],
+              [
+                "20",
+                "20"
+              ],
+              [
+                "21",
+                "21"
+              ],
+              [
+                "22",
+                "22"
+              ],
+              [
+                "23",
+                "23"
+              ],
+              [
+                "24",
+                "24"
+              ],
+              [
+                "25",
+                "25"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_SESSION"
+          },
+          {
+            "type": "field_label",
+            "text": "session"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_SESSION",
+            "options": [
+              [
+                "default",
+                "default"
+              ],
+              [
+                "elevator_AB",
+                "elevator_AB"
+              ],
+              [
+                "eleavor_CD",
+                "eleavor_CD"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POI"
+          },
+          {
+            "type": "field_label",
+            "text": "poi"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_POI",
+            "options": [
+              [
+                "LG sciencepark W02 › Hanging Rack",
+                "Rack"
+              ],
+              [
+                "LG sciencepark W02 › Self",
+                "Shelf"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "Select area / floor / session / POI",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "area",
+          "output_name": "area",
+          "parent_key": "",
+          "field": "PARAM_AREA",
+          "type": "string",
+          "description": "Area",
+          "options": [
+            [
+              "LG Digital Park P1",
+              "LG Digital Park P1"
+            ],
+            [
+              "LG sciencepark W02",
+              "LG sciencepark W02"
+            ],
+            [
+              "LG sciencepark W10",
+              "LG sciencepark W10"
+            ],
+            [
+              "LG Seocho R&D",
+              "LG Seocho R&D"
+            ],
+            [
+              "LG Seocho R&D Podium",
+              "LG Seocho R&D Podium"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "LG Digital Park P1",
+              "display_name": "LG Digital Park P1"
+            },
+            {
+              "value": "LG sciencepark W02",
+              "display_name": "LG sciencepark W02"
+            },
+            {
+              "value": "LG sciencepark W10",
+              "display_name": "LG sciencepark W10"
+            },
+            {
+              "value": "LG Seocho R&D",
+              "display_name": "LG Seocho R&D"
+            },
+            {
+              "value": "LG Seocho R&D Podium",
+              "display_name": "LG Seocho R&D Podium"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "LG Digital Park P1": "",
+            "LG sciencepark W02": "",
+            "LG sciencepark W10": "",
+            "LG Seocho R&D": "",
+            "LG Seocho R&D Podium": ""
+          }
+        },
+        {
+          "name": "floor",
+          "output_name": "floor",
+          "parent_key": "",
+          "field": "PARAM_FLOOR",
+          "type": "string",
+          "description": "Floor",
+          "options": [
+            [
+              "1",
+              "1"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "3",
+              "3"
+            ],
+            [
+              "B1",
+              "B1"
+            ],
+            [
+              "B2",
+              "B2"
+            ],
+            [
+              "4",
+              "4"
+            ],
+            [
+              "5",
+              "5"
+            ],
+            [
+              "6",
+              "6"
+            ],
+            [
+              "7",
+              "7"
+            ],
+            [
+              "8",
+              "8"
+            ],
+            [
+              "9",
+              "9"
+            ],
+            [
+              "M",
+              "M"
+            ],
+            [
+              "10",
+              "10"
+            ],
+            [
+              "11",
+              "11"
+            ],
+            [
+              "12",
+              "12"
+            ],
+            [
+              "13",
+              "13"
+            ],
+            [
+              "14",
+              "14"
+            ],
+            [
+              "15",
+              "15"
+            ],
+            [
+              "16",
+              "16"
+            ],
+            [
+              "17",
+              "17"
+            ],
+            [
+              "18",
+              "18"
+            ],
+            [
+              "19",
+              "19"
+            ],
+            [
+              "20",
+              "20"
+            ],
+            [
+              "21",
+              "21"
+            ],
+            [
+              "22",
+              "22"
+            ],
+            [
+              "23",
+              "23"
+            ],
+            [
+              "24",
+              "24"
+            ],
+            [
+              "25",
+              "25"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "1",
+              "display_name": "1",
+              "area": "LG Digital Park P1"
+            },
+            {
+              "value": "2",
+              "display_name": "2",
+              "area": "LG Digital Park P1"
+            },
+            {
+              "value": "3",
+              "display_name": "3",
+              "area": "LG Digital Park P1"
+            },
+            {
+              "value": "B1",
+              "display_name": "B1",
+              "area": "LG Digital Park P1"
+            },
+            {
+              "value": "B2",
+              "display_name": "B2",
+              "area": "LG Digital Park P1"
+            },
+            {
+              "value": "1",
+              "display_name": "1",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "2",
+              "display_name": "2",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "3",
+              "display_name": "3",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "4",
+              "display_name": "4",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "5",
+              "display_name": "5",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "6",
+              "display_name": "6",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "7",
+              "display_name": "7",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "8",
+              "display_name": "8",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "9",
+              "display_name": "9",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "M",
+              "display_name": "M",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "B1",
+              "display_name": "B1",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "B2",
+              "display_name": "B2",
+              "area": "LG sciencepark W02"
+            },
+            {
+              "value": "1",
+              "display_name": "1",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "2",
+              "display_name": "2",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "3",
+              "display_name": "3",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "4",
+              "display_name": "4",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "5",
+              "display_name": "5",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "6",
+              "display_name": "6",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "7",
+              "display_name": "7",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "8",
+              "display_name": "8",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "9",
+              "display_name": "9",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "M",
+              "display_name": "M",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "B1",
+              "display_name": "B1",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "B2",
+              "display_name": "B2",
+              "area": "LG sciencepark W10"
+            },
+            {
+              "value": "1",
+              "display_name": "1",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "2",
+              "display_name": "2",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "3",
+              "display_name": "3",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "4",
+              "display_name": "4",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "5",
+              "display_name": "5",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "6",
+              "display_name": "6",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "7",
+              "display_name": "7",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "8",
+              "display_name": "8",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "9",
+              "display_name": "9",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "M",
+              "display_name": "M",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "10",
+              "display_name": "10",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "11",
+              "display_name": "11",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "12",
+              "display_name": "12",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "13",
+              "display_name": "13",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "14",
+              "display_name": "14",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "15",
+              "display_name": "15",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "16",
+              "display_name": "16",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "17",
+              "display_name": "17",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "18",
+              "display_name": "18",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "19",
+              "display_name": "19",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "20",
+              "display_name": "20",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "21",
+              "display_name": "21",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "22",
+              "display_name": "22",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "23",
+              "display_name": "23",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "24",
+              "display_name": "24",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "25",
+              "display_name": "25",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "B1",
+              "display_name": "B1",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "B2",
+              "display_name": "B2",
+              "area": "LG Seocho R&D"
+            },
+            {
+              "value": "1",
+              "display_name": "1",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "2",
+              "display_name": "2",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "3",
+              "display_name": "3",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "4",
+              "display_name": "4",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "5",
+              "display_name": "5",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "B1",
+              "display_name": "B1",
+              "area": "LG Seocho R&D Podium"
+            },
+            {
+              "value": "B2",
+              "display_name": "B2",
+              "area": "LG Seocho R&D Podium"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "B1": "",
+            "B2": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "M": "",
+            "10": "",
+            "11": "",
+            "12": "",
+            "13": "",
+            "14": "",
+            "15": "",
+            "16": "",
+            "17": "",
+            "18": "",
+            "19": "",
+            "20": "",
+            "21": "",
+            "22": "",
+            "23": "",
+            "24": "",
+            "25": ""
+          }
+        },
+        {
+          "name": "session",
+          "output_name": "session",
+          "parent_key": "",
+          "field": "PARAM_SESSION",
+          "type": "string",
+          "description": "Session",
+          "options": [
+            [
+              "default",
+              "default"
+            ],
+            [
+              "elevator_AB",
+              "elevator_AB"
+            ],
+            [
+              "eleavor_CD",
+              "eleavor_CD"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Digital Park P1",
+              "floor": "1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Digital Park P1",
+              "floor": "2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Digital Park P1",
+              "floor": "3"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Digital Park P1",
+              "floor": "B1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Digital Park P1",
+              "floor": "B2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "3"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "4"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "5"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "6"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "7"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "8"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "9"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "M"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "B1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W02",
+              "floor": "B2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "1"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "1"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "2"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "2"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "3"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "3"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "3"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "4"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "4"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "4"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "5"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "5"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "5"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "6"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "6"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "6"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "7"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "7"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "7"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "8"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "8"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "8"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "9"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "9"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "9"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "M"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "M"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "M"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "B1"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "B1"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "B1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG sciencepark W10",
+              "floor": "B2"
+            },
+            {
+              "value": "elevator_AB",
+              "display_name": "elevator_AB",
+              "area": "LG sciencepark W10",
+              "floor": "B2"
+            },
+            {
+              "value": "eleavor_CD",
+              "display_name": "eleavor_CD",
+              "area": "LG sciencepark W10",
+              "floor": "B2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "3"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "4"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "5"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "6"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "7"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "8"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "9"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "M"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "10"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "11"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "12"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "13"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "14"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "15"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "16"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "17"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "18"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "19"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "20"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "21"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "22"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "23"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "24"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "25"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "B1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D",
+              "floor": "B2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "2"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "3"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "4"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "5"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "B1"
+            },
+            {
+              "value": "default",
+              "display_name": "default",
+              "area": "LG Seocho R&D Podium",
+              "floor": "B2"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "default": "",
+            "elevator_AB": "",
+            "eleavor_CD": ""
+          }
+        },
+        {
+          "name": "poi",
+          "output_name": "poi",
+          "parent_key": "",
+          "field": "PARAM_POI",
+          "type": "string",
+          "description": "Point of Interest",
+          "options": [
+            [
+              "LG sciencepark W02 › Hanging Rack",
+              "Rack"
+            ],
+            [
+              "LG sciencepark W02 › Self",
+              "Shelf"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "Rack",
+              "display_name": "LG sciencepark W02 › Hanging Rack",
+              "area": "LG sciencepark W02",
+              "floor": "2",
+              "position_x": 2.0,
+              "position_y": 2.0,
+              "position_z": 0.0,
+              "description": "LG Sciencepart W02 2F in front of hanging rack"
+            },
+            {
+              "value": "Shelf",
+              "display_name": "LG sciencepark W02 › Self",
+              "area": "LG sciencepark W02",
+              "floor": "2",
+              "position_x": 1.0,
+              "position_y": 1.0,
+              "position_z": 1.0,
+              "description": "LG Sciencepart W02 2F In front of shelf"
+            },
+            {
+              "value": "Rack",
+              "display_name": "LG sciencepark W10 › Hanging Rack",
+              "area": "LG sciencepark W10",
+              "floor": "2",
+              "position_x": 2.0,
+              "position_y": 2.0,
+              "position_z": 0.0,
+              "description": "LG Sciencepart W10 2F in front of hanging rack"
+            },
+            {
+              "value": "Shelf",
+              "display_name": "LG sciencepark W10 › Self",
+              "area": "LG sciencepark W10",
+              "floor": "2",
+              "position_x": 1.0,
+              "position_y": 1.0,
+              "position_z": 1.0,
+              "description": "LG Sciencepart W10 2F In front of shelf"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "Rack": "LG Sciencepart W10 2F in front of hanging rack",
+            "LG sciencepark W02 › Hanging Rack": "LG Sciencepart W02 2F in front of hanging rack",
+            "Shelf": "LG Sciencepart W10 2F In front of shelf",
+            "LG sciencepark W02 › Self": "LG Sciencepart W02 2F In front of shelf",
+            "LG sciencepark W10 › Hanging Rack": "LG Sciencepart W10 2F in front of hanging rack",
+            "LG sciencepark W10 › Self": "LG Sciencepart W10 2F In front of shelf"
+          }
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_get_angle_to_0",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "get_angle_to_0",
+      "action": "navigation/get_angle_to_0",
+      "description": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
+      "json": {
+        "type": "behavior__navigation__navigation_get_angle_to_0",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "get_angle_to_0",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "map 좌표 기준 degree angle 0과 현재 좌표 angle과의 차이를 blackboard에 기록",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_get_current_pose",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "get_current_pose",
+      "action": "navigation/get_current_pose",
+      "description": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
+      "json": {
+        "type": "behavior__navigation__navigation_get_current_pose",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "get_current_pose",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "현재 좌표 취득하여 blackboard에 기록. euler pose(x, y, z)로 기록.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_move_in_direction",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "move_in_direction",
+      "action": "navigation/move_in_direction",
+      "description": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
+      "json": {
+        "type": "behavior__navigation__navigation_move_in_direction",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "move_in_direction",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_DISTANCE"
+          },
+          {
+            "type": "field_label",
+            "text": "distance"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_DISTANCE",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_VELOCITY"
+          },
+          {
+            "type": "field_label",
+            "text": "velocity"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_VELOCITY",
+            "options": [
+              [
+                "0.00",
+                "0.00"
+              ],
+              [
+                "0.05",
+                "0.05"
+              ],
+              [
+                "0.10",
+                "0.10"
+              ],
+              [
+                "0.15",
+                "0.15"
+              ],
+              [
+                "0.20",
+                "0.20"
+              ],
+              [
+                "0.25",
+                "0.25"
+              ],
+              [
+                "0.30",
+                "0.30"
+              ],
+              [
+                "0.35",
+                "0.35"
+              ],
+              [
+                "0.40",
+                "0.40"
+              ],
+              [
+                "0.45",
+                "0.45"
+              ],
+              [
+                "0.50",
+                "0.50"
+              ],
+              [
+                "0.55",
+                "0.55"
+              ],
+              [
+                "0.60",
+                "0.60"
+              ],
+              [
+                "0.65",
+                "0.65"
+              ],
+              [
+                "0.70",
+                "0.70"
+              ],
+              [
+                "0.75",
+                "0.75"
+              ],
+              [
+                "0.80",
+                "0.80"
+              ],
+              [
+                "0.85",
+                "0.85"
+              ],
+              [
+                "0.90",
+                "0.90"
+              ],
+              [
+                "0.95",
+                "0.95"
+              ],
+              [
+                "1.00",
+                "1.00"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_DIRECTION"
+          },
+          {
+            "type": "field_label",
+            "text": "direction"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_DIRECTION",
+            "options": [
+              [
+                "forward",
+                "forward"
+              ],
+              [
+                "backwards",
+                "backwards"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "특정 방향으로 특정 거리를 이동하는 명령.\n이동 거리, 속도, 이동 방식을 지정해야 함",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "distance",
+          "output_name": "distance",
+          "parent_key": "",
+          "field": "PARAM_DISTANCE",
+          "type": "float",
+          "description": "Distance to move from the current position (meter unit)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "velocity",
+          "output_name": "velocity",
+          "parent_key": "",
+          "field": "PARAM_VELOCITY",
+          "type": "float",
+          "description": "Movement velocity (m/s unit)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "direction",
+          "output_name": "direction",
+          "parent_key": "",
+          "field": "PARAM_DIRECTION",
+          "type": "string",
+          "description": "Direction to move",
+          "options": [
+            [
+              "forward",
+              "forward"
+            ],
+            [
+              "backwards",
+              "backwards"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "forward",
+              "description": "Move forward"
+            },
+            {
+              "value": "backwards",
+              "description": "Move backwards"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "forward": "Move forward",
+            "backwards": "Move backwards"
+          }
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "cloid",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_move_to_pose",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "move_to_pose",
+      "action": "navigation/move_to_pose",
+      "description": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
+      "json": {
+        "type": "behavior__navigation__navigation_move_to_pose",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11 %12 %13 %14",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "move_to_pose",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "pose_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_POSE_TYPE",
+            "options": [
+              [
+                "map",
+                "map"
+              ],
+              [
+                "earth",
+                "earth"
+              ]
+            ]
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_X"
+          },
+          {
+            "type": "field_label",
+            "text": "x"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_X",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_Y"
+          },
+          {
+            "type": "field_label",
+            "text": "y"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_Y",
+            "text": "0.0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_POSE_Z"
+          },
+          {
+            "type": "field_label",
+            "text": "z"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_POSE_Z",
+            "text": "0.0"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "특정 좌표로 이동 명령.\nx, y, z의 3차원 좌표계 사용.\n이동 방식에 대한 behavior tree를 지정할 수 있으며, 미지정 시 navigation 엔진의 기본값 사용",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "pose_type",
+          "output_name": "pose_type",
+          "parent_key": "",
+          "field": "PARAM_POSE_TYPE",
+          "type": "string",
+          "description": "map (indoor), earth (outdoor)",
+          "options": [
+            [
+              "map",
+              "map"
+            ],
+            [
+              "earth",
+              "earth"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "map",
+              "description": "Indoor map frame"
+            },
+            {
+              "value": "earth",
+              "description": "Outdoor earth frame"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "map": "Indoor map frame",
+            "earth": "Outdoor earth frame"
+          }
+        },
+        {
+          "name": "pose/x",
+          "output_name": "x",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_X",
+          "type": "float",
+          "description": "Euler pose x",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "pose/y",
+          "output_name": "y",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_Y",
+          "type": "float",
+          "description": "Euler pose y",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "pose/z",
+          "output_name": "z",
+          "parent_key": "pose",
+          "field": "PARAM_POSE_Z",
+          "type": "float",
+          "description": "Euler pose z (degree unit)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_rotate",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "rotate",
+      "action": "navigation/rotate",
+      "description": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
+      "json": {
+        "type": "behavior__navigation__navigation_rotate",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "rotate",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ANGLE"
+          },
+          {
+            "type": "field_label",
+            "text": "angle"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_ANGLE",
+            "options": [
+              [
+                "-180.00",
+                "-180.00"
+              ],
+              [
+                "-162.00",
+                "-162.00"
+              ],
+              [
+                "-144.00",
+                "-144.00"
+              ],
+              [
+                "-126.00",
+                "-126.00"
+              ],
+              [
+                "-108.00",
+                "-108.00"
+              ],
+              [
+                "-90.00",
+                "-90.00"
+              ],
+              [
+                "-72.00",
+                "-72.00"
+              ],
+              [
+                "-54.00",
+                "-54.00"
+              ],
+              [
+                "-36.00",
+                "-36.00"
+              ],
+              [
+                "-18.00",
+                "-18.00"
+              ],
+              [
+                "0.00",
+                "0.00"
+              ],
+              [
+                "18.00",
+                "18.00"
+              ],
+              [
+                "36.00",
+                "36.00"
+              ],
+              [
+                "54.00",
+                "54.00"
+              ],
+              [
+                "72.00",
+                "72.00"
+              ],
+              [
+                "90.00",
+                "90.00"
+              ],
+              [
+                "108.00",
+                "108.00"
+              ],
+              [
+                "126.00",
+                "126.00"
+              ],
+              [
+                "144.00",
+                "144.00"
+              ],
+              [
+                "162.00",
+                "162.00"
+              ],
+              [
+                "180.00",
+                "180.00"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "제자리 회전 기능.\ndegree 단위로 회전 각도를 지정.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "angle",
+          "output_name": "angle",
+          "parent_key": "",
+          "field": "PARAM_ANGLE",
+          "type": "float",
+          "description": "Rotation angle (degree unit)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_stop_move",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "stop_move",
+      "action": "navigation/stop_move",
+      "description": "주행 동작을 강제 종료",
+      "json": {
+        "type": "behavior__navigation__navigation_stop_move",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "stop_move",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "주행 동작을 강제 종료",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_wait_move_finished",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "wait_move_finished",
+      "action": "navigation/wait_move_finished",
+      "description": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+      "json": {
+        "type": "behavior__navigation__navigation_wait_move_finished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_move_finished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "이동 주행의 완료 여부 확인.\n주행이 완료되면 success를 return.\n주행이 실패하면 failure를 return.\n주행 중에는 return 되는 것 없음",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+      "category": "Navigation",
+      "kind": "behavior",
+      "label": "wait_move_finished_and_sleep",
+      "action": "navigation/wait_move_finished_and_sleep",
+      "description": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
+      "json": {
+        "type": "behavior__navigation__navigation_wait_move_finished_and_sleep",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_move_finished_and_sleep",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#d62728",
+        "tooltip": "navigation/wait_move_finished가 정상 종료되면 500ms 대기",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": "",
+      "behavior_script": "{\"type\": \"Sequence\", \"children\": [{\"type\": \"Action\", \"action\": \"navigation/wait_move_finished\"}, {\"type\": \"Sleep\", \"tickrate\": 500}], \"description\": \"Wait until the move is finished and sleep for a while\"}"
+    },
+    {
+      "block_type": "behavior__motion__bric_start_motion_motion_start_motion",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "start_motion",
+      "action": "BRIC.start_motion:motion/start_motion",
+      "description": "Motion 시작 명령",
+      "json": {
+        "type": "behavior__motion__bric_start_motion_motion_start_motion",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "start_motion",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_NAME"
+          },
+          {
+            "type": "field_label",
+            "text": "name"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_NAME",
+            "options": [
+              [
+                "expressive_motion.nod twice",
+                "expressive_motion.double_nod"
+              ],
+              [
+                "expressive_motion.Ready to fistbump",
+                "expressive_motion.fistbump_ready"
+              ],
+              [
+                "expressive_motion.Go for a fistbump",
+                "expressive_motion.fistbump_strike"
+              ],
+              [
+                "expressive_motion.Look to the left",
+                "expressive_motion.head_left"
+              ],
+              [
+                "expressive_motion.Look down and to the left",
+                "expressive_motion.head_left_down"
+              ],
+              [
+                "expressive_motion.Look up and to the left",
+                "expressive_motion.head_left_up"
+              ],
+              [
+                "expressive_motion.Look to the right",
+                "expressive_motion.head_right"
+              ],
+              [
+                "expressive_motion.Look down and to the right",
+                "expressive_motion.head_right_down"
+              ],
+              [
+                "expressive_motion.Look up and to the right",
+                "expressive_motion.head_right_up"
+              ],
+              [
+                "expressive_motion.Ready to highfive",
+                "expressive_motion.highfive_ready"
+              ],
+              [
+                "expressive_motion.Go for a hightfive",
+                "expressive_motion.highfive_strike"
+              ],
+              [
+                "expressive_motion.Heart hands",
+                "expressive_motion.pose_hand_heart"
+              ],
+              [
+                "expressive_motion.Gesture with open palms",
+                "expressive_motion.present_double"
+              ],
+              [
+                "expressive_motion.Wave with both hands",
+                "expressive_motion.wave_two_hand"
+              ],
+              [
+                "expressive_motion.Enthusiastic wave with both hands",
+                "expressive_motion.wave_two_hand_sway"
+              ],
+              [
+                "pose_motion.Moving",
+                "pose_motion.move"
+              ],
+              [
+                "pose_motion.Neutral",
+                "pose_motion.neutral"
+              ],
+              [
+                "pose_motion.Neutralize last joint",
+                "pose_motion.recent_joint_neutral"
+              ],
+              [
+                "pose_motion.Getting ready to work",
+                "pose_motion.work_ready"
+              ],
+              [
+                "manipulation.Unload plate from the hanger",
+                "manipulation.manu_robotis_pick_hanged_plate_003"
+              ],
+              [
+                "manipulation.Load plate to hanger",
+                "manipulation.manu_robotis_pick_hanged_plate_004"
+              ],
+              [
+                "manipulation.Ready to unload plate from the hanger",
+                "manipulation.manu_robotis_pick_ready"
+              ],
+              [
+                "manipulation.Dump the box held by flat gripper",
+                "manipulation.TN_Logi.flat.box.dump"
+              ],
+              [
+                "manipulation.Pick up the detected box with flat gripper",
+                "manipulation.TN_Logi.flat.box.pick"
+              ],
+              [
+                "manipulation.Place the box held by flat gripper",
+                "manipulation.TN_Logi.flat.box.place"
+              ],
+              [
+                "manipulation.Ready to pick box with flat gripper",
+                "manipulation.TN_Logi.flat.box.ready2pick"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "Motion 시작 명령",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "output_name": "name",
+          "parent_key": "",
+          "field": "PARAM_NAME",
+          "type": "string",
+          "description": "Motion task name",
+          "options": [
+            [
+              "expressive_motion.nod twice",
+              "expressive_motion.double_nod"
+            ],
+            [
+              "expressive_motion.Ready to fistbump",
+              "expressive_motion.fistbump_ready"
+            ],
+            [
+              "expressive_motion.Go for a fistbump",
+              "expressive_motion.fistbump_strike"
+            ],
+            [
+              "expressive_motion.Look to the left",
+              "expressive_motion.head_left"
+            ],
+            [
+              "expressive_motion.Look down and to the left",
+              "expressive_motion.head_left_down"
+            ],
+            [
+              "expressive_motion.Look up and to the left",
+              "expressive_motion.head_left_up"
+            ],
+            [
+              "expressive_motion.Look to the right",
+              "expressive_motion.head_right"
+            ],
+            [
+              "expressive_motion.Look down and to the right",
+              "expressive_motion.head_right_down"
+            ],
+            [
+              "expressive_motion.Look up and to the right",
+              "expressive_motion.head_right_up"
+            ],
+            [
+              "expressive_motion.Ready to highfive",
+              "expressive_motion.highfive_ready"
+            ],
+            [
+              "expressive_motion.Go for a hightfive",
+              "expressive_motion.highfive_strike"
+            ],
+            [
+              "expressive_motion.Heart hands",
+              "expressive_motion.pose_hand_heart"
+            ],
+            [
+              "expressive_motion.Gesture with open palms",
+              "expressive_motion.present_double"
+            ],
+            [
+              "expressive_motion.Wave with both hands",
+              "expressive_motion.wave_two_hand"
+            ],
+            [
+              "expressive_motion.Enthusiastic wave with both hands",
+              "expressive_motion.wave_two_hand_sway"
+            ],
+            [
+              "pose_motion.Moving",
+              "pose_motion.move"
+            ],
+            [
+              "pose_motion.Neutral",
+              "pose_motion.neutral"
+            ],
+            [
+              "pose_motion.Neutralize last joint",
+              "pose_motion.recent_joint_neutral"
+            ],
+            [
+              "pose_motion.Getting ready to work",
+              "pose_motion.work_ready"
+            ],
+            [
+              "manipulation.Unload plate from the hanger",
+              "manipulation.manu_robotis_pick_hanged_plate_003"
+            ],
+            [
+              "manipulation.Load plate to hanger",
+              "manipulation.manu_robotis_pick_hanged_plate_004"
+            ],
+            [
+              "manipulation.Ready to unload plate from the hanger",
+              "manipulation.manu_robotis_pick_ready"
+            ],
+            [
+              "manipulation.Dump the box held by flat gripper",
+              "manipulation.TN_Logi.flat.box.dump"
+            ],
+            [
+              "manipulation.Pick up the detected box with flat gripper",
+              "manipulation.TN_Logi.flat.box.pick"
+            ],
+            [
+              "manipulation.Place the box held by flat gripper",
+              "manipulation.TN_Logi.flat.box.place"
+            ],
+            [
+              "manipulation.Ready to pick box with flat gripper",
+              "manipulation.TN_Logi.flat.box.ready2pick"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "expressive_motion.double_nod",
+              "display_name": "expressive_motion.nod twice",
+              "description": "머리 두번 끄덕끄덕",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.fistbump_ready",
+              "display_name": "expressive_motion.Ready to fistbump",
+              "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.fistbump_strike",
+              "display_name": "expressive_motion.Go for a fistbump",
+              "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_left",
+              "display_name": "expressive_motion.Look to the left",
+              "description": "머리 왼쪽 이동 후 복귀",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_left_down",
+              "display_name": "expressive_motion.Look down and to the left",
+              "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_left_up",
+              "display_name": "expressive_motion.Look up and to the left",
+              "description": "머리 왼쪽 위 이동 후 복귀",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_right",
+              "display_name": "expressive_motion.Look to the right",
+              "description": "머리 오른쪽 이동 후 복귀",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_right_down",
+              "display_name": "expressive_motion.Look down and to the right",
+              "description": "머리 오른쪽 아래 이동 후 복귀",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.head_right_up",
+              "display_name": "expressive_motion.Look up and to the right",
+              "description": "머리 오른쪽 위 이동 후 복귀",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.highfive_ready",
+              "display_name": "expressive_motion.Ready to highfive",
+              "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.highfive_strike",
+              "display_name": "expressive_motion.Go for a hightfive",
+              "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.pose_hand_heart",
+              "display_name": "expressive_motion.Heart hands",
+              "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.present_double",
+              "display_name": "expressive_motion.Gesture with open palms",
+              "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.wave_two_hand",
+              "display_name": "expressive_motion.Wave with both hands",
+              "description": "양손 가슴높이 손인사",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "expressive_motion.wave_two_hand_sway",
+              "display_name": "expressive_motion.Enthusiastic wave with both hands",
+              "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "pose_motion.move",
+              "display_name": "pose_motion.Moving",
+              "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "pose_motion.neutral",
+              "display_name": "pose_motion.Neutral",
+              "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "pose_motion.recent_joint_neutral",
+              "display_name": "pose_motion.Neutralize last joint",
+              "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "pose_motion.work_ready",
+              "display_name": "pose_motion.Getting ready to work",
+              "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+              "robot_type": "cloid"
+            },
+            {
+              "value": "manipulation.manu_robotis_pick_hanged_plate_003",
+              "display_name": "manipulation.Unload plate from the hanger",
+              "description": "None",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.manu_robotis_pick_hanged_plate_004",
+              "display_name": "manipulation.Load plate to hanger",
+              "description": "None",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.manu_robotis_pick_ready",
+              "display_name": "manipulation.Ready to unload plate from the hanger",
+              "description": "None",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.TN_Logi.flat.box.dump",
+              "display_name": "manipulation.Dump the box held by flat gripper",
+              "description": "Dump the box held by flat gripper for Tennessee logistics",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.TN_Logi.flat.box.pick",
+              "display_name": "manipulation.Pick up the detected box with flat gripper",
+              "description": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.TN_Logi.flat.box.place",
+              "display_name": "manipulation.Place the box held by flat gripper",
+              "description": "Place the box held by flat gripper for Tennessee logistics",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            },
+            {
+              "value": "manipulation.TN_Logi.flat.box.ready2pick",
+              "display_name": "manipulation.Ready to pick box with flat gripper",
+              "description": "Ready to pick box by flat gripper for Tennessee logistics",
+              "robot_type": "cloid",
+              "operation_profile": "TN_Logi"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "expressive_motion.double_nod": "머리 두번 끄덕끄덕",
+            "expressive_motion.nod twice": "머리 두번 끄덕끄덕",
+            "expressive_motion.fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+            "expressive_motion.Ready to fistbump": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+            "expressive_motion.fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "expressive_motion.Go for a fistbump": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "expressive_motion.head_left": "머리 왼쪽 이동 후 복귀",
+            "expressive_motion.Look to the left": "머리 왼쪽 이동 후 복귀",
+            "expressive_motion.head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+            "expressive_motion.Look down and to the left": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+            "expressive_motion.head_left_up": "머리 왼쪽 위 이동 후 복귀",
+            "expressive_motion.Look up and to the left": "머리 왼쪽 위 이동 후 복귀",
+            "expressive_motion.head_right": "머리 오른쪽 이동 후 복귀",
+            "expressive_motion.Look to the right": "머리 오른쪽 이동 후 복귀",
+            "expressive_motion.head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+            "expressive_motion.Look down and to the right": "머리 오른쪽 아래 이동 후 복귀",
+            "expressive_motion.head_right_up": "머리 오른쪽 위 이동 후 복귀",
+            "expressive_motion.Look up and to the right": "머리 오른쪽 위 이동 후 복귀",
+            "expressive_motion.highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+            "expressive_motion.Ready to highfive": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+            "expressive_motion.highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "expressive_motion.Go for a hightfive": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+            "expressive_motion.pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+            "expressive_motion.Heart hands": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+            "expressive_motion.present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+            "expressive_motion.Gesture with open palms": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+            "expressive_motion.wave_two_hand": "양손 가슴높이 손인사",
+            "expressive_motion.Wave with both hands": "양손 가슴높이 손인사",
+            "expressive_motion.wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+            "expressive_motion.Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+            "pose_motion.move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+            "pose_motion.Moving": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+            "pose_motion.neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+            "pose_motion.Neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+            "pose_motion.recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+            "pose_motion.Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+            "pose_motion.work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+            "pose_motion.Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+            "manipulation.manu_robotis_pick_hanged_plate_003": "None",
+            "manipulation.Unload plate from the hanger": "None",
+            "manipulation.manu_robotis_pick_hanged_plate_004": "None",
+            "manipulation.Load plate to hanger": "None",
+            "manipulation.manu_robotis_pick_ready": "None",
+            "manipulation.Ready to unload plate from the hanger": "None",
+            "manipulation.TN_Logi.flat.box.dump": "Dump the box held by flat gripper for Tennessee logistics",
+            "manipulation.Dump the box held by flat gripper": "Dump the box held by flat gripper for Tennessee logistics",
+            "manipulation.TN_Logi.flat.box.pick": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "manipulation.Pick up the detected box with flat gripper": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+            "manipulation.TN_Logi.flat.box.place": "Place the box held by flat gripper for Tennessee logistics",
+            "manipulation.Place the box held by flat gripper": "Place the box held by flat gripper for Tennessee logistics",
+            "manipulation.TN_Logi.flat.box.ready2pick": "Ready to pick box by flat gripper for Tennessee logistics",
+            "manipulation.Ready to pick box with flat gripper": "Ready to pick box by flat gripper for Tennessee logistics"
+          }
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__motion__motion_start_motion",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "start_motion",
+      "action": "motion/start_motion",
+      "description": "Start a specified motion under the task type.",
+      "json": {
+        "type": "behavior__motion__motion_start_motion",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "start_motion",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TASK_TYPE"
+          },
+          {
+            "type": "field_label",
+            "text": "task_type"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_TASK_TYPE",
+            "options": [
+              [
+                "expressive_motion",
+                "expressive_motion"
+              ],
+              [
+                "pose_motion",
+                "pose_motion"
+              ],
+              [
+                "manipulation",
+                "manipulation"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "Start a specified motion under the task type.",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "task_type",
+          "output_name": "task_type",
+          "parent_key": "",
+          "field": "PARAM_TASK_TYPE",
+          "type": "string",
+          "description": "Motion task type",
+          "options": [
+            [
+              "expressive_motion",
+              "expressive_motion"
+            ],
+            [
+              "pose_motion",
+              "pose_motion"
+            ],
+            [
+              "manipulation",
+              "manipulation"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "expressive_motion",
+              "description": "Expressive motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "double_nod",
+                      "display_name": "nod twice",
+                      "description": "머리 두번 끄덕끄덕",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "fistbump_ready",
+                      "display_name": "Ready to fistbump",
+                      "description": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "fistbump_strike",
+                      "display_name": "Go for a fistbump",
+                      "description": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_left",
+                      "display_name": "Look to the left",
+                      "description": "머리 왼쪽 이동 후 복귀",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_left_down",
+                      "display_name": "Look down and to the left",
+                      "description": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_left_up",
+                      "display_name": "Look up and to the left",
+                      "description": "머리 왼쪽 위 이동 후 복귀",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_right",
+                      "display_name": "Look to the right",
+                      "description": "머리 오른쪽 이동 후 복귀",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_right_down",
+                      "display_name": "Look down and to the right",
+                      "description": "머리 오른쪽 아래 이동 후 복귀",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "head_right_up",
+                      "display_name": "Look up and to the right",
+                      "description": "머리 오른쪽 위 이동 후 복귀",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "highfive_ready",
+                      "display_name": "Ready to highfive",
+                      "description": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "highfive_strike",
+                      "display_name": "Go for a hightfive",
+                      "description": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "pose_hand_heart",
+                      "display_name": "Heart hands",
+                      "description": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "present_double",
+                      "display_name": "Gesture with open palms",
+                      "description": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "wave_two_hand",
+                      "display_name": "Wave with both hands",
+                      "description": "양손 가슴높이 손인사",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "wave_two_hand_sway",
+                      "display_name": "Enthusiastic wave with both hands",
+                      "description": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+                      "robot_type": "cloid"
+                    }
+                  ]
+                },
+                {
+                  "name": "repeat",
+                  "type": "number",
+                  "description": "Number of repetitions (0 for infinite)",
+                  "enabled": true,
+                  "default": 0
+                }
+              ]
+            },
+            {
+              "value": "pose_motion",
+              "description": "Pose motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "move",
+                      "display_name": "Moving",
+                      "description": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "neutral",
+                      "display_name": "Neutral",
+                      "description": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "recent_joint_neutral",
+                      "display_name": "Neutralize last joint",
+                      "description": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+                      "robot_type": "cloid"
+                    },
+                    {
+                      "value": "work_ready",
+                      "display_name": "Getting ready to work",
+                      "description": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+                      "robot_type": "cloid"
+                    }
+                  ]
+                },
+                {
+                  "name": "repeat",
+                  "type": "number",
+                  "description": "Number of repetitions (0 for infinite)",
+                  "enabled": true,
+                  "default": 0
+                }
+              ]
+            },
+            {
+              "value": "manipulation",
+              "description": "Manipulation motion",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Motion name",
+                  "enabled": true,
+                  "options": [
+                    {
+                      "value": "manu_robotis_pick_hanged_plate_003",
+                      "display_name": "Unload plate from the hanger",
+                      "description": "None",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "plate",
+                      "gripper_type": "five_fingers"
+                    },
+                    {
+                      "value": "manu_robotis_pick_hanged_plate_004",
+                      "display_name": "Load plate to hanger",
+                      "description": "None",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "plate",
+                      "gripper_type": "five_fingers"
+                    },
+                    {
+                      "value": "manu_robotis_pick_ready",
+                      "display_name": "Ready to unload plate from the hanger",
+                      "description": "None",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "plate",
+                      "gripper_type": "five_fingers"
+                    },
+                    {
+                      "value": "TN_Logi.flat.box.dump",
+                      "display_name": "Dump the box held by flat gripper",
+                      "description": "Dump the box held by flat gripper for Tennessee logistics",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "box",
+                      "gripper_type": "flat"
+                    },
+                    {
+                      "value": "TN_Logi.flat.box.pick",
+                      "display_name": "Pick up the detected box with flat gripper",
+                      "description": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "box",
+                      "gripper_type": "flat"
+                    },
+                    {
+                      "value": "TN_Logi.flat.box.place",
+                      "display_name": "Place the box held by flat gripper",
+                      "description": "Place the box held by flat gripper for Tennessee logistics",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "box",
+                      "gripper_type": "flat"
+                    },
+                    {
+                      "value": "TN_Logi.flat.box.ready2pick",
+                      "display_name": "Ready to pick box with flat gripper",
+                      "description": "Ready to pick box by flat gripper for Tennessee logistics",
+                      "robot_type": "cloid",
+                      "operation_profile": "TN_Logi",
+                      "object_name": "box",
+                      "gripper_type": "flat"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "option_parameters": {
+            "expressive_motion": [
+              {
+                "name": "name",
+                "output_name": "name",
+                "parent_key": "",
+                "field": "OPT_TASK_TYPE_NAME",
+                "type": "string",
+                "description": "Motion name",
+                "options": [
+                  [
+                    "nod twice",
+                    "double_nod"
+                  ],
+                  [
+                    "Ready to fistbump",
+                    "fistbump_ready"
+                  ],
+                  [
+                    "Go for a fistbump",
+                    "fistbump_strike"
+                  ],
+                  [
+                    "Look to the left",
+                    "head_left"
+                  ],
+                  [
+                    "Look down and to the left",
+                    "head_left_down"
+                  ],
+                  [
+                    "Look up and to the left",
+                    "head_left_up"
+                  ],
+                  [
+                    "Look to the right",
+                    "head_right"
+                  ],
+                  [
+                    "Look down and to the right",
+                    "head_right_down"
+                  ],
+                  [
+                    "Look up and to the right",
+                    "head_right_up"
+                  ],
+                  [
+                    "Ready to highfive",
+                    "highfive_ready"
+                  ],
+                  [
+                    "Go for a hightfive",
+                    "highfive_strike"
+                  ],
+                  [
+                    "Heart hands",
+                    "pose_hand_heart"
+                  ],
+                  [
+                    "Gesture with open palms",
+                    "present_double"
+                  ],
+                  [
+                    "Wave with both hands",
+                    "wave_two_hand"
+                  ],
+                  [
+                    "Enthusiastic wave with both hands",
+                    "wave_two_hand_sway"
+                  ]
+                ],
+                "default": "double_nod",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "double_nod": "머리 두번 끄덕끄덕",
+                  "nod twice": "머리 두번 끄덕끄덕",
+                  "fistbump_ready": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                  "Ready to fistbump": "주먹인사1 : 주먹인사를 하기 위해 오른손을 주먹져서 얼굴 높이까지 올림",
+                  "fistbump_strike": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "Go for a fistbump": "주먹인사2 (주먹인사1 이후에 가능) : 오른 주먹을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "head_left": "머리 왼쪽 이동 후 복귀",
+                  "Look to the left": "머리 왼쪽 이동 후 복귀",
+                  "head_left_down": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+                  "Look down and to the left": "머리 왼쪽 아래 이동 후 복귀 (?? 확인 필요!)",
+                  "head_left_up": "머리 왼쪽 위 이동 후 복귀",
+                  "Look up and to the left": "머리 왼쪽 위 이동 후 복귀",
+                  "head_right": "머리 오른쪽 이동 후 복귀",
+                  "Look to the right": "머리 오른쪽 이동 후 복귀",
+                  "head_right_down": "머리 오른쪽 아래 이동 후 복귀",
+                  "Look down and to the right": "머리 오른쪽 아래 이동 후 복귀",
+                  "head_right_up": "머리 오른쪽 위 이동 후 복귀",
+                  "Look up and to the right": "머리 오른쪽 위 이동 후 복귀",
+                  "highfive_ready": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                  "Ready to highfive": "하이파이브1 : 하이파이브를 하기 위해 오른손을 펴서 얼굴 높이까지 올림",
+                  "highfive_strike": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "Go for a hightfive": "하이파이브2 (하이파이브1 이후에 가능) : 오른손을 마주치는 동작 (끝나고 손을 내리는지 확인 필요!!)",
+                  "pose_hand_heart": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                  "Heart hands": "양손 손하트 만들기-- 하트 상태로 남아있을 듯... 복귀 확인 필요!!",
+                  "present_double": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                  "Gesture with open palms": "양손 1초 시간 차이로 손바닥이 위로 하게 드는 모션",
+                  "wave_two_hand": "양손 가슴높이 손인사",
+                  "Wave with both hands": "양손 가슴높이 손인사",
+                  "wave_two_hand_sway": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈",
+                  "Enthusiastic wave with both hands": "양팔 손인사 (좌우로 허리 움직이며) 후 손 내리기  // 정중앙 기준 +- 30도 내외 // 부드럽게 바꿈"
+                },
+                "option_robot_types": {
+                  "double_nod": "cloid",
+                  "fistbump_ready": "cloid",
+                  "fistbump_strike": "cloid",
+                  "head_left": "cloid",
+                  "head_left_down": "cloid",
+                  "head_left_up": "cloid",
+                  "head_right": "cloid",
+                  "head_right_down": "cloid",
+                  "head_right_up": "cloid",
+                  "highfive_ready": "cloid",
+                  "highfive_strike": "cloid",
+                  "pose_hand_heart": "cloid",
+                  "present_double": "cloid",
+                  "wave_two_hand": "cloid",
+                  "wave_two_hand_sway": "cloid"
+                }
+              },
+              {
+                "name": "repeat",
+                "output_name": "repeat",
+                "parent_key": "",
+                "field": "OPT_TASK_TYPE_REPEAT",
+                "type": "number",
+                "description": "Number of repetitions (0 for infinite)",
+                "options": [],
+                "default": "0",
+                "option_parameters": {},
+                "option_descriptions": {}
+              }
+            ],
+            "pose_motion": [
+              {
+                "name": "name",
+                "output_name": "name",
+                "parent_key": "",
+                "field": "OPT_TASK_TYPE_NAME",
+                "type": "string",
+                "description": "Motion name",
+                "options": [
+                  [
+                    "Moving",
+                    "move"
+                  ],
+                  [
+                    "Neutral",
+                    "neutral"
+                  ],
+                  [
+                    "Neutralize last joint",
+                    "recent_joint_neutral"
+                  ],
+                  [
+                    "Getting ready to work",
+                    "work_ready"
+                  ]
+                ],
+                "default": "move",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "move": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+                  "Moving": "1차 주행 모션 (살짝 팔을 뒤로 보내며 팔꿈치 접은 상태)",
+                  "neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+                  "Neutral": "촬영 기준 기본 모션 (양팔을 내리고 손을 살짝 가운데로 모은 자세, motion19와 비슷)",
+                  "recent_joint_neutral": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+                  "Neutralize last joint": "촬영 기준 기본 모션 (바로 직전에 움직인 관절만 )",
+                  "work_ready": "팔꿈치 90도 앞으로 양팔 앞으로 나란히",
+                  "Getting ready to work": "팔꿈치 90도 앞으로 양팔 앞으로 나란히"
+                },
+                "option_robot_types": {
+                  "move": "cloid",
+                  "neutral": "cloid",
+                  "recent_joint_neutral": "cloid",
+                  "work_ready": "cloid"
+                }
+              },
+              {
+                "name": "repeat",
+                "output_name": "repeat",
+                "parent_key": "",
+                "field": "OPT_TASK_TYPE_REPEAT",
+                "type": "number",
+                "description": "Number of repetitions (0 for infinite)",
+                "options": [],
+                "default": "0",
+                "option_parameters": {},
+                "option_descriptions": {}
+              }
+            ],
+            "manipulation": [
+              {
+                "name": "name",
+                "output_name": "name",
+                "parent_key": "",
+                "field": "OPT_TASK_TYPE_NAME",
+                "type": "string",
+                "description": "Motion name",
+                "options": [
+                  [
+                    "Unload plate from the hanger",
+                    "manu_robotis_pick_hanged_plate_003"
+                  ],
+                  [
+                    "Load plate to hanger",
+                    "manu_robotis_pick_hanged_plate_004"
+                  ],
+                  [
+                    "Ready to unload plate from the hanger",
+                    "manu_robotis_pick_ready"
+                  ],
+                  [
+                    "Dump the box held by flat gripper",
+                    "TN_Logi.flat.box.dump"
+                  ],
+                  [
+                    "Pick up the detected box with flat gripper",
+                    "TN_Logi.flat.box.pick"
+                  ],
+                  [
+                    "Place the box held by flat gripper",
+                    "TN_Logi.flat.box.place"
+                  ],
+                  [
+                    "Ready to pick box with flat gripper",
+                    "TN_Logi.flat.box.ready2pick"
+                  ]
+                ],
+                "default": "manu_robotis_pick_hanged_plate_003",
+                "option_parameters": {},
+                "option_descriptions": {
+                  "manu_robotis_pick_hanged_plate_003": "None",
+                  "Unload plate from the hanger": "None",
+                  "manu_robotis_pick_hanged_plate_004": "None",
+                  "Load plate to hanger": "None",
+                  "manu_robotis_pick_ready": "None",
+                  "Ready to unload plate from the hanger": "None",
+                  "TN_Logi.flat.box.dump": "Dump the box held by flat gripper for Tennessee logistics",
+                  "Dump the box held by flat gripper": "Dump the box held by flat gripper for Tennessee logistics",
+                  "TN_Logi.flat.box.pick": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+                  "Pick up the detected box with flat gripper": "Pick up the vision-detected box by flat gripper for Tennessee logistics",
+                  "TN_Logi.flat.box.place": "Place the box held by flat gripper for Tennessee logistics",
+                  "Place the box held by flat gripper": "Place the box held by flat gripper for Tennessee logistics",
+                  "TN_Logi.flat.box.ready2pick": "Ready to pick box by flat gripper for Tennessee logistics",
+                  "Ready to pick box with flat gripper": "Ready to pick box by flat gripper for Tennessee logistics"
+                },
+                "option_robot_types": {
+                  "manu_robotis_pick_hanged_plate_003": "cloid",
+                  "manu_robotis_pick_hanged_plate_004": "cloid",
+                  "manu_robotis_pick_ready": "cloid",
+                  "TN_Logi.flat.box.dump": "cloid",
+                  "TN_Logi.flat.box.pick": "cloid",
+                  "TN_Logi.flat.box.place": "cloid",
+                  "TN_Logi.flat.box.ready2pick": "cloid"
+                },
+                "option_operation_profiles": {
+                  "manu_robotis_pick_hanged_plate_003": "TN_Logi",
+                  "manu_robotis_pick_hanged_plate_004": "TN_Logi",
+                  "manu_robotis_pick_ready": "TN_Logi",
+                  "TN_Logi.flat.box.dump": "TN_Logi",
+                  "TN_Logi.flat.box.pick": "TN_Logi",
+                  "TN_Logi.flat.box.place": "TN_Logi",
+                  "TN_Logi.flat.box.ready2pick": "TN_Logi"
+                }
+              }
+            ]
+          },
+          "option_descriptions": {
+            "expressive_motion": "Expressive motion",
+            "pose_motion": "Pose motion",
+            "manipulation": "Manipulation motion"
+          }
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__motion__motion_stop_motion",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "stop_motion",
+      "action": "motion/stop_motion",
+      "description": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
+      "json": {
+        "type": "behavior__motion__motion_stop_motion",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "stop_motion",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_MODE"
+          },
+          {
+            "type": "field_label",
+            "text": "mode"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_MODE",
+            "options": [
+              [
+                "normal",
+                "normal"
+              ],
+              [
+                "immediately",
+                "immediately"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "동작 중인 모션을 강제 종료.\n강제 종료 방식을 지정할 수 있음.\n - normal:현재 동작을 마치고 종료\n - immediately: 즉시 종료",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "mode",
+          "output_name": "mode",
+          "parent_key": "",
+          "field": "PARAM_MODE",
+          "type": "string",
+          "description": "Motion stop type",
+          "options": [
+            [
+              "normal",
+              "normal"
+            ],
+            [
+              "immediately",
+              "immediately"
+            ]
+          ],
+          "raw_options": [
+            {
+              "value": "normal",
+              "description": "Normal stop"
+            },
+            {
+              "value": "immediately",
+              "description": "Immediate stop"
+            }
+          ],
+          "option_parameters": {},
+          "option_descriptions": {
+            "normal": "Normal stop",
+            "immediately": "Immediate stop"
+          }
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__motion__motion_wait_motion_finished",
+      "category": "Motion",
+      "kind": "behavior",
+      "label": "wait_motion_finished",
+      "action": "motion/wait_motion_finished",
+      "description": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
+      "json": {
+        "type": "behavior__motion__motion_wait_motion_finished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_motion_finished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#2ca02c",
+        "tooltip": "Wait until the motion is finished.\nIf motion is successfully finished, the result will be success. Otherwise, it will be failed.",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__device__device_set_led",
+      "category": "Device",
+      "kind": "behavior",
+      "label": "set_led",
+      "action": "device/set_led",
+      "description": "몸체의 LED의 light 제어 명령",
+      "json": {
+        "type": "behavior__device__device_set_led",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "set_led",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#e377c2",
+        "tooltip": "몸체의 LED의 light 제어 명령",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__etc__demo_set_demo_id",
+      "category": "Etc",
+      "kind": "behavior",
+      "label": "set_demo_id",
+      "action": "demo/set_demo_id",
+      "description": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+      "json": {
+        "type": "behavior__etc__demo_set_demo_id",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "set_demo_id",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_NAME"
+          },
+          {
+            "type": "field_label",
+            "text": "name"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_NAME",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#7f7f7f",
+        "tooltip": "특정 demo에 따라 기존 동작 flow를 변경하기 위하여 demo ID 지정",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "name",
+          "output_name": "name",
+          "parent_key": "",
+          "field": "PARAM_NAME",
+          "type": "string",
+          "description": "Demo name to specify the demo",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__lcd__lcd_play_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "play_animation",
+      "action": "lcd/play_animation",
+      "description": "Head LCD에 animation 변경 명령 (eye 포함)",
+      "json": {
+        "type": "behavior__lcd__lcd_play_animation",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "play_animation",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PATH"
+          },
+          {
+            "type": "field_label",
+            "text": "path"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PATH",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_INSTANT_PLAY"
+          },
+          {
+            "type": "field_label",
+            "text": "instant_play"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_INSTANT_PLAY",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "Head LCD에 animation 변경 명령 (eye 포함)",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "path",
+          "output_name": "path",
+          "parent_key": "",
+          "field": "PARAM_PATH",
+          "type": "string",
+          "description": "Animation file path to play",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "PARAM_REPEAT",
+          "type": "bool",
+          "description": "Animation repetition type",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "instant_play",
+          "output_name": "instant_play",
+          "parent_key": "",
+          "field": "PARAM_INSTANT_PLAY",
+          "type": "bool",
+          "description": "Decide if the animation plays immediately or after the current animation is completed.",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__lcd__lcd_stop_animation",
+      "category": "LCD",
+      "kind": "behavior",
+      "label": "stop_animation",
+      "action": "lcd/stop_animation",
+      "description": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+      "json": {
+        "type": "behavior__lcd__lcd_stop_animation",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "stop_animation",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#8c564b",
+        "tooltip": "현재 play 중인 animation을 강제 종료. default idle animation으로 변경",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_set_volume",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "set_volume",
+      "action": "sound/set_volume",
+      "description": "Sound volume 조절 명령",
+      "json": {
+        "type": "behavior__sound__sound_set_volume",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "set_volume",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_VOLUME"
+          },
+          {
+            "type": "field_label",
+            "text": "volume"
+          },
+          {
+            "type": "field_dropdown",
+            "name": "PARAM_VOLUME",
+            "options": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "1"
+              ],
+              [
+                "2",
+                "2"
+              ],
+              [
+                "3",
+                "3"
+              ],
+              [
+                "4",
+                "4"
+              ],
+              [
+                "5",
+                "5"
+              ],
+              [
+                "6",
+                "6"
+              ],
+              [
+                "7",
+                "7"
+              ],
+              [
+                "8",
+                "8"
+              ],
+              [
+                "9",
+                "9"
+              ],
+              [
+                "10",
+                "10"
+              ]
+            ]
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "Sound volume 조절 명령",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "volume",
+          "output_name": "volume",
+          "parent_key": "",
+          "field": "PARAM_VOLUME",
+          "type": "integer",
+          "description": "Volume value (0 ~ 10)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_start_play",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "start_play",
+      "action": "sound/start_play",
+      "description": "일반 sound play 명령",
+      "json": {
+        "type": "behavior__sound__sound_start_play",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "start_play",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_PATH"
+          },
+          {
+            "type": "field_label",
+            "text": "path"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_PATH",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "일반 sound play 명령",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "output_name": "id",
+          "parent_key": "",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID to play sound (default: 2000)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "path",
+          "output_name": "path",
+          "parent_key": "",
+          "field": "PARAM_PATH",
+          "type": "string",
+          "description": "Sound file path to play",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "repeat",
+          "output_name": "repeat",
+          "parent_key": "",
+          "field": "PARAM_REPEAT",
+          "type": "bool",
+          "description": "Sound playback repetition type",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_start_play_tts",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "start_play_tts",
+      "action": "sound/start_play_tts",
+      "description": "TTS play 명령",
+      "json": {
+        "type": "behavior__sound__sound_start_play_tts",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "start_play_tts",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TEXT"
+          },
+          {
+            "type": "field_label",
+            "text": "text"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TEXT",
+            "text": ""
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "TTS play 명령",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "output_name": "id",
+          "parent_key": "",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID to play sound (default: 2000)",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        },
+        {
+          "name": "text",
+          "output_name": "text",
+          "parent_key": "",
+          "field": "PARAM_TEXT",
+          "type": "string",
+          "description": "Text to play TTS",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_stop_play",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "stop_play",
+      "action": "sound/stop_play",
+      "description": "Sound/TTS play 강제 종료",
+      "json": {
+        "type": "behavior__sound__sound_stop_play",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "stop_play",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "Sound/TTS play 강제 종료",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "output_name": "id",
+          "parent_key": "",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID given for playing sound",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__sound__sound_wait_play_completed",
+      "category": "Sound",
+      "kind": "behavior",
+      "label": "wait_play_completed",
+      "action": "sound/wait_play_completed",
+      "description": "Sound/TTS play 완료 여부 확인",
+      "json": {
+        "type": "behavior__sound__sound_wait_play_completed",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "wait_play_completed",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ID"
+          },
+          {
+            "type": "field_label",
+            "text": "id"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ID",
+            "text": "2000"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#9467bd",
+        "tooltip": "Sound/TTS play 완료 여부 확인",
+        "helpUrl": ""
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "output_name": "id",
+          "parent_key": "",
+          "field": "PARAM_ID",
+          "type": "integer",
+          "description": "Handle ID given for playing sound",
+          "options": [],
+          "raw_options": [],
+          "option_parameters": {},
+          "option_descriptions": {}
+        }
+      ],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_hangingrack_0429",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "HangingRack_0429",
+      "action": "BRIC.SCENARIO:HangingRack_0429",
+      "description": "Run scenario: HangingRack_0429",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_hangingrack_0429",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "HangingRack_0429",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: HangingRack_0429",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_turnaround",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "TurnAround",
+      "action": "BRIC.SCENARIO:TurnAround",
+      "description": "Run scenario: TurnAround",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_turnaround",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "TurnAround",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: TurnAround",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    },
+    {
+      "block_type": "behavior__scenario__bric_scenario_waitmovefinished",
+      "category": "Scenario",
+      "kind": "behavior",
+      "label": "WaitMoveFinished",
+      "action": "BRIC.SCENARIO:WaitMoveFinished",
+      "description": "Run scenario: WaitMoveFinished",
+      "json": {
+        "type": "behavior__scenario__bric_scenario_waitmovefinished",
+        "message0": "%1 %2",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "WaitMoveFinished",
+            "name": "TITLE"
+          }
+        ],
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "colour": "#bcbd22",
+        "tooltip": "Run scenario: WaitMoveFinished",
+        "helpUrl": ""
+      },
+      "parameters": [],
+      "has_children": false,
+      "enabled_keys": [],
+      "robot_type": "",
+      "operation_profile": ""
+    }
+  ],
+  "bt_logic": [
+    {
+      "block_type": "bt_logic__ifthenelse",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "IfThenElse",
+      "node_type": "IfThenElse",
+      "description": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 작업/ 조건 실패시 작업",
+      "json": {
+        "type": "bt_logic__ifthenelse",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "IfThenElse",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 작업/ 조건 실패시 작업",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__parallel",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Parallel",
+      "node_type": "Parallel",
+      "description": "",
+      "json": {
+        "type": "bt_logic__parallel",
+        "message0": "%1 %2 %3 %4 %5 %6 %7",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Parallel",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_THRESHOLD"
+          },
+          {
+            "type": "field_label",
+            "text": "threshold"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_THRESHOLD",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "threshold",
+          "field": "PARAM_THRESHOLD",
+          "type": "integer",
+          "description": "Number of child successes required to return success."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "threshold",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__recovery",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Recovery",
+      "node_type": "Recovery",
+      "description": "연결된 작업이 실패할 경우, 지정된 횟수 만큼 작업 반복 실행.",
+      "json": {
+        "type": "bt_logic__recovery",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Recovery",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_ATTEMPT"
+          },
+          {
+            "type": "field_label",
+            "text": "attempt"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ATTEMPT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "연결된 작업이 실패할 경우, 지정된 횟수 만큼 작업 반복 실행.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "attempt",
+          "field": "PARAM_ATTEMPT",
+          "type": "integer",
+          "description": "Number of recovery attempts."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "attempt",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__sequence",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Sequence",
+      "node_type": "Sequence",
+      "description": "",
+      "json": {
+        "type": "bt_logic__sequence",
+        "message0": "%1 %2 %3 %4",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Sequence",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__delay",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Delay",
+      "node_type": "Delay",
+      "description": "지정된 시간만큼 대기 후 연결된 작업 실행.",
+      "json": {
+        "type": "bt_logic__delay",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Delay",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "지정된 시간만큼 대기 후 연결된 작업 실행.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Delay time in milliseconds before the child is updated."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__forcesuccess",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ForceSuccess",
+      "node_type": "ForceSuccess",
+      "description": "연결된 작업의 결과를 모두 성공으로 처리.",
+      "json": {
+        "type": "bt_logic__forcesuccess",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ForceSuccess",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "연결된 작업의 결과를 모두 성공으로 처리.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__forcefailure",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "ForceFailure",
+      "node_type": "ForceFailure",
+      "description": "연결된 작업의 결과를 모두 실패로 처리.",
+      "json": {
+        "type": "bt_logic__forcefailure",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "ForceFailure",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "연결된 작업의 결과를 모두 실패로 처리.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__loop",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Loop",
+      "node_type": "Loop",
+      "description": "",
+      "json": {
+        "type": "bt_logic__loop",
+        "message0": "%1 %2 %3 %4 %5 %6 %7",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Loop",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "integer",
+          "description": "Iteration count. 0 means infinite loop."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "repeat",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__retryuntilsuccess",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "RetryUntilSuccess",
+      "node_type": "RetryUntilSuccess",
+      "description": "",
+      "json": {
+        "type": "bt_logic__retryuntilsuccess",
+        "message0": "%1 %2 %3 %4",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "RetryUntilSuccess",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__repeat",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Repeat",
+      "node_type": "Repeat",
+      "description": "",
+      "json": {
+        "type": "bt_logic__repeat",
+        "message0": "%1 %2 %3 %4 %5 %6 %7",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Repeat",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_REPEAT"
+          },
+          {
+            "type": "field_label",
+            "text": "repeat"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_REPEAT",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "repeat",
+          "field": "PARAM_REPEAT",
+          "type": "integer",
+          "description": "Number of repetitions before returning success."
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "repeat",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_logic__timeout",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "Timeout",
+      "node_type": "Timeout",
+      "description": "지정된 시간내에 연결된 작업 완료 되어야 성공.",
+      "json": {
+        "type": "bt_logic__timeout",
+        "message0": "%1 %2 %3 %4 %5 %6 %7 %8",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Timeout",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TIMEOUT"
+          },
+          {
+            "type": "field_label",
+            "text": "timeout"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TIMEOUT",
+            "text": "1"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "지정된 시간내에 연결된 작업 완료 되어야 성공.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        },
+        {
+          "name": "timeout",
+          "field": "PARAM_TIMEOUT",
+          "type": "integer",
+          "description": "Timeout in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate",
+        "timeout"
+      ]
+    },
+    {
+      "block_type": "bt_logic__whiledoelse",
+      "category": "BT_Logic",
+      "kind": "bt_logic",
+      "label": "WhileDoElse",
+      "node_type": "WhileDoElse",
+      "description": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 반복될 작업/ 조건 실패시 작업",
+      "json": {
+        "type": "bt_logic__whiledoelse",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "WhileDoElse",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#1f77b4",
+        "tooltip": "2개 또는 3개의 연결작업 지정 => 조건/ 조건 성공시 반복될 작업/ 조건 실패시 작업",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode",
+        "message1": "children %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILDREN",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": true,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    }
+  ],
+  "bt_function": [
+    {
+      "block_type": "bt_function__root",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Root",
+      "node_type": "Root",
+      "description": "",
+      "json": {
+        "type": "bt_function__root",
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Root",
+            "name": "TITLE"
+          }
+        ],
+        "colour": "#8c564b",
+        "tooltip": "",
+        "helpUrl": "",
+        "message1": "child %1",
+        "args1": [
+          {
+            "type": "input_statement",
+            "name": "CHILD",
+            "check": "BTNode"
+          }
+        ]
+      },
+      "parameters": [],
+      "has_children": false,
+      "has_child": true,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "bt_function__action",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Action",
+      "node_type": "Action",
+      "description": "",
+      "json": {
+        "type": "bt_function__action",
+        "message0": "%1 %2 %3 %4 %5 %6",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "Action",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_label",
+            "text": "action"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_ACTION",
+            "text": ""
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "action",
+          "field": "PARAM_ACTION",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Tick period in milliseconds."
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "action",
+        "tickrate"
+      ]
+    },
+    {
+      "block_type": "bt_function__actiondummy",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "ActionDummy",
+      "node_type": "ActionDummy",
+      "description": "",
+      "json": {
+        "type": "bt_function__actiondummy",
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_label",
+            "text": "ActionDummy",
+            "name": "TITLE"
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": []
+    },
+    {
+      "block_type": "bt_function__sleep",
+      "category": "BT_Function",
+      "kind": "bt_function",
+      "label": "Sleep",
+      "node_type": "Sleep",
+      "description": "지정된 시간 만큼 대기.",
+      "json": {
+        "type": "bt_function__sleep",
+        "message0": "%1 %2 %3 %4 %5",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP"
+          },
+          {
+            "type": "field_label",
+            "text": "Sleep",
+            "name": "TITLE"
+          },
+          {
+            "type": "field_image",
+            "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7' fill='none' stroke='white' stroke-width='1'/><circle cx='8' cy='8' r='6' fill='%233f51b5'/><text x='8' y='11.2' text-anchor='middle' font-size='10' fill='white' font-family='Arial'>?</text></svg>",
+            "width": 16,
+            "height": 16,
+            "alt": "?",
+            "name": "HELP_TICKRATE"
+          },
+          {
+            "type": "field_label",
+            "text": "tickrate"
+          },
+          {
+            "type": "field_input",
+            "name": "PARAM_TICKRATE",
+            "text": "0"
+          }
+        ],
+        "colour": "#ff7f0e",
+        "tooltip": "지정된 시간 만큼 대기.",
+        "helpUrl": "",
+        "previousStatement": "BTNode",
+        "nextStatement": "BTNode"
+      },
+      "parameters": [
+        {
+          "name": "tickrate",
+          "field": "PARAM_TICKRATE",
+          "type": "integer",
+          "description": "Sleep time in milliseconds."
+        }
+      ],
+      "has_children": false,
+      "has_child": false,
+      "enabled_keys": [
+        "tickrate"
+      ]
+    }
+  ],
+  "custom_modules": [
+    "ros2Blocks_navigation.js",
+    "ros2Blocks_motion.js",
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
+    "ros2Blocks_lcd.js",
+    "ros2Blocks_sound.js",
+    "ros2Blocks_scenario.js",
+    "bt_logic.js",
+    "bt_function.js"
+  ],
+  "generator_modules": [
+    "ros2Blocks_navigation.js",
+    "ros2Blocks_motion.js",
+    "ros2Blocks_device.js",
+    "ros2Blocks_etc.js",
+    "ros2Blocks_lcd.js",
+    "ros2Blocks_sound.js",
+    "ros2Blocks_scenario.js",
+    "bt_logic.js",
+    "bt_function.js"
+  ]
+}

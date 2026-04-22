@@ -1,0 +1,83 @@
+ - area                                                                                               
+   target table: AreaInformation  (NOT POI — separate table)                                          
+   blockInfo:                                                                                         
+     action: 'BRIC:area'                                                                              
+     category: "Navigation"                                                                           
+     description: "Select area / floor / session"                                                     
+     enabled: true                                                                                    
+     parameters[]: 3 cascading dropdowns                                                              
+       - area: rows from AreaInformation.area column (full string, e.g. "LG sciencepark W10")         
+         type: 'string'                                                                               
+         options[]:                                                                                   
+           value: area        ← full string from DB column                                            
+           display_name: area ← same                                                                  
+       - floor: JSON keys from AreaInformation.information column (e.g. "1", "2", "M", "B1")          
+         type: 'string'                                                                               
+         options[]:                                                                                   
+           value: floor                                                                               
+           display_name: floor                                                                        
+           area: area  ← used by cascading JS                                                         
+       - session: JSON array values for each floor in AreaInformation.information                     
+           e.g. information = {"1": ["default", "elevator_AB"], ...}                                  
+         type: 'string'                                                                               
+         options[]:                                                                                   
+           value: session_string                                                                      
+           display_name: session_string                                                               
+           area: area   ← used by cascading JS                                                        
+           floor: floor ← used by cascading JS                                                        
+                                                                                                      
+   AreaInformation table columns:                                                                     
+     id, area, information (JSON: {floor: [session_string, ...], ...})                                
+                                                                                                      
+   Cascading behavior (generator_engine.py / emit_block_file):                                        
+     - Detect action == 'BRIC:area' in the blocks list                                                
+     - Build POI_TREE: { area: { floor: [[session, session], ...] } }                                 
+       from session parameter's raw_options (area+floor metadata)                                     
+     - Inside the registrar function, inject cascading validator closure:                             
+         areaField → rebuilds floor options + session options                                         
+         floorField → rebuilds session options for current area                                       
+         setDropdownOpts: uses field.setOptions() if available, falls back to menuGenerator_          
+     - BT export: standard Action node { action: "BRIC:area", parameter: { area, floor, session } }   
+                                                                                                      
+   Implementation (db_sync.py):                                                                       
+     _fetch_area_information_rows(client): SELECT area, information FROM AreaInformation              
+       → parses information JSON → returns [{area, information: {floor: [sessions]}}]                 
+     _BRIC_AREA_TEMPLATE: seeded with placeholder options to force dropdown generation                
+     _ensure_bric_area_block(path): inserts before other BRIC blocks if absent                        
+     _update_area_block_options(path, area_info_rows): builds area/floor/session options              
+       area opts: [{value: area, display_name: area}] — FULL string from DB column                    
+       floor opts: unique (area, floor) pairs with area metadata                                      
+       session opts: unique (area, floor, session) triples with area+floor metadata                   
+
+
+
+- move_to_pos: This block use the parameter in DB.                                                   
+  target table: POI                                                                                  
+  blockInfo:                                                                                         
+    action: 'BRIC.POI:navigation/move_to_pose'                                                       
+    category: "Navigation"                                                                           
+    name: "navigation/move_to_pose"                                                                  
+    description: "Point of Interest — move to named pose"                                            
+    enabled: true                                                                                    
+    robot_type                                                                                       
+    parameters[]: refer to the target table.                                                         
+      name: 'name'                                                                                   
+      type: 'string'                                                                                 
+      description: 'Point of Interest'                                                               
+      options[]: Column mapping from DB table POI.                                                   
+        - value: name                                                                                
+          display_name: display_name (area-prefixed when same name appears in multiple areas,        
+            e.g. "LG sciencepark W10 › Hanging Rack")                                                
+          description: description                                                                   
+          area: area  ← stored for future area-based filtering                                       
+          robot_type: robot_type (default: "", for robot type filtering)                             
+          operation_profile: operation_profile (default:"", for profile filtering)                   
+      Notes:                                                                                         
+        - Duplicate names across areas are distinguished via area-prefixed display_name              
+          (_poi_display_name helper in db_sync.py)                                                   
+        - All POI rows (across all areas) are shown; no runtime cross-block filtering yet            
+  reference_file: POI.json                                                                           
+    Each entry uses raw DB `name` as key:                                                            
+      { "name": "{name}", "data": { "pose_type": "map", "pose": { "x": ..., "y": ..., "z": ... } } } 
+    Manual entries (e.g. PickUp, Dump, PutDown) are preserved if not in DB.                          
+    DB entries with duplicate (area,floor,name) composites are deduplicated.                         
